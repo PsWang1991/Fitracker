@@ -16,4 +16,22 @@
     <string name="title_workout">Workout</string>
     <string name="title_nutrition">Nutrition</string>
     <string name="title_inbody">In-body</string>
+
+    <!--Current fragment type-->
+    <string name="workout">workout</string>
+    <string name="workout_motion">motion</string>
+    <string name="workout_record">workout record</string>
+    <string name="workout_analysis">workout analysis</string>
+    <string name="nutrition">nutrition</string>
+    <string name="nutrition_record">nutrition record</string>
+    <string name="nutrition_analysis">nutrition analysis</string>
+    <string name="inbody">inbody</string>
+    <string name="inbody_record">inbody record</string>
+    <string name="inbody_analysis">inbody analysis</string>
+    <string name="timer">timer</string>
+    <string name="tdee">tdee</string>
+    <string name="one_rm">one rm</string>
+    <string name="recommended">recommended</string>
+
+
 </resources>
