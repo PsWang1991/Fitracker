@@ -11,34 +11,57 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.pinhsiang.fitracker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
+        // Set drawer
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
         navView.setNavigationItemSelectedListener(this)
+
+        // Set bottom navigation view
+        val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            val navControllerBottom = findNavController(R.id.main_page_fragment)
+            when (item.itemId) {
+                R.id.navigation_workout -> {
+                    navControllerBottom.navigate(NavGraphDirections.actionGlobalWorkoutFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_nutrition -> {
+                    navControllerBottom.navigate(NavGraphDirections.actionGlobalNutritionFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_inbody -> {
+                    navControllerBottom.navigate(NavGraphDirections.actionGlobalInbodyFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
+        binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
     }
 
     override fun onBackPressed() {
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val drawerLayout: DrawerLayout = binding.drawerLayout
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
@@ -65,26 +88,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_home -> {
-                // Handle the camera action
+            R.id.nav_timer -> {
+                Toast.makeText(applicationContext, "Timer", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_tdee -> {
+                Toast.makeText(applicationContext, "TDEE", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_slideshow -> {
-
+            R.id.nav_1rm -> {
+                Toast.makeText(applicationContext, "1 RM", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_tools -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
+            R.id.nav_recommended -> {
+                Toast.makeText(applicationContext, "247365", Toast.LENGTH_SHORT).show()
             }
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val drawerLayout: DrawerLayout = binding.drawerLayout
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
