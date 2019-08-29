@@ -5,14 +5,36 @@
             app:startDestination="@id/workoutFragment">
 
     <fragment android:id="@+id/workoutFragment" android:name="com.pinhsiang.fitracker.workout.WorkoutFragment"
-              android:label="WorkoutFragment"/>
-    <action android:id="@+id/action_global_workoutFragment" app:destination="@id/workoutFragment"/>
+              android:label="WorkoutFragment">
+        <action android:id="@+id/action_workoutFragment_to_workoutAnalysisFragment"
+                app:destination="@id/workoutAnalysisFragment" app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
+    </fragment>
+    <action android:id="@+id/action_global_workoutFragment" app:destination="@id/workoutFragment"
+            app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
 
     <fragment android:id="@+id/inbodyFragment" android:name="com.pinhsiang.fitracker.inbody.InbodyFragment"
-              android:label="InbodyFragment"/>
-    <action android:id="@+id/action_global_inbodyFragment" app:destination="@id/inbodyFragment"/>
+              android:label="InbodyFragment">
+        <action android:id="@+id/action_inbodyFragment_to_inbodyAnalysisFragment"
+                app:destination="@id/inbodyAnalysisFragment" app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
+    </fragment>
+    <action android:id="@+id/action_global_inbodyFragment" app:destination="@id/inbodyFragment"
+            app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
 
     <fragment android:id="@+id/nutritionFragment" android:name="com.pinhsiang.fitracker.nutrition.NutritionFragment"
-              android:label="NutritionFragment"/>
-    <action android:id="@+id/action_global_nutritionFragment" app:destination="@id/nutritionFragment"/>
+              android:label="NutritionFragment">
+        <action android:id="@+id/action_nutritionFragment_to_nutritionAnalysisFragment"
+                app:destination="@id/nutritionAnalysisFragment" app:popUpTo="@+id/nav_graph"
+                app:popUpToInclusive="true"/>
+    </fragment>
+    <action android:id="@+id/action_global_nutritionFragment" app:destination="@id/nutritionFragment"
+            app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
+    <fragment android:id="@+id/workoutAnalysisFragment"
+              android:name="com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisFragment"
+              android:label="WorkoutAnalysisFragment"/>
+    <fragment android:id="@+id/inbodyAnalysisFragment"
+              android:name="com.pinhsiang.fitracker.inbody.analysis.InbodyAnalysisFragment"
+              android:label="InbodyAnalysisFragment"/>
+    <fragment android:id="@+id/nutritionAnalysisFragment"
+              android:name="com.pinhsiang.fitracker.nutrition.analysis.NutritionAnalysisFragment"
+              android:label="NutritionAnalysisFragment"/>
 </navigation>
