@@ -9,6 +9,8 @@
     <string name="bench_press">Bench Press</string>
     <string name="deadlift">Deadlift</string>
     <string name="squat">Squat</string>
+    <string name="kg">Kg</string>
+    <string name="rep">rep.</string>
 
     <string name="menu_timer">Timer</string>
     <string name="menu_tdee">TDEE Calculator</string>
@@ -35,8 +37,9 @@
     <string name="tdee">tdee</string>
     <string name="one_rm">one rm</string>
     <string name="recommended">recommended</string>
-    <string name="kg">Kg</string>
-    <string name="rep">rep.</string>
+
+    <!--Workout fragment-->
+    <string name="week_mode">Week mode</string>
 
 
 </resources>
