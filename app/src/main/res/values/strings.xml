@@ -17,6 +17,8 @@
     <string name="menu_1rm">1 RM Calculator</string>
     <string name="menu_recommend">Recommended Video</string>
 
+    <string name="all_date_format">yyyy-MM-dd, HH:mm:ss</string>
+
     <!--Bottom nav view-->
     <string name="title_workout">Workout</string>
     <string name="title_nutrition">Nutrition</string>

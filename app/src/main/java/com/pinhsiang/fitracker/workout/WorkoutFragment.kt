@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,9 +22,8 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.kizitonwose.calendarview.utils.next
 import com.kizitonwose.calendarview.utils.yearMonth
-import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
-import com.pinhsiang.fitracker.daysOfWeekFromLocale
 import com.pinhsiang.fitracker.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
 import kotlinx.android.synthetic.main.calendar_day_legend.*
@@ -31,7 +31,10 @@ import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.fragment_workout.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
+import java.sql.Timestamp
 import java.util.*
 
 class WorkoutFragment : Fragment() {
@@ -47,7 +50,7 @@ class WorkoutFragment : Fragment() {
     }
 
     // For calendar view
-    private val selectedDates = mutableSetOf<LocalDate>()
+    private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
     private val monthTitleFormatter = DateTimeFormatter.ofPattern("MMMM")
 
@@ -80,8 +83,15 @@ class WorkoutFragment : Fragment() {
         /*
         * Set custom calendar view
         */
-        // Show all days of the month indicated on screen.
-        val customCalendar = binding.exOneCalendar
+        setCustomCalendar()
+
+        return binding.root
+    }
+
+    private fun setCustomCalendar() {
+        val customCalendar = binding.customCalendar
+
+        // Show all days of week, the 1st day of week is sunday.
         val daysOfWeek = daysOfWeekFromLocale()
         binding.legendLayout.children.forEachIndexed { index, view ->
             (view as TextView).apply {
@@ -90,25 +100,27 @@ class WorkoutFragment : Fragment() {
         }
 
         val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(10)
-        val endMonth = currentMonth.plusMonths(10)
-        customCalendar.setup(startMonth, endMonth, daysOfWeek.first())
+        customCalendar.setup(
+            currentMonth.minusMonths(10),
+            currentMonth.plusMonths(10),
+            daysOfWeek.first()
+        )
         customCalendar.scrollToMonth(currentMonth)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
             // Will be set when this container is bound. See the dayBinder.
             lateinit var day: CalendarDay
             val textView = view.calendarDayText
+            val dotView = view.calendarDotView
 
             init {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
-                        if (selectedDates.contains(day.date)) {
-                            selectedDates.remove(day.date)
-                        } else {
-                            selectedDates.add(day.date)
-                        }
-                        customCalendar.notifyDayChanged(day)
+                        selectDate(day.date)
+                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
+                        Log.i(TAG, "day.date = ${day.date}")
+                        Log.i(TAG, "selectDateToTimestamp = $selectDateToTimestamp")
+                        Log.i(TAG, "selectDate = ${selectDateToTimestamp.timestampToString()}")
                     }
                 }
             }
@@ -119,20 +131,28 @@ class WorkoutFragment : Fragment() {
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 container.day = day
                 val textView = container.textView
+                val dotView = container.dotView
+
                 textView.text = day.date.dayOfMonth.toString()
+
                 if (day.owner == DayOwner.THIS_MONTH) {
-                    when {
-                        selectedDates.contains(day.date) -> {
-                            textView.setBackgroundResource(R.drawable.calendar_selected_bg)
-                        }
-                        today == day.date -> {
+
+                    when (day.date) {
+                        today -> {
                             textView.setBackgroundResource(R.drawable.calendar_today_bg)
+                            dotView.makeInVisible()
+                        }
+                        selectedDate -> {
+                            textView.setBackgroundResource(R.drawable.calendar_selected_bg)
+                            dotView.makeInVisible()
                         }
                         else -> {
                             textView.setTextColorRes(R.color.colorBlack)
                             textView.background = null
+//                            dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
                         }
                     }
+
                 } else {
                     textView.setTextColorRes(R.color.calendar_grey)
                     textView.background = null
@@ -217,15 +237,21 @@ class WorkoutFragment : Fragment() {
                     if (firstDate.yearMonth == lastDate.yearMonth) {
                         customCalendar.scrollToMonth(firstDate.yearMonth)
                     } else {
-                        customCalendar.scrollToMonth(minOf(firstDate.yearMonth.next, endMonth))
+                        customCalendar.scrollToMonth(minOf(firstDate.yearMonth.next, currentMonth.plusMonths(10)))
                     }
                 }
             }
             animator.duration = 250
             animator.start()
         }
+    }
 
-
-        return binding.root
+    private fun selectDate(date: LocalDate) {
+        if (selectedDate != date) {
+            val oldDate = selectedDate
+            selectedDate = date
+            oldDate?.let { binding.customCalendar.notifyDateChanged(it) }
+            binding.customCalendar.notifyDateChanged(date)
+        }
     }
 }

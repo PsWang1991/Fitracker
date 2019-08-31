@@ -71,7 +71,7 @@ dependencies {
     // JSR-310
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 
-    // CalendarView by kizitonwose : https://github.com/kizitonwose/CalendarView
+    // CalendarView by Kizitonwose : https://github.com/kizitonwose/CalendarView
     implementation "com.github.kizitonwose:CalendarView:0.2.8"
 
 }
