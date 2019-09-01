@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
 import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
@@ -26,16 +25,11 @@ import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
 import com.pinhsiang.fitracker.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
-import kotlinx.android.synthetic.main.calendar_day_legend.*
-import kotlinx.android.synthetic.main.calendar_day_legend.view.*
 import kotlinx.android.synthetic.main.fragment_workout.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import java.sql.Timestamp
-import java.util.*
 
 class WorkoutFragment : Fragment() {
 
@@ -117,10 +111,16 @@ class WorkoutFragment : Fragment() {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
-                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
-                        Log.i(TAG, "day.date = ${day.date}")
-                        Log.i(TAG, "selectDateToTimestamp = $selectDateToTimestamp")
-                        Log.i(TAG, "selectDate = ${selectDateToTimestamp.timestampToString()}")
+                        viewModel.getWorkoutDataByDate(day.date)
+//                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
+//                        val timestampToday = Timestamp.valueOf(LocalDate.now().toString() + " 00:00:00").time
+//                        Log.i(TAG, "day.date = ${day.date}")
+//                        Log.i(TAG, "selectDateToTimestamp = $selectDateToTimestamp")
+//                        Log.i(TAG, "selectDate = ${selectDateToTimestamp.timestampToString()}")
+//                        Log.i(TAG, "timestampToday = $timestampToday")
+//                        Log.i(TAG, "Today = ${timestampToday.timestampToString()}")
+//                        Log.i(TAG, "System.currentTime = ${System.currentTimeMillis()}")
+//                        Log.i(TAG, "System.currentTime = ${System.currentTimeMillis().timestampToString()}")
                     }
                 }
             }
@@ -139,22 +139,25 @@ class WorkoutFragment : Fragment() {
 
                     when (day.date) {
                         today -> {
+                            textView.setTextColorRes(R.color.colorBlack)
                             textView.setBackgroundResource(R.drawable.calendar_today_bg)
                             dotView.makeInVisible()
                         }
                         selectedDate -> {
+                            textView.setTextColorRes(R.color.colorBlack)
                             textView.setBackgroundResource(R.drawable.calendar_selected_bg)
                             dotView.makeInVisible()
                         }
                         else -> {
                             textView.setTextColorRes(R.color.colorBlack)
                             textView.background = null
-//                            dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
+                            dotView.isVisible = viewModel.hasWorkoutData(day.date)
                         }
                     }
 
                 } else {
-                    textView.setTextColorRes(R.color.calendar_grey)
+                    textView.makeInVisible()
+                    dotView.makeInVisible()
                     textView.background = null
                 }
             }

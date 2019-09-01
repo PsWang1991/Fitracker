@@ -1,9 +1,7 @@
 package com.pinhsiang.fitracker.data
 
 data class Workout (
-    val year: Int,
-    val month: Int,
-    val date: Int,
+    val time: Long = System.currentTimeMillis(),
     val motion: String,
     val sets: List<Sets>
 )
