@@ -27,6 +27,11 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
     //    val workoutList = MutableLiveData<List<Workout>>()
     val workoutList = MutableLiveData<List<Workout>>()
 
+    var selectedDate: LocalDate? = null
+    val today = LocalDate.now()
+
+    var calendarExpanding = true
+
     init {
         createMockWorkoutData()
         getWorkoutDataByDate(LocalDate.now())
