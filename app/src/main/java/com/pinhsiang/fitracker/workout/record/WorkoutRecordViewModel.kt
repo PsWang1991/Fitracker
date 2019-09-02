@@ -65,5 +65,32 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : A
         Log.i(TAG, "${setList.value}")
     }
 
-}
+    fun weightPlus5() {
+        weightRecord.value = weightRecord.value?.plus(5)
+        Log.i(TAG, "${weightRecord.value}")
+    }
 
+    fun weightMinus5() {
+        weightRecord.value = weightRecord.value?.minus(5)
+        Log.i(TAG, "${weightRecord.value}")
+    }
+
+    fun repeatsPlus1() {
+        repeatsRecord.value = repeatsRecord.value?.plus(1)
+        Log.i(TAG, "${repeatsRecord.value}")
+    }
+
+    fun repeatsMinus1() {
+        repeatsRecord.value = repeatsRecord.value?.minus(1)
+        Log.i(TAG, "${repeatsRecord.value}")
+    }
+
+    fun setWeightRecordTo0() {
+        weightRecord.value = 0
+    }
+
+    fun setRepeatsRecordTo0() {
+        repeatsRecord.value = 0
+    }
+
+}

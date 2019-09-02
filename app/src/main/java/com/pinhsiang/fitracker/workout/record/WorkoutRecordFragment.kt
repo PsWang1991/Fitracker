@@ -34,10 +34,23 @@ class WorkoutRecordFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.converter = Int2StringConverter
 
+        // Setup sets RecyclerView adapter
         binding.rvSets.adapter = RecordSetRVAdapter()
 
         viewModel.setList.observe(this, Observer {
             (binding.rvSets.adapter as RecordSetRVAdapter).notifyDataSetChanged()
+        })
+
+        viewModel.repeatsRecord.observe(this, Observer {
+            if (it < 0) {
+                viewModel.setRepeatsRecordTo0()
+            }
+        })
+
+        viewModel.weightRecord.observe(this, Observer {
+            if (it < 0) {
+                viewModel.setWeightRecordTo0()
+            }
         })
 
         return binding.root
