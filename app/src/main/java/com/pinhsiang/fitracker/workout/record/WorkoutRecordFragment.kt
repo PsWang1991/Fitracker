@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.pinhsiang.fitracker.Int2StringConverter
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutRecordBinding
 
 class WorkoutRecordFragment : Fragment() {
@@ -30,6 +32,13 @@ class WorkoutRecordFragment : Fragment() {
         viewModelFactory = WorkoutRecordViewModelFactory(workout, application)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.converter = Int2StringConverter
+
+        binding.rvSets.adapter = RecordSetRVAdapter()
+
+        viewModel.setList.observe(this, Observer {
+            (binding.rvSets.adapter as RecordSetRVAdapter).notifyDataSetChanged()
+        })
 
         return binding.root
     }

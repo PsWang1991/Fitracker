@@ -12,6 +12,6 @@ data class Workout (
 
 @Parcelize
 data class Sets (
-    val liftWeight: Int, // Unit : Kg
-    val repeats: Int
+    var liftWeight: Int, // Unit : Kg
+    var repeats: Int
 ) : Parcelable

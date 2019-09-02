@@ -8,6 +8,7 @@ import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.workout.WorkoutRVAdapter
 import com.pinhsiang.fitracker.workout.WorkoutSetsRVAdapter
 import com.pinhsiang.fitracker.workout.motion.MotionRVAdapter
+import com.pinhsiang.fitracker.workout.record.RecordSetRVAdapter
 
 // Adapter for workout fragment's workout RecyclerView
 @BindingAdapter("workout")
@@ -19,8 +20,10 @@ fun bindRecyclerViewWithWorkout(recyclerView: RecyclerView, data: List<Workout>?
 // Adapter for item_workout's sets RecyclerView
 @BindingAdapter("workoutSets")
 fun bindRecyclerViewWithWorkoutSets(recyclerView: RecyclerView, data: List<Sets>?) {
-    val adapter = recyclerView.adapter as WorkoutSetsRVAdapter
-    adapter.submitList(data)
+    when (val adapter = recyclerView.adapter) {
+        is WorkoutSetsRVAdapter -> adapter.submitList(data)
+        is RecordSetRVAdapter -> adapter.submitList(data)
+    }
 }
 
 // Adapter for item_workout's sets RecyclerView

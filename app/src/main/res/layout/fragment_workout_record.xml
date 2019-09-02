@@ -5,17 +5,187 @@
         <variable
                 name="viewModel"
                 type="com.pinhsiang.fitracker.workout.record.WorkoutRecordViewModel"/>
+        <variable
+                name="converter"
+                type="com.pinhsiang.fitracker.Int2StringConverter"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-                android:text="@string/workout_record"
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_vertical"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintGuide_percent="0.5"
+
+        />
+        <TextView
+                android:id="@+id/text_motion"
+                android:text="@{viewModel.selectedWorkout.motion}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                tools:text="@string/bench_press"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlack"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_update_data" app:layout_constraintStart_toStartOf="parent"
+                android:textSize="18sp" android:textColor="@color/colorBlack"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_repeats"
+                android:layout_marginStart="16dp" android:layout_marginEnd="8dp" android:text="@string/update"
+                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
+                android:background="@drawable/btn_text_border_black"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_vertical" android:visibility="invisible"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_delete_data"
+                android:textSize="18sp" android:textColor="@color/colorBlack"
+                android:text="@string/delete"
+                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
+                android:background="@drawable/btn_text_border_black"
+                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_update_data"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_update_data" android:visibility="invisible"/>
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_add_data" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="18sp" android:textColor="@color/colorBlack"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_repeats"
+                android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:text="@string/add"
+                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
+                android:background="@drawable/btn_text_border_black"
+                tools:visibility="visible"
+                android:onClick="@{() -> viewModel.addData()}"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/text_motion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp" android:background="@drawable/btn_text_border_black">
+
+            <TextView
+                    android:text="@string/weight_kg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_weight"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"/>
+            <EditText
+                    android:id="@+id/text_weight"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/title_weight"
+                    app:layout_constraintEnd_toEndOf="@+id/title_weight"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_weight"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    tools:text="20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp"
+                    android:inputType="number"
+                    android:text="@={converter.intToString(viewModel.weightRecord)}"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:id="@+id/btn_weight_plus"
+                    app:layout_constraintTop_toTopOf="@+id/text_weight"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_weight"
+                    app:layout_constraintStart_toEndOf="@+id/text_weight" android:layout_marginStart="16dp"
+                    app:layout_constraintDimensionRatio="1:1"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:id="@+id/btn_weight_minus"
+                    app:layout_constraintTop_toTopOf="@+id/text_weight"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_weight"
+                    app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/text_weight" android:layout_marginEnd="16dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_repeats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layout_weight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp" android:background="@drawable/btn_text_border_black">
+
+            <TextView
+                    android:text="@string/repeats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_repeats"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"/>
+            <EditText
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" android:id="@+id/text_repeats"
+                    app:layout_constraintStart_toStartOf="@+id/title_repeats"
+                    app:layout_constraintEnd_toEndOf="@+id/title_repeats" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_repeats" android:textAlignment="center"
+                    android:textSize="14sp" tools:text="12" app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp" android:inputType="number"
+                    android:text="@={converter.intToString(viewModel.repeatsRecord)}"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:id="@+id/btn_repeats_plus"
+                    app:layout_constraintTop_toTopOf="@+id/text_repeats"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_repeats"
+                    app:layout_constraintStart_toEndOf="@+id/text_repeats" android:layout_marginStart="16dp"
+                    app:layout_constraintDimensionRatio="1:1"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:id="@+id/btn_repeats_minus"
+                    app:layout_constraintTop_toTopOf="@+id/text_repeats"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_repeats"
+                    app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/text_repeats" android:layout_marginEnd="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="2dp" app:srcCompat="@color/colorBlack"
+                android:id="@+id/sep_line" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_data" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_sets"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/sep_line"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_workout_record_sets"
+                tools:itemCount="5"
+                app:workoutSets="@{viewModel.setList}"
+        />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

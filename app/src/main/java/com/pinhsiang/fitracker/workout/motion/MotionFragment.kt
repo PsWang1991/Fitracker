@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutMotionBinding
@@ -41,9 +42,12 @@ class MotionFragment : Fragment() {
         binding.rvMotion.adapter = MotionRVAdapter(viewModel)
 
         viewModel.selectedMotion.observe(this, Observer {
-            it?.let {
-                Log.i(TAG, "Motion : $it")
-                val addedWorkout = Workout(time = viewModel.dataTime, motion = it)
+            it?.let { motion ->
+                Log.i(TAG, "Motion : $motion")
+                val addedWorkout = Workout(
+                    time = viewModel.dataTime,
+                    motion = motion
+                )
                 this.findNavController()
                     .navigate(MotionFragmentDirections.ActionMotionFragmentToWorkoutRecordFragment(addedWorkout))
                 viewModel.setMotionDone()
