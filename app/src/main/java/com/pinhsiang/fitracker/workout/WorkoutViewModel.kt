@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.appcompat.view.SupportActionModeWrapper
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.data.Workout
@@ -32,9 +33,23 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
 
     var calendarExpanding = true
 
+    // Handle navigation to motion fragment.
+    private val _navigationToMotion = MutableLiveData<Boolean>()
+    val navigationToMotion: LiveData<Boolean>
+        get() = _navigationToMotion
+
+
     init {
         createMockWorkoutData()
         getWorkoutDataByDate(LocalDate.now())
+    }
+
+    fun addNewData() {
+        _navigationToMotion.value = true
+    }
+
+    fun addNewDataDone() {
+        _navigationToMotion.value = false
     }
 
     fun getWorkoutDataByDate(date: LocalDate) {

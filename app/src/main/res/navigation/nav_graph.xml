@@ -8,6 +8,8 @@
               android:label="WorkoutFragment">
         <action android:id="@+id/action_workoutFragment_to_workoutAnalysisFragment"
                 app:destination="@id/workoutAnalysisFragment" app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_workoutFragment_to_motionFragment" app:destination="@id/motionFragment"
+                app:popUpTo="@+id/workoutFragment" app:popUpToInclusive="false"/>
     </fragment>
     <action android:id="@+id/action_global_workoutFragment" app:destination="@id/workoutFragment"
             app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
@@ -37,4 +39,16 @@
     <fragment android:id="@+id/nutritionAnalysisFragment"
               android:name="com.pinhsiang.fitracker.nutrition.analysis.NutritionAnalysisFragment"
               android:label="NutritionAnalysisFragment"/>
+    <fragment android:id="@+id/motionFragment" android:name="com.pinhsiang.fitracker.workout.motion.MotionFragment"
+              android:label="MotionFragment">
+        <argument android:name="time" app:argType="long"/>
+        <action android:id="@+id/action_motionFragment_to_workoutRecordFragment"
+                app:destination="@id/workoutRecordFragment" app:popUpTo="@+id/workoutFragment"
+                app:popUpToInclusive="false"/>
+    </fragment>
+    <fragment android:id="@+id/workoutRecordFragment"
+              android:name="com.pinhsiang.fitracker.workout.record.WorkoutRecordFragment"
+              android:label="WorkoutRecordFragment">
+        <argument android:name="workout" app:argType="com.pinhsiang.fitracker.data.Workout"/>
+    </fragment>
 </navigation>

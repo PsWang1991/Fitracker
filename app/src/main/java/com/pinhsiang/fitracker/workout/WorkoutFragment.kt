@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
@@ -21,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_workout.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
+import java.sql.Timestamp
 
 const val MONTH_TITLE_FORMATTER = "MMMM"
 
@@ -50,6 +53,17 @@ class WorkoutFragment : Fragment() {
         val manager = LinearLayoutManager(context)
         binding.rvWorkout.layoutManager = manager
         binding.rvWorkout.adapter = WorkoutRVAdapter()
+
+        viewModel.navigationToMotion.observe(this, Observer {
+            if (it) {
+                val dataDate =
+                    if (viewModel.selectedDate == null) viewModel.today else viewModel.selectedDate
+                val dataTime = Timestamp.valueOf("$dataDate $ZERO_HOUR").time
+                this.findNavController()
+                    .navigate(WorkoutFragmentDirections.actionWorkoutFragmentToMotionFragment(dataTime))
+                viewModel.addNewDataDone()
+            }
+        })
 
         setCustomCalendar()
 

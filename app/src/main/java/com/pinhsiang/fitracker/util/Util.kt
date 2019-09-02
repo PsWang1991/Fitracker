@@ -1,6 +1,8 @@
 package com.pinhsiang.fitracker.util
 
+import android.graphics.drawable.Drawable
 import com.pinhsiang.fitracker.FitrackerApplication
+import com.pinhsiang.fitracker.R
 
 object Util {
 
@@ -10,5 +12,9 @@ object Util {
 
     fun getColor(resourceId: Int): Int {
         return FitrackerApplication.appContext.getColor(resourceId)
+    }
+
+    fun getDrawable(resourceId: Int): Drawable? {
+        return FitrackerApplication.appContext.getDrawable(resourceId)
     }
 }
