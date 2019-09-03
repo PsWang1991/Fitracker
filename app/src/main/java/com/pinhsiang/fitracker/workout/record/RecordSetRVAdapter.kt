@@ -6,10 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.databinding.ItemWorkoutRecordSetsBinding
+import com.pinhsiang.fitracker.util.Util.getColor
 
-class RecordSetRVAdapter : ListAdapter<Sets, RecordSetRVAdapter.SetsViewHolder>(DiffCallback) {
+class RecordSetRVAdapter(val viewModel: WorkoutRecordViewModel) :
+    ListAdapter<Sets, RecordSetRVAdapter.SetsViewHolder>(DiffCallback) {
+
+    private var selectedPosition: Int = -1
 
     class SetsViewHolder(var binding: ItemWorkoutRecordSetsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(sets: Sets) {
@@ -49,8 +54,39 @@ class RecordSetRVAdapter : ListAdapter<Sets, RecordSetRVAdapter.SetsViewHolder>(
     override fun onBindViewHolder(holder: SetsViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.numSet.text = (position + 1).toString()
+        if (viewModel.reviseMode.value!!) {
+            when (position) {
+                selectedPosition -> {
+                    holder.binding.titleSet.setTextColor(getColor(R.color.colorBlack))
+                    holder.binding.numSet.setTextColor(getColor(R.color.colorBlack))
+                    holder.binding.textWeight.setTextColor(getColor(R.color.colorBlack))
+                    holder.binding.unitWeight.setTextColor(getColor(R.color.colorBlack))
+                    holder.binding.textRep.setTextColor(getColor(R.color.colorBlack))
+                    holder.binding.unitRep.setTextColor(getColor(R.color.colorBlack))
+                }
+                else -> {
+                    holder.binding.titleSet.setTextColor(getColor(R.color.calendar_grey))
+                    holder.binding.numSet.setTextColor(getColor(R.color.calendar_grey))
+                    holder.binding.textWeight.setTextColor(getColor(R.color.calendar_grey))
+                    holder.binding.unitWeight.setTextColor(getColor(R.color.calendar_grey))
+                    holder.binding.textRep.setTextColor(getColor(R.color.calendar_grey))
+                    holder.binding.unitRep.setTextColor(getColor(R.color.calendar_grey))
+                }
+            }
+
+        } else if (!viewModel.reviseMode.value!!) {
+            holder.binding.titleSet.setTextColor(getColor(R.color.colorBlack))
+            holder.binding.numSet.setTextColor(getColor(R.color.colorBlack))
+            holder.binding.textWeight.setTextColor(getColor(R.color.colorBlack))
+            holder.binding.unitWeight.setTextColor(getColor(R.color.colorBlack))
+            holder.binding.textRep.setTextColor(getColor(R.color.colorBlack))
+            holder.binding.unitRep.setTextColor(getColor(R.color.colorBlack))
+        }
         holder.itemView.setOnClickListener {
-            Log.i(TAG, "position = $position")
+            //            Log.i(TAG, "position = $position")
+            selectedPosition = position
+            viewModel.reviseModeOn(position)
+            notifyDataSetChanged()
         }
         holder.bind(item)
     }

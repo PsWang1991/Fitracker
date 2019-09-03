@@ -32,6 +32,8 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : A
         value = false
     }
 
+    private var revisedDataIndex: Int = -1
+
     init {
         Log.i(TAG, "**********   WorkoutRecordViewModel   *********")
         Log.i(TAG, "selectedWorkout = $selectedWorkout")
@@ -62,27 +64,27 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : A
         Log.i(TAG, "repeatsRecord = ${repeatsRecord.value}")
         setListTemp.add(Sets(weightRecord.value!!, repeatsRecord.value!!))
         _setList.value = setListTemp
-        Log.i(TAG, "${setList.value}")
+//        Log.i(TAG, "${setList.value}")
     }
 
     fun weightPlus5() {
         weightRecord.value = weightRecord.value?.plus(5)
-        Log.i(TAG, "${weightRecord.value}")
+//        Log.i(TAG, "${weightRecord.value}")
     }
 
     fun weightMinus5() {
         weightRecord.value = weightRecord.value?.minus(5)
-        Log.i(TAG, "${weightRecord.value}")
+//        Log.i(TAG, "${weightRecord.value}")
     }
 
     fun repeatsPlus1() {
         repeatsRecord.value = repeatsRecord.value?.plus(1)
-        Log.i(TAG, "${repeatsRecord.value}")
+//        Log.i(TAG, "${repeatsRecord.value}")
     }
 
     fun repeatsMinus1() {
         repeatsRecord.value = repeatsRecord.value?.minus(1)
-        Log.i(TAG, "${repeatsRecord.value}")
+//        Log.i(TAG, "${repeatsRecord.value}")
     }
 
     fun setWeightRecordTo0() {
@@ -93,4 +95,30 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : A
         repeatsRecord.value = 0
     }
 
+    fun reviseModeOn(dataIndex: Int) {
+        revisedDataIndex = dataIndex
+        reviseMode.value = true
+    }
+
+    private fun reviseModeOff() {
+        reviseMode.value = false
+    }
+
+    fun deleteSelectedData() {
+        if (revisedDataIndex in 0 until setListTemp.size) {
+            setListTemp.removeAt(revisedDataIndex)
+            revisedDataIndex = -1
+            _setList.value = setListTemp
+            reviseModeOff()
+        }
+    }
+
+    fun updateSelectedData() {
+        if (revisedDataIndex in 0 until setListTemp.size) {
+            setListTemp[revisedDataIndex] = Sets(liftWeight = weightRecord.value!!, repeats = repeatsRecord.value!!)
+            revisedDataIndex = -1
+            _setList.value = setListTemp
+            reviseModeOff()
+        }
+    }
 }

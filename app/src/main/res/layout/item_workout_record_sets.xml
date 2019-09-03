@@ -10,36 +10,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_vertical"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.5"
+
+        />
         <TextView
                 android:text="@string/set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/title_set"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"/>
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
+                android:textColor="@color/colorBlack" android:textSize="18sp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/num_set"
                 app:layout_constraintTop_toTopOf="@+id/title_set"
                 android:layout_marginStart="8dp" app:layout_constraintStart_toEndOf="@+id/title_set"
-                app:layout_constraintBottom_toBottomOf="@+id/title_set" tools:text="3"/>
+                app:layout_constraintBottom_toBottomOf="@+id/title_set" tools:text="3"
+                android:textColor="@color/colorBlack" android:textSize="18sp"/>
         <TextView
                 android:text="@{String.valueOf(set.liftWeight)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_weight" tools:text="20"
-                app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-                android:layout_marginStart="32dp" app:layout_constraintStart_toEndOf="@+id/num_set"/>
+                app:layout_constraintTop_toTopOf="@+id/title_set"
+                android:textColor="@color/colorBlack" android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/title_set" android:textSize="18sp"/>
         <TextView
                 android:text="@string/kg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/unit_weight"
                 app:layout_constraintTop_toTopOf="@+id/text_weight"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_weight"
-                app:layout_constraintStart_toEndOf="@+id/text_weight"/>
+                android:textColor="@color/colorBlack"
+                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline_vertical" android:textSize="18sp"/>
         <TextView
                 android:text="@{String.valueOf(set.repeats)}"
                 android:layout_width="wrap_content"
@@ -47,7 +61,8 @@
                 android:id="@+id/text_rep" tools:text="15"
                 app:layout_constraintTop_toTopOf="@+id/text_weight"
                 android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/unit_rep"
-                app:layout_constraintBottom_toBottomOf="@+id/text_weight"/>
+                app:layout_constraintBottom_toBottomOf="@+id/text_weight" android:textColor="@color/colorBlack"
+                android:textSize="18sp"/>
         <TextView
                 android:text="@string/rep"
                 android:layout_width="wrap_content"
@@ -56,7 +71,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_weight"
                 app:layout_constraintBottom_toBottomOf="@+id/text_weight"
                 app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="24dp"/>
+                android:layout_marginEnd="24dp" android:textColor="@color/colorBlack" android:textSize="18sp"/>
         <ImageView
                 android:layout_width="0dp"
                 android:layout_height="1dp" app:srcCompat="@color/colorBlack"
