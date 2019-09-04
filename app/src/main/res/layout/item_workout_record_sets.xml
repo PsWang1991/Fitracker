@@ -25,7 +25,8 @@
                 android:id="@+id/title_set"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
-                android:textColor="@color/colorBlack" android:textSize="18sp"/>
+                android:textColor="@color/colorBlack" android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,37 +49,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/unit_weight"
-                app:layout_constraintTop_toTopOf="@+id/text_weight"
                 android:layout_marginStart="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/text_weight"
                 android:textColor="@color/colorBlack"
-                app:layout_constraintVertical_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/guideline_vertical" android:textSize="18sp"/>
+                app:layout_constraintStart_toStartOf="@+id/guideline_vertical" android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text_weight"
+                app:layout_constraintTop_toTopOf="@+id/text_weight"/>
         <TextView
                 android:text="@{String.valueOf(set.repeats)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_rep" tools:text="15"
-                app:layout_constraintTop_toTopOf="@+id/text_weight"
                 android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/unit_rep"
-                app:layout_constraintBottom_toBottomOf="@+id/text_weight" android:textColor="@color/colorBlack"
-                android:textSize="18sp"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" app:layout_constraintTop_toTopOf="@+id/text_weight"
+                app:layout_constraintBottom_toBottomOf="@+id/text_weight"/>
         <TextView
                 android:text="@string/rep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/unit_rep"
-                app:layout_constraintTop_toTopOf="@+id/text_weight"
-                app:layout_constraintBottom_toBottomOf="@+id/text_weight"
-                app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="24dp" android:textColor="@color/colorBlack" android:textSize="18sp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="24dp" android:textColor="@color/colorBlack" android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="@+id/title_set"
+                app:layout_constraintBottom_toBottomOf="@+id/title_set"/>
         <ImageView
                 android:layout_width="0dp"
                 android:layout_height="1dp" app:srcCompat="@color/colorBlack"
                 android:id="@+id/sep_line"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="24dp" android:layout_marginTop="3dp"
-                app:layout_constraintTop_toBottomOf="@+id/text_weight"
+                app:layout_constraintTop_toBottomOf="@+id/text_protein"
                 app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

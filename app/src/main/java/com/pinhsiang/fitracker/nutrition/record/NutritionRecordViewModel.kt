@@ -8,29 +8,32 @@ import androidx.lifecycle.MutableLiveData
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.data.Workout
+import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
 
 const val TAG = "Fitracker"
 
-class NutritionRecordViewModel(selectedNutrition: Nutrition, app: Application) : AndroidViewModel(app) {
+class NutritionRecordViewModel(val selectedNutrition: Nutrition, app: Application) : AndroidViewModel(app) {
 
 
-    private val nutritionTemp = selectedNutrition
+    val selectedDate = selectedNutrition.time.timestampToDate()
+
+    private var nutritionTemp = selectedNutrition
 
     val titleRecord = MutableLiveData<String>().apply {
-        value = ""
+        value = selectedNutrition.title
     }
 
     val proteinRecord = MutableLiveData<Int>().apply {
-        value = 0
+        value = selectedNutrition.protein
     }
 
     val carbohydrateRecord = MutableLiveData<Int>().apply {
-        value = 0
+        value = selectedNutrition.carbohydrate
     }
 
     val fatRecord = MutableLiveData<Int>().apply {
-        value = 0
+        value = selectedNutrition.fat
     }
 
     init {
@@ -41,11 +44,19 @@ class NutritionRecordViewModel(selectedNutrition: Nutrition, app: Application) :
         Log.i(TAG, "**********   NutritionRecordViewModel   *********")
     }
 
-    fun addData() {
+    fun saveData() {
         Log.i(TAG, "titleRecord = ${titleRecord.value}")
         Log.i(TAG, "proteinRecord = ${proteinRecord.value}")
         Log.i(TAG, "carbohydrateRecord = ${carbohydrateRecord.value}")
         Log.i(TAG, "fatRecord = ${fatRecord.value}")
+        nutritionTemp = Nutrition(
+            time = selectedNutrition.time,
+            title = titleRecord.value!!,
+            protein = proteinRecord.value!!,
+            carbohydrate = carbohydrateRecord.value!!,
+            fat = fatRecord.value!!
+        )
+        Log.i(TAG, "nutritionTemp = $nutritionTemp")
     }
 
     fun proteinPlus1() {

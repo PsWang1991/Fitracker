@@ -42,6 +42,13 @@ fun Long.timestampToString(): String {
     ).toString()
 }
 
+fun Long.timestampToDate(): String {
+    return DateFormat.format(
+        FitrackerApplication.appContext.getString(R.string.short_date_format),
+        Calendar.getInstance().apply { timeInMillis = this@timestampToDate }
+    ).toString()
+}
+
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))

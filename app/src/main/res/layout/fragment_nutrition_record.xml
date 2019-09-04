@@ -13,12 +13,196 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
         <TextView
-                android:text="@string/nutrition_record"
+                android:id="@+id/text_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent" tools:text="2019-09-04"
+                android:textColor="@color/colorBlack" android:textSize="18sp"
+                android:text="@{viewModel.selectedDate}"/>
+
+        <EditText
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/text_date" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Break Fast" android:hint="@string/title" android:textColor="@color/colorBlack"
+                android:text="@={viewModel.titleRecord}" android:singleLine="true"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_protein"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_text_border_black" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/text_title">
+
+            <TextView
+                    android:text="@string/protein_g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_protein"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"/>
+            <EditText
+                    android:id="@+id/text_protein"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/title_protein"
+                    app:layout_constraintEnd_toEndOf="@+id/title_protein"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_protein"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    tools:text="20"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp"
+                    android:inputType="number"
+                    android:text="@={converter.intToString(viewModel.proteinRecord)}"
+                    android:textColor="@color/colorBlack"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:id="@+id/btn_protein_plus"
+                    app:layout_constraintTop_toTopOf="@+id/text_protein"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_protein"
+                    app:layout_constraintStart_toEndOf="@+id/text_protein" android:layout_marginStart="16dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    android:onClick="@{() -> viewModel.proteinPlus1()}"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:id="@+id/btn_protein_minus"
+                    app:layout_constraintTop_toTopOf="@+id/text_protein"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_protein"
+                    app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/text_protein" android:layout_marginEnd="16dp"
+                    android:onClick="@{() -> viewModel.proteinMinus1()}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_carbohydrate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layout_protein"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp" android:background="@drawable/btn_text_border_black">
+
+            <TextView
+                    android:text="@string/carbohydrate_g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_carbohydrate"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"/>
+            <EditText
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" android:id="@+id/text_carbohydrate"
+                    app:layout_constraintStart_toStartOf="@+id/title_carbohydrate"
+                    app:layout_constraintEnd_toEndOf="@+id/title_carbohydrate" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_carbohydrate" android:textAlignment="center"
+                    android:textSize="14sp" tools:text="12" app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp" android:inputType="number"
+                    android:text="@={converter.intToString(viewModel.carbohydrateRecord)}"
+                    android:textColor="@color/colorBlack"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:id="@+id/btn_carbohydrate_plus"
+                    app:layout_constraintTop_toTopOf="@+id/text_carbohydrate"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_carbohydrate"
+                    app:layout_constraintStart_toEndOf="@+id/text_carbohydrate" android:layout_marginStart="16dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    android:onClick="@{() -> viewModel.carbohydratePlus1()}"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:id="@+id/btn_carbohydrate_minus"
+                    app:layout_constraintTop_toTopOf="@+id/text_carbohydrate"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_carbohydrate"
+                    app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/text_carbohydrate" android:layout_marginEnd="16dp"
+                    android:onClick="@{() -> viewModel.carbohydrateMinus1()}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_fat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_carbohydrate"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_text_border_black"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="16dp">
+
+            <TextView
+                    android:text="@string/fat_g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_fat"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"/>
+            <EditText
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" android:id="@+id/text_fat"
+                    app:layout_constraintStart_toStartOf="@+id/title_fat"
+                    app:layout_constraintEnd_toEndOf="@+id/title_fat" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_fat" android:textAlignment="center"
+                    android:textSize="14sp" tools:text="12" app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp" android:inputType="number"
+                    android:text="@={converter.intToString(viewModel.fatRecord)}"
+                    android:textColor="@color/colorBlack"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:id="@+id/btn_fat_plus"
+                    app:layout_constraintTop_toTopOf="@+id/text_fat"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_fat"
+                    app:layout_constraintStart_toEndOf="@+id/text_fat" android:layout_marginStart="16dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    android:onClick="@{() -> viewModel.fatPlus1()}"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:id="@+id/btn_fat_minus"
+                    app:layout_constraintTop_toTopOf="@+id/text_fat"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_fat"
+                    app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/text_fat" android:layout_marginEnd="16dp"
+                    android:onClick="@{() -> viewModel.fatMinus1()}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+                android:text="@string/save"
+                android:id="@+id/btn_save_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="18sp" android:textColor="@color/colorBlack"
+                android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
+                android:background="@drawable/btn_text_border_black"
+                tools:visibility="visible"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_fat"
+                android:onClick="@{() -> viewModel.saveData()}"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

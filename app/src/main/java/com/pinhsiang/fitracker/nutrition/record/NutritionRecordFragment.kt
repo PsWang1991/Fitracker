@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pinhsiang.fitracker.Int2StringConverter
 import com.pinhsiang.fitracker.databinding.FragmentNutritionBinding
@@ -34,6 +35,23 @@ class NutritionRecordFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.converter = Int2StringConverter
+
+        // Values to be recorded can not be less than 0.
+        viewModel.proteinRecord.observe(this, Observer {
+            if (it < 0) {
+                viewModel.setProteinRecordTo0()
+            }
+        })
+        viewModel.carbohydrateRecord.observe(this, Observer {
+            if (it < 0) {
+                viewModel.setCarbohydrateRecordTo0()
+            }
+        })
+        viewModel.fatRecord.observe(this, Observer {
+            if (it < 0) {
+                viewModel.setFatRecordRecordTo0()
+            }
+        })
 
         return binding.root
     }
