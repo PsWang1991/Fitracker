@@ -9,17 +9,19 @@ import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.databinding.FragmentNutritionBinding
-import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
 import com.pinhsiang.fitracker.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
-import kotlinx.android.synthetic.main.fragment_workout.*
+import kotlinx.android.synthetic.main.fragment_nutrition.*
 import org.threeten.bp.LocalDate
 import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
@@ -51,6 +53,21 @@ class NutritionFragment : Fragment() {
 
         // Setup nutrition RecyclerView
         binding.rvNutrition.adapter = NutritionRVAdapter()
+
+
+        viewModel.navigationToRecord.observe(this, Observer {
+            if (it) {
+                val dataDate =
+                    if (viewModel.selectedDate == null) viewModel.today else viewModel.selectedDate
+                val dataTime = Timestamp.valueOf("$dataDate $ZERO_HOUR").time
+                val nutrition = Nutrition(
+                    time = dataTime
+                )
+                this.findNavController()
+                    .navigate(NutritionFragmentDirections.ActionNutritionFragmentToNutritionRecordFragment(nutrition))
+                viewModel.addNewDataDone()
+            }
+        })
 
         setCustomCalendar()
 

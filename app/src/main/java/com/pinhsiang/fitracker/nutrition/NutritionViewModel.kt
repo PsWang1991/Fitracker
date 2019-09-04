@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pinhsiang.fitracker.data.Nutrition
 import org.threeten.bp.LocalDate
@@ -27,13 +28,22 @@ class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
 
     var calendarExpanding = true
 
+    // Handle navigation to motion fragment.
+    private val _navigationToRecord = MutableLiveData<Boolean>()
+    val navigationToRecord: LiveData<Boolean>
+        get() = _navigationToRecord
+
     init {
         createMockNutritionData()
         getNutritionDataByDate(LocalDate.now())
     }
 
     fun addNewData() {
-        Toast.makeText(app, "Add new data", Toast.LENGTH_SHORT).show()
+        _navigationToRecord.value = true
+    }
+
+    fun addNewDataDone() {
+        _navigationToRecord.value = false
     }
 
     fun getNutritionDataByDate(date: LocalDate) {

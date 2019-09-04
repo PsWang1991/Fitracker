@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/nav_graph"
             app:startDestination="@id/workoutFragment">
 
     <fragment android:id="@+id/workoutFragment" android:name="com.pinhsiang.fitracker.workout.WorkoutFragment"
-              android:label="WorkoutFragment">
+              android:label="WorkoutFragment"
+              tools:layout="@layout/fragment_workout">
         <action android:id="@+id/action_workoutFragment_to_workoutAnalysisFragment"
                 app:destination="@id/workoutAnalysisFragment" app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
         <action android:id="@+id/action_workoutFragment_to_motionFragment" app:destination="@id/motionFragment"
@@ -15,7 +16,8 @@
             app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
 
     <fragment android:id="@+id/inbodyFragment" android:name="com.pinhsiang.fitracker.inbody.InbodyFragment"
-              android:label="InbodyFragment">
+              android:label="InbodyFragment"
+              tools:layout="@layout/fragment_inbody">
         <action android:id="@+id/action_inbodyFragment_to_inbodyAnalysisFragment"
                 app:destination="@id/inbodyAnalysisFragment" app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
     </fragment>
@@ -23,24 +25,32 @@
             app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
 
     <fragment android:id="@+id/nutritionFragment" android:name="com.pinhsiang.fitracker.nutrition.NutritionFragment"
-              android:label="NutritionFragment">
+              android:label="NutritionFragment"
+              tools:layout="@layout/fragment_nutrition">
         <action android:id="@+id/action_nutritionFragment_to_nutritionAnalysisFragment"
                 app:destination="@id/nutritionAnalysisFragment" app:popUpTo="@+id/nav_graph"
                 app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_nutritionFragment_to_nutritionRecordFragment"
+                app:destination="@id/nutritionRecordFragment" app:popUpTo="@+id/nutritionFragment"
+                app:popUpToInclusive="false"/>
     </fragment>
     <action android:id="@+id/action_global_nutritionFragment" app:destination="@id/nutritionFragment"
             app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
     <fragment android:id="@+id/workoutAnalysisFragment"
               android:name="com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisFragment"
-              android:label="WorkoutAnalysisFragment"/>
+              android:label="WorkoutAnalysisFragment"
+              tools:layout="@layout/fragment_workout_analysis"/>
     <fragment android:id="@+id/inbodyAnalysisFragment"
               android:name="com.pinhsiang.fitracker.inbody.analysis.InbodyAnalysisFragment"
-              android:label="InbodyAnalysisFragment"/>
+              android:label="InbodyAnalysisFragment"
+              tools:layout="@layout/fragment_inbody_analysis"/>
     <fragment android:id="@+id/nutritionAnalysisFragment"
               android:name="com.pinhsiang.fitracker.nutrition.analysis.NutritionAnalysisFragment"
-              android:label="NutritionAnalysisFragment"/>
+              android:label="NutritionAnalysisFragment"
+              tools:layout="@layout/fragment_nutrition_analysis"/>
     <fragment android:id="@+id/motionFragment" android:name="com.pinhsiang.fitracker.workout.motion.MotionFragment"
-              android:label="MotionFragment">
+              android:label="MotionFragment"
+              tools:layout="@layout/fragment_workout_motion">
         <argument android:name="time" app:argType="long"/>
         <action android:id="@+id/action_motionFragment_to_workoutRecordFragment"
                 app:destination="@id/workoutRecordFragment" app:popUpTo="@+id/workoutFragment"
@@ -48,7 +58,14 @@
     </fragment>
     <fragment android:id="@+id/workoutRecordFragment"
               android:name="com.pinhsiang.fitracker.workout.record.WorkoutRecordFragment"
-              android:label="WorkoutRecordFragment">
+              android:label="WorkoutRecordFragment"
+              tools:layout="@layout/fragment_workout_record">
         <argument android:name="workout" app:argType="com.pinhsiang.fitracker.data.Workout"/>
+    </fragment>
+    <fragment android:id="@+id/nutritionRecordFragment"
+              android:name="com.pinhsiang.fitracker.nutrition.record.NutritionRecordFragment"
+              android:label="NutritionRecordFragment"
+              tools:layout="@layout/fragment_nutrition_record">
+        <argument android:name="nutrition" app:argType="com.pinhsiang.fitracker.data.Nutrition"/>
     </fragment>
 </navigation>

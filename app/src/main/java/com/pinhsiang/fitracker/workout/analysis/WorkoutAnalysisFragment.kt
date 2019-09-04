@@ -32,9 +32,9 @@ class WorkoutAnalysisFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.userDocId.observe(this, Observer {
-            viewModel.getWorkoutData()
-        })
+//        viewModel.userDocId.observe(this, Observer {
+//            viewModel.getWorkoutData()
+//        })
 
         return binding.root
     }

@@ -161,7 +161,9 @@
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/customCalendar"
                 app:nutritionList="@{viewModel.nutritionList}"
-                android:paddingTop="8dp" android:paddingBottom="8dp">
+                android:paddingTop="8dp" android:paddingBottom="8dp"
+                tools:listitem="@layout/item_nutrition"
+                tools:itemCount="3">
         </androidx.recyclerview.widget.RecyclerView>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_add_data"
