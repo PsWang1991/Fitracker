@@ -49,6 +49,9 @@ class NutritionFragment : Fragment() {
         viewModelFactory = NutritionViewModelFactory(application)
         binding.viewModel = viewModel
 
+        // Setup nutrition RecyclerView
+        binding.rvNutrition.adapter = NutritionRVAdapter()
+
         setCustomCalendar()
 
         return binding.root
@@ -83,16 +86,16 @@ class NutritionFragment : Fragment() {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
-//                        viewModel.getWorkoutDataByDate(day.date)
-                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
-                        val timestampToday = Timestamp.valueOf(LocalDate.now().toString() + " 00:00:00").time
-                        Log.i(TAG, "day.date = ${day.date}")
-                        Log.i(TAG, "selectDateToTimestamp = $selectDateToTimestamp")
-                        Log.i(TAG, "selectDate = ${selectDateToTimestamp.timestampToString()}")
-                        Log.i(TAG, "timestampToday = $timestampToday")
-                        Log.i(TAG, "Today = ${timestampToday.timestampToString()}")
-                        Log.i(TAG, "System.currentTime = ${System.currentTimeMillis()}")
-                        Log.i(TAG, "System.currentTime = ${System.currentTimeMillis().timestampToString()}")
+                        viewModel.getNutritionDataByDate(day.date)
+//                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
+//                        val timestampToday = Timestamp.valueOf(LocalDate.now().toString() + " 00:00:00").time
+//                        Log.i(TAG, "day.date = ${day.date}")
+//                        Log.i(TAG, "selectDateToTimestamp = $selectDateToTimestamp")
+//                        Log.i(TAG, "selectDate = ${selectDateToTimestamp.timestampToString()}")
+//                        Log.i(TAG, "timestampToday = $timestampToday")
+//                        Log.i(TAG, "Today = ${timestampToday.timestampToString()}")
+//                        Log.i(TAG, "System.currentTime = ${System.currentTimeMillis()}")
+//                        Log.i(TAG, "System.currentTime = ${System.currentTimeMillis().timestampToString()}")
                     }
                 }
             }
@@ -112,7 +115,7 @@ class NutritionFragment : Fragment() {
                         viewModel.today -> {
                             textView.setTextColorRes(R.color.colorBlack)
                             textView.setBackgroundResource(R.drawable.calendar_today_bg)
-//                            dotView.isVisible = viewModel.hasWorkoutData(day.date)
+                            dotView.isVisible = viewModel.hasNutritionData(day.date)
                         }
                         viewModel.selectedDate -> {
                             textView.setTextColorRes(R.color.colorBlack)
@@ -122,7 +125,7 @@ class NutritionFragment : Fragment() {
                         else -> {
                             textView.setTextColorRes(R.color.colorBlack)
                             textView.background = null
-//                            dotView.isVisible = viewModel.hasWorkoutData(day.date)
+                            dotView.isVisible = viewModel.hasNutritionData(day.date)
                         }
                     }
                 } else {

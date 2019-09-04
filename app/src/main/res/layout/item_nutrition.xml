@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+                name="nutrition"
+                type="com.pinhsiang.fitracker.data.Nutrition"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/outer">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_nutrition_background" android:id="@+id/inner"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" android:layout_marginTop="8dp">
+
+
+            <TextView
+                    android:id="@+id/text_title"
+                    android:text="@{nutrition.title}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/total"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"
+                    android:textSize="18sp" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/energy_total"
+                    android:text='@{String.valueOf(nutrition.carbohydrate * 4 + nutrition.protein * 4 + nutrition.fat * 9)}'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    tools:text="1135" app:layout_constraintTop_toTopOf="@+id/text_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                    app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toStartOf="@+id/unit_energy4"
+                    android:layout_marginEnd="4dp" android:textColor="@color/colorBlack"
+            />
+            <TextView
+                    android:id="@+id/unit_energy4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="@+id/text_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_title"
+                    app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="@+id/sep_line2"
+                    android:text="@string/calories"
+                    android:textColor="@color/colorBlack"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="2dp" app:srcCompat="@color/colorBlack"
+                    android:id="@+id/sep_line2"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+                    app:layout_constraintHorizontal_bias="0.0" app:layout_constraintTop_toBottomOf="@+id/text_title"
+                    android:layout_marginTop="8dp"/>
+            <TextView
+                    android:id="@+id/title_protein"
+                    android:text="@string/protein"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/sep_line2"
+                    android:layout_marginStart="8dp"
+                    android:textSize="14sp" app:layout_constraintTop_toBottomOf="@+id/sep_line2"
+                    android:layout_marginTop="8dp" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/weight_protein"
+                    android:text="@{String.valueOf(nutrition.protein)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="14sp"
+                    tools:text="100" app:layout_constraintTop_toTopOf="@+id/title_protein"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_protein"
+                    app:layout_constraintStart_toEndOf="@+id/title_protein" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/weight_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="@+id/title_protein"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_protein"
+                    app:layout_constraintStart_toEndOf="@+id/weight_protein" app:layout_constraintVertical_bias="0.0"
+                    android:text="@string/gram" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/energy_protein"
+                    android:text='@{String.valueOf(nutrition.protein * 4)}'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    tools:text="400" app:layout_constraintTop_toTopOf="@+id/title_protein"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_protein"
+                    app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toStartOf="@+id/unit_energy"
+                    android:layout_marginEnd="4dp" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/unit_energy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="@+id/title_protein"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_protein"
+                    app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="@+id/sep_line2"
+                    android:layout_marginEnd="8dp" android:text="@string/calories"
+                    android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/title_carbohydrate"
+                    android:text="@string/carbohydrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/title_protein"
+                    android:textSize="14sp" app:layout_constraintTop_toBottomOf="@+id/title_protein"
+                    android:layout_marginTop="8dp" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/weight_carbohydrate"
+                    android:text="@{String.valueOf(nutrition.carbohydrate)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="14sp"
+                    tools:text="150" app:layout_constraintTop_toTopOf="@+id/title_carbohydrate"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_carbohydrate"
+                    app:layout_constraintStart_toEndOf="@+id/title_carbohydrate"
+                    app:layout_constraintVertical_bias="0.0"
+                    android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/weight_unit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="@+id/title_carbohydrate"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_carbohydrate"
+                    app:layout_constraintStart_toEndOf="@+id/weight_carbohydrate"
+                    app:layout_constraintVertical_bias="0.0"
+                    android:text="@string/gram" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/energy_carbohydrate"
+                    android:text='@{String.valueOf(nutrition.carbohydrate * 4)}'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    tools:text="600" app:layout_constraintTop_toTopOf="@+id/title_carbohydrate"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_carbohydrate"
+                    app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toStartOf="@+id/unit_energy2"
+                    android:layout_marginEnd="4dp" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/unit_energy2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="@+id/title_carbohydrate"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_carbohydrate"
+                    app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="@+id/unit_energy"
+                    android:text="@string/calories" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/title_fat"
+                    android:text="@string/fat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/title_protein"
+                    android:textSize="14sp" app:layout_constraintTop_toBottomOf="@+id/title_carbohydrate"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+                    android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/weight_fat"
+                    android:text="@{String.valueOf(nutrition.fat)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="14sp"
+                    tools:text="15" app:layout_constraintTop_toTopOf="@+id/title_fat"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_fat"
+                    app:layout_constraintStart_toEndOf="@+id/title_fat" app:layout_constraintVertical_bias="0.0"
+                    android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/weight_unit3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="@+id/weight_fat"
+                    app:layout_constraintBottom_toBottomOf="@+id/weight_fat"
+                    app:layout_constraintStart_toEndOf="@+id/weight_fat" app:layout_constraintVertical_bias="0.0"
+                    android:text="@string/gram" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/energy_fat"
+                    android:text='@{String.valueOf(nutrition.fat * 9)}'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    tools:text="135" app:layout_constraintTop_toTopOf="@+id/title_fat"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_fat"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintEnd_toStartOf="@+id/unit_energy3" android:layout_marginEnd="4dp"
+                    android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/unit_energy3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toTopOf="@+id/title_fat"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_fat"
+                    app:layout_constraintVertical_bias="1.0" app:layout_constraintEnd_toEndOf="@+id/unit_energy"
+                    android:text="@string/calories" android:textColor="@color/colorBlack"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

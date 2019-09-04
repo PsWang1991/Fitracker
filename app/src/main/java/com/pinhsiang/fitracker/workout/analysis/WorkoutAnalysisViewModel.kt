@@ -36,6 +36,9 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+            .addOnCompleteListener {
+
+            }
     }
 
     fun getWorkoutData() {

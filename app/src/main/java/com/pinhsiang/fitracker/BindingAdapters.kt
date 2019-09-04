@@ -3,8 +3,10 @@ package com.pinhsiang.fitracker
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.pinhsiang.fitracker.data.Motion
+import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.data.Workout
+import com.pinhsiang.fitracker.nutrition.NutritionRVAdapter
 import com.pinhsiang.fitracker.workout.WorkoutRVAdapter
 import com.pinhsiang.fitracker.workout.WorkoutSetsRVAdapter
 import com.pinhsiang.fitracker.workout.motion.MotionRVAdapter
@@ -31,4 +33,11 @@ fun bindRecyclerViewWithWorkoutSets(recyclerView: RecyclerView, data: List<Sets>
 fun bindRecyclerViewWithMotion(recyclerView: RecyclerView, data: List<Motion>?) {
     val adapter = recyclerView.adapter as MotionRVAdapter
     adapter.submitList(data)
+}
+
+// Adapter for nutrition fragment's nutrition RecyclerView
+@BindingAdapter("nutritionList")
+fun bindRecyclerViewWithNutrition(recyclerView: RecyclerView, data: List<Nutrition>?) {
+    val adapter = recyclerView.adapter as NutritionRVAdapter
+    adapter.submitNutritionList(data)
 }
