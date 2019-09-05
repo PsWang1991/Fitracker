@@ -16,7 +16,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/text_protein" tools:text="20"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"/>
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
+                android:textColor="@color/colorBlack"/>
         <TextView
                 android:text="@string/kg"
                 android:layout_width="wrap_content"
@@ -25,7 +26,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_protein"
                 android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_protein"
-                app:layout_constraintStart_toEndOf="@+id/text_protein"/>
+                app:layout_constraintStart_toEndOf="@+id/text_protein" android:textColor="@color/colorBlack"/>
         <TextView
                 android:text="@{String.valueOf(set.repeats)}"
                 android:layout_width="wrap_content"
@@ -33,7 +34,7 @@
                 android:id="@+id/text_rep" tools:text="15"
                 app:layout_constraintTop_toTopOf="@+id/text_protein"
                 android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/unit_rep"
-                app:layout_constraintBottom_toBottomOf="@+id/text_protein"/>
+                app:layout_constraintBottom_toBottomOf="@+id/text_protein" android:textColor="@color/colorBlack"/>
         <TextView
                 android:text="@string/rep"
                 android:layout_width="wrap_content"
@@ -42,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_protein"
                 app:layout_constraintBottom_toBottomOf="@+id/text_protein"
                 app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="24dp"/>
+                android:layout_marginEnd="24dp" android:textColor="@color/colorBlack"/>
         <ImageView
                 android:layout_width="0dp"
                 android:layout_height="1dp" app:srcCompat="@color/colorBlack"

@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
                 name="viewModel"
                 type="com.pinhsiang.fitracker.inbody.InbodyViewModel"/>
@@ -151,14 +152,127 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/rv_workout">
         </com.kizitonwose.calendarview.CalendarView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customCalendar"
+                android:id="@+id/layout_inbody_data" android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp" android:background="@drawable/item_inbody_background"
+                android:visibility="@{viewModel.displayBodyFat == null ? View.GONE : View.VISIBLE}">
 
+            <TextView
+                    android:text="@string/body_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_body_weight"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                    android:textSize="18sp" android:textColor="@color/colorBlack"/>
+            <TextView
+                    android:id="@+id/text_body_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@+id/title_body_weight"
+                    android:layout_marginStart="8dp"
+                    android:textSize="18sp" android:textColor="@color/colorBlack"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_body_weight"
+                    app:layout_constraintStart_toEndOf="@+id/title_body_weight" tools:text="53"
+                    android:text="@{String.valueOf(viewModel.displayBodyWeight)}"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/unit_body_weight"
+                    app:layout_constraintTop_toTopOf="@+id/title_body_weight"
+                    android:layout_marginStart="8dp"
+                    android:textSize="18sp" android:textColor="@color/colorBlack"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_body_weight"
+                    app:layout_constraintStart_toEndOf="@+id/text_body_weight"
+                    app:layout_constraintVertical_bias="0.0" android:text="@string/kg"/>
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="2dp" app:srcCompat="@color/colorBlack"
+                    android:id="@+id/sep_line" app:layout_constraintTop_toBottomOf="@+id/title_body_weight"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"/>
+            <TextView
+                    android:text="@string/skeletal_muscle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_skeletal_muscle"
+                    app:layout_constraintStart_toStartOf="@+id/title_body_weight" android:layout_marginStart="8dp"
+                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    app:layout_constraintTop_toBottomOf="@+id/sep_line" android:layout_marginTop="8dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_skeletal_muscle"
+                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    app:layout_constraintTop_toTopOf="@+id/title_skeletal_muscle"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_skeletal_muscle"
+                    app:layout_constraintEnd_toStartOf="@+id/unit_percentage" android:layout_marginEnd="8dp"
+                    tools:text="32.1"
+                    android:text="@{String.valueOf(viewModel.displaySkeletalMuscle)}"/>
+            <TextView
+                    android:text="@string/percentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/unit_percentage"
+                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/sep_line"
+                    app:layout_constraintTop_toTopOf="@+id/title_skeletal_muscle"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_skeletal_muscle"/>
+            <TextView
+                    android:text="@string/body_fat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_body_fat"
+                    app:layout_constraintStart_toStartOf="@+id/title_body_weight" android:layout_marginStart="8dp"
+                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    app:layout_constraintTop_toBottomOf="@+id/title_skeletal_muscle" android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_body_fat"
+                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    app:layout_constraintTop_toTopOf="@+id/title_body_fat"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_body_fat" tools:text="12.3"
+                    app:layout_constraintEnd_toStartOf="@+id/unit_percentage2" android:layout_marginEnd="8dp"
+                    android:text="@{String.valueOf(viewModel.displayBodyFat)}"/>
+            <TextView
+                    android:text="@string/percentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/unit_percentage2"
+                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/sep_line"
+                    app:layout_constraintTop_toTopOf="@+id/title_body_fat"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_body_fat"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
-                android:text="@string/title_inbody"
+                android:text="@string/no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/no_data"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/customCalendar"
+                app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="@{viewModel.displayBodyFat == null ? View.VISIBLE : View.GONE}"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add_data_inbody"
+                app:srcCompat="@drawable/ic_add_white_24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
+                android:clickable="true"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customCalendar"/>
+                app:backgroundTint="@color/pink_BD9C9C"
+                android:onClick="@{() -> viewModel.addNewData()}"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

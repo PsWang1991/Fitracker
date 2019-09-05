@@ -40,6 +40,7 @@
     <string name="tdee">tdee</string>
     <string name="one_rm">one rm</string>
     <string name="recommended">recommended</string>
+    <string name="dont_show_record_or_analysis">dont show record or analysis</string>
 
     <!--Workout fragment-->
     <string name="week_mode">Week mode</string>
@@ -66,6 +67,11 @@
     <string name="carbohydrate_g">Carbohydrate [g]</string>
     <string name="fat_g">Fat [g]</string>
     <string name="save">Save</string>
+    <string name="body_weight">Body Weight :</string>
+    <string name="skeletal_muscle">Skeletal Muscle :</string>
+    <string name="body_fat">Body Fat :</string>
+    <string name="percentage">%</string>
+    <string name="no_data">No data this day!!</string>
 
 
 </resources>

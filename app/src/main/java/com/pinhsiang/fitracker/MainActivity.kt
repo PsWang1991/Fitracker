@@ -167,24 +167,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun setupNavController() {
         findNavController(R.id.main_page_fragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
             viewModel.currentFragmentType.value = when (navController.currentDestination?.id) {
-                R.id.workoutFragment -> CurrentFragmentType.WORKOUT.apply {
-                    binding.recordOrAnalysis.background = FitrackerApplication.appContext.getDrawable(R.drawable.ic_show_chart_black_24dp)
-                }
-                R.id.workoutAnalysisFragment -> CurrentFragmentType.WORKOUT_ANALYSIS.apply {
-                    binding.recordOrAnalysis.background = FitrackerApplication.appContext.getDrawable(R.drawable.ic_record_black_24dp)
-                }
-                R.id.nutritionFragment -> CurrentFragmentType.NUTRITION.apply {
-                    binding.recordOrAnalysis.background = FitrackerApplication.appContext.getDrawable(R.drawable.ic_show_chart_black_24dp)
-                }
-                R.id.nutritionAnalysisFragment -> CurrentFragmentType.NUTRITION_ANALYSIS.apply {
-                    binding.recordOrAnalysis.background = FitrackerApplication.appContext.getDrawable(R.drawable.ic_record_black_24dp)
-                }
-                R.id.inbodyFragment -> CurrentFragmentType.INBODY.apply {
-                    binding.recordOrAnalysis.background = FitrackerApplication.appContext.getDrawable(R.drawable.ic_show_chart_black_24dp)
-                }
-                R.id.inbodyAnalysisFragment -> CurrentFragmentType.INBODY_ANALYSIS.apply {
-                    binding.recordOrAnalysis.background = FitrackerApplication.appContext.getDrawable(R.drawable.ic_record_black_24dp)
-                }
+                R.id.workoutFragment -> CurrentFragmentType.WORKOUT
+                R.id.motionFragment -> CurrentFragmentType.WORKOUT_MOTION
+                R.id.workoutRecordFragment -> CurrentFragmentType.WORKOUT_RECORD
+                R.id.workoutAnalysisFragment -> CurrentFragmentType.WORKOUT_ANALYSIS
+                R.id.nutritionFragment -> CurrentFragmentType.NUTRITION
+                R.id.nutritionRecordFragment -> CurrentFragmentType.NUTRITION_RECORD
+                R.id.nutritionAnalysisFragment -> CurrentFragmentType.NUTRITION_ANALYSIS
+                R.id.inbodyFragment -> CurrentFragmentType.INBODY
+                R.id.inbodyAnalysisFragment -> CurrentFragmentType.INBODY_ANALYSIS
                 else -> viewModel.currentFragmentType.value
             }
         }

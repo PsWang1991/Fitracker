@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
@@ -47,6 +49,16 @@ class InbodyFragment : Fragment() {
         viewModelFactory = InbodyViewModelFactory(application)
         binding.viewModel = viewModel
 
+//        viewModel.displayBodyWeight.observe(this, Observer {
+//            if (it == null) {
+//                binding.noData.visibility = View.VISIBLE
+//                binding.layoutInbodyData.visibility = View.INVISIBLE
+//            } else {
+//                binding.noData.visibility = View.INVISIBLE
+//                binding.layoutInbodyData.visibility = View.VISIBLE
+//            }
+//        })
+
         setCustomCalendar()
 
         return binding.root
@@ -81,16 +93,16 @@ class InbodyFragment : Fragment() {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
-//                        viewModel.getWorkoutDataByDate(day.date)
-                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
-                        val timestampToday = Timestamp.valueOf(LocalDate.now().toString() + " 00:00:00").time
-                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "day.date = ${day.date}")
-                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "selectDateToTimestamp = $selectDateToTimestamp")
-                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "selectDate = ${selectDateToTimestamp.timestampToString()}")
-                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "timestampToday = $timestampToday")
-                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "Today = ${timestampToday.timestampToString()}")
-                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "System.currentTime = ${System.currentTimeMillis()}")
-                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "System.currentTime = ${System.currentTimeMillis().timestampToString()}")
+                        viewModel.getInbodyDataByDate(day.date)
+//                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
+//                        val timestampToday = Timestamp.valueOf(LocalDate.now().toString() + " 00:00:00").time
+//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "day.date = ${day.date}")
+//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "selectDateToTimestamp = $selectDateToTimestamp")
+//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "selectDate = ${selectDateToTimestamp.timestampToString()}")
+//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "timestampToday = $timestampToday")
+//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "Today = ${timestampToday.timestampToString()}")
+//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "System.currentTime = ${System.currentTimeMillis()}")
+//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "System.currentTime = ${System.currentTimeMillis().timestampToString()}")
                     }
                 }
             }
@@ -110,7 +122,7 @@ class InbodyFragment : Fragment() {
                         viewModel.today -> {
                             textView.setTextColorRes(R.color.colorBlack)
                             textView.setBackgroundResource(R.drawable.calendar_today_bg)
-//                            dotView.isVisible = viewModel.hasWorkoutData(day.date)
+                            dotView.isVisible = viewModel.hasInbodyData(day.date)
                         }
                         viewModel.selectedDate -> {
                             textView.setTextColorRes(R.color.colorBlack)
@@ -120,7 +132,7 @@ class InbodyFragment : Fragment() {
                         else -> {
                             textView.setTextColorRes(R.color.colorBlack)
                             textView.background = null
-//                            dotView.isVisible = viewModel.hasWorkoutData(day.date)
+                            dotView.isVisible = viewModel.hasInbodyData(day.date)
                         }
                     }
                 } else {

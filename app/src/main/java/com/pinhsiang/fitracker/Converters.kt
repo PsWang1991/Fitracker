@@ -18,3 +18,19 @@ object Int2StringConverter {
         return  int.toString()
     }
 }
+
+object Float2StringConverter {
+    @InverseMethod("floatToString")
+    fun stringToFloat( string: String): Float {
+        return try {
+            string.toFloat()
+        } catch (e: Exception) {
+            // If can not be convert to Float, return zero.
+            0.0F
+        }
+    }
+
+    fun floatToString( float: Float): String {
+        return  float.toString()
+    }
+}

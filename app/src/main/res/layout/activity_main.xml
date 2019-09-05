@@ -2,9 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-                name="viewModel"
-                type="com.pinhsiang.fitracker.MainViewModel"/>
+        <import type="com.pinhsiang.fitracker.util.CurrentFragmentType"/>
+        <import type="android.view.View"/>
+        <variable name="viewModel" type="com.pinhsiang.fitracker.MainViewModel"/>
 
     </data>
     <androidx.drawerlayout.widget.DrawerLayout
@@ -42,7 +42,8 @@
                             android:layout_marginBottom="0dp"
                             android:layout_marginEnd="16dp"
                             android:layout_gravity="right|center_vertical"
-                            android:background="@{@drawable/ic_show_chart_black_24dp}"/>
+                            android:background="@{(viewModel.currentFragmentType == CurrentFragmentType.WORKOUT ||viewModel.currentFragmentType == CurrentFragmentType.NUTRITION || viewModel.currentFragmentType == CurrentFragmentType.INBODY) ? @drawable/ic_show_chart_black_24dp : @drawable/ic_record_black_24dp}"
+                            android:visibility="@{(viewModel.currentFragmentType == CurrentFragmentType.WORKOUT ||viewModel.currentFragmentType == CurrentFragmentType.NUTRITION || viewModel.currentFragmentType == CurrentFragmentType.INBODY || viewModel.currentFragmentType == CurrentFragmentType.WORKOUT_ANALYSIS || viewModel.currentFragmentType == CurrentFragmentType.NUTRITION_ANALYSIS || viewModel.currentFragmentType == CurrentFragmentType.INBODY_ANALYSIS) ? View.VISIBLE : View.INVISIBLE}"/>
 
                 </androidx.appcompat.widget.Toolbar>
 

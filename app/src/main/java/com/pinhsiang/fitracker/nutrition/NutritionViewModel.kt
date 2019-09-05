@@ -51,8 +51,8 @@ class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
         nutritionList.value = _nutritionList.filter {
             it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
         }
-        Log.i(TAG, "_workoutList = $_nutritionList")
-        Log.i(TAG, "workoutList = ${nutritionList.value}")
+        Log.i(TAG, "_nutritionList = $_nutritionList")
+        Log.i(TAG, "nutritionList = ${nutritionList.value}")
     }
 
     fun hasNutritionData(date: LocalDate): Boolean {

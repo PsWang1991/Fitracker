@@ -21,6 +21,7 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
 
 
     init {
+        getWorkoutData()
 //        addWorkoutData()
 //        getUserDocId()
 //        addNutritionData()
@@ -39,30 +40,17 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
 //            .addOnFailureListener { exception ->
 //                Log.w(TAG, "Error getting documents.", exception)
 //            }
-//            .addOnCompleteListener {
-//
-//            }
 //    }
 
-    fun getWorkoutData() {
-        db.collection("user").document(userDocId.value!!)
+    private fun getWorkoutData() {
+        db.collection("user").document(USER_DOC_NAME)
             .collection("workout")
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-//                    val sets = arrayListOf<Sets>()
-                    Log.d(TAG, "${document.id} => ${document.data}")
-                    val time = document.data.getValue("time")
-                    val motion = document.data.getValue("motion")
-                    Log.d(TAG, "time => $time")
-                    Log.d(TAG, "motion => $motion")
-                    val sets: MutableList<HashMap<String, Int>> = document.data.getValue("sets") as MutableList<HashMap<String, Int>>
-                    sets.forEachIndexed  { index, set ->
-                        Log.d(TAG, "Set ${index+1} liftWeight => ${set.getValue("liftWeight")}")
-                        Log.d(TAG, "Set ${index+1} repeats => ${set.getValue("repeats")}")
-
-                    }
-//                    Log.d(TAG, "sets => $sets")
+                    val workout = document.toObject(Workout::class.java)
+                    workout.id = document.id
+                    Log.i(TAG, "workout = $workout")
                 }
             }
             .addOnFailureListener { exception ->
@@ -70,26 +58,51 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
             }
     }
 
-//    private fun addWorkoutData() {
-//        val set1 = Sets(liftWeight = 50, repeats = 10)
-//        val set2 = Sets(liftWeight = 80, repeats = 6)
-//        val workout = Workout(motion = "Squat", sets = listOf(set1, set2))
-//        db.collection("user").document("U30OVkHZSDrYllYzjNlT")
-//            .collection("workout").add(workout)
-//
-//    }
+    private fun addWorkoutData() {
+        val set1 = Sets(liftWeight = 100, repeats = 3)
+        val set2 = Sets(liftWeight = 100, repeats = 2)
+        val workout = Workout(motion = "Deadlift", sets = listOf(set1, set2))
+        db.collection("user").document(USER_DOC_NAME)
+            .collection("workout").add(workout)
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+            .addOnCompleteListener {
+                getWorkoutData()
+            }
+
+    }
 
     private fun addNutritionData() {
         val nutrition = Nutrition(
-            id = "123",
+            id = "sasadog",
             time = System.currentTimeMillis(),
-            title = "Lunch",
-            protein = 45,
-            carbohydrate = 60,
-            fat = 15
+            title = "Rice ball",
+            protein = 5,
+            carbohydrate = 100,
+            fat = 3
         )
         db.collection("user").document(USER_DOC_NAME)
             .collection("nutrition").add(nutrition)
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+            .addOnCompleteListener {
+                getNutritionData()
+            }
+    }
+
+    private fun getNutritionData() {
+        db.collection("user").document(USER_DOC_NAME)
+            .collection("nutrition")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val nutrition = document.toObject(Nutrition::class.java)
+                    nutrition.id = document.id
+                    Log.i(TAG, "nutrition = $nutrition")
+                }
+            }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }

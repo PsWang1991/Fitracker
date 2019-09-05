@@ -5,15 +5,10 @@ import com.google.firebase.firestore.Exclude
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Workout (
+data class Inbody (
     @get:Exclude var id: String = "",
     val time: Long = System.currentTimeMillis(),
-    val motion: String = "",
-    val sets: List<Sets>? = mutableListOf()
-) : Parcelable
-
-@Parcelize
-data class Sets (
-    var liftWeight: Int = 0, // Unit : Kg
-    var repeats: Int = 0
+    val bodyWeight: Float = 0.0F,       // Unit : Kg
+    val bodyFat: Float = 0.0F,          // Unit : %
+    val skeletalMuscle: Float = 0.0F    // Unit : %
 ) : Parcelable

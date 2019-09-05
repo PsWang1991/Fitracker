@@ -17,5 +17,5 @@ enum class CurrentFragmentType(val value: String) {
     TIMER(getString(R.string.timer)),
     TDEE(getString(R.string.tdee)),
     ONE_RM(getString(R.string.one_rm)),
-    RECOMMENDED(getString(R.string.recommended))
+    RECOMMENDED(getString(R.string.recommended)),
 }
