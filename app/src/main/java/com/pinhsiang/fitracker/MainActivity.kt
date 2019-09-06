@@ -100,7 +100,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     navControllerBottom.navigate(
                         NavGraphDirections.actionGlobalInbodyFragment()
                     )
-
             }
 
         }

@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.pinhsiang.fitracker.Double2StringConverter
 import com.pinhsiang.fitracker.Float2StringConverter
 import com.pinhsiang.fitracker.databinding.FragmentInbodyBinding
 import com.pinhsiang.fitracker.databinding.FragmentInbodyRecordBinding
@@ -34,7 +36,6 @@ class InbodyRecordFragment : Fragment() {
         viewModelFactory = InbodyRecordViewModelFactory(inbody, application)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.converter = Float2StringConverter
 
         return binding.root
     }

@@ -11,4 +11,5 @@
     <color name="pink_F0CDCD">#F0CDCD</color>
     <color name="pink_BD9C9C">#BD9C9C</color>
     <color name="colorShadow">#CABBBBBB</color>
+    <color name="colorRed">#FF0000</color>
 </resources>

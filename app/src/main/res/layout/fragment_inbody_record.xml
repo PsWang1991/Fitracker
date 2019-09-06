@@ -2,23 +2,149 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
                 name="viewModel"
                 type="com.pinhsiang.fitracker.inbody.record.InbodyRecordViewModel"/>
-        <variable
-                name="converter"
-                type="com.pinhsiang.fitracker.Float2StringConverter"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         <TextView
-                android:text="@string/inbody_record"
+                android:id="@+id/text_date_inbody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent" tools:text="2019-09-04"
+                android:textColor="@color/colorBlack" android:textSize="18sp"
+                android:text="@{viewModel.selectedDate}"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_body_weight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_text_border_black" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/text_date_inbody">
+
+            <TextView
+                    android:text="@string/body_weight_kg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_body_weight"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@{viewModel.validBodyWeight == true ? @color/colorBlack : @color/colorRed}"
+            />
+            <EditText
+                    android:id="@+id/text_body_weight"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/title_body_weight"
+                    app:layout_constraintEnd_toEndOf="@+id/title_body_weight"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_body_weight"
+                    android:textAlignment="center"
+                    android:textSize="14sp"
+                    tools:text="54"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp"
+                    android:inputType="numberDecimal"
+                    android:text="@={viewModel.bodyWeightRecord}"
+                    android:textColor="@{viewModel.validBodyWeight == true ? @color/colorBlack : @color/colorRed}"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_body_fat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/layout_body_weight"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp" android:background="@drawable/btn_text_border_black">
+
+            <TextView
+                    android:text="@string/body_fat_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_body_fat"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@{viewModel.validBodyFat == true ? @color/colorBlack : @color/colorRed}"
+            />
+            <EditText
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" android:id="@+id/text_body_fat"
+                    app:layout_constraintStart_toStartOf="@+id/title_body_fat"
+                    app:layout_constraintEnd_toEndOf="@+id/title_body_fat" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_body_fat" android:textAlignment="center"
+                    android:textSize="14sp" tools:text="11.9" app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp" android:inputType="numberDecimal"
+                    android:text="@={viewModel.bodyFatRecord}"
+                    android:textColor="@{viewModel.validBodyFat == true ? @color/colorBlack : @color/colorRed}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_skeletal_muscle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_body_fat"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_text_border_black"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="16dp">
+
+            <TextView
+                    android:text="@string/skeletal_muscle_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/title_skeletal_muscle"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@{viewModel.validSkeletalMuscle == true ? @color/colorBlack : @color/colorRed}"
+            />
+            <EditText
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content" android:id="@+id/text_skeletal_muscle"
+                    app:layout_constraintStart_toStartOf="@+id/title_skeletal_muscle"
+                    app:layout_constraintEnd_toEndOf="@+id/title_skeletal_muscle" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_skeletal_muscle" android:textAlignment="center"
+                    android:textSize="14sp" tools:text="32.8" app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp" android:inputType="numberDecimal"
+                    android:text="@={viewModel.skeletalMuscleRecord}"
+                    android:textColor="@{viewModel.validSkeletalMuscle == true ? @color/colorBlack : @color/colorRed}"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+                android:text="@string/save"
+                android:id="@+id/btn_save_data_inbody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="18sp" android:textColor="@color/colorBlack"
+                android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
+                android:background="@drawable/btn_text_border_black"
+                tools:visibility="visible"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_skeletal_muscle"
+                android:onClick="@{() -> viewModel.saveData()}"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

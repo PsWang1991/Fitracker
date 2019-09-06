@@ -6,9 +6,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pinhsiang.fitracker.data.Inbody
-import com.pinhsiang.fitracker.data.Nutrition
-import com.pinhsiang.fitracker.data.Sets
-import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
 
@@ -19,23 +16,32 @@ class InbodyRecordViewModel(val selectedInbody: Inbody, app: Application) : Andr
 
     val selectedDate = selectedInbody.time.timestampToDate()
 
-    private var nutritionTemp = selectedInbody
+    private var inbodyTemp = selectedInbody
 
-//    val titleRecord = MutableLiveData<String>().apply {
-//        value = selectedNutrition.title
-//    }
-//
-//    val proteinRecord = MutableLiveData<Int>().apply {
-//        value = selectedNutrition.protein
-//    }
-//
-//    val carbohydrateRecord = MutableLiveData<Int>().apply {
-//        value = selectedNutrition.carbohydrate
-//    }
-//
-//    val fatRecord = MutableLiveData<Int>().apply {
-//        value = selectedNutrition.fat
-//    }
+    val bodyWeightRecord = MutableLiveData<String>().apply {
+        value = selectedInbody.bodyWeight.toString()
+    }
+
+    val bodyFatRecord = MutableLiveData<String>().apply {
+        value = selectedInbody.bodyFat.toString()
+    }
+
+    val skeletalMuscleRecord = MutableLiveData<String>().apply {
+        value = selectedInbody.skeletalMuscle.toString()
+    }
+
+    // Check that is all format of recorded numbers are correct.
+    private val _validBodyWeight = MutableLiveData<Boolean>()
+    val validBodyWeight: LiveData<Boolean>
+        get() = _validBodyWeight
+
+    private val _validBodyFat = MutableLiveData<Boolean>()
+    val validBodyFat: LiveData<Boolean>
+        get() = _validBodyFat
+
+    private val _validSkeletalMuscle = MutableLiveData<Boolean>()
+    val validSkeletalMuscle: LiveData<Boolean>
+        get() = _validSkeletalMuscle
 
     init {
         Log.i(TAG, "**********   InbodyRecordViewModel   *********")
@@ -43,52 +49,58 @@ class InbodyRecordViewModel(val selectedInbody: Inbody, app: Application) : Andr
         Log.i(TAG, "Skeletal Muscle = ${selectedInbody.skeletalMuscle}%")
         Log.i(TAG, "Date = ${selectedInbody.time.timestampToString()}")
         Log.i(TAG, "**********   InbodyRecordViewModel   *********")
+        initRecordedValueValid()
+    }
+
+    private fun initRecordedValueValid() {
+        _validBodyWeight.value = true
+        _validBodyFat.value = true
+        _validSkeletalMuscle.value = true
     }
 
     fun saveData() {
-//        nutritionTemp = Nutrition(
-//            time = selectedNutrition.time,
-//            title = titleRecord.value!!,
-//            protein = proteinRecord.value!!,
-//            carbohydrate = carbohydrateRecord.value!!,
-//            fat = fatRecord.value!!
-//        )
-//        Log.i(TAG, "nutritionTemp = $nutritionTemp")
+        if (checkBodyWeightFormat() && checkBodyFatFormat() && checkSkeletalMuscleFormat()) {
+            _validBodyWeight.value = true
+            _validBodyFat.value = true
+            _validSkeletalMuscle.value = true
+            inbodyTemp = Inbody(
+                time = selectedInbody.time,
+                bodyWeight = bodyWeightRecord.value?.toFloat()!!,
+                bodyFat = bodyFatRecord.value?.toFloat()!!,
+                skeletalMuscle = skeletalMuscleRecord.value?.toFloat()!!
+            )
+            Log.i(TAG, "inbodyTemp = $inbodyTemp")
+        } else {
+            when {
+                !checkBodyWeightFormat() -> _validBodyWeight.value = false
+                else -> _validBodyWeight.value = true
+            }
+            when {
+                !checkBodyFatFormat() -> _validBodyFat.value = false
+                else -> _validBodyFat.value = true
+            }
+            when {
+                !checkSkeletalMuscleFormat() -> _validSkeletalMuscle.value = false
+                else -> _validSkeletalMuscle.value = true
+            }
+            Log.i(TAG, "_validBodyWeight = ${_validBodyWeight.value}")
+            Log.i(TAG, "_validBodyFat = ${_validBodyFat.value}")
+            Log.i(TAG, "_validSkeletalMuscle = ${_validSkeletalMuscle.value}")
+        }
     }
 
-//    fun proteinPlus1() {
-//        proteinRecord.value = proteinRecord.value?.plus(1)
-//    }
-//
-//    fun proteinMinus1() {
-//        proteinRecord.value = proteinRecord.value?.minus(1)
-//    }
-//
-//    fun carbohydratePlus1() {
-//        carbohydrateRecord.value = carbohydrateRecord.value?.plus(1)
-//    }
-//
-//    fun carbohydrateMinus1() {
-//        carbohydrateRecord.value = carbohydrateRecord.value?.minus(1)
-//    }
-//
-//    fun fatPlus1() {
-//        fatRecord.value = fatRecord.value?.plus(1)
-//    }
-//
-//    fun fatMinus1() {
-//        fatRecord.value = fatRecord.value?.minus(1)
-//    }
-//
-//    fun setProteinRecordTo0() {
-//        proteinRecord.value = 0
-//    }
-//
-//    fun setCarbohydrateRecordTo0() {
-//        carbohydrateRecord.value = 0
-//    }
-//
-//    fun setFatRecordRecordTo0() {
-//        fatRecord.value = 0
-//    }
+    private fun checkBodyWeightFormat(): Boolean {
+        val recordedValueFormat = "[0-9]{0,3}([.][0-9]{0,2})?".toRegex()
+        return recordedValueFormat.matches(bodyWeightRecord.value.toString())
+    }
+
+    private fun checkBodyFatFormat(): Boolean {
+        val recordedValueFormat = "[0-9]{0,2}([.][0-9]{0,2})?".toRegex()
+        return recordedValueFormat.matches(bodyFatRecord.value.toString())
+    }
+
+    private fun checkSkeletalMuscleFormat(): Boolean {
+        val recordedValueFormat = "[0-9]{0,2}([.][0-9]{0,2})?".toRegex()
+        return recordedValueFormat.matches(skeletalMuscleRecord.value.toString())
+    }
 }

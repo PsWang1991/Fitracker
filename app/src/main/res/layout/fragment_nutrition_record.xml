@@ -190,7 +190,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
                 android:text="@string/save"
-                android:id="@+id/btn_save_data"
+                android:id="@+id/btn_save_data_nutrition"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"

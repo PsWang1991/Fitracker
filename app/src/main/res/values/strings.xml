@@ -72,6 +72,9 @@
     <string name="body_fat">Body Fat :</string>
     <string name="percentage">%</string>
     <string name="no_data">No data this day!!</string>
+    <string name="body_weight_kg">Body Weight [Kg]</string>
+    <string name="skeletal_muscle_percentage">Skeletal Muscle [%]</string>
+    <string name="body_fat_percentage">Body Fat [%]</string>
 
 
 </resources>
