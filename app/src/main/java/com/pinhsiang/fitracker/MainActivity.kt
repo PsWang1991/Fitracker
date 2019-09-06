@@ -175,6 +175,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.nutritionRecordFragment -> CurrentFragmentType.NUTRITION_RECORD
                 R.id.nutritionAnalysisFragment -> CurrentFragmentType.NUTRITION_ANALYSIS
                 R.id.inbodyFragment -> CurrentFragmentType.INBODY
+                R.id.inbodyRecordFragment -> CurrentFragmentType.INBODY_RECORD
                 R.id.inbodyAnalysisFragment -> CurrentFragmentType.INBODY_ANALYSIS
                 else -> viewModel.currentFragmentType.value
             }

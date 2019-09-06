@@ -48,7 +48,8 @@
                         app:layout_constraintStart_toEndOf="@+id/text_month" android:layout_marginStart="16dp"
                         app:layout_constraintTop_toTopOf="@+id/text_year"
                         app:layout_constraintBottom_toBottomOf="@+id/text_year"
-                        android:background="@drawable/ic_calendar_arrow_down_black_24dp"/>
+                        android:background="@{viewModel.calendarExpanding == true ? @drawable/ic_calendar_arrow_down_black_24dp : @drawable/ic_calendar_arrow_up_black_24dp}"
+                        tools:srcCompat="@drawable/ic_calendar_arrow_down_black_24dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout

@@ -20,6 +20,9 @@
               tools:layout="@layout/fragment_inbody">
         <action android:id="@+id/action_inbodyFragment_to_inbodyAnalysisFragment"
                 app:destination="@id/inbodyAnalysisFragment" app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_inbodyFragment_to_inbodyRecordFragment"
+                app:destination="@id/inbodyRecordFragment" app:popUpTo="@+id/inbodyFragment"
+                app:popUpToInclusive="false"/>
     </fragment>
     <action android:id="@+id/action_global_inbodyFragment" app:destination="@id/inbodyFragment"
             app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
@@ -67,5 +70,11 @@
               android:label="NutritionRecordFragment"
               tools:layout="@layout/fragment_nutrition_record">
         <argument android:name="nutrition" app:argType="com.pinhsiang.fitracker.data.Nutrition"/>
+    </fragment>
+    <fragment android:id="@+id/inbodyRecordFragment"
+              android:name="com.pinhsiang.fitracker.inbody.record.InbodyRecordFragment"
+              android:label="InbodyRecordFragment"
+              tools:layout="@layout/fragment_inbody_record">
+        <argument android:name="inbody" app:argType="com.pinhsiang.fitracker.data.Inbody"/>
     </fragment>
 </navigation>

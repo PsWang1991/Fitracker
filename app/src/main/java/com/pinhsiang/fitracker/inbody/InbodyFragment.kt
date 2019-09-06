@@ -11,11 +11,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.data.Inbody
 import com.pinhsiang.fitracker.databinding.FragmentInbodyBinding
 import com.pinhsiang.fitracker.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
@@ -42,22 +44,42 @@ class InbodyFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentInbodyBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
 
-        // Bind ViewModel
+
+        // Bind ViewModel, life cycle owner and calendarStatus(Check if calendar is expending or not).
         val application = requireNotNull(activity).application
         viewModelFactory = InbodyViewModelFactory(application)
-        binding.viewModel = viewModel
+        binding.let {
+            it.viewModel = viewModel
+            it.lifecycleOwner = this@InbodyFragment
+        }
 
-//        viewModel.displayBodyWeight.observe(this, Observer {
-//            if (it == null) {
-//                binding.noData.visibility = View.VISIBLE
-//                binding.layoutInbodyData.visibility = View.INVISIBLE
-//            } else {
-//                binding.noData.visibility = View.INVISIBLE
-//                binding.layoutInbodyData.visibility = View.VISIBLE
-//            }
-//        })
+        viewModel.navigationToRecord.observe(this, Observer {
+            if (it) {
+                val dataDate =
+                    if (viewModel.selectedDate == null) viewModel.today else viewModel.selectedDate
+                val dataTime = Timestamp.valueOf("$dataDate $ZERO_HOUR").time
+                val inbody = Inbody(
+                    time = dataTime
+                )
+                this.findNavController()
+                    .navigate(InbodyFragmentDirections.actionInbodyFragmentToInbodyRecordFragment(inbody))
+                viewModel.addNewDataDone()
+            }
+        })
+
+        // Expand or compress the calendar when click the title of calendar
+        binding.titleCalendar.setOnClickListener {
+            if (viewModel.calendarExpanding.value!!) {
+                binding.customCalendar.visibility = View.GONE
+                binding.legendLayout.visibility = View.GONE
+                viewModel.setCalendarExpandingFalse()
+            } else {
+                binding.customCalendar.visibility = View.VISIBLE
+                binding.legendLayout.visibility = View.VISIBLE
+                viewModel.setCalendarExpandingTrue()
+            }
+        }
 
         setCustomCalendar()
 
@@ -147,23 +169,6 @@ class InbodyFragment : Fragment() {
         customCalendar.monthScrollListener = {
             text_year.text = it.yearMonth.year.toString()
             text_month.text = DateTimeFormatter.ofPattern(com.pinhsiang.fitracker.workout.MONTH_TITLE_FORMATTER).format(it.yearMonth)
-        }
-
-        // Expand or compress the calendar when click the title of calendar
-        binding.titleCalendar.setOnClickListener {
-            if (viewModel.calendarExpanding) {
-                binding.customCalendar.visibility = View.GONE
-                binding.legendLayout.visibility = View.GONE
-                binding.indicator.background =
-                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_up_black_24dp)
-                viewModel.calendarExpanding = false
-            } else {
-                binding.customCalendar.visibility = View.VISIBLE
-                binding.legendLayout.visibility = View.VISIBLE
-                binding.indicator.background =
-                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_down_black_24dp)
-                viewModel.calendarExpanding = true
-            }
         }
     }
 

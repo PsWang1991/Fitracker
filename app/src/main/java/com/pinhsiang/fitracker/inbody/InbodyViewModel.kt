@@ -33,7 +33,9 @@ class InbodyViewModel(app: Application) : AndroidViewModel(app) {
     var selectedDate: LocalDate? = null
     val today = LocalDate.now()
 
-    var calendarExpanding = true
+    var calendarExpanding = MutableLiveData<Boolean>().apply {
+        value = true
+    }
 
     // Handle navigation to motion fragment.
     private val _navigationToRecord = MutableLiveData<Boolean>()
@@ -80,6 +82,14 @@ class InbodyViewModel(app: Application) : AndroidViewModel(app) {
         return _inbodyList.filter {
             it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
         }.isNotEmpty()
+    }
+
+    fun setCalendarExpandingTrue() {
+        calendarExpanding.value = true
+    }
+
+    fun setCalendarExpandingFalse() {
+        calendarExpanding.value = false
     }
 
     private fun createMockInbodyData() {
