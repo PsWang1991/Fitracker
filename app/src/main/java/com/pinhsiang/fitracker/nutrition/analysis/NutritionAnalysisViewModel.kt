@@ -1,9 +1,8 @@
-package com.pinhsiang.fitracker.workout.analysis
+package com.pinhsiang.fitracker.nutrition.analysis
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.data.Nutrition
@@ -14,20 +13,19 @@ import com.pinhsiang.fitracker.data.Workout
 const val TAG = "Fitracker"
 const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 
-class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
+class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
 
     val db = FirebaseFirestore.getInstance()
 
     val userDocId = MutableLiveData<String>()
 
-    private val _selectedExercise = MutableLiveData<String>()
-    val selectedExercise: LiveData<String>
-        get() = _selectedExercise
 
-    fun setWorkoutMotion(motion: String) {
-        _selectedExercise.value = motion
+    init {
+//        getWorkoutData()
+//        addWorkoutData()
+//        getUserDocId()
+//        addNutritionData()
     }
-
 
 //    private fun getUserDocId() {
 //        db.collection("user")
@@ -72,6 +70,7 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
 //            .addOnCompleteListener {
 //                getWorkoutData()
 //            }
+//
 //    }
 
 //    private fun addNutritionData() {

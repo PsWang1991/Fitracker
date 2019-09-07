@@ -86,4 +86,7 @@ dependencies {
     // Google firebase
     implementation 'com.google.firebase:firebase-firestore:21.0.0'
 
+    // MPAndroidChart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }

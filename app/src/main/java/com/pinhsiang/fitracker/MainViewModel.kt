@@ -6,6 +6,6 @@ import com.pinhsiang.fitracker.util.CurrentFragmentType
 
 class MainViewModel : ViewModel() {
 
-    // Record current fragment to do condition navigation.
+    // Record current fragment to handle navigation or view properties.
     val currentFragmentType = MutableLiveData<CurrentFragmentType>()
 }

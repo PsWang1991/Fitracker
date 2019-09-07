@@ -76,5 +76,25 @@
     <string name="skeletal_muscle_percentage">Skeletal Muscle [%]</string>
     <string name="body_fat_percentage">Body Fat [%]</string>
 
+    <!--Workout analysis fragment-->
+    <string name="exercise">Exercise</string>
+    <string name="graph">Graph</string>
+    <string-array name="exercise">
+        <item>@string/bench_press</item>
+        <item>@string/deadlift</item>
+        <item>@string/squat</item>
+    </string-array>
+    <string-array name="graph_workout">
+        <item>@string/volume_workout</item>
+        <item>@string/max_weight_workout</item>
+        <item>@string/sets_workout</item>
+        <item>@string/repeats_workout</item>
+    </string-array>
+    <string name="volume_workout">volume/workout</string>
+    <string name="max_weight_workout">volume/workout</string>
+    <string name="sets_workout">volume/workout</string>
+    <string name="repeats_workout">volume/workout</string>
+
+
 
 </resources>
