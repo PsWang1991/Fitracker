@@ -14,12 +14,16 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutAnalysisBinding
+import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.util.Util.getColor
 import kotlin.math.pow
+
+const val MILLISECOND_PER_DAY = 86400000L
 
 
 class WorkoutAnalysisFragment : Fragment() {
@@ -77,7 +81,7 @@ class WorkoutAnalysisFragment : Fragment() {
         setupLineChart()
         setupXAxis()
         setupYAxis()
-        setData()
+//        setData()
 
 
         return binding.root
@@ -90,6 +94,7 @@ class WorkoutAnalysisFragment : Fragment() {
 
             // Disable description text
             description.isEnabled = false
+            legend.isEnabled = false
 
             // Disable touch gestures.
             setTouchEnabled(false)
@@ -122,28 +127,47 @@ class WorkoutAnalysisFragment : Fragment() {
 
     fun setData() {
         var values = mutableListOf<Entry>()
+        var timeToDate = mutableListOf<String>()
 
-        var x = 0.0f
-        val xLimit = 5.0f
-        val xStep = (xLimit - x) / 100f
-        for (i in 0..99) {
-            val y = x.pow(2)
-            values.add(Entry(x, y))
-            x += xStep
+        var time = System.currentTimeMillis()
+        for (i in 0..299) {
+            val y = when (i) {
+                in 0..59 -> 50
+                in 60..119 -> 55
+                in 120..179 -> 60
+                in 180..239 -> 65
+                else -> 70
+            }
+            timeToDate.add(time.timestampToDate())
+            values.add(Entry(i.toFloat(), y.toFloat()))
+            time -= MILLISECOND_PER_DAY
         }
+
+        timeToDate.reverse()
+
+//        for (i in 0..59) {
+//            values.removeAt(60)
+//            timeToDate.removeAt(60)
+//        }
+
+        val formatter = IndexAxisValueFormatter(timeToDate)
+        xAxis.valueFormatter = formatter
 
         val set1 = LineDataSet(values, "DataSet 1")
         with(set1) {
             setDrawIcons(false)
             enableDashedLine(10f, 5f, 0f)
             color = getColor(R.color.colorBlack)
-            lineWidth = 1f
-            circleRadius = 0f
+            lineWidth = 4f
+            disableDashedLine()
+//            circleRadius = 0f
+//            setCircleColor(getColor(R.color.colorInvisible))
+            setDrawCircles(false)
+//            isDrawCirclesEnabled = false
             setDrawCircleHole(false)
             valueTextSize = 9f
             enableDashedHighlightLine(10f, 5f, 0f)
-            setDrawFilled(true)
-            fillColor = getColor(R.color.colorBlack)
+            setDrawFilled(false)
         }
 
         chart.data = LineData(listOf<ILineDataSet>(set1))

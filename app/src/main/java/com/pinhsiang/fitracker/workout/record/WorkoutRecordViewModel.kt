@@ -2,16 +2,24 @@ package com.pinhsiang.fitracker.workout.record
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.data.Workout
+import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
 
 const val TAG = "Fitracker"
+const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 
-class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : AndroidViewModel(app) {
+class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application) : AndroidViewModel(app) {
+
+    val db = FirebaseFirestore.getInstance()
+
+    val selectedDate = selectedWorkout.time.timestampToDate()
 
     // Internal and external set list
     private val setListTemp = mutableListOf<Sets>()
@@ -40,7 +48,6 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : A
         Log.i(TAG, "Date = ${selectedWorkout.time.timestampToString()}")
         Log.i(TAG, "Motion = ${selectedWorkout.motion}")
         Log.i(TAG, "**********   WorkoutRecordViewModel   *********")
-        initSetList()
     }
 
     private fun initSetList() {
@@ -49,14 +56,14 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : A
 
 //        setList.value = setListTemp
 
-        val set1 = Sets(20, 15)
-        val set2 = Sets(50, 12)
-        val set3 = Sets(60, 12)
-        val set4 = Sets(70, 10)
-        val set5 = Sets(80, 8)
-        val dataList = listOf(set1, set2, set3, set4, set5)
-        setListTemp.addAll(dataList)
-        _setList.value = setListTemp
+//        val set1 = Sets(20, 15)
+//        val set2 = Sets(50, 12)
+//        val set3 = Sets(60, 12)
+//        val set4 = Sets(70, 10)
+//        val set5 = Sets(80, 8)
+//        val dataList = listOf(set1, set2, set3, set4, set5)
+//        setListTemp.addAll(dataList)
+//        _setList.value = setListTemp
     }
 
     fun addData() {
@@ -119,6 +126,29 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : A
             revisedDataIndex = -1
             _setList.value = setListTemp
             reviseModeOff()
+        }
+    }
+
+    fun addDataToFirebase() {
+        if (setListTemp.isNotEmpty()) {
+            var workoutToAdded = Workout(
+                time = selectedWorkout.time,
+                motion = selectedWorkout.motion,
+                maxWeight = setListTemp.maxBy { it.liftWeight }!!.liftWeight,
+                sets = setListTemp
+            )
+
+            db.collection("user").document(USER_DOC_NAME)
+                .collection("workout").add(workoutToAdded)
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+                .addOnCompleteListener {
+                    Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                }
+
+        } else {
+            Toast.makeText(app, "Set data is empty.", Toast.LENGTH_SHORT).show()
         }
     }
 }

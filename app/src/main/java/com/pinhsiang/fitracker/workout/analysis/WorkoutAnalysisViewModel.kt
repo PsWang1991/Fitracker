@@ -28,6 +28,11 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
         _selectedExercise.value = motion
     }
 
+    private val allWorkoutData = mutableListOf<Workout>()
+
+    init {
+        getWorkoutData()
+    }
 
 //    private fun getUserDocId() {
 //        db.collection("user")
@@ -44,21 +49,24 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
 //            }
 //    }
 
-//    private fun getWorkoutData() {
-//        db.collection("user").document(USER_DOC_NAME)
-//            .collection("workout")
-//            .get()
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    val workout = document.toObject(Workout::class.java)
-//                    workout.id = document.id
+    private fun getWorkoutData() {
+        db.collection("user").document(USER_DOC_NAME)
+            .collection("workout")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val workout = document.toObject(Workout::class.java)
+                    allWorkoutData.add(workout)
 //                    Log.i(TAG, "workout = $workout")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w(TAG, "Error getting documents.", exception)
-//            }
-//    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }.addOnCompleteListener {
+                Log.w(TAG, "allWorkoutData = $allWorkoutData")
+                Log.w(TAG, "allWorkoutData size = ${allWorkoutData.size}")
+            }
+    }
 
 //    private fun addWorkoutData() {
 //        val set1 = Sets(liftWeight = 100, repeats = 3)

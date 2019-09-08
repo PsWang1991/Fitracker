@@ -9,6 +9,7 @@ data class Workout (
     @get:Exclude var id: String = "",
     val time: Long = System.currentTimeMillis(),
     val motion: String = "",
+    val maxWeight: Int = 0,
     val sets: List<Sets>? = mutableListOf()
 ) : Parcelable
 

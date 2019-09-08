@@ -18,9 +18,19 @@
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.5"
 
-        />
+                app:layout_constraintGuide_begin="206dp"/>
+        <TextView
+                android:id="@+id/text_date"
+                android:text="@{viewModel.selectedDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                tools:text="2019-09-08"
+                android:textSize="18sp"
+                android:textColor="@color/colorBlack" android:layout_marginStart="16dp"/>
         <TextView
                 android:id="@+id/text_motion"
                 android:text="@{viewModel.selectedWorkout.motion}"
@@ -33,6 +43,17 @@
                 tools:text="@string/bench_press"
                 android:textSize="18sp"
                 android:textColor="@color/colorBlack"/>
+        <TextView
+                android:id="@+id/btn_upload_data"
+                android:text="@string/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp"
+                android:textColor="@color/blue_1973E8" android:layout_marginEnd="16dp"
+                android:onClick="@{() -> viewModel.addDataToFirebase()}"/>
         <TextView
                 android:id="@+id/btn_update_data"
                 android:layout_width="0dp"
