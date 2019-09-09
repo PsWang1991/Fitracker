@@ -54,7 +54,6 @@ class NutritionFragment : Fragment() {
         // Setup nutrition RecyclerView
         binding.rvNutrition.adapter = NutritionRVAdapter()
 
-
         viewModel.navigationToRecord.observe(this, Observer {
             if (it) {
                 val dataDate =
@@ -66,6 +65,13 @@ class NutritionFragment : Fragment() {
                 this.findNavController()
                     .navigate(NutritionFragmentDirections.ActionNutritionFragmentToNutritionRecordFragment(nutrition))
                 viewModel.addNewDataDone()
+            }
+        })
+
+        viewModel.downloadComplete.observe(this, Observer {
+            if (it) {
+                binding.customCalendar.notifyCalendarChanged()
+                viewModel.refreshDataDone()
             }
         })
 
