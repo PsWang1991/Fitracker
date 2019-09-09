@@ -76,6 +76,13 @@
     <string name="skeletal_muscle_percentage">Skeletal Muscle [%]</string>
     <string name="body_fat_percentage">Body Fat [%]</string>
 
+    <!--Analysis common string-->
+    <string name="period_1m">1 M</string>
+    <string name="period_3m">3 M</string>
+    <string name="period_6m">6 M</string>
+    <string name="period_1y">1 Y</string>
+    <string name="all">ALL</string>
+
     <!--Workout analysis fragment-->
     <string name="exercise">Exercise</string>
     <string name="graph">Graph</string>
@@ -94,11 +101,31 @@
     <string name="volume_workout">Volume Per Workout</string>
     <string name="sets_workout">Sets Per Workout</string>
     <string name="repeats_workout">Repeats Per Workout</string>
-    <string name="period_1m">1 M</string>
-    <string name="period_3m">3 M</string>
-    <string name="period_6m">6 M</string>
-    <string name="period_1y">1 Y</string>
-    <string name="all">ALL</string>
+
+    <!--Nutrition analysis fragment-->
+    <string name="nutrients">Nutrients</string>
+    <string-array name="nutrients">
+        <item>@string/total_daily_energy_extracted</item>
+        <item>@string/protein</item>
+        <item>@string/carbohydrate</item>
+        <item>@string/fat</item>
+    </string-array>
+    <string name="total_daily_energy_extracted">Total Daily Energy Extracted</string>
+
+    <!--In-body analysis fragment-->
+    <string name="filter">Filter</string>
+    <string-array name="filter_inbody">
+        <item>@string/body_weight_inbody</item>
+        <item>@string/skeletal_muscle_inbody</item>
+        <item>@string/body_fat_inbody</item>
+    </string-array>
+    <string name="body_weight_inbody">Body Weight</string>
+    <string name="skeletal_muscle_inbody">Skeletal Muscle</string>
+    <string name="body_fat_inbody">Body Fat</string>
+
+
+
+
 
 
 </resources>

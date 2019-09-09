@@ -104,7 +104,7 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
             getString(R.string.sets_workout) -> {
                 filteredData.forEachIndexed { index, workout ->
                     if (workout.sets != null && workout.sets.isNotEmpty()) {
-                        valuesToPLot.add(Entry(index.toFloat(), workout.sets!!.size.toFloat()))
+                        valuesToPLot.add(Entry(index.toFloat(), workout.sets.size.toFloat()))
                     } else {
                         valuesToPLot.add(Entry(index.toFloat(), 0f))
                     }

@@ -2,18 +2,104 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable
+                name="viewModel"
+                type="com.pinhsiang.fitracker.inbody.analysis.InbodyAnalysisViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         <TextView
-                android:text="@string/inbody_analysis"
+                android:id="@+id/title_filter"
+                android:text="@string/filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp" android:textColor="@color/colorBlack" android:textSize="18sp"/>
+        <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_filter_inbody"
+                app:layout_constraintTop_toTopOf="@+id/title_filter"
+                app:layout_constraintBottom_toBottomOf="@+id/title_filter"
+                app:layout_constraintStart_toEndOf="@+id/title_filter" android:layout_marginStart="16dp"/>
+
+        <TextView
+                android:text="@string/period_1m"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/period_1m_inbody"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:background="@drawable/btn_text_border_black_solid_black"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/period_3m_inbody"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/title_filter"
+                android:onClick="@{() -> viewModel.selectPeriod1M()}"
+        />
+        <TextView
+                android:text="@string/period_3m"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/period_3m_inbody"
+                android:textColor="@color/colorBlack" android:textSize="18sp"
+                android:background="@drawable/btn_text_border_black" android:textAlignment="center"
+                app:layout_constraintStart_toEndOf="@+id/period_1m_inbody"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/period_6m_inbody"
+                app:layout_constraintTop_toTopOf="@+id/period_1m_inbody"
+                app:layout_constraintBottom_toBottomOf="@+id/period_1m_inbody"
+                android:onClick="@{() -> viewModel.selectPeriod3M()}"/>
+        <TextView
+                android:text="@string/period_6m"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/period_6m_inbody"
+                android:textColor="@color/colorBlack" android:textSize="18sp"
+                android:background="@drawable/btn_text_border_black" android:textAlignment="center"
+                app:layout_constraintStart_toEndOf="@+id/period_3m_inbody"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/period_1y_inbody"
+                app:layout_constraintTop_toTopOf="@+id/period_1m_inbody"
+                app:layout_constraintBottom_toBottomOf="@+id/period_1m_inbody"
+                android:onClick="@{() -> viewModel.selectPeriod6M()}"/>
+        <TextView
+                android:text="@string/period_1y"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/period_1y_inbody"
+                android:textColor="@color/colorBlack" android:textSize="18sp"
+                android:background="@drawable/btn_text_border_black" android:textAlignment="center"
+                app:layout_constraintStart_toEndOf="@+id/period_6m_inbody"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/period_all_inbody"
+                app:layout_constraintTop_toTopOf="@+id/period_1m_inbody"
+                app:layout_constraintBottom_toBottomOf="@+id/period_1m_inbody"
+                android:onClick="@{() -> viewModel.selectPeriod1Y()}"/>
+        <TextView
+                android:text="@string/all"
+                android:layout_width="73dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/period_all_inbody"
+                android:textColor="@color/colorBlack" android:textSize="18sp"
+                android:background="@drawable/btn_text_border_black" android:textAlignment="center"
+                app:layout_constraintStart_toEndOf="@+id/period_1y_inbody"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toTopOf="@+id/period_1m_inbody"
+                app:layout_constraintBottom_toBottomOf="@+id/period_1m_inbody"
+                android:onClick="@{() -> viewModel.selectPeriodAll()}"/>
+        <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_inbody"
+                android:layout_width="0dp"
+                android:layout_height="0dp" app:layout_constraintTop_toBottomOf="@+id/period_1m_inbody"
+                android:layout_marginTop="24dp" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginEnd="8dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

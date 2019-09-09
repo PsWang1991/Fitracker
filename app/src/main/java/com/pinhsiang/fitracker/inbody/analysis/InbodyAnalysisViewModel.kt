@@ -1,4 +1,4 @@
-package com.pinhsiang.fitracker.nutrition.analysis
+package com.pinhsiang.fitracker.inbody.analysis
 
 import android.app.Application
 import android.util.Log
@@ -19,7 +19,7 @@ const val DAYS_PER_3M = 93L
 const val DAYS_PER_6M = 186L
 const val DAYS_PER_1Y = 366L
 
-class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
+class InbodyAnalysisViewModel(app: Application) : AndroidViewModel(app) {
 
     val db = FirebaseFirestore.getInstance()
 
