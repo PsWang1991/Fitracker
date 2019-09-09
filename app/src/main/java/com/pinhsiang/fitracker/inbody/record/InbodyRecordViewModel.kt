@@ -2,21 +2,26 @@ package com.pinhsiang.fitracker.inbody.record
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.data.Inbody
 import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
 
 const val TAG = "Fitracker"
+const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 
-class InbodyRecordViewModel(val selectedInbody: Inbody, app: Application) : AndroidViewModel(app) {
 
+class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Application) : AndroidViewModel(app) {
+
+    private val db = FirebaseFirestore.getInstance()
 
     val selectedDate = selectedInbody.time.timestampToDate()
 
-    private var inbodyTemp = selectedInbody
+    private var inbodyToUpload = selectedInbody
 
     val bodyWeightRecord = MutableLiveData<String>().apply {
         value = selectedInbody.bodyWeight.toString()
@@ -63,13 +68,21 @@ class InbodyRecordViewModel(val selectedInbody: Inbody, app: Application) : Andr
             _validBodyWeight.value = true
             _validBodyFat.value = true
             _validSkeletalMuscle.value = true
-            inbodyTemp = Inbody(
+            inbodyToUpload = Inbody(
                 time = selectedInbody.time,
                 bodyWeight = bodyWeightRecord.value?.toFloat()!!,
                 bodyFat = bodyFatRecord.value?.toFloat()!!,
                 skeletalMuscle = skeletalMuscleRecord.value?.toFloat()!!
             )
-            Log.i(TAG, "inbodyTemp = $inbodyTemp")
+            db.collection("user").document(USER_DOC_NAME)
+                .collection("in-body").add(inbodyToUpload)
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+                .addOnCompleteListener {
+                    Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                }
+//            Log.i(TAG, "inbodyToUpload = $inbodyToUpload")
         } else {
             when {
                 !checkBodyWeightFormat() -> _validBodyWeight.value = false
@@ -83,9 +96,9 @@ class InbodyRecordViewModel(val selectedInbody: Inbody, app: Application) : Andr
                 !checkSkeletalMuscleFormat() -> _validSkeletalMuscle.value = false
                 else -> _validSkeletalMuscle.value = true
             }
-            Log.i(TAG, "_validBodyWeight = ${_validBodyWeight.value}")
-            Log.i(TAG, "_validBodyFat = ${_validBodyFat.value}")
-            Log.i(TAG, "_validSkeletalMuscle = ${_validSkeletalMuscle.value}")
+//            Log.i(TAG, "_validBodyWeight = ${_validBodyWeight.value}")
+//            Log.i(TAG, "_validBodyFat = ${_validBodyFat.value}")
+//            Log.i(TAG, "_validSkeletalMuscle = ${_validSkeletalMuscle.value}")
         }
     }
 

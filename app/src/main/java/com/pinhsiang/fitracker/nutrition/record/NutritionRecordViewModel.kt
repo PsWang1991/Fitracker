@@ -2,23 +2,25 @@ package com.pinhsiang.fitracker.nutrition.record
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.data.Nutrition
-import com.pinhsiang.fitracker.data.Sets
-import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
 
 const val TAG = "Fitracker"
+const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 
-class NutritionRecordViewModel(val selectedNutrition: Nutrition, app: Application) : AndroidViewModel(app) {
 
+class NutritionRecordViewModel(private val selectedNutrition: Nutrition, val app: Application) : AndroidViewModel(app) {
+
+    private val db = FirebaseFirestore.getInstance()
 
     val selectedDate = selectedNutrition.time.timestampToDate()
 
-    private var nutritionTemp = selectedNutrition
+    private var nutritionToUpload = selectedNutrition
 
     val titleRecord = MutableLiveData<String>().apply {
         value = selectedNutrition.title
@@ -48,15 +50,27 @@ class NutritionRecordViewModel(val selectedNutrition: Nutrition, app: Applicatio
         Log.i(TAG, "titleRecord = ${titleRecord.value}")
         Log.i(TAG, "proteinRecord = ${proteinRecord.value}")
         Log.i(TAG, "carbohydrateRecord = ${carbohydrateRecord.value}")
-        Log.i(TAG, "fatRecord = ${fatRecord.value}")
-        nutritionTemp = Nutrition(
-            time = selectedNutrition.time,
-            title = titleRecord.value!!,
-            protein = proteinRecord.value!!,
-            carbohydrate = carbohydrateRecord.value!!,
-            fat = fatRecord.value!!
-        )
-        Log.i(TAG, "nutritionTemp = $nutritionTemp")
+        if (titleRecord.value != "") {
+            nutritionToUpload = Nutrition(
+                time = selectedNutrition.time,
+                title = titleRecord.value!!,
+                protein = proteinRecord.value!!,
+                carbohydrate = carbohydrateRecord.value!!,
+                fat = fatRecord.value!!
+            )
+            Log.i(TAG, "nutritionToUpload = $nutritionToUpload")
+            db.collection("user").document(USER_DOC_NAME)
+                .collection("nutrition").add(nutritionToUpload)
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+                .addOnCompleteListener {
+                    Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                }
+
+        } else {
+            Toast.makeText(app, "Title can not be blank.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun proteinPlus1() {

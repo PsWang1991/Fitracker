@@ -17,7 +17,7 @@ const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 
 class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application) : AndroidViewModel(app) {
 
-    val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     val selectedDate = selectedWorkout.time.timestampToDate()
 
@@ -48,22 +48,6 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
         Log.i(TAG, "Date = ${selectedWorkout.time.timestampToString()}")
         Log.i(TAG, "Motion = ${selectedWorkout.motion}")
         Log.i(TAG, "**********   WorkoutRecordViewModel   *********")
-    }
-
-    private fun initSetList() {
-
-//        setListTemp.addAll(selectedWorkout.sets!!.asIterable())
-
-//        setList.value = setListTemp
-
-//        val set1 = Sets(20, 15)
-//        val set2 = Sets(50, 12)
-//        val set3 = Sets(60, 12)
-//        val set4 = Sets(70, 10)
-//        val set5 = Sets(80, 8)
-//        val dataList = listOf(set1, set2, set3, set4, set5)
-//        setListTemp.addAll(dataList)
-//        _setList.value = setListTemp
     }
 
     fun addData() {

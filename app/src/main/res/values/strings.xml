@@ -85,16 +85,20 @@
         <item>@string/squat</item>
     </string-array>
     <string-array name="graph_workout">
-        <item>@string/volume_workout</item>
         <item>@string/max_weight_workout</item>
+        <item>@string/volume_workout</item>
         <item>@string/sets_workout</item>
         <item>@string/repeats_workout</item>
     </string-array>
-    <string name="volume_workout">volume/workout</string>
-    <string name="max_weight_workout">volume/workout</string>
-    <string name="sets_workout">volume/workout</string>
-    <string name="repeats_workout">volume/workout</string>
-
+    <string name="max_weight_workout">Max Weight Per Workout</string>
+    <string name="volume_workout">Volume Per Workout</string>
+    <string name="sets_workout">Sets Per Workout</string>
+    <string name="repeats_workout">Repeats Per Workout</string>
+    <string name="period_1m">1 M</string>
+    <string name="period_3m">3 M</string>
+    <string name="period_6m">6 M</string>
+    <string name="period_1y">1 Y</string>
+    <string name="all">ALL</string>
 
 
 </resources>
