@@ -81,6 +81,13 @@ class InbodyFragment : Fragment() {
             }
         }
 
+        viewModel.downloadComplete.observe(this, Observer {
+            if (it) {
+                binding.customCalendar.notifyCalendarChanged()
+                viewModel.refreshDataDone()
+            }
+        })
+
         setCustomCalendar()
 
         return binding.root
