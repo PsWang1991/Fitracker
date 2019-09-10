@@ -103,17 +103,17 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Applica
     }
 
     private fun checkBodyWeightFormat(): Boolean {
-        val recordedValueFormat = "[0-9]{0,3}([.][0-9]{0,2})?".toRegex()
+        val recordedValueFormat = "[0-9]{1,3}([.][0-9]{0,2})?".toRegex()
         return recordedValueFormat.matches(bodyWeightRecord.value.toString())
     }
 
     private fun checkBodyFatFormat(): Boolean {
-        val recordedValueFormat = "[0-9]{0,2}([.][0-9]{0,2})?".toRegex()
+        val recordedValueFormat = "[0-9]{1,2}([.][0-9]{0,2})?".toRegex()
         return recordedValueFormat.matches(bodyFatRecord.value.toString())
     }
 
     private fun checkSkeletalMuscleFormat(): Boolean {
-        val recordedValueFormat = "[0-9]{0,2}([.][0-9]{0,2})?".toRegex()
+        val recordedValueFormat = "[0-9]{1,2}([.][0-9]{0,2})?".toRegex()
         return recordedValueFormat.matches(skeletalMuscleRecord.value.toString())
     }
 }

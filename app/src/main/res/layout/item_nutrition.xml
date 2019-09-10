@@ -67,7 +67,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@+id/sep_line2"
-                    android:layout_marginStart="8dp"
                     android:textSize="14sp" app:layout_constraintTop_toBottomOf="@+id/sep_line2"
                     android:layout_marginTop="8dp" android:textColor="@color/colorBlack"/>
             <TextView
@@ -108,7 +107,7 @@
                     app:layout_constraintTop_toTopOf="@+id/title_body_weight"
                     app:layout_constraintBottom_toBottomOf="@+id/title_body_weight"
                     app:layout_constraintVertical_bias="0.0" app:layout_constraintEnd_toEndOf="@+id/sep_line2"
-                    android:layout_marginEnd="8dp" android:text="@string/calories"
+                    android:text="@string/calories"
                     android:textColor="@color/colorBlack"/>
             <TextView
                     android:id="@+id/title_carbohydrate"
@@ -117,7 +116,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@+id/title_body_weight"
                     android:textSize="14sp" app:layout_constraintTop_toBottomOf="@+id/title_body_weight"
-                    android:layout_marginTop="8dp" android:textColor="@color/colorBlack"/>
+                    android:layout_marginTop="4dp" android:textColor="@color/colorBlack"/>
             <TextView
                     android:id="@+id/weight_carbohydrate"
                     android:text="@{String.valueOf(nutrition.carbohydrate)}"
@@ -167,7 +166,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@+id/title_body_weight"
                     android:textSize="14sp" app:layout_constraintTop_toBottomOf="@+id/title_carbohydrate"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
                     android:textColor="@color/colorBlack"/>
             <TextView

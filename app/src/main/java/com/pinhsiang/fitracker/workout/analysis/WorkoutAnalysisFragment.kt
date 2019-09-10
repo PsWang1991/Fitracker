@@ -243,9 +243,6 @@ class WorkoutAnalysisFragment : Fragment() {
 
             chart.data = LineData(listOf<ILineDataSet>(set1))
         }
-
-        chart.data = LineData(listOf<ILineDataSet>(set1))
-
     }
 
     private fun setAllPeriodFilterNormal() {

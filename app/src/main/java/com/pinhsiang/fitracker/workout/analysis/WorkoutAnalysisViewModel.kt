@@ -124,7 +124,6 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
                 }
             }
         }
-
     }
 
     fun setExerciseFilter(motion: String) {
