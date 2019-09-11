@@ -20,6 +20,10 @@
                 android:id="@+id/nav_recommended"
                 android:icon="@drawable/ic_menu_manage"
                 android:title="@string/menu_recommend"/>
+        <item
+                android:id="@+id/nav_log_out"
+                android:icon="@drawable/ic_exit_black"
+                android:title="@string/log_out"/>
     </group>
 
 </menu>

@@ -1,5 +1,6 @@
 package com.pinhsiang.fitracker
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -151,6 +152,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_recommended -> {
                 Toast.makeText(applicationContext, "247365", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_log_out ->{
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
             }
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout

@@ -16,6 +16,7 @@
     <string name="menu_tdee">TDEE Calculator</string>
     <string name="menu_1rm">1 RM Calculator</string>
     <string name="menu_recommend">Recommended Video</string>
+    <string name="log_out">Log Out</string>
 
     <string name="all_date_format">yyyy-MM-dd, HH:mm:ss</string>
     <string name="short_date_format">yyyy-MM-dd</string>
@@ -122,10 +123,7 @@
     <string name="body_weight_inbody">Body Weight</string>
     <string name="skeletal_muscle_inbody">Skeletal Muscle</string>
     <string name="body_fat_inbody">Body Fat</string>
-
-
-
-
+    <string name="fitracker">Fitracker</string>
 
 
 </resources>
