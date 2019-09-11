@@ -3,8 +3,6 @@ package com.pinhsiang.fitracker
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -12,7 +10,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.Menu
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -21,10 +18,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.pinhsiang.fitracker.databinding.ActivityMainBinding
 import com.pinhsiang.fitracker.inbody.InbodyFragmentDirections
 import com.pinhsiang.fitracker.nutrition.NutritionFragmentDirections
-import com.pinhsiang.fitracker.nutrition.analysis.NutritionAnalysisFragmentDirections
+import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.CurrentFragmentType
 import com.pinhsiang.fitracker.workout.WorkoutFragmentDirections
 
@@ -154,6 +152,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(applicationContext, "247365", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_log_out ->{
+                val auth = FirebaseAuth.getInstance()
+                UserManager.userUid = ""
+                UserManager.userDocId = ""
+                Log.i(TAG, "current user = ${auth.currentUser}")
+                auth.signOut()
+                Log.i(TAG, "current user = ${auth.currentUser}")
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }

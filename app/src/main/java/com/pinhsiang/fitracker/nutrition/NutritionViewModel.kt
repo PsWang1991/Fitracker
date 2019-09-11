@@ -7,7 +7,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.data.Nutrition
+import com.pinhsiang.fitracker.util.Util.getString
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 
@@ -71,7 +73,7 @@ class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     private fun downloadWorkoutData() {
-        db.collection("user").document(USER_DOC_NAME)
+        db.collection(getString(R.string.user_collection_path)).document(USER_DOC_NAME)
             .collection("nutrition")
             .get()
             .addOnSuccessListener { result ->
