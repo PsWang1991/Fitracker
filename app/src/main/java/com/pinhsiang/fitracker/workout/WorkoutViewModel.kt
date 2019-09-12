@@ -6,11 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Workout
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 
-const val TAG = "Fitracker"
 const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 const val MILLISECOND_PER_DAY = 86400000L
 const val MILLISECOND_PER_WEEK = MILLISECOND_PER_DAY * 7

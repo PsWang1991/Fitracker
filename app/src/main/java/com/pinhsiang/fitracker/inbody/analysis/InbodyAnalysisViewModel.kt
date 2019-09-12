@@ -8,12 +8,11 @@ import androidx.lifecycle.MutableLiveData
 import com.github.mikephil.charting.data.Entry
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Inbody
 import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.util.Util.getString
 
-
-const val TAG = "Fitracker"
 const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 const val MILLISECOND_PER_DAY = 86400000L
 const val DAYS_PER_1M = 32L

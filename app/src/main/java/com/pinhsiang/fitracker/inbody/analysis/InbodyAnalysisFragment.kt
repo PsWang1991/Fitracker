@@ -20,6 +20,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.databinding.FragmentInbodyAnalysisBinding
 import com.pinhsiang.fitracker.databinding.FragmentInbodyBinding
 import com.pinhsiang.fitracker.databinding.FragmentNutritionBinding

@@ -143,14 +143,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-
-
-
+    // For drawer.
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
+        val navControllerDrawer = findNavController(R.id.main_page_fragment)
         when (item.itemId) {
             R.id.nav_timer -> {
-                Toast.makeText(applicationContext, "Timer", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext, "Timer", Toast.LENGTH_SHORT).show()
+                navControllerDrawer.navigate(NavGraphDirections.actionGlobalTimerFragment())
             }
             R.id.nav_tdee -> {
                 Toast.makeText(applicationContext, "TDEE", Toast.LENGTH_SHORT).show()
@@ -195,6 +194,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.inbodyFragment -> CurrentFragmentType.INBODY
                 R.id.inbodyRecordFragment -> CurrentFragmentType.INBODY_RECORD
                 R.id.inbodyAnalysisFragment -> CurrentFragmentType.INBODY_ANALYSIS
+                R.id.timerFragment -> CurrentFragmentType.TIMER
                 else -> viewModel.currentFragmentType.value
             }
         }

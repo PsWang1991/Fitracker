@@ -16,8 +16,6 @@ import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 import java.util.*
 
-const val TAG = "Fitracker"
-
 class MotionViewModel(val dataTime: Long, app: Application) : AndroidViewModel(app) {
 
     // Internal and external motion list

@@ -6,11 +6,11 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
 
-const val TAG = "Fitracker"
 const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 
 

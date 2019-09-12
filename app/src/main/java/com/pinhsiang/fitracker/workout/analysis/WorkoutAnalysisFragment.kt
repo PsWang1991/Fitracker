@@ -20,6 +20,7 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutAnalysisBinding
 import com.pinhsiang.fitracker.util.Util.getColor
 import com.pinhsiang.fitracker.util.Util.getDrawable

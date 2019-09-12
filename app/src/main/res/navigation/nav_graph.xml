@@ -77,4 +77,9 @@
               tools:layout="@layout/fragment_inbody_record">
         <argument android:name="inbody" app:argType="com.pinhsiang.fitracker.data.Inbody"/>
     </fragment>
+    <fragment android:id="@+id/timerFragment" android:name="com.pinhsiang.fitracker.timer.TimerFragment"
+              android:label="TimerFragment"
+              tools:layout="@layout/fragment_timer"/>
+    <action android:id="@+id/action_global_timerFragment" app:destination="@id/timerFragment"
+            app:popUpTo="@+id/nav_graph"/>
 </navigation>
