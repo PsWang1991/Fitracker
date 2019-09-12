@@ -131,9 +131,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            when (viewModel.currentFragmentType.value) {
+                CurrentFragmentType.WORKOUT -> goToHomeScreen()
+                CurrentFragmentType.WORKOUT_ANALYSIS -> goToHomeScreen()
+                CurrentFragmentType.NUTRITION -> goToHomeScreen()
+                CurrentFragmentType.NUTRITION_ANALYSIS -> goToHomeScreen()
+                CurrentFragmentType.INBODY -> goToHomeScreen()
+                CurrentFragmentType.INBODY_ANALYSIS -> goToHomeScreen()
+                else -> super.onBackPressed()
+            }
         }
     }
+
+
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -151,7 +161,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_recommended -> {
                 Toast.makeText(applicationContext, "247365", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_log_out ->{
+            R.id.nav_log_out -> {
                 val auth = FirebaseAuth.getInstance()
                 UserManager.userUid = ""
                 UserManager.userDocId = ""
@@ -188,5 +198,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 else -> viewModel.currentFragmentType.value
             }
         }
+    }
+
+    private fun goToHomeScreen() {
+        val intent =
+            Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 }

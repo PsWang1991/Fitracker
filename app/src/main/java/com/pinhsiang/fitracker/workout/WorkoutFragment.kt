@@ -1,5 +1,6 @@
 package com.pinhsiang.fitracker.workout
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,6 +77,7 @@ class WorkoutFragment : Fragment() {
 
         return binding.root
     }
+
 
     private fun setCustomCalendar() {
         val customCalendar = binding.customCalendar

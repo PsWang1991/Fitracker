@@ -68,7 +68,8 @@ class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
-            }.addOnCompleteListener {
+            }
+            .addOnCompleteListener {
                 rawToDailyTotal()
                 setDataToPlot()
                 _plotDataReady.value = true
@@ -76,6 +77,7 @@ class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     // We show nutrition data by date, but by meal.
+    // Notice : raw data should be sorted by time.
     private fun rawToDailyTotal() {
         var currentDate = rawNutritionData[0].time.timestampToDate()
         dailyTotalNutritionData.add(rawNutritionData[0])
@@ -86,7 +88,7 @@ class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
                 dailyTotalNutritionData.last().carbohydrate += rawNutritionData[0].carbohydrate
                 dailyTotalNutritionData.last().fat += rawNutritionData[0].fat
                 rawNutritionData.removeAt(0)
-            }else {
+            } else {
                 currentDate = rawNutritionData[0].time.timestampToDate()
                 dailyTotalNutritionData.add(rawNutritionData[0])
                 rawNutritionData.removeAt(0)
