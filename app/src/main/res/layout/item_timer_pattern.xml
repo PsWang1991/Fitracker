@@ -82,7 +82,7 @@
                 app:layout_constraintVertical_bias="0.0" app:layout_constraintStart_toEndOf="@+id/colon_rest"
                 android:layout_marginStart="4dp"/>
         <TextView
-                android:text="@{pattern.repeat}"
+                android:text="@{String.valueOf(pattern.repeat)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_pattern_repeats"
@@ -100,7 +100,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 app:layout_constraintTop_toBottomOf="@+id/exercise_minutes"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,11 +2,9 @@ package com.pinhsiang.fitracker
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.pinhsiang.fitracker.data.Motion
-import com.pinhsiang.fitracker.data.Nutrition
-import com.pinhsiang.fitracker.data.Sets
-import com.pinhsiang.fitracker.data.Workout
+import com.pinhsiang.fitracker.data.*
 import com.pinhsiang.fitracker.nutrition.NutritionRVAdapter
+import com.pinhsiang.fitracker.timer.TimerPatternRVAdapter
 import com.pinhsiang.fitracker.workout.WorkoutRVAdapter
 import com.pinhsiang.fitracker.workout.WorkoutSetsRVAdapter
 import com.pinhsiang.fitracker.workout.motion.MotionRVAdapter
@@ -40,4 +38,11 @@ fun bindRecyclerViewWithMotion(recyclerView: RecyclerView, data: List<Motion>?) 
 fun bindRecyclerViewWithNutrition(recyclerView: RecyclerView, data: List<Nutrition>?) {
     val adapter = recyclerView.adapter as NutritionRVAdapter
     adapter.submitNutritionList(data)
+}
+
+// Adapter for timer fragment's timer pattern RecyclerView
+@BindingAdapter("patternList")
+fun bindRecyclerViewWithTimerPattern(recyclerView: RecyclerView, data: List<TimerPattern>?) {
+    val adapter = recyclerView.adapter as TimerPatternRVAdapter
+    adapter.submitList(data)
 }

@@ -54,13 +54,13 @@
                 android:textColor="@color/blue_1973E8" android:layout_marginEnd="16dp"
                 android:onClick="@{() -> viewModel.addDataToFirebase()}"/>
         <TextView
-                android:id="@+id/btn_update_data"
+                android:id="@+id/btn_revise_data"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 android:textSize="18sp" android:textColor="@color/colorBlack"
                 android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_body_fat"
-                android:layout_marginStart="16dp" android:layout_marginEnd="8dp" android:text="@string/update"
+                android:layout_marginStart="16dp" android:layout_marginEnd="8dp" android:text="@string/revise"
                 android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
                 android:background="@drawable/btn_text_border_black"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -76,8 +76,8 @@
                 android:background="@drawable/btn_text_border_black"
                 android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
                 android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_update_data"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_update_data" android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="@+id/btn_revise_data"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_revise_data" android:visibility="invisible"
                 android:onClick="@{() -> viewModel.deleteSelectedData()}"/>
         <TextView
                 android:id="@+id/btn_add_data"

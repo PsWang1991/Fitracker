@@ -70,12 +70,12 @@ class WorkoutRecordFragment : Fragment() {
     private fun revisableOn() {
         binding.btnAddData.makeInVisible()
         binding.btnDeleteData.makeVisible()
-        binding.btnUpdateData.makeVisible()
+        binding.btnReviseData.makeVisible()
     }
 
     private fun revisableOff() {
         binding.btnAddData.makeVisible()
         binding.btnDeleteData.makeInVisible()
-        binding.btnUpdateData.makeInVisible()
+        binding.btnReviseData.makeInVisible()
     }
 }

@@ -5,6 +5,12 @@
         <variable
                 name="viewModel"
                 type="com.pinhsiang.fitracker.timer.TimerViewModel"/>
+
+        <variable
+                name="converter"
+                type="com.pinhsiang.fitracker.Int2StringConverter"/>
+
+        <import type="android.view.View"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -55,9 +61,9 @@
                     android:inputType="number"
                     android:ellipsize="middle" android:breakStrategy="simple"
                     android:singleLine="true" android:background="@drawable/bg_edit_text_1"
-                    android:text="1"
                     app:layout_constraintEnd_toEndOf="@+id/minutes_exercise"
-                    app:layout_constraintStart_toStartOf="@+id/minutes_exercise"/>
+                    app:layout_constraintStart_toStartOf="@+id/minutes_exercise"
+                    android:text="@={converter.intToString(viewModel.displayExerciseMinutes)}"/>
             <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
@@ -65,7 +71,8 @@
                     app:layout_constraintTop_toTopOf="@+id/text_exercise_minute"
                     app:layout_constraintBottom_toBottomOf="@+id/text_exercise_minute"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintStart_toEndOf="@+id/text_exercise_minute" android:layout_marginStart="8dp"/>
+                    app:layout_constraintStart_toEndOf="@+id/text_exercise_minute" android:layout_marginStart="8dp"
+                    android:onClick="@{() -> viewModel.displayExerciseMinutesPlus1()}"/>
             <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
@@ -74,6 +81,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/text_exercise_minute"
                     app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
                     app:layout_constraintEnd_toStartOf="@+id/text_exercise_minute" android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> viewModel.displayExerciseMinutesMinus1()}"
             />
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_vertical_exercise"
@@ -101,11 +109,12 @@
                     tools:text="30"
                     android:inputType="number"
                     android:ellipsize="middle" android:breakStrategy="simple"
-                    android:singleLine="true" android:background="@drawable/bg_edit_text_1" android:text="30"
+                    android:singleLine="true" android:background="@drawable/bg_edit_text_1"
                     android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/second_exercise"
                     app:layout_constraintStart_toStartOf="@+id/second_exercise"
-                    app:layout_constraintEnd_toEndOf="@+id/second_exercise"/>
+                    app:layout_constraintEnd_toEndOf="@+id/second_exercise"
+                    android:text="@={converter.intToString(viewModel.displayExerciseSeconds)}"/>
             <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
@@ -113,7 +122,8 @@
                     app:layout_constraintTop_toTopOf="@+id/text_exercise_second"
                     app:layout_constraintBottom_toBottomOf="@+id/text_exercise_second"
                     app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintEnd_toStartOf="@+id/text_exercise_second" android:layout_marginEnd="8dp"/>
+                    app:layout_constraintEnd_toStartOf="@+id/text_exercise_second" android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> viewModel.displayExerciseSecondsMinus1()}"/>
             <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
@@ -122,7 +132,8 @@
                     app:layout_constraintTop_toTopOf="@+id/text_exercise_second"
                     app:layout_constraintBottom_toBottomOf="@+id/text_exercise_second"
                     app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/text_exercise_second" android:layout_marginStart="8dp"/>
+                    app:layout_constraintStart_toEndOf="@+id/text_exercise_second" android:layout_marginStart="8dp"
+                    android:onClick="@{() -> viewModel.displayExerciseSecondsPlus1()}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -154,7 +165,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/title_rest"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_rest" android:layout_marginEnd="8dp"/>
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_rest" android:layout_marginEnd="8dp"
+                    android:layout_marginTop="0dp"/>
             <EditText
                     android:id="@+id/text_rest_minute"
                     android:layout_width="70dp"
@@ -164,12 +176,13 @@
                     tools:text="0"
                     android:inputType="number"
                     android:ellipsize="middle" android:breakStrategy="simple"
-                    android:singleLine="true" android:background="@drawable/bg_edit_text_1" android:text="0"
+                    android:singleLine="true" android:background="@drawable/bg_edit_text_1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/minutes_rest"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintStart_toStartOf="@+id/minutes_rest"
-                    app:layout_constraintEnd_toEndOf="@+id/minutes_rest"/>
+                    app:layout_constraintEnd_toEndOf="@+id/minutes_rest"
+                    android:text="@={converter.intToString(viewModel.displayRestMinutes)}"/>
             <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp" app:srcCompat="@drawable/ic_plus_smashicons"
@@ -177,7 +190,8 @@
                     app:layout_constraintStart_toEndOf="@+id/text_rest_minute"
                     android:layout_marginStart="8dp"
                     app:layout_constraintTop_toTopOf="@+id/text_rest_minute"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_rest_minute"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/text_rest_minute"
+                    android:onClick="@{() -> viewModel.displayRestMinutesPlus1()}"/>
             <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp" app:srcCompat="@drawable/ic_minus_smashicons"
@@ -185,7 +199,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/text_rest_minute"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintTop_toTopOf="@+id/text_rest_minute"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_rest_minute"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/text_rest_minute"
+                    android:onClick="@{() -> viewModel.displayRestMinutesMinus1()}"/>
             <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline_vertical_rest"
                     android:orientation="vertical"
@@ -212,11 +227,12 @@
                     tools:text="20"
                     android:inputType="number"
                     android:ellipsize="middle" android:breakStrategy="simple"
-                    android:singleLine="true" android:background="@drawable/bg_edit_text_1" android:text="20"
+                    android:singleLine="true" android:background="@drawable/bg_edit_text_1"
                     android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/second_rest"
                     app:layout_constraintStart_toStartOf="@+id/second_rest"
-                    app:layout_constraintEnd_toEndOf="@+id/second_rest"/>
+                    app:layout_constraintEnd_toEndOf="@+id/second_rest"
+                    android:text="@={converter.intToString(viewModel.displayRestSeconds)}"/>
             <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
@@ -224,7 +240,8 @@
                     app:layout_constraintTop_toTopOf="@+id/text_rest_second"
                     app:layout_constraintBottom_toBottomOf="@+id/text_rest_second"
                     app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintEnd_toStartOf="@+id/text_rest_second" android:layout_marginEnd="8dp"/>
+                    app:layout_constraintEnd_toStartOf="@+id/text_rest_second" android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> viewModel.displayRestSecondsMinus1()}"/>
             <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
@@ -233,7 +250,8 @@
                     app:layout_constraintTop_toTopOf="@+id/text_rest_second"
                     app:layout_constraintBottom_toBottomOf="@+id/text_rest_second"
                     app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/text_rest_second" android:layout_marginStart="8dp"/>
+                    app:layout_constraintStart_toEndOf="@+id/text_rest_second" android:layout_marginStart="8dp"
+                    android:onClick="@{() -> viewModel.displayRestSecondsPlus1()}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -268,9 +286,10 @@
                     android:layout_marginBottom="8dp"
                     android:inputType="number"
                     android:ellipsize="middle" android:breakStrategy="simple"
-                    android:singleLine="true" android:background="@drawable/bg_edit_text_1" android:text="5"
+                    android:singleLine="true" android:background="@drawable/bg_edit_text_1"
                     app:layout_constraintStart_toStartOf="@+id/title_repeats"
-                    app:layout_constraintEnd_toEndOf="@+id/title_repeats"/>
+                    app:layout_constraintEnd_toEndOf="@+id/title_repeats"
+                    android:text="@={converter.intToString(viewModel.patternRepeats)}"/>
             <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
@@ -279,7 +298,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/text_repeats"
                     app:layout_constraintStart_toEndOf="@+id/text_repeats"
                     app:layout_constraintDimensionRatio="1:1"
-                    android:layout_marginStart="8dp"/>
+                    android:layout_marginStart="8dp"
+                    android:onClick="@{() -> viewModel.patternRepeatsPlus1()}"/>
             <ImageView
                     android:layout_width="0dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
@@ -288,6 +308,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/text_repeats"
                     app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
                     app:layout_constraintEnd_toStartOf="@+id/text_repeats" android:layout_marginEnd="8dp"
+                    android:onClick="@{() -> viewModel.patternRepeatsMinus1()}"
             />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -301,7 +322,7 @@
         <TextView
                 android:id="@+id/btn_add_time_pattern"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/guideline_vertical_timer"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textSize="18sp" android:textColor="@color/colorBlack"
@@ -313,9 +334,46 @@
                 tools:visibility="visible"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:visibility="@{viewModel.reviseMode == true? View.INVISIBLE : View.VISIBLE}"
+                android:onClick="@{() -> viewModel.addTimerPattern()}"/>
 
 
+        <TextView
+                android:id="@+id/btn_revise_time_pattern"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/guideline_vertical_timer"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="14sp" android:textColor="@color/colorBlack"
+                app:layout_constraintTop_toTopOf="@+id/layout_repeats"
+                app:layout_constraintBottom_toTopOf="@+id/btn_delete_time_pattern"
+                android:text="@string/revise"
+                android:textAlignment="gravity"
+                android:background="@drawable/btn_text_border_black"
+                tools:visibility="invisible"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center" android:layout_marginBottom="4dp"
+                android:visibility="@{viewModel.reviseMode == true? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{() -> viewModel.reviseSelectedPattern()}"/>
+        <TextView
+                android:id="@+id/btn_delete_time_pattern"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toEndOf="@+id/guideline_vertical_timer"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="14sp" android:textColor="@color/colorBlack"
+                android:text="@string/delete"
+                android:textAlignment="gravity"
+                android:background="@drawable/btn_text_border_black"
+                tools:visibility="invisible"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center" app:layout_constraintBottom_toBottomOf="@+id/layout_repeats"
+                android:layout_marginTop="4dp" app:layout_constraintTop_toBottomOf="@+id/btn_revise_time_pattern"
+                android:visibility="@{viewModel.reviseMode == true? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{() -> viewModel.deleteSelectedPattern()}"/>
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_time_pattern"
                 android:layout_width="0dp"
@@ -365,9 +423,13 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent" android:paddingTop="8dp"
-                    android:paddingBottom="8dp" android:id="@+id/rv_timer_pattern" android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/title_pattern_exercise">
+                    app:layout_constraintBottom_toBottomOf="parent" android:paddingTop="0dp"
+                    android:paddingBottom="8dp" android:id="@+id/rv_timer_pattern"
+                    app:layout_constraintTop_toBottomOf="@+id/title_pattern_exercise"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_timer_pattern"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:patternList="@{viewModel.timerPatternList}">
             </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -392,7 +454,7 @@
                 android:gravity="center" android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:onClick="@{() -> viewModel.stopTimer()}" android:layout_marginBottom="8dp"
+                android:onClick="@{() -> viewModel.startTimer()}" android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/button2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
