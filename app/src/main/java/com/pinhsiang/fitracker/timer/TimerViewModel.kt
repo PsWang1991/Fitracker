@@ -10,9 +10,9 @@ import java.util.*
 class TimerViewModel(app: Application) : AndroidViewModel(app) {
 
 
-    private val timerPattern1 = TimerPattern(workTime = 5, restTime = 3, repeat = 2)
-    private val timerPattern2 = TimerPattern(workTime = 4, restTime = 3, repeat = 1)
-    private val timerPattern3 = TimerPattern(workTime = 5, restTime = 3, repeat = 2)
+    private val timerPattern1 = TimerPattern(exerciseTime = 5, restTime = 3, repeat = 2)
+    private val timerPattern2 = TimerPattern(exerciseTime = 4, restTime = 3, repeat = 1)
+    private val timerPattern3 = TimerPattern(exerciseTime = 5, restTime = 3, repeat = 2)
     private val tp = listOf(timerPattern1, timerPattern2, timerPattern3)
 
     private val intervalTimer = object : Timer() {}
@@ -21,7 +21,7 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
     class IntervalTimerTask(val tp: List<TimerPattern>) : TimerTask() {
         var currentSet = 0
         var repeats = tp[currentSet].repeat
-        var timeWork = tp[currentSet].workTime
+        var timeWork = tp[currentSet].exerciseTime
         var timeRest = tp[currentSet].restTime
         override fun run() {
             if (repeats > 0) {
@@ -34,13 +34,13 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
                         timeRest -= 1
                         if (timeRest == 0) {
                             repeats -= 1
-                            timeWork = tp[currentSet].workTime
+                            timeWork = tp[currentSet].exerciseTime
                             timeRest = tp[currentSet].restTime
                             if (repeats == 0) {
                                 currentSet += 1
                                 if (currentSet < tp.size) {
                                     repeats = tp[currentSet].repeat
-                                    timeWork = tp[currentSet].workTime
+                                    timeWork = tp[currentSet].exerciseTime
                                     timeRest = tp[currentSet].restTime
                                 } else {
                                     Log.i(TAG, "任務完成")

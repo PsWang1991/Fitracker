@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+                name="pattern"
+                type="com.pinhsiang.fitracker.data.TimerPattern"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_vertical_timer_pattern"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.5"/>
+
+        <TextView
+                android:text="@{pattern.displayExerciseMinutes}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/exercise_minutes"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" android:layout_marginStart="16dp" tools:text="0"/>
+        <TextView
+                android:text="@string/colon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colon_exercise"
+                app:layout_constraintTop_toTopOf="@+id/exercise_minutes"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" android:layout_marginStart="4dp"
+                app:layout_constraintStart_toEndOf="@+id/exercise_minutes"
+                app:layout_constraintBottom_toBottomOf="@+id/exercise_minutes"/>
+        <TextView
+                android:text="@{pattern.displayExerciseSeconds}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/exercise_seconds"
+                app:layout_constraintTop_toTopOf="@+id/exercise_minutes"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" android:layout_marginStart="4dp" tools:text="50"
+                app:layout_constraintBottom_toBottomOf="@+id/exercise_minutes"
+                app:layout_constraintStart_toEndOf="@+id/colon_exercise"/>
+        <TextView
+                android:text="@{pattern.displayRestMinutes}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rest_minutes"
+                app:layout_constraintTop_toTopOf="@+id/exercise_minutes"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" tools:text="0"
+                app:layout_constraintBottom_toBottomOf="@+id/exercise_minutes"
+                app:layout_constraintVertical_bias="0.0"
+                android:layout_marginEnd="4dp" app:layout_constraintEnd_toStartOf="@+id/colon_rest"/>
+        <TextView
+                android:text="@string/colon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colon_rest"
+                app:layout_constraintTop_toTopOf="@+id/exercise_minutes"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/exercise_minutes"
+                app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_timer_pattern"
+                app:layout_constraintStart_toStartOf="@+id/guideline_vertical_timer_pattern"/>
+        <TextView
+                android:text="@{pattern.displayRestSeconds}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rest_seconds"
+                app:layout_constraintTop_toTopOf="@+id/exercise_minutes"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" tools:text="50"
+                app:layout_constraintBottom_toBottomOf="@+id/exercise_minutes"
+                app:layout_constraintVertical_bias="0.0" app:layout_constraintStart_toEndOf="@+id/colon_rest"
+                android:layout_marginStart="4dp"/>
+        <TextView
+                android:text="@{pattern.repeat}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_pattern_repeats"
+                app:layout_constraintTop_toTopOf="@+id/exercise_minutes"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" tools:text="5"
+                app:layout_constraintBottom_toBottomOf="@+id/exercise_minutes"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"/>
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="1dp" app:srcCompat="@color/colorBlack"
+                android:id="@+id/sep_line_pattern"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/exercise_minutes"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

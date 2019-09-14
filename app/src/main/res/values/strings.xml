@@ -129,6 +129,12 @@
     <string name="skeletal_muscle_inbody">Skeletal Muscle</string>
     <string name="body_fat_inbody">Body Fat</string>
     <string name="fitracker">Fitracker</string>
+    <string name="minutes">Minutes</string>
+    <string name="exercise">Exercise</string>
+    <string name="seconds">Seconds</string>
+    <string name="rest">Rest</string>
+    <string name="start">Start</string>
+    <string name="colon">:</string>
 
 
 </resources>
