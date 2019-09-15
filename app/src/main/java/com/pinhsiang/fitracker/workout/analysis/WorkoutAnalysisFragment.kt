@@ -127,28 +127,28 @@ class WorkoutAnalysisFragment : Fragment() {
                 when (it) {
                     DAYS_PER_3M * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterNormal()
-                        binding.period3mWorkout.setTextColor(getColor(R.color.colorWhite))
-                        binding.period3mWorkout.background = getDrawable(R.drawable.btn_text_border_black_solid_black)
+                        binding.period3mWorkout.setTextColor(getColor(R.color.colorBackground))
+                        binding.period3mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     DAYS_PER_6M * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterNormal()
-                        binding.period6mWorkout.setTextColor(getColor(R.color.colorWhite))
-                        binding.period6mWorkout.background = getDrawable(R.drawable.btn_text_border_black_solid_black)
+                        binding.period6mWorkout.setTextColor(getColor(R.color.colorBackground))
+                        binding.period6mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     DAYS_PER_1Y * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterNormal()
-                        binding.period1yWorkout.setTextColor(getColor(R.color.colorWhite))
-                        binding.period1yWorkout.background = getDrawable(R.drawable.btn_text_border_black_solid_black)
+                        binding.period1yWorkout.setTextColor(getColor(R.color.colorBackground))
+                        binding.period1yWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     viewModel.currentTime -> {
                         setAllPeriodFilterNormal()
-                        binding.periodAllWorkout.setTextColor(getColor(R.color.colorWhite))
-                        binding.periodAllWorkout.background = getDrawable(R.drawable.btn_text_border_black_solid_black)
+                        binding.periodAllWorkout.setTextColor(getColor(R.color.colorBackground))
+                        binding.periodAllWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     else -> {
                         setAllPeriodFilterNormal()
-                        binding.period1mWorkout.setTextColor(getColor(R.color.colorWhite))
-                        binding.period1mWorkout.background = getDrawable(R.drawable.btn_text_border_black_solid_black)
+                        binding.period1mWorkout.setTextColor(getColor(R.color.colorBackground))
+                        binding.period1mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
                     }
                 }
             }
@@ -247,15 +247,15 @@ class WorkoutAnalysisFragment : Fragment() {
     }
 
     private fun setAllPeriodFilterNormal() {
-        binding.period1mWorkout.setTextColor(getColor(R.color.colorBlack))
-        binding.period1mWorkout.background = getDrawable(R.drawable.btn_text_border_black)
-        binding.period3mWorkout.setTextColor(getColor(R.color.colorBlack))
-        binding.period3mWorkout.background = getDrawable(R.drawable.btn_text_border_black)
-        binding.period6mWorkout.setTextColor(getColor(R.color.colorBlack))
-        binding.period6mWorkout.background = getDrawable(R.drawable.btn_text_border_black)
-        binding.period1yWorkout.setTextColor(getColor(R.color.colorBlack))
-        binding.period1yWorkout.background = getDrawable(R.drawable.btn_text_border_black)
-        binding.periodAllWorkout.setTextColor(getColor(R.color.colorBlack))
-        binding.periodAllWorkout.background = getDrawable(R.drawable.btn_text_border_black)
+        binding.period1mWorkout.setTextColor(getColor(R.color.colorText))
+        binding.period1mWorkout.background = getDrawable(R.drawable.btn_text_border)
+        binding.period3mWorkout.setTextColor(getColor(R.color.colorText))
+        binding.period3mWorkout.background = getDrawable(R.drawable.btn_text_border)
+        binding.period6mWorkout.setTextColor(getColor(R.color.colorText))
+        binding.period6mWorkout.background = getDrawable(R.drawable.btn_text_border)
+        binding.period1yWorkout.setTextColor(getColor(R.color.colorText))
+        binding.period1yWorkout.background = getDrawable(R.drawable.btn_text_border)
+        binding.periodAllWorkout.setTextColor(getColor(R.color.colorText))
+        binding.periodAllWorkout.background = getDrawable(R.drawable.btn_text_border)
     }
 }

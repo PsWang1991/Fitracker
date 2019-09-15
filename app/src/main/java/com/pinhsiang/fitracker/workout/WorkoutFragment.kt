@@ -1,6 +1,5 @@
 package com.pinhsiang.fitracker.workout
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -170,13 +169,13 @@ class WorkoutFragment : Fragment() {
                 binding.customCalendar.visibility = View.GONE
                 binding.legendLayout.visibility = View.GONE
                 binding.indicator.background =
-                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_up_black_24dp)
+                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_up_24dp)
                 viewModel.calendarExpanding = false
             } else {
                 binding.customCalendar.visibility = View.VISIBLE
                 binding.legendLayout.visibility = View.VISIBLE
                 binding.indicator.background =
-                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_down_black_24dp)
+                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_down_24dp)
                 viewModel.calendarExpanding = true
             }
         }

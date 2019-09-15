@@ -22,8 +22,6 @@ import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.databinding.FragmentNutritionAnalysisBinding
-import com.pinhsiang.fitracker.databinding.FragmentNutritionBinding
-import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
 import com.pinhsiang.fitracker.util.Util
 
 const val CHART_AXIS_TEXT_SIZE = 14f
@@ -101,33 +99,33 @@ class NutritionAnalysisFragment : Fragment() {
                 when (it) {
                     DAYS_PER_3M * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterNormal()
-                        binding.period3mNutrition.setTextColor(Util.getColor(R.color.colorWhite))
+                        binding.period3mNutrition.setTextColor(Util.getColor(R.color.colorBackground))
                         binding.period3mNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_black_solid_black)
+                            Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     DAYS_PER_6M * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterNormal()
-                        binding.period6mNutrition.setTextColor(Util.getColor(R.color.colorWhite))
+                        binding.period6mNutrition.setTextColor(Util.getColor(R.color.colorBackground))
                         binding.period6mNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_black_solid_black)
+                            Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     DAYS_PER_1Y * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterNormal()
-                        binding.period1yNutrition.setTextColor(Util.getColor(R.color.colorWhite))
+                        binding.period1yNutrition.setTextColor(Util.getColor(R.color.colorBackground))
                         binding.period1yNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_black_solid_black)
+                            Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     viewModel.currentTime -> {
                         setAllPeriodFilterNormal()
-                        binding.periodAllNutrition.setTextColor(Util.getColor(R.color.colorWhite))
+                        binding.periodAllNutrition.setTextColor(Util.getColor(R.color.colorBackground))
                         binding.periodAllNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_black_solid_black)
+                            Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     else -> {
                         setAllPeriodFilterNormal()
-                        binding.period1mNutrition.setTextColor(Util.getColor(R.color.colorWhite))
+                        binding.period1mNutrition.setTextColor(Util.getColor(R.color.colorBackground))
                         binding.period1mNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_black_solid_black)
+                            Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                 }
             }
@@ -226,15 +224,15 @@ class NutritionAnalysisFragment : Fragment() {
     }
 
     private fun setAllPeriodFilterNormal() {
-        binding.period1mNutrition.setTextColor(Util.getColor(R.color.colorBlack))
-        binding.period1mNutrition.background = Util.getDrawable(R.drawable.btn_text_border_black)
-        binding.period3mNutrition.setTextColor(Util.getColor(R.color.colorBlack))
-        binding.period3mNutrition.background = Util.getDrawable(R.drawable.btn_text_border_black)
-        binding.period6mNutrition.setTextColor(Util.getColor(R.color.colorBlack))
-        binding.period6mNutrition.background = Util.getDrawable(R.drawable.btn_text_border_black)
-        binding.period1yNutrition.setTextColor(Util.getColor(R.color.colorBlack))
-        binding.period1yNutrition.background = Util.getDrawable(R.drawable.btn_text_border_black)
-        binding.periodAllNutrition.setTextColor(Util.getColor(R.color.colorBlack))
-        binding.periodAllNutrition.background = Util.getDrawable(R.drawable.btn_text_border_black)
+        binding.period1mNutrition.setTextColor(Util.getColor(R.color.colorText))
+        binding.period1mNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
+        binding.period3mNutrition.setTextColor(Util.getColor(R.color.colorText))
+        binding.period3mNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
+        binding.period6mNutrition.setTextColor(Util.getColor(R.color.colorText))
+        binding.period6mNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
+        binding.period1yNutrition.setTextColor(Util.getColor(R.color.colorText))
+        binding.period1yNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
+        binding.periodAllNutrition.setTextColor(Util.getColor(R.color.colorText))
+        binding.periodAllNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
     }
 }

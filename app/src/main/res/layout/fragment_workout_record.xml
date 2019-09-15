@@ -29,7 +29,7 @@
                 android:layout_marginTop="16dp"
                 tools:text="2019-09-08"
                 android:textSize="18sp"
-                android:textColor="@color/colorBlack" android:layout_marginStart="16dp"/>
+                android:textColor="@color/colorText" android:layout_marginStart="16dp"/>
         <TextView
                 android:id="@+id/text_motion"
                 android:text="@{viewModel.selectedWorkout.motion}"
@@ -41,7 +41,7 @@
                 android:layout_marginTop="16dp"
                 tools:text="@string/bench_press"
                 android:textSize="18sp"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorText"/>
         <TextView
                 android:id="@+id/btn_upload_data"
                 android:text="@string/save"
@@ -51,47 +51,47 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="16dp"
                 android:textSize="18sp"
-                android:textColor="@color/blue_1973E8" android:layout_marginEnd="16dp"
+                android:textColor="@color/colorItem" android:layout_marginEnd="16dp"
                 android:onClick="@{() -> viewModel.addDataToFirebase()}"/>
-        <TextView
-                android:id="@+id/btn_revise_data"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                android:textSize="18sp" android:textColor="@color/colorBlack"
-                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_body_fat"
-                android:layout_marginStart="16dp" android:layout_marginEnd="8dp" android:text="@string/revise"
-                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
-                android:background="@drawable/btn_text_border_black"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_vertical" android:visibility="invisible"
-                android:onClick="@{() -> viewModel.updateSelectedData()}"/>
-        <TextView
-                android:id="@+id/btn_delete_data"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="18sp" android:textColor="@color/colorBlack"
-                android:text="@string/delete"
-                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
-                android:background="@drawable/btn_text_border_black"
-                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
-                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_revise_data"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_revise_data" android:visibility="invisible"
-                android:onClick="@{() -> viewModel.deleteSelectedData()}"/>
         <TextView
                 android:id="@+id/btn_add_data"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="18sp" android:textColor="@color/colorBlack"
+                android:textSize="18sp" android:textColor="@color/colorBackground"
                 android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_body_fat"
                 android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:text="@string/add"
                 android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
-                android:background="@drawable/btn_text_border_black"
-                tools:visibility="visible"
+                android:background="@drawable/btn_text_border_inverse"
+                tools:visibility="invisible"
                 android:onClick="@{() -> viewModel.addData()}"/>
+        <TextView
+                android:id="@+id/btn_revise_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="18sp" android:textColor="@color/colorBackground"
+                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_body_fat"
+                android:layout_marginStart="16dp" android:layout_marginEnd="8dp" android:text="@string/revise"
+                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
+                android:background="@drawable/btn_text_border_inverse"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_vertical" android:visibility="visible"
+                android:onClick="@{() -> viewModel.updateSelectedData()}"/>
+        <TextView
+                android:id="@+id/btn_delete_data"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp" android:textColor="@color/colorBackground"
+                android:text="@string/delete"
+                android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
+                android:background="@drawable/btn_text_border_inverse"
+                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
+                android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_revise_data"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_revise_data" android:visibility="visible"
+                android:onClick="@{() -> viewModel.deleteSelectedData()}"/>
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_protein"
                 android:layout_width="0dp"
@@ -101,7 +101,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp" android:background="@drawable/btn_text_border_black">
+                android:layout_marginTop="16dp" android:background="@drawable/view_item_background">
 
             <TextView
                     android:text="@string/weight_kg"
@@ -110,25 +110,27 @@
                     android:id="@+id/title_body_weight"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"/>
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorText"
+                    android:textSize="18sp"/>
             <EditText
                     android:id="@+id/text_body_weight"
                     android:layout_width="90dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
                     app:layout_constraintStart_toStartOf="@+id/title_body_weight"
                     app:layout_constraintEnd_toEndOf="@+id/title_body_weight"
                     android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/title_body_weight"
                     android:textAlignment="center"
-                    android:textSize="14sp"
+                    android:textSize="18sp"
                     tools:text="20"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="8dp"
                     android:inputType="number"
-                    android:text="@={converter.intToString(viewModel.weightRecord)}"/>
+                    android:text="@={converter.intToString(viewModel.weightRecord)}"
+                    android:textColor="@color/colorText" android:background="@drawable/bg_edit_text_1"/>
             <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:layout_width="36dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_weight_plus"
                     app:layout_constraintTop_toTopOf="@+id/text_body_weight"
                     app:layout_constraintBottom_toBottomOf="@+id/text_body_weight"
@@ -136,8 +138,8 @@
                     app:layout_constraintDimensionRatio="1:1"
                     android:onClick="@{() -> viewModel.weightPlus5()}"/>
             <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:layout_width="36dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_weight_minus"
                     app:layout_constraintTop_toTopOf="@+id/text_body_weight"
                     app:layout_constraintBottom_toBottomOf="@+id/text_body_weight"
@@ -156,7 +158,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp" android:background="@drawable/btn_text_border_black">
+                android:layout_marginTop="16dp" android:background="@drawable/view_item_background">
 
             <TextView
                     android:text="@string/repeats"
@@ -165,19 +167,21 @@
                     android:id="@+id/title_carbohydrate"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"/>
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorText"
+                    android:textSize="18sp"/>
             <EditText
                     android:layout_width="90dp"
-                    android:layout_height="wrap_content" android:id="@+id/text_carbohydrate"
+                    android:layout_height="36dp" android:id="@+id/text_carbohydrate"
                     app:layout_constraintStart_toStartOf="@+id/title_carbohydrate"
                     app:layout_constraintEnd_toEndOf="@+id/title_carbohydrate" android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@+id/title_carbohydrate" android:textAlignment="center"
-                    android:textSize="14sp" tools:text="12" app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="18sp" tools:text="12" app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="8dp" android:inputType="number"
-                    android:text="@={converter.intToString(viewModel.repeatsRecord)}"/>
+                    android:text="@={converter.intToString(viewModel.repeatsRecord)}"
+                    android:textColor="@color/colorText" android:background="@drawable/bg_edit_text_1"/>
             <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:layout_width="36dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_repeats_plus"
                     app:layout_constraintTop_toTopOf="@+id/text_carbohydrate"
                     app:layout_constraintBottom_toBottomOf="@+id/text_carbohydrate"
@@ -185,8 +189,8 @@
                     app:layout_constraintDimensionRatio="1:1"
                     android:onClick="@{() -> viewModel.repeatsPlus1()}"/>
             <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:layout_width="36dp"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_repeats_minus"
                     app:layout_constraintTop_toTopOf="@+id/text_carbohydrate"
                     app:layout_constraintBottom_toBottomOf="@+id/text_carbohydrate"

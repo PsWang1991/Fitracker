@@ -55,7 +55,7 @@ class MotionFragment : Fragment() {
             }
         })
 
-        binding.textView2.text = viewModel.dataTime.timestampToString()
+        binding.textDateMotion.text = viewModel.dataTime.timestampToString()
 
         return binding.root
     }

@@ -26,7 +26,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp" android:background="@drawable/btn_text_border_black">
+                android:layout_marginTop="16dp" android:background="@drawable/view_item_background">
 
             <TextView
                     android:text="@string/exercise"
@@ -35,14 +35,14 @@
                     android:id="@+id/title_exercise"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorText"
                     android:textSize="18sp"/>
             <TextView
                     android:id="@+id/minutes_exercise"
                     android:text="@string/minutes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorText"
                     app:layout_constraintTop_toBottomOf="@+id/title_exercise"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_exercise"
@@ -63,10 +63,11 @@
                     android:singleLine="true" android:background="@drawable/bg_edit_text_1"
                     app:layout_constraintEnd_toEndOf="@+id/minutes_exercise"
                     app:layout_constraintStart_toStartOf="@+id/minutes_exercise"
-                    android:text="@={converter.intToString(viewModel.displayExerciseMinutes)}"/>
+                    android:text="@={converter.intToString(viewModel.displayExerciseMinutes)}"
+                    android:textColor="@color/colorText"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_exercise_minute_plus"
                     app:layout_constraintTop_toTopOf="@+id/text_exercise_minute"
                     app:layout_constraintBottom_toBottomOf="@+id/text_exercise_minute"
@@ -75,7 +76,7 @@
                     android:onClick="@{() -> viewModel.displayExerciseMinutesPlus1()}"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_exercise_minute_minus"
                     app:layout_constraintTop_toTopOf="@+id/text_exercise_minute"
                     app:layout_constraintBottom_toBottomOf="@+id/text_exercise_minute"
@@ -94,7 +95,7 @@
                     android:text="@string/seconds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorText"
                     app:layout_constraintTop_toTopOf="@+id/minutes_exercise"
                     app:layout_constraintBottom_toBottomOf="@+id/minutes_exercise" android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -114,10 +115,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/second_exercise"
                     app:layout_constraintStart_toStartOf="@+id/second_exercise"
                     app:layout_constraintEnd_toEndOf="@+id/second_exercise"
-                    android:text="@={converter.intToString(viewModel.displayExerciseSeconds)}"/>
+                    android:text="@={converter.intToString(viewModel.displayExerciseSeconds)}"
+                    android:textColor="@color/colorText"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_exercise_second_minus"
                     app:layout_constraintTop_toTopOf="@+id/text_exercise_second"
                     app:layout_constraintBottom_toBottomOf="@+id/text_exercise_second"
@@ -126,7 +128,7 @@
                     android:onClick="@{() -> viewModel.displayExerciseSecondsMinus1()}"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_exercise_second_plus"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintTop_toTopOf="@+id/text_exercise_second"
@@ -145,7 +147,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="8dp" android:background="@drawable/btn_text_border_black">
+                android:layout_marginTop="8dp" android:background="@drawable/view_item_background">
 
             <TextView
                     android:text="@string/rest"
@@ -154,19 +156,19 @@
                     android:id="@+id/title_rest"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorText"
                     android:textSize="18sp"/>
             <TextView
                     android:id="@+id/minutes_rest"
                     android:text="@string/minutes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorText"
                     app:layout_constraintTop_toBottomOf="@+id/title_rest"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_rest" android:layout_marginEnd="8dp"
-                    android:layout_marginTop="0dp"/>
+            />
             <EditText
                     android:id="@+id/text_rest_minute"
                     android:layout_width="70dp"
@@ -182,10 +184,11 @@
                     android:layout_marginBottom="8dp"
                     app:layout_constraintStart_toStartOf="@+id/minutes_rest"
                     app:layout_constraintEnd_toEndOf="@+id/minutes_rest"
-                    android:text="@={converter.intToString(viewModel.displayRestMinutes)}"/>
+                    android:text="@={converter.intToString(viewModel.displayRestMinutes)}"
+                    android:textColor="@color/colorText"/>
             <ImageView
                     android:layout_width="24dp"
-                    android:layout_height="24dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:layout_height="24dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_rest_minute_plus"
                     app:layout_constraintStart_toEndOf="@+id/text_rest_minute"
                     android:layout_marginStart="8dp"
@@ -194,7 +197,7 @@
                     android:onClick="@{() -> viewModel.displayRestMinutesPlus1()}"/>
             <ImageView
                     android:layout_width="24dp"
-                    android:layout_height="24dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:layout_height="24dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_rest_minute_minus"
                     app:layout_constraintEnd_toStartOf="@+id/text_rest_minute"
                     android:layout_marginEnd="8dp"
@@ -212,7 +215,7 @@
                     android:text="@string/seconds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorText"
                     android:textSize="18sp"
                     app:layout_constraintTop_toTopOf="@+id/minutes_rest"
                     app:layout_constraintBottom_toBottomOf="@+id/minutes_rest" app:layout_constraintEnd_toEndOf="parent"
@@ -232,10 +235,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/second_rest"
                     app:layout_constraintStart_toStartOf="@+id/second_rest"
                     app:layout_constraintEnd_toEndOf="@+id/second_rest"
-                    android:text="@={converter.intToString(viewModel.displayRestSeconds)}"/>
+                    android:text="@={converter.intToString(viewModel.displayRestSeconds)}"
+                    android:textColor="@color/colorText"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_rest_second_minus"
                     app:layout_constraintTop_toTopOf="@+id/text_rest_second"
                     app:layout_constraintBottom_toBottomOf="@+id/text_rest_second"
@@ -244,7 +248,7 @@
                     android:onClick="@{() -> viewModel.displayRestSecondsMinus1()}"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_rest_second_plus"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintTop_toTopOf="@+id/text_rest_second"
@@ -261,7 +265,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/layout_rest"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp" android:background="@drawable/btn_text_border_black"
+                android:layout_marginTop="8dp" android:background="@drawable/view_item_background"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_timer" android:layout_marginEnd="8dp">
 
             <TextView
@@ -271,7 +275,7 @@
                     android:id="@+id/title_repeats"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorBlack"
+                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorText"
                     android:textSize="18sp"/>
             <EditText
                     android:id="@+id/text_repeats"
@@ -289,10 +293,11 @@
                     android:singleLine="true" android:background="@drawable/bg_edit_text_1"
                     app:layout_constraintStart_toStartOf="@+id/title_repeats"
                     app:layout_constraintEnd_toEndOf="@+id/title_repeats"
-                    android:text="@={converter.intToString(viewModel.patternRepeats)}"/>
+                    android:text="@={converter.intToString(viewModel.patternRepeats)}"
+                    android:textColor="@color/colorText"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_smashicons"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_repeats_plus"
                     app:layout_constraintTop_toTopOf="@+id/text_repeats"
                     app:layout_constraintBottom_toBottomOf="@+id/text_repeats"
@@ -302,7 +307,7 @@
                     android:onClick="@{() -> viewModel.patternRepeatsPlus1()}"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_smashicons"
+                    android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_repeats_minus"
                     app:layout_constraintTop_toTopOf="@+id/text_repeats"
                     app:layout_constraintBottom_toBottomOf="@+id/text_repeats"
@@ -325,13 +330,13 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/guideline_vertical_timer"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="18sp" android:textColor="@color/colorBlack"
+                android:textSize="18sp" android:textColor="@color/colorBackground"
                 app:layout_constraintTop_toTopOf="@+id/layout_repeats"
                 app:layout_constraintBottom_toBottomOf="@+id/layout_repeats"
                 android:text="@string/add"
                 android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="gravity"
-                android:background="@drawable/btn_text_border_black"
-                tools:visibility="visible"
+                android:background="@drawable/btn_text_border_inverse"
+                tools:visibility="invisible"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center"
@@ -345,13 +350,13 @@
                 android:layout_height="0dp"
                 app:layout_constraintStart_toEndOf="@+id/guideline_vertical_timer"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="14sp" android:textColor="@color/colorBlack"
+                android:textSize="18sp" android:textColor="@color/colorBackground"
                 app:layout_constraintTop_toTopOf="@+id/layout_repeats"
                 app:layout_constraintBottom_toTopOf="@+id/btn_delete_time_pattern"
                 android:text="@string/revise"
                 android:textAlignment="gravity"
-                android:background="@drawable/btn_text_border_black"
-                tools:visibility="invisible"
+                android:background="@drawable/btn_text_border_inverse"
+                tools:visibility="visible"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center" android:layout_marginBottom="4dp"
@@ -363,11 +368,11 @@
                 android:layout_height="0dp"
                 app:layout_constraintStart_toEndOf="@+id/guideline_vertical_timer"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="14sp" android:textColor="@color/colorBlack"
+                android:textSize="18sp" android:textColor="@color/colorBackground"
                 android:text="@string/delete"
                 android:textAlignment="gravity"
-                android:background="@drawable/btn_text_border_black"
-                tools:visibility="invisible"
+                android:background="@drawable/btn_text_border_inverse"
+                tools:visibility="visible"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center" app:layout_constraintBottom_toBottomOf="@+id/layout_repeats"
@@ -383,7 +388,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/btn_start_timer" android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/btn_text_border_black" android:layout_marginStart="16dp"
+                android:background="@drawable/view_item_background" android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp">
 
             <TextView
@@ -394,8 +399,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="18sp" android:layout_marginStart="16dp"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp" android:layout_marginStart="16dp" android:textStyle="bold"
+                    android:textAlignment="center"/>
 
             <TextView
                     android:text="@string/rest"
@@ -403,20 +409,22 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/title_pattern_rest"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorText"
                     android:textSize="18sp" app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/title_pattern_exercise"
-                    app:layout_constraintBottom_toBottomOf="@+id/title_pattern_exercise"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/title_pattern_exercise" android:textStyle="bold"
+                    android:textAlignment="center"/>
             <TextView
                     android:text="@string/repeats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/title_pattern_repeats"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorText"
                     android:textSize="18sp" app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintTop_toTopOf="@+id/title_pattern_exercise"
-                    app:layout_constraintBottom_toBottomOf="@+id/title_pattern_exercise"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/title_pattern_exercise" android:textStyle="bold"
+                    android:textAlignment="center"/>
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -437,10 +445,10 @@
                 android:id="@+id/btn_start_timer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="18sp" android:textColor="@color/colorBlack"
+                android:textSize="18sp" android:textColor="@color/colorBackground"
                 android:text="@string/start"
                 android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="gravity"
-                android:background="@drawable/btn_text_border_black"
+                android:background="@drawable/btn_text_border_inverse"
                 tools:visibility="visible"
                 android:gravity="center" android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="16dp"
@@ -454,9 +462,9 @@
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="16dp" android:layout_marginBottom="16dp" android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/btn_text_border_black"
+                android:background="@drawable/view_item_background"
                 android:visibility="@{viewModel.timerStart == true ? View.VISIBLE : View.INVISIBLE}"
-                tools:visibility="visible">
+                tools:visibility="invisible">
 
             <TextView
                     android:text="@{viewModel.intervalTimerStatus}"
@@ -466,7 +474,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="120dp"
                     app:layout_constraintTop_toTopOf="parent" tools:text="@string/exercise" android:textSize="36sp"
-                    android:textColor="@color/colorBlack"/>
+                    android:textColor="@color/colorText"/>
             <TextView
                     android:text="@{viewModel.intervalTimerTime}"
                     android:layout_width="wrap_content"
@@ -475,16 +483,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="32dp"
                     tools:text="00:49" android:textSize="72sp"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorText"
                     app:layout_constraintTop_toBottomOf="@+id/text_interval_status"/>
             <TextView
                     android:id="@+id/btn_stop_timer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp" android:textColor="@color/colorBlack"
+                    android:textSize="18sp" android:textColor="@color/colorBackground"
                     android:text="@string/stop"
                     android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="gravity"
-                    android:background="@drawable/btn_text_border_black"
+                    android:background="@drawable/btn_text_border_inverse"
                     tools:visibility="visible"
                     android:gravity="center"
                     android:onClick="@{() -> viewModel.stopTimer()}"

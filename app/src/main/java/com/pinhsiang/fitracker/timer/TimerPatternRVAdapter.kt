@@ -59,21 +59,21 @@ class TimerPatternRVAdapter(val viewModel: TimerViewModel) :
         if (viewModel.reviseMode.value!!) {
             when (position) {
                 selectedPosition -> {
-                    holder.binding.exerciseTime.setTextColor(getColor(R.color.colorBlack))
-                    holder.binding.restTime.setTextColor(getColor(R.color.colorBlack))
-                    holder.binding.textPatternRepeats.setTextColor(getColor(R.color.colorBlack))
+                    holder.binding.exerciseTime.setTextColor(getColor(R.color.colorText))
+                    holder.binding.restTime.setTextColor(getColor(R.color.colorText))
+                    holder.binding.textPatternRepeats.setTextColor(getColor(R.color.colorText))
                 }
                 else -> {
-                    holder.binding.exerciseTime.setTextColor(getColor(R.color.calendar_grey))
-                    holder.binding.restTime.setTextColor(getColor(R.color.calendar_grey))
-                    holder.binding.textPatternRepeats.setTextColor(getColor(R.color.calendar_grey))
+                    holder.binding.exerciseTime.setTextColor(getColor(R.color.colorItem))
+                    holder.binding.restTime.setTextColor(getColor(R.color.colorItem))
+                    holder.binding.textPatternRepeats.setTextColor(getColor(R.color.colorItem))
                 }
             }
 
         } else if (!viewModel.reviseMode.value!!) {
-            holder.binding.exerciseTime.setTextColor(getColor(R.color.colorBlack))
-            holder.binding.restTime.setTextColor(getColor(R.color.colorBlack))
-            holder.binding.textPatternRepeats.setTextColor(getColor(R.color.colorBlack))
+            holder.binding.exerciseTime.setTextColor(getColor(R.color.colorText))
+            holder.binding.restTime.setTextColor(getColor(R.color.colorText))
+            holder.binding.textPatternRepeats.setTextColor(getColor(R.color.colorText))
         }
         holder.itemView.setOnClickListener {
             selectedPosition = position

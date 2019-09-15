@@ -28,7 +28,7 @@
                         android:id="@+id/text_month"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="18sp"
                         tools:text="April"
                         app:layout_constraintTop_toTopOf="@+id/text_year"
@@ -38,7 +38,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/text_year" tools:text="2019"
                         android:textSize="18sp"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
                 <ImageView
@@ -48,8 +48,9 @@
                         app:layout_constraintStart_toEndOf="@+id/text_month" android:layout_marginStart="16dp"
                         app:layout_constraintTop_toTopOf="@+id/text_year"
                         app:layout_constraintBottom_toBottomOf="@+id/text_year"
-                        android:background="@{viewModel.calendarExpanding == true ? @drawable/ic_calendar_arrow_down_black_24dp : @drawable/ic_calendar_arrow_up_black_24dp}"
-                        tools:srcCompat="@drawable/ic_calendar_arrow_down_black_24dp"/>
+                        android:background="@{viewModel.calendarExpanding == true ? @drawable/ic_calendar_arrow_down_24dp : @drawable/ic_calendar_arrow_up_24dp}"
+                        tools:srcCompat="@drawable/ic_calendar_arrow_down_24dp"
+                        android:backgroundTint="@color/colorText"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
@@ -73,7 +74,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="SUN"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -83,7 +84,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="MON"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -93,7 +94,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="TUE"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -103,7 +104,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="WED"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -113,7 +114,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="THU"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -123,7 +124,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="FRI"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -133,7 +134,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="SAT"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
             </LinearLayout>
@@ -160,7 +161,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/customCalendar"
                 android:id="@+id/layout_inbody_data" android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp" android:background="@drawable/item_inbody_background"
+                android:layout_marginTop="16dp" android:background="@drawable/view_item_background"
                 android:visibility="@{viewModel.displayBodyFat == null ? View.GONE : View.VISIBLE}">
 
             <TextView
@@ -170,30 +171,30 @@
                     android:id="@+id/title_body_weight"
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-                    android:textSize="18sp" android:textColor="@color/colorBlack"/>
+                    android:textSize="18sp" android:textColor="@color/colorText" android:textStyle="bold"/>
             <TextView
                     android:id="@+id/text_body_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@+id/title_body_weight"
-                    android:layout_marginStart="8dp"
-                    android:textSize="18sp" android:textColor="@color/colorBlack"
+                    android:layout_marginStart="16dp"
+                    android:textSize="18sp" android:textColor="@color/colorText"
                     app:layout_constraintBottom_toBottomOf="@+id/title_body_weight"
                     app:layout_constraintStart_toEndOf="@+id/title_body_weight" tools:text="53"
-                    android:text="@{String.valueOf(viewModel.displayBodyWeight)}"/>
+                    android:text="@{String.valueOf(viewModel.displayBodyWeight)}" android:textStyle="bold"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/unit_body_weight"
                     app:layout_constraintTop_toTopOf="@+id/title_body_weight"
                     android:layout_marginStart="8dp"
-                    android:textSize="18sp" android:textColor="@color/colorBlack"
+                    android:textSize="18sp" android:textColor="@color/colorText"
                     app:layout_constraintBottom_toBottomOf="@+id/title_body_weight"
                     app:layout_constraintStart_toEndOf="@+id/text_body_weight"
-                    app:layout_constraintVertical_bias="0.0" android:text="@string/kg"/>
+                    app:layout_constraintVertical_bias="0.0" android:text="@string/kg" android:textStyle="bold"/>
             <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="2dp" app:srcCompat="@color/colorBlack"
+                    android:layout_height="2dp" app:srcCompat="@color/colorItem"
                     android:id="@+id/sep_line" app:layout_constraintTop_toBottomOf="@+id/title_body_weight"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
                     app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
@@ -203,14 +204,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/title_skeletal_muscle"
-                    app:layout_constraintStart_toStartOf="@+id/title_body_weight" android:layout_marginStart="8dp"
-                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    app:layout_constraintStart_toStartOf="@+id/title_body_weight"
+                    android:textSize="18sp" android:textColor="@color/colorText"
                     app:layout_constraintTop_toBottomOf="@+id/sep_line" android:layout_marginTop="8dp"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/text_skeletal_muscle"
-                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    android:textSize="18sp" android:textColor="@color/colorText"
                     app:layout_constraintTop_toTopOf="@+id/title_skeletal_muscle"
                     app:layout_constraintBottom_toBottomOf="@+id/title_skeletal_muscle"
                     app:layout_constraintEnd_toStartOf="@+id/unit_percentage" android:layout_marginEnd="8dp"
@@ -221,8 +222,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/unit_percentage"
-                    android:textSize="14sp" android:textColor="@color/colorBlack"
-                    android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/sep_line"
+                    android:textSize="18sp" android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="@+id/sep_line"
                     app:layout_constraintTop_toTopOf="@+id/title_skeletal_muscle"
                     app:layout_constraintBottom_toBottomOf="@+id/title_skeletal_muscle"/>
             <TextView
@@ -230,15 +231,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/title_body_fat"
-                    app:layout_constraintStart_toStartOf="@+id/title_body_weight" android:layout_marginStart="8dp"
-                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    app:layout_constraintStart_toStartOf="@+id/title_body_weight"
+                    android:textSize="18sp" android:textColor="@color/colorText"
                     app:layout_constraintTop_toBottomOf="@+id/title_skeletal_muscle" android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/text_body_fat"
-                    android:textSize="14sp" android:textColor="@color/colorBlack"
+                    android:textSize="18sp" android:textColor="@color/colorText"
                     app:layout_constraintTop_toTopOf="@+id/title_body_fat"
                     app:layout_constraintBottom_toBottomOf="@+id/title_body_fat" tools:text="12.3"
                     app:layout_constraintEnd_toStartOf="@+id/unit_percentage2" android:layout_marginEnd="8dp"
@@ -248,8 +249,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/unit_percentage2"
-                    android:textSize="14sp" android:textColor="@color/colorBlack"
-                    android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/sep_line"
+                    android:textSize="18sp" android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="@+id/sep_line"
                     app:layout_constraintTop_toTopOf="@+id/title_body_fat"
                     app:layout_constraintBottom_toBottomOf="@+id/title_body_fat"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -260,7 +261,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/customCalendar"
                 app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="@{viewModel.displayBodyFat == null ? View.VISIBLE : View.GONE}"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -272,7 +273,7 @@
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:backgroundTint="@color/pink_BD9C9C"
+                app:backgroundTint="@color/colorItem"
                 android:onClick="@{() -> viewModel.addNewData()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,7 +27,7 @@
                         android:id="@+id/text_month"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="18sp"
                         tools:text="April"
                         app:layout_constraintTop_toTopOf="@+id/text_year"
@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/text_year" tools:text="2019"
                         android:textSize="18sp"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
                 <ImageView
@@ -47,7 +47,7 @@
                         app:layout_constraintStart_toEndOf="@+id/text_month" android:layout_marginStart="16dp"
                         app:layout_constraintTop_toTopOf="@+id/text_year"
                         app:layout_constraintBottom_toBottomOf="@+id/text_year"
-                        android:background="@drawable/ic_calendar_arrow_down_black_24dp"/>
+                        android:background="@drawable/ic_calendar_arrow_down_24dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
@@ -71,7 +71,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="SUN"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -81,7 +81,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="MON"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -91,7 +91,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="TUE"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -101,7 +101,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="WED"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -111,7 +111,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="THU"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -121,7 +121,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="FRI"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
                 <TextView
@@ -131,7 +131,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="SAT"
-                        android:textColor="@color/colorBlack"
+                        android:textColor="@color/colorText"
                         android:textSize="14sp"/>
 
             </LinearLayout>
@@ -169,7 +169,7 @@
                 android:clickable="true"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent" app:backgroundTint="@color/blue_1973E8"
+                app:layout_constraintEnd_toEndOf="parent" app:backgroundTint="@color/colorItem"
                 android:onClick="@{() -> viewModel.addNewData()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

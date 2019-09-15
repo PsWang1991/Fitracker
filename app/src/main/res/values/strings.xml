@@ -74,9 +74,9 @@
     <string name="carbohydrate_g">Carbohydrate [g]</string>
     <string name="fat_g">Fat [g]</string>
     <string name="save">Save</string>
-    <string name="body_weight">Body Weight :</string>
-    <string name="skeletal_muscle">Skeletal Muscle :</string>
-    <string name="body_fat">Body Fat :</string>
+    <string name="body_weight">Body Weight</string>
+    <string name="skeletal_muscle">Skeletal Muscle</string>
+    <string name="body_fat">Body Fat</string>
     <string name="percentage">%</string>
     <string name="no_data">No data this day!!</string>
     <string name="body_weight_kg">Body Weight [Kg]</string>
