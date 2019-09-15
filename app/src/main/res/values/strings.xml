@@ -137,6 +137,7 @@
     <string name="start">Start</string>
     <string name="colon">:</string>
     <string name="revise">Revise</string>
+    <string name="stop">Stop</string>
 
 
 </resources>

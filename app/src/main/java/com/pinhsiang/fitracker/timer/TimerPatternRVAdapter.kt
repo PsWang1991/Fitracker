@@ -59,32 +59,20 @@ class TimerPatternRVAdapter(val viewModel: TimerViewModel) :
         if (viewModel.reviseMode.value!!) {
             when (position) {
                 selectedPosition -> {
-                    holder.binding.exerciseMinutes.setTextColor(getColor(R.color.colorBlack))
-                    holder.binding.colonExercise.setTextColor(getColor(R.color.colorBlack))
-                    holder.binding.exerciseSeconds.setTextColor(getColor(R.color.colorBlack))
-                    holder.binding.restMinutes.setTextColor(getColor(R.color.colorBlack))
-                    holder.binding.colonRest.setTextColor(getColor(R.color.colorBlack))
-                    holder.binding.restSeconds.setTextColor(getColor(R.color.colorBlack))
+                    holder.binding.exerciseTime.setTextColor(getColor(R.color.colorBlack))
+                    holder.binding.restTime.setTextColor(getColor(R.color.colorBlack))
                     holder.binding.textPatternRepeats.setTextColor(getColor(R.color.colorBlack))
                 }
                 else -> {
-                    holder.binding.exerciseMinutes.setTextColor(getColor(R.color.calendar_grey))
-                    holder.binding.colonExercise.setTextColor(getColor(R.color.calendar_grey))
-                    holder.binding.exerciseSeconds.setTextColor(getColor(R.color.calendar_grey))
-                    holder.binding.restMinutes.setTextColor(getColor(R.color.calendar_grey))
-                    holder.binding.colonRest.setTextColor(getColor(R.color.calendar_grey))
-                    holder.binding.restSeconds.setTextColor(getColor(R.color.calendar_grey))
+                    holder.binding.exerciseTime.setTextColor(getColor(R.color.calendar_grey))
+                    holder.binding.restTime.setTextColor(getColor(R.color.calendar_grey))
                     holder.binding.textPatternRepeats.setTextColor(getColor(R.color.calendar_grey))
                 }
             }
 
         } else if (!viewModel.reviseMode.value!!) {
-            holder.binding.exerciseMinutes.setTextColor(getColor(R.color.colorBlack))
-            holder.binding.colonExercise.setTextColor(getColor(R.color.colorBlack))
-            holder.binding.exerciseSeconds.setTextColor(getColor(R.color.colorBlack))
-            holder.binding.restMinutes.setTextColor(getColor(R.color.colorBlack))
-            holder.binding.colonRest.setTextColor(getColor(R.color.colorBlack))
-            holder.binding.restSeconds.setTextColor(getColor(R.color.colorBlack))
+            holder.binding.exerciseTime.setTextColor(getColor(R.color.colorBlack))
+            holder.binding.restTime.setTextColor(getColor(R.color.colorBlack))
             holder.binding.textPatternRepeats.setTextColor(getColor(R.color.colorBlack))
         }
         holder.itemView.setOnClickListener {

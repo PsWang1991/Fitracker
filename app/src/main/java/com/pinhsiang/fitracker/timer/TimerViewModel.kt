@@ -1,17 +1,23 @@
 package com.pinhsiang.fitracker.timer
 
 import android.app.Application
+import android.media.MediaPlayer
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.pinhsiang.fitracker.FitrackerApplication
+import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.TimerPattern
+import com.pinhsiang.fitracker.secondsIntToTime
+import com.pinhsiang.fitracker.util.Util.getString
 import java.util.*
 
 class TimerViewModel(app: Application) : AndroidViewModel(app) {
 
-//    private val timerPattern1 = TimerPattern(exerciseTime = 5, restTime = 3, repeat = 2)
+    //    private val timerPattern1 = TimerPattern(exerciseTime = 5, restTime = 3, repeat = 2)
 //    private val timerPattern2 = TimerPattern(exerciseTime = 4, restTime = 3, repeat = 1)
 //    private val timerPattern3 = TimerPattern(exerciseTime = 5, restTime = 3, repeat = 2)
     private val timerPatternListTemp = mutableListOf<TimerPattern>()
@@ -52,11 +58,30 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
         value = 1
     }
 
+    // A flag for showing count down timer layout
+    val timerStart = MutableLiveData<Boolean>().apply {
+        value = false
+    }
+
+    val intervalTimerStatus = MutableLiveData<String>().apply {
+        value = getString(R.string.exercise)
+    }
+
+    val intervalTimerTime = MutableLiveData<String>().apply {
+        value = "00:00"
+    }
+
     private var selectedPatternIndex: Int = -1
 
-    private val intervalTimer = object : Timer() {}
+    private lateinit var intervalTimer: Timer
 
-    class IntervalTimerTask(private val tp: List<TimerPattern>) : TimerTask() {
+    var clockSound = MediaPlayer
+        .create(FitrackerApplication.appContext, R.raw.household_clock_grandfather_door_open)
+
+    var dingSound = MediaPlayer
+        .create(FitrackerApplication.appContext, R.raw.ding_sound_effect)
+
+    inner class IntervalTimerTask(private val tp: List<TimerPattern>) : TimerTask() {
         var currentSet = 0
         var repeats = tp[currentSet].repeat
         var timeWork = tp[currentSet].exerciseTime
@@ -64,11 +89,23 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
         override fun run() {
             if (repeats > 0) {
                 if (timeWork > 0) {
-                    Log.i(TAG, "動起來 : $timeWork s")
+//                    Log.i(TAG, "動起來 : ${timeWork.secondsIntToTime()}")
+                    intervalTimerStatus.postValue(getString(R.string.exercise))
+                    intervalTimerTime.postValue(timeWork.secondsIntToTime())
+                    when (timeWork) {
+                        in 2..3 -> clockSound.start()
+                        1 -> dingSound.start()
+                    }
                     timeWork -= 1
                 } else {
                     if (timeRest > 0) {
-                        Log.i(TAG, "躺好啊，不會? : $timeRest s")
+//                        Log.i(TAG, "躺好啊，不會? : ${timeRest.secondsIntToTime()}")
+                        intervalTimerStatus.postValue(getString(R.string.rest))
+                        intervalTimerTime.postValue(timeRest.secondsIntToTime())
+                        when (timeRest) {
+                            in 2..3 -> clockSound.start()
+                            1 -> dingSound.start()
+                        }
                         timeRest -= 1
                         if (timeRest == 0) {
                             repeats -= 1
@@ -93,6 +130,7 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
 
         override fun cancel(): Boolean {
             Log.i(TAG, "Timer is canceled.")
+            timerStart.postValue(false)
             return super.cancel()
         }
     }
@@ -100,25 +138,45 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
     fun startTimer() {
         if (timerPatternListTemp.isNotEmpty()) {
             val intervalTimerTask = IntervalTimerTask(timerPatternListTemp)
+            intervalTimer = object : Timer() {}
+            Log.i(TAG, "intervalTimer = $intervalTimer")
+            timerStart.value = true
             intervalTimer.schedule(intervalTimerTask, 0, 1000)
         } else {
             Log.i(TAG, "Time set is empty.")
+            Toast.makeText(
+                FitrackerApplication.appContext,
+                "Timer pattern must have at least 1 set.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
     fun stopTimer() {
         intervalTimer.cancel()
+        timerStart.value = false
+        Log.i(TAG, "intervalTimer = $intervalTimer")
     }
 
     fun addTimerPattern() {
         exerciseTime.value = displayExerciseMinutes.value!! * 60 + displayExerciseSeconds.value!!
         restTime.value = displayRestMinutes.value!! * 60 + displayRestSeconds.value!!
-        timerPatternListTemp.add(TimerPattern(
-            exerciseTime = exerciseTime.value!!,
-            restTime = restTime.value!!,
-            repeat = patternRepeats.value!!
-        ))
-        _timerPatternList.value = timerPatternListTemp
+        if (exerciseTime.value!! > 0 && restTime.value!! > 0 && patternRepeats.value!! > 0) {
+            timerPatternListTemp.add(
+                TimerPattern(
+                    exerciseTime = exerciseTime.value!!,
+                    restTime = restTime.value!!,
+                    repeat = patternRepeats.value!!
+                )
+            )
+            _timerPatternList.value = timerPatternListTemp
+        } else {
+            Toast.makeText(
+                FitrackerApplication.appContext,
+                "Exercise time, Rest time and repeats must be larger than 0.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
 //        Log.i(TAG, "${setList.value}")
     }
 
@@ -160,65 +218,103 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
     // Plus and minus button
     fun displayExerciseMinutesPlus1() {
         if (displayExerciseMinutes.value!! <= 58) {
-            displayExerciseMinutes.value!!.plus(1)
+            displayExerciseMinutes.value = displayExerciseMinutes.value!!.plus(1)
         }
+//        Log.i(TAG, "displayExerciseMinutes = ${displayExerciseMinutes.value}")
     }
 
     fun displayExerciseMinutesMinus1() {
-        if (displayExerciseMinutes.value!! >= 1) {
-            displayExerciseMinutes.value!!.minus(1)
+        if (displayExerciseSeconds.value!! >= 1) {
+            if (displayExerciseMinutes.value!! >= 1) {
+                displayExerciseMinutes.value = displayExerciseMinutes.value!!.minus(1)
+            }
+        } else {
+            if (displayExerciseMinutes.value!! >= 2) {
+                displayExerciseMinutes.value = displayExerciseMinutes.value!!.minus(1)
+            }
         }
+//        Log.i(TAG, "displayExerciseMinutes = ${displayExerciseMinutes.value}")
     }
 
     fun displayExerciseSecondsPlus1() {
         if (displayExerciseSeconds.value!! <= 58) {
-            displayExerciseSeconds.value!!.plus(1)
+            displayExerciseSeconds.value = displayExerciseSeconds.value!!.plus(1)
         }
+//        Log.i(TAG, "displayExerciseSeconds = ${displayExerciseSeconds.value}")
     }
 
     fun displayExerciseSecondsMinus1() {
-        if (displayExerciseSeconds.value!! >= 2) {
-            displayExerciseSeconds.value!!.minus(1)
+        if (displayExerciseMinutes.value!! >= 1) {
+            if (displayExerciseSeconds.value!! >= 1) {
+                displayExerciseSeconds.value = displayExerciseSeconds.value!!.minus(1)
+            }
+        } else {
+            if (displayExerciseSeconds.value!! >= 2) {
+                displayExerciseSeconds.value = displayExerciseSeconds.value!!.minus(1)
+            }
         }
+//        Log.i(TAG, "displayExerciseSeconds = ${displayExerciseSeconds.value}")
     }
 
     fun displayRestMinutesPlus1() {
         if (displayRestMinutes.value!! <= 58) {
-            displayRestMinutes.value!!.plus(1)
+            displayRestMinutes.value = displayRestMinutes.value!!.plus(1)
         }
+//        Log.i(TAG, "displayRestMinutes = ${displayRestMinutes.value}")
     }
 
     fun displayRestMinutesMinus1() {
-        if (displayRestMinutes.value!! >= 1) {
-            displayRestMinutes.value!!.minus(1)
+        if (displayRestSeconds.value!! >= 1) {
+            if (displayRestMinutes.value!! >= 1) {
+                displayRestMinutes.value = displayRestMinutes.value!!.minus(1)
+            }
+        } else {
+            if (displayRestMinutes.value!! >= 2) {
+                displayRestMinutes.value = displayRestMinutes.value!!.minus(1)
+            }
         }
+//        Log.i(TAG, "displayRestMinutes = ${displayRestMinutes.value}")
     }
 
     fun displayRestSecondsPlus1() {
         if (displayRestSeconds.value!! <= 58) {
-            displayRestSeconds.value!!.plus(1)
+            displayRestSeconds.value = displayRestSeconds.value!!.plus(1)
         }
+//        Log.i(TAG, "displayRestSeconds = ${displayRestSeconds.value}")
     }
 
     fun displayRestSecondsMinus1() {
-        if (displayRestSeconds.value!! >= 2) {
-            displayRestSeconds.value!!.minus(1)
+        if (displayRestMinutes.value!! >= 1) {
+            if (displayRestSeconds.value!! >= 1) {
+                displayRestSeconds.value = displayRestSeconds.value!!.minus(1)
+            }
+        } else {
+            if (displayRestSeconds.value!! >= 2) {
+                displayRestSeconds.value = displayRestSeconds.value!!.minus(1)
+            }
         }
+//        Log.i(TAG, "displayRestSeconds = ${displayRestSeconds.value}")
     }
 
     fun patternRepeatsPlus1() {
-        patternRepeats.value!!.plus(1)
+        patternRepeats.value = patternRepeats.value!!.plus(1)
+//        Log.i(TAG, "patternRepeats = ${patternRepeats.value}")
     }
 
     fun patternRepeatsMinus1() {
         if (patternRepeats.value!! >= 2) {
-            patternRepeats.value!!.minus(1)
+            patternRepeats.value = patternRepeats.value!!.minus(1)
         }
+//        Log.i(TAG, "patternRepeats = ${patternRepeats.value}")
     }
     // Plus and minus button
 
 
     // Keeps values of minutes and seconds in legal range.
+    fun setDisplayExerciseMinutesTo1() {
+        displayExerciseMinutes.value = 1
+    }
+
     fun setDisplayExerciseMinutesTo0() {
         displayExerciseMinutes.value = 0
     }
@@ -231,8 +327,16 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
         displayExerciseSeconds.value = 1
     }
 
+    fun setDisplayExerciseSecondsTo0() {
+        displayExerciseSeconds.value = 0
+    }
+
     fun setDisplayExerciseSecondsTo59() {
         displayExerciseSeconds.value = 59
+    }
+
+    fun setDisplayRestMinutesTo1() {
+        displayRestMinutes.value = 1
     }
 
     fun setDisplayRestMinutesTo0() {
@@ -245,6 +349,10 @@ class TimerViewModel(app: Application) : AndroidViewModel(app) {
 
     fun setDisplayRestSecondsTo1() {
         displayRestSeconds.value = 1
+    }
+
+    fun setDisplayRestSecondsTo0() {
+        displayRestSeconds.value = 0
     }
 
     fun setDisplayRestSecondsTo59() {

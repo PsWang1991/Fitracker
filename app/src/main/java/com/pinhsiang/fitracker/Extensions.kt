@@ -49,6 +49,10 @@ fun Long.timestampToDate(): String {
     ).toString()
 }
 
+fun Int.secondsIntToTime() : String {
+    return String.format("%02d:%02d", this / 60, this % 60)
+}
+
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))

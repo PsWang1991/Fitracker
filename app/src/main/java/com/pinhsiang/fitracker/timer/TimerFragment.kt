@@ -44,17 +44,30 @@ class TimerFragment : Fragment() {
         })
 
         viewModel.displayExerciseMinutes.observe(this, Observer {
-            if (it < 0) {
-                viewModel.setDisplayExerciseMinutesTo0()
+            if (viewModel.displayExerciseSeconds.value!! >= 1) {
+                if (it < 0) {
+                    viewModel.setDisplayExerciseMinutesTo0()
+                }
+            } else {
+                if (it < 1) {
+                    viewModel.setDisplayExerciseMinutesTo1()
+                }
             }
+
             if (it > 59) {
                 viewModel.setDisplayExerciseMinutesTo59()
             }
         })
 
         viewModel.displayExerciseSeconds.observe(this, Observer {
-            if (it < 1) {
-                viewModel.setDisplayExerciseSecondsTo1()
+            if (viewModel.displayExerciseMinutes.value!! >= 1) {
+                if (it < 0) {
+                    viewModel.setDisplayExerciseSecondsTo0()
+                }
+            } else {
+                if (it < 1) {
+                    viewModel.setDisplayExerciseSecondsTo1()
+                }
             }
             if (it > 59) {
                 viewModel.setDisplayExerciseSecondsTo59()
@@ -62,17 +75,30 @@ class TimerFragment : Fragment() {
         })
 
         viewModel.displayRestMinutes.observe(this, Observer {
-            if (it < 0) {
-                viewModel.setDisplayRestMinutesTo0()
+            if (viewModel.displayRestSeconds.value!! >= 1) {
+                if (it < 0) {
+                    viewModel.setDisplayRestMinutesTo0()
+                }
+            } else {
+                if (it < 1) {
+                    viewModel.setDisplayRestMinutesTo1()
+                }
             }
+
             if (it > 59) {
                 viewModel.setDisplayRestMinutesTo59()
             }
         })
 
         viewModel.displayRestSeconds.observe(this, Observer {
-            if (it < 1) {
-                viewModel.setDisplayRestSecondsTo1()
+            if (viewModel.displayRestMinutes.value!! >= 1) {
+                if (it < 0) {
+                    viewModel.setDisplayRestSecondsTo0()
+                }
+            } else {
+                if (it < 1) {
+                    viewModel.setDisplayRestSecondsTo1()
+                }
             }
             if (it > 59) {
                 viewModel.setDisplayRestSecondsTo59()
