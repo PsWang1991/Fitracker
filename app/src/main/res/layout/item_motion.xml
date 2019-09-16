@@ -13,20 +13,23 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/motion_inner" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"
-                android:background="@drawable/view_item_background">
+                android:id="@+id/motion_inner"
+                android:background="@drawable/view_item_background"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp">
 
             <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:id="@+id/img_motion" android:layout_marginTop="8dp"
+                    android:id="@+id/img_motion"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp" android:background="@{motion.image}"
-                    tools:srcCompat="@drawable/motion_bench_press"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@{motion.image}"
+                    tools:src="@drawable/motion_bench_press"
+                    android:layout_marginTop="8dp" android:layout_marginStart="8dp" android:layout_marginEnd="8dp"/>
             <TextView
                     android:id="@+id/text_motion"
                     android:text="@{motion.motion}"

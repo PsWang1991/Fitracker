@@ -135,17 +135,17 @@ class NutritionFragment : Fragment() {
                 if (day.owner == DayOwner.THIS_MONTH) {
                     when (day.date) {
                         viewModel.today -> {
-                            textView.setTextColorRes(R.color.colorBlack)
+                            textView.setTextColorRes(R.color.colorText)
                             textView.setBackgroundResource(R.drawable.calendar_today_bg)
                             dotView.isVisible = viewModel.hasNutritionData(day.date)
                         }
                         viewModel.selectedDate -> {
-                            textView.setTextColorRes(R.color.colorBlack)
+                            textView.setTextColorRes(R.color.colorText)
                             textView.setBackgroundResource(R.drawable.calendar_selected_bg)
                             dotView.makeInVisible()
                         }
                         else -> {
-                            textView.setTextColorRes(R.color.colorBlack)
+                            textView.setTextColorRes(R.color.colorText)
                             textView.background = null
                             dotView.isVisible = viewModel.hasNutritionData(day.date)
                         }
