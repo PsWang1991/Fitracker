@@ -48,8 +48,8 @@
                         app:layout_constraintStart_toEndOf="@+id/text_month" android:layout_marginStart="16dp"
                         app:layout_constraintTop_toTopOf="@+id/text_year"
                         app:layout_constraintBottom_toBottomOf="@+id/text_year"
-                        android:background="@{viewModel.calendarExpanding == true ? @drawable/ic_calendar_arrow_down_24dp : @drawable/ic_calendar_arrow_up_24dp}"
-                        tools:srcCompat="@drawable/ic_calendar_arrow_down_24dp"
+                        android:background="@{viewModel.calendarExpanding == false ? @drawable/ic_calendar_arrow_down_24dp : @drawable/ic_calendar_arrow_up_24dp}"
+                        tools:srcCompat="@drawable/ic_calendar_arrow_up_24dp"
                         android:backgroundTint="@color/colorText"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -255,12 +255,14 @@
                     app:layout_constraintBottom_toBottomOf="@+id/title_body_fat"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
+                android:id="@+id/no_data_inbody"
                 android:text="@string/no_data"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/no_data"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/customCalendar"
-                app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="18sp"
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="@{viewModel.displayBodyFat == null ? View.VISIBLE : View.GONE}"/>

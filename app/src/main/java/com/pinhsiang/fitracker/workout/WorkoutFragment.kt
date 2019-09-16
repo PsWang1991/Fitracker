@@ -108,6 +108,7 @@ class WorkoutFragment : Fragment() {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
                         viewModel.getWorkoutDataByDate(day.date)
+                        viewModel.setDataStatusByDate(day.date)
 //                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
 //                        val timestampToday = Timestamp.valueOf(LocalDate.now().toString() + " 00:00:00").time
 //                        Log.i(TAG, "day.date = ${day.date}")
@@ -169,13 +170,13 @@ class WorkoutFragment : Fragment() {
                 binding.customCalendar.visibility = View.GONE
                 binding.legendLayout.visibility = View.GONE
                 binding.indicator.background =
-                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_up_24dp)
+                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_down_24dp)
                 viewModel.calendarExpanding = false
             } else {
                 binding.customCalendar.visibility = View.VISIBLE
                 binding.legendLayout.visibility = View.VISIBLE
                 binding.indicator.background =
-                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_down_24dp)
+                    FitrackerApplication.appContext.getDrawable(R.drawable.ic_calendar_arrow_up_24dp)
                 viewModel.calendarExpanding = true
             }
         }

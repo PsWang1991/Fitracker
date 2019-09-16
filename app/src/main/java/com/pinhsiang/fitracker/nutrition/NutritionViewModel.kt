@@ -30,6 +30,10 @@ class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
     val nutritionList: LiveData<List<Nutrition>>
     get() = _nutritionList
 
+    val dataStatus = MutableLiveData<Boolean>().apply {
+        value = false
+    }
+
     var selectedDate: LocalDate? = null
     val today = LocalDate.now()
 
@@ -72,6 +76,10 @@ class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
         }.isNotEmpty()
     }
 
+    fun setDataStatusByDate(date: LocalDate) {
+        dataStatus.value = hasNutritionData(date)
+    }
+
     private fun downloadWorkoutData() {
         db.collection(getString(R.string.user_collection_path)).document(USER_DOC_NAME)
             .collection("nutrition")
@@ -88,6 +96,7 @@ class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
             }.addOnCompleteListener {
                 Log.i(TAG, "allNutritionData = $allNutritionData")
                 getNutritionDataByDate(LocalDate.now())
+                setDataStatusByDate(LocalDate.now())
                 downloadComplete.value = true
             }
     }

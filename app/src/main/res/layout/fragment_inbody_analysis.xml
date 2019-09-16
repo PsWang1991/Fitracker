@@ -25,7 +25,9 @@
                 android:id="@+id/spinner_filter_inbody"
                 app:layout_constraintTop_toTopOf="@+id/title_filter"
                 app:layout_constraintBottom_toBottomOf="@+id/title_filter"
-                app:layout_constraintStart_toEndOf="@+id/title_filter" android:layout_marginStart="16dp"/>
+                app:layout_constraintStart_toEndOf="@+id/title_filter"
+                android:layout_marginStart="16dp"
+        />
 
         <TextView
                 android:text="@string/period_1m"

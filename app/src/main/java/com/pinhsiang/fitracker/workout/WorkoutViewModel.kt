@@ -27,6 +27,10 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
     val workoutList: LiveData<List<Workout>>
         get() = _workoutList
 
+    val dataStatus = MutableLiveData<Boolean>().apply {
+        value = false
+    }
+
     var selectedDate: LocalDate? = null
     val today = LocalDate.now()
 
@@ -69,6 +73,10 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
         }.isNotEmpty()
     }
 
+    fun setDataStatusByDate(date: LocalDate) {
+        dataStatus.value = hasWorkoutData(date)
+    }
+
     private fun downloadWorkoutData() {
         db.collection("user").document(USER_DOC_NAME)
             .collection("workout")
@@ -86,6 +94,7 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
                 Log.i(TAG, "allWorkoutData = $allWorkoutData")
                 getWorkoutDataByDate(LocalDate.now())
                 downloadComplete.value = true
+                setDataStatusByDate(LocalDate.now())
             }
     }
 

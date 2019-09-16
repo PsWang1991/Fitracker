@@ -60,7 +60,7 @@ class NutritionAnalysisFragment : Fragment() {
         val inbodyFilterList = ArrayAdapter.createFromResource(
             FitrackerApplication.appContext,
             R.array.nutrients,
-            android.R.layout.simple_spinner_dropdown_item
+            R.layout.spinner_item
         )
         binding.spinnerNutrients.adapter = inbodyFilterList
         binding.spinnerNutrients.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

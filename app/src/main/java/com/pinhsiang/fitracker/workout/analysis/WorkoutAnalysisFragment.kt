@@ -62,7 +62,7 @@ class WorkoutAnalysisFragment : Fragment() {
         val exerciseList = ArrayAdapter.createFromResource(
             FitrackerApplication.appContext,
             R.array.exercise,
-            android.R.layout.simple_spinner_dropdown_item
+            R.layout.spinner_item
         )
         binding.spinnerExercise.adapter = exerciseList
         binding.spinnerExercise.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -88,7 +88,7 @@ class WorkoutAnalysisFragment : Fragment() {
         val graphList = ArrayAdapter.createFromResource(
             FitrackerApplication.appContext,
             R.array.graph_workout,
-            android.R.layout.simple_spinner_dropdown_item
+            R.layout.spinner_item
         )
         binding.spinnerGraph.adapter = graphList
         binding.spinnerGraph.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
