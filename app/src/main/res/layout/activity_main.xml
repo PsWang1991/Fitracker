@@ -82,8 +82,8 @@
                         app:theme="@style/BottomNavigationTheme"
                         app:labelVisibilityMode="labeled"
                         app:itemIconSize="28dp"
-                        app:itemTextColor="@color/colorBackground"
-                        app:itemIconTint="@color/colorBackground"
+                        app:itemTextColor="@drawable/bottom_nav_view_color"
+                        app:itemIconTint="@drawable/bottom_nav_view_color"
                 />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@
     <color name="colorText">#005EA7</color>
     <color name="colorBackground">#D4EBEC</color>
     <color name="colorItem">#72C6C7</color>
+    <color name="colorBackground_opacity54">#8AD4EBEC</color>
 </resources>
 
 

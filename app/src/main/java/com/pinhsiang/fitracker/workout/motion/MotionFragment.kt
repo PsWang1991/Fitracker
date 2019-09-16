@@ -14,6 +14,7 @@ import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutMotionBinding
+import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
 
 class MotionFragment : Fragment() {
@@ -55,7 +56,7 @@ class MotionFragment : Fragment() {
             }
         })
 
-        binding.textDateMotion.text = viewModel.dataTime.timestampToString()
+        binding.textDateMotion.text = viewModel.dataTime.timestampToDate()
 
         return binding.root
     }
