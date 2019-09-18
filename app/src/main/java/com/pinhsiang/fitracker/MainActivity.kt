@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.pinhsiang.fitracker.databinding.ActivityMainBinding
 import com.pinhsiang.fitracker.inbody.InbodyFragmentDirections
 import com.pinhsiang.fitracker.nutrition.NutritionFragmentDirections
+import com.pinhsiang.fitracker.recommended.RecommendedActivity
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.CurrentFragmentType
 import com.pinhsiang.fitracker.workout.WorkoutFragmentDirections
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var binding: ActivityMainBinding
 
     /**
-     * Lazily initialize our [OverviewViewModel].
+     * Lazily initialize our [MainViewModel].
      */
     private lateinit var viewModelFactory: MainViewModelFactory
     private val viewModel: MainViewModel by lazy {
@@ -158,7 +159,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(applicationContext, "1 RM", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_recommended -> {
-                Toast.makeText(applicationContext, "247365", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, RecommendedActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(applicationContext, "Baba Yaga is coming.", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_log_out -> {
                 val auth = FirebaseAuth.getInstance()

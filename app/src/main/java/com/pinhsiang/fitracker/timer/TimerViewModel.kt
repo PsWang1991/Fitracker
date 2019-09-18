@@ -15,11 +15,8 @@ import com.pinhsiang.fitracker.secondsIntToTime
 import com.pinhsiang.fitracker.util.Util.getString
 import java.util.*
 
-class TimerViewModel(app: Application) : AndroidViewModel(app) {
+class TimerViewModel(val app: Application) : AndroidViewModel(app) {
 
-    //    private val timerPattern1 = TimerPattern(exerciseTime = 5, restTime = 3, repeat = 2)
-//    private val timerPattern2 = TimerPattern(exerciseTime = 4, restTime = 3, repeat = 1)
-//    private val timerPattern3 = TimerPattern(exerciseTime = 5, restTime = 3, repeat = 2)
     private val timerPatternListTemp = mutableListOf<TimerPattern>()
 
     private val _timerPatternList = MutableLiveData<List<TimerPattern>>()

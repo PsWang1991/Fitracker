@@ -26,7 +26,7 @@ class TimerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        (activity as MainActivity).bottom_nav_view.visibility = View.GONE
+//        (activity as MainActivity).bottom_nav_view.visibility = View.GONE
 
         binding = FragmentTimerBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -114,8 +114,8 @@ class TimerFragment : Fragment() {
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as MainActivity).bottom_nav_view.visibility = View.VISIBLE
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        (activity as MainActivity).bottom_nav_view.visibility = View.VISIBLE
+//    }
 }

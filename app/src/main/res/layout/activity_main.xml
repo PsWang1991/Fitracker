@@ -84,6 +84,7 @@
                         app:itemIconSize="28dp"
                         app:itemTextColor="@drawable/bottom_nav_view_color"
                         app:itemIconTint="@drawable/bottom_nav_view_color"
+                        android:visibility="@{(viewModel.currentFragmentType == CurrentFragmentType.TIMER ||viewModel.currentFragmentType == CurrentFragmentType.RECOMMENDED) ? View.GONE : View.VISIBLE}"
                 />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

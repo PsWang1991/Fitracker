@@ -30,6 +30,11 @@
                 android:launchMode="singleTask">
         </activity>
 
+        <activity
+                android:name=".recommended.RecommendedActivity"
+                android:launchMode="singleTask">
+        </activity>
+
 
 
     </application>
