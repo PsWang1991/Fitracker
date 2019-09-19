@@ -12,4 +12,4 @@
 /captures
 .externalNativeBuild
 google-services.json
-/app/src/main/res/values/secrete.xml
+/app/src/main/res/values/secret.xml

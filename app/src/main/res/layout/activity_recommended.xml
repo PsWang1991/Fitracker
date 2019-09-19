@@ -10,23 +10,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-                android:text="Baba Yaga"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/john_wick"
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="16dp"/>
-
-        <fragment
-                android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-                android:id="@+id/youtube_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/john_wick"/>
-
+                app:layout_constraintEnd_toEndOf="parent" android:id="@+id/rv_youtube"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:youtubeList="@{viewModel.youtubeVideoList}"
+                android:paddingTop="8dp" android:paddingBottom="8dp"
+                tools:listitem="@layout/item_youtube_list"
+                tools:itemCount="4"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

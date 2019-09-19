@@ -70,7 +70,7 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
 
     private var selectedPatternIndex: Int = -1
 
-    private lateinit var intervalTimer: Timer
+    lateinit var intervalTimer: Timer
 
     var clockSound = MediaPlayer
         .create(FitrackerApplication.appContext, R.raw.household_clock_grandfather_door_open)
@@ -128,6 +128,18 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
         override fun cancel(): Boolean {
             Log.i(TAG, "Timer is canceled.")
             timerStart.postValue(false)
+            return super.cancel()
+        }
+    }
+
+    class mTimerTask: TimerTask() {
+
+        private var isRunning = false
+
+        override fun run() {
+        }
+
+        override fun cancel(): Boolean {
             return super.cancel()
         }
     }

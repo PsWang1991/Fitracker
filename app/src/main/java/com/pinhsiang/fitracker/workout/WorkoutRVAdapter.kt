@@ -33,8 +33,7 @@ class WorkoutRVAdapter : ListAdapter<Workout, WorkoutRVAdapter.WorkoutViewHolder
         override fun areContentsTheSame(oldItem: Workout, newItem: Workout): Boolean {
             return (oldItem.motion == newItem.motion
                     && oldItem.time == newItem.time
-                    && oldItem.sets == newItem.sets
-                    )
+                    && oldItem.sets == newItem.sets)
         }
     }
 

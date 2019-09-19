@@ -4,6 +4,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.pinhsiang.fitracker.data.*
 import com.pinhsiang.fitracker.nutrition.NutritionRVAdapter
+import com.pinhsiang.fitracker.recommended.YoutubeRecyclerAdapter
 import com.pinhsiang.fitracker.timer.TimerPatternRVAdapter
 import com.pinhsiang.fitracker.workout.WorkoutRVAdapter
 import com.pinhsiang.fitracker.workout.WorkoutSetsRVAdapter
@@ -44,5 +45,12 @@ fun bindRecyclerViewWithNutrition(recyclerView: RecyclerView, data: List<Nutriti
 @BindingAdapter("patternList")
 fun bindRecyclerViewWithTimerPattern(recyclerView: RecyclerView, data: List<TimerPattern>?) {
     val adapter = recyclerView.adapter as TimerPatternRVAdapter
+    adapter.submitList(data)
+}
+
+// Adapter for recommended activity's  RecyclerView
+@BindingAdapter("youtubeList")
+fun bindRecyclerViewWithYoutubeVideo(recyclerView: RecyclerView, data: List<YoutubeVideo>?) {
+    val adapter = recyclerView.adapter as YoutubeRecyclerAdapter
     adapter.submitList(data)
 }

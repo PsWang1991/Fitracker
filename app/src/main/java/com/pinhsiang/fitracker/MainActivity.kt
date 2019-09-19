@@ -161,7 +161,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_recommended -> {
                 val intent = Intent(this, RecommendedActivity::class.java)
                 startActivity(intent)
-                Toast.makeText(applicationContext, "Baba Yaga is coming.", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_log_out -> {
                 val auth = FirebaseAuth.getInstance()
