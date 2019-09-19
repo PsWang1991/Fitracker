@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -114,14 +115,20 @@ class TimerFragment : Fragment() {
             }
         })
 
+        viewModel.timerStart.observe(this, Observer {
+            when (it) {
+                true -> (activity as MainActivity).window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                false -> (activity as MainActivity).window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        })
+
         return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.i(TAG, "viewModel.intervalTimer = ${viewModel.intervalTimer}")
-//        if (viewModel.intervalTimer != null) {
-//            viewModel.intervalTimer.purge()
-//        }
+        if (viewModel.timerStart.value == true) {
+            viewModel.intervalTimer.cancel()
+        }
     }
 }

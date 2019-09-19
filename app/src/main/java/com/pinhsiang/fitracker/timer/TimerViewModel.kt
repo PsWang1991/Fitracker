@@ -86,7 +86,6 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
         override fun run() {
             if (repeats > 0) {
                 if (timeWork > 0) {
-//                    Log.i(TAG, "動起來 : ${timeWork.secondsIntToTime()}")
                     intervalTimerStatus.postValue(getString(R.string.exercise))
                     intervalTimerTime.postValue(timeWork.secondsIntToTime())
                     when (timeWork) {
@@ -96,7 +95,6 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
                     timeWork -= 1
                 } else {
                     if (timeRest > 0) {
-//                        Log.i(TAG, "躺好啊，不會? : ${timeRest.secondsIntToTime()}")
                         intervalTimerStatus.postValue(getString(R.string.rest))
                         intervalTimerTime.postValue(timeRest.secondsIntToTime())
                         when (timeRest) {
@@ -128,18 +126,6 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
         override fun cancel(): Boolean {
             Log.i(TAG, "Timer is canceled.")
             timerStart.postValue(false)
-            return super.cancel()
-        }
-    }
-
-    class mTimerTask: TimerTask() {
-
-        private var isRunning = false
-
-        override fun run() {
-        }
-
-        override fun cancel(): Boolean {
             return super.cancel()
         }
     }
