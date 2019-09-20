@@ -30,8 +30,6 @@ class TimerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-//        (activity as MainActivity).bottom_nav_view.visibility = View.GONE
-
         binding = FragmentTimerBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.converter = Int2StringConverter

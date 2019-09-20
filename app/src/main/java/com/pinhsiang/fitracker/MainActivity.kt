@@ -185,17 +185,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         findNavController(R.id.main_page_fragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
             viewModel.currentFragmentType.value = when (navController.currentDestination?.id) {
                 R.id.workoutFragment -> CurrentFragmentType.WORKOUT
-                R.id.motionFragment -> CurrentFragmentType.WORKOUT_MOTION
-                R.id.workoutRecordFragment -> CurrentFragmentType.WORKOUT_RECORD
+                R.id.motionFragment -> CurrentFragmentType.WORKOUT_MOTION.apply {
+                    supportActionBar?.title = getString(R.string.motion_title)
+                }
+                R.id.workoutRecordFragment -> CurrentFragmentType.WORKOUT_RECORD.apply {
+                    supportActionBar?.title = getString(R.string.workout_record_title)
+                }
                 R.id.workoutAnalysisFragment -> CurrentFragmentType.WORKOUT_ANALYSIS
                 R.id.nutritionFragment -> CurrentFragmentType.NUTRITION
-                R.id.nutritionRecordFragment -> CurrentFragmentType.NUTRITION_RECORD
+                R.id.nutritionRecordFragment -> CurrentFragmentType.NUTRITION_RECORD.apply {
+                    supportActionBar?.title = getString(R.string.nutrition_record_title)
+                }
                 R.id.nutritionAnalysisFragment -> CurrentFragmentType.NUTRITION_ANALYSIS
                 R.id.inbodyFragment -> CurrentFragmentType.INBODY
-                R.id.inbodyRecordFragment -> CurrentFragmentType.INBODY_RECORD
+                R.id.inbodyRecordFragment -> CurrentFragmentType.INBODY_RECORD.apply {
+                    supportActionBar?.title = getString(R.string.inbody_record_title)
+                }
                 R.id.inbodyAnalysisFragment -> CurrentFragmentType.INBODY_ANALYSIS
-                R.id.timerFragment -> CurrentFragmentType.TIMER
-                R.id.recommendedFragment -> CurrentFragmentType.RECOMMENDED
+                R.id.timerFragment -> CurrentFragmentType.TIMER.apply {
+                    supportActionBar?.title = getString(R.string.timer_title)
+                }
+                R.id.recommendedFragment -> CurrentFragmentType.RECOMMENDED.apply {
+                    supportActionBar?.title = getString(R.string.recommended_title)
+                }
                 else -> viewModel.currentFragmentType.value
             }
 //            when (navController.currentDestination?.id) {

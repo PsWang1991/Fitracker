@@ -35,18 +35,24 @@
     <!--Current fragment type-->
     <string name="workout">workout</string>
     <string name="workout_motion">motion</string>
+    <string name="motion_title">Select Motion</string>
     <string name="workout_record">workout record</string>
+    <string name="workout_record_title">Record Workout</string>
     <string name="workout_analysis">workout analysis</string>
     <string name="nutrition">nutrition</string>
     <string name="nutrition_record">nutrition record</string>
+    <string name="nutrition_record_title">You Are What You Eat</string>
     <string name="nutrition_analysis">nutrition analysis</string>
     <string name="inbody">inbody</string>
     <string name="inbody_record">inbody record</string>
+    <string name="inbody_record_title">Record In-body</string>
     <string name="inbody_analysis">inbody analysis</string>
     <string name="timer">timer</string>
+    <string name="timer_title">Interval Timer</string>
     <string name="tdee">tdee</string>
     <string name="one_rm">one rm</string>
     <string name="recommended">recommended</string>
+    <string name="recommended_title">Recommended Video</string>
     <string name="dont_show_record_or_analysis">dont show record or analysis</string>
 
     <!--Workout fragment-->
