@@ -145,6 +145,8 @@
     <string name="colon">:</string>
     <string name="revise">Revise</string>
     <string name="stop">Stop</string>
+    <string name="lift_kg">Lift [Kg]</string>
+    <string name="calculate">Calculate</string>
 
 
 </resources>

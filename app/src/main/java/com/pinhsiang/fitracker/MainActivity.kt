@@ -31,6 +31,7 @@ const val TAG = "Fitracker"
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var binding: ActivityMainBinding
+    lateinit var toggle: ActionBarDrawerToggle
 
     /**
      * Lazily initialize our [MainViewModel].
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Set drawer
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
-        val toggle = ActionBarDrawerToggle(
+        toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
@@ -215,9 +216,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 else -> viewModel.currentFragmentType.value
             }
-//            when (navController.currentDestination?.id) {
-//
-//            }
+            when (navController.currentDestination?.id) {
+                R.id.timerFragment -> toggle.isDrawerIndicatorEnabled = false
+                R.id.recommendedFragment -> toggle.isDrawerIndicatorEnabled = false
+                R.id.RMFragment -> toggle.isDrawerIndicatorEnabled = false
+                R.id.TDEEFragment -> toggle.isDrawerIndicatorEnabled = false
+                else -> toggle.isDrawerIndicatorEnabled = true
+            }
         }
     }
 

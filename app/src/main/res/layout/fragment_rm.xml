@@ -10,14 +10,135 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-                android:text="@string/one_rm"
-                android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_rm_parameter"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/view_item_background">
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_vertical_rm_parameter"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintGuide_percent="0.5"/>
+
+            <TextView
+                    android:id="@+id/title_rm_lift"
+                    android:text="@string/lift_kg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_vertical_rm_parameter"
+                    android:layout_marginEnd="4dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp"/>
+            <EditText
+                    android:id="@+id/text_rm_lift"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="70dp"
+                    android:maxWidth="120dp"
+                    app:layout_constraintStart_toEndOf="@id/guideline_vertical_rm_parameter"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintTop_toTopOf="@+id/title_rm_lift"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_rm_lift"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    tools:text="50"
+                    android:inputType="numberDecimal"
+                    android:ellipsize="middle" android:breakStrategy="simple"
+                    android:singleLine="true" android:background="@drawable/bg_edit_text_1"
+                    android:text="50"
+                    android:textColor="@color/colorText"/>
+
+            <TextView
+                    android:id="@+id/title_rm_repeats"
+                    android:text="@string/repeats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/title_rm_lift" android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toStartOf="@id/guideline_vertical_rm_parameter"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp"/>
+            <EditText
+                    android:id="@+id/text_rm_repeats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="70dp"
+                    android:maxWidth="120dp"
+                    app:layout_constraintStart_toEndOf="@id/guideline_vertical_rm_parameter"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintTop_toTopOf="@+id/title_rm_repeats"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_rm_repeats"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    tools:text="15"
+                    android:inputType="numberDecimal"
+                    android:ellipsize="middle" android:breakStrategy="simple"
+                    android:singleLine="true" android:background="@drawable/bg_edit_text_1"
+                    android:text="15"
+                    android:textColor="@color/colorText"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_btn_calculate_rm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout_rm_parameter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_text_border_inverse">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_calculate_rm_inner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginTop="0dp">
+                <ImageView
+                        android:id="@+id/image_calculate_rm"
+                        android:layout_width="20dp"
+                        android:layout_height="0dp"
+                        app:srcCompat="@drawable/ic_calculator_64dp_v2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/btn_calculate_rm"
+                        app:layout_constraintBottom_toBottomOf="@+id/btn_calculate_rm"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_calculate_rm"
+                        android:layout_marginEnd="8dp" app:layout_constraintDimensionRatio="h,1:1"/>
+                <TextView
+                        android:id="@+id/btn_calculate_rm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:textColor="@color/colorBackground"
+                        android:text="@string/calculate"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:textAlignment="center"
+                />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
