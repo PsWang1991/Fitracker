@@ -51,6 +51,7 @@
     <string name="timer_title">Interval Timer</string>
     <string name="tdee">tdee</string>
     <string name="one_rm">one rm</string>
+    <string name="one_rm_title">Repetition Maximum</string>
     <string name="recommended">recommended</string>
     <string name="recommended_title">Recommended Video</string>
     <string name="dont_show_record_or_analysis">dont show record or analysis</string>

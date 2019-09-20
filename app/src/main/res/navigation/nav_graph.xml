@@ -84,7 +84,17 @@
             app:popUpTo="@+id/nav_graph"/>
     <fragment android:id="@+id/recommendedFragment"
               android:name="com.pinhsiang.fitracker.recommended.RecommendedFragment"
-              android:label="RecommendedFragment"/>
+              android:label="RecommendedFragment"
+              tools:layout="@layout/fragment_recommended"/>
     <action android:id="@+id/action_global_recommendedFragment" app:destination="@id/recommendedFragment"
             app:popUpTo="@+id/nav_graph"/>
+    <fragment android:id="@+id/RMFragment" android:name="com.pinhsiang.fitracker.rm.RMFragment"
+              android:label="RMFragment"
+              tools:layout="@layout/fragment_rm"/>
+    <action android:id="@+id/action_global_RMFragment" app:destination="@id/RMFragment" app:popUpTo="@+id/nav_graph"/>
+    <fragment android:id="@+id/TDEEFragment" android:name="com.pinhsiang.fitracker.tdee.TDEEFragment"
+              android:label="TDEEFragment"
+              tools:layout="@layout/fragment_tdee"/>
+    <action android:id="@+id/action_global_TDEEFragment" app:destination="@id/TDEEFragment"
+            app:popUpTo="@+id/TDEEFragment"/>
 </navigation>

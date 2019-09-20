@@ -148,14 +148,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navControllerDrawer = findNavController(R.id.main_page_fragment)
         when (item.itemId) {
             R.id.nav_timer -> {
-//                Toast.makeText(applicationContext, "Timer", Toast.LENGTH_SHORT).show()
                 navControllerDrawer.navigate(NavGraphDirections.actionGlobalTimerFragment())
             }
             R.id.nav_tdee -> {
-                Toast.makeText(applicationContext, "TDEE", Toast.LENGTH_SHORT).show()
+                navControllerDrawer.navigate(NavGraphDirections.actionGlobalTDEEFragment())
             }
             R.id.nav_1rm -> {
-                Toast.makeText(applicationContext, "1 RM", Toast.LENGTH_SHORT).show()
+                navControllerDrawer.navigate(NavGraphDirections.actionGlobalRMFragment())
             }
             R.id.nav_recommended -> {
                 navControllerDrawer.navigate(NavGraphDirections.actionGlobalRecommendedFragment())
@@ -207,6 +206,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 R.id.recommendedFragment -> CurrentFragmentType.RECOMMENDED.apply {
                     supportActionBar?.title = getString(R.string.recommended_title)
+                }
+                R.id.RMFragment -> CurrentFragmentType.ONE_RM.apply {
+                    supportActionBar?.title = getString(R.string.one_rm_title)
+                }
+                R.id.TDEEFragment -> CurrentFragmentType.TDEE.apply {
+                    supportActionBar?.title = getString(R.string.total_daily_energy_extracted)
                 }
                 else -> viewModel.currentFragmentType.value
             }
