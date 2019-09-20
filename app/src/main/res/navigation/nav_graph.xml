@@ -82,4 +82,9 @@
               tools:layout="@layout/fragment_timer"/>
     <action android:id="@+id/action_global_timerFragment" app:destination="@id/timerFragment"
             app:popUpTo="@+id/nav_graph"/>
+    <fragment android:id="@+id/recommendedFragment"
+              android:name="com.pinhsiang.fitracker.recommended.RecommendedFragment"
+              android:label="RecommendedFragment"/>
+    <action android:id="@+id/action_global_recommendedFragment" app:destination="@id/recommendedFragment"
+            app:popUpTo="@+id/nav_graph"/>
 </navigation>

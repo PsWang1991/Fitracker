@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.pinhsiang.fitracker.databinding.ActivityMainBinding
 import com.pinhsiang.fitracker.inbody.InbodyFragmentDirections
 import com.pinhsiang.fitracker.nutrition.NutritionFragmentDirections
-import com.pinhsiang.fitracker.recommended.RecommendedActivity
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.CurrentFragmentType
 import com.pinhsiang.fitracker.workout.WorkoutFragmentDirections
@@ -159,8 +158,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(applicationContext, "1 RM", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_recommended -> {
-                val intent = Intent(this, RecommendedActivity::class.java)
-                startActivity(intent)
+                navControllerDrawer.navigate(NavGraphDirections.actionGlobalRecommendedFragment())
             }
             R.id.nav_log_out -> {
                 val auth = FirebaseAuth.getInstance()
@@ -197,8 +195,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.inbodyRecordFragment -> CurrentFragmentType.INBODY_RECORD
                 R.id.inbodyAnalysisFragment -> CurrentFragmentType.INBODY_ANALYSIS
                 R.id.timerFragment -> CurrentFragmentType.TIMER
+                R.id.recommendedFragment -> CurrentFragmentType.RECOMMENDED
                 else -> viewModel.currentFragmentType.value
             }
+//            when (navController.currentDestination?.id) {
+//
+//            }
         }
     }
 
