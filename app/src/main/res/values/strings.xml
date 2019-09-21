@@ -147,6 +147,25 @@
     <string name="stop">Stop</string>
     <string name="lift_kg">Lift [Kg]</string>
     <string name="calculate">Calculate</string>
+    <string name="percentage_1rm">% of 1 RM</string>
+    <string name="repetitions">Repetitions</string>
+    <string name="percent_100">100%</string>
+    <string name="repetition_1rm">1</string>
+    <string name="percent_97">97%</string>
+    <string name="repetition_2rm">2</string>
+    <string name="percent_92">92%</string>
+    <string name="repetition_4rm">4</string>
+    <string name="percent_86">86%</string>
+    <string name="repetition_6rm">6</string>
+    <string name="percent_81">81%</string>
+    <string name="repetition_8rm">8</string>
+    <string name="percent_75">75%</string>
+    <string name="repetition_10rm">10</string>
+    <string name="percent_70">70%</string>
+    <string name="repetition_12rm">12</string>
+    <string name="percent_50">50%</string>
+    <string name="repetition_20rm">20</string>
+
 
 
 </resources>

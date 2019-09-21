@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.pinhsiang.fitracker.Float2StringConverter
 import com.pinhsiang.fitracker.Int2StringConverter
 import com.pinhsiang.fitracker.MainActivity
 import com.pinhsiang.fitracker.databinding.FragmentRmBinding
@@ -38,6 +39,8 @@ class RMFragment : Fragment() {
         val application = requireNotNull(activity).application
         viewModelFactory = RMViewModelFactory(application)
         binding.viewModel = viewModel
+        binding.intConverter = Int2StringConverter
+        binding.floatConverter = Float2StringConverter
 
         return binding.root
     }
