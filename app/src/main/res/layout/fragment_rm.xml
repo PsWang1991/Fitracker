@@ -11,6 +11,7 @@
         <variable
                 name="floatConverter"
                 type="com.pinhsiang.fitracker.Float2StringConverter"/>
+        <import type="android.view.View"/>
     </data>
 
     <ScrollView
@@ -39,7 +40,7 @@
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintGuide_percent="0.5"/>
+                        app:layout_constraintGuide_percent="0.5013193"/>
 
                 <TextView
                         android:id="@+id/title_rm_lift"
@@ -63,12 +64,12 @@
                         app:layout_constraintBottom_toBottomOf="@+id/title_rm_lift"
                         android:textAlignment="center"
                         android:textSize="24sp"
-                        tools:text="50"
+                        tools:text="999.99"
                         android:inputType="numberDecimal"
                         android:ellipsize="middle" android:breakStrategy="simple"
                         android:singleLine="true" android:background="@drawable/bg_edit_text_1"
-                        android:text="@={floatConverter.floatToString(viewModel.inputLift)}"
-                        android:textColor="@color/colorText"/>
+                        android:text="@={viewModel.inputLift}"
+                        android:textColor="@color/colorText" android:paddingStart="8dp" android:paddingEnd="8dp"/>
 
                 <TextView
                         android:id="@+id/title_rm_repeats"
@@ -97,8 +98,8 @@
                         android:inputType="number"
                         android:ellipsize="middle" android:breakStrategy="simple"
                         android:singleLine="true" android:background="@drawable/bg_edit_text_1"
-                        android:text="@={intConverter.intToString(viewModel.inputRepeats)}"
-                        android:textColor="@color/colorText"/>
+                        android:text="@={viewModel.inputRepeats}"
+                        android:textColor="@color/colorText" android:paddingStart="8dp" android:paddingEnd="8dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -163,7 +164,8 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/view_item_background"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/layout_btn_calculate_rm">
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/layout_btn_calculate_rm"
+                    android:visibility="@{viewModel.calculateDone == true ? View.VISIBLE : View.INVISIBLE}">
 
                 <TextView
                         android:id="@+id/title_rm_percentage"
@@ -214,7 +216,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_lift_1rm"
-                        android:text="@{String.valueOf(viewModel.lift1RM)}"
+                        android:text="@{viewModel.lift1RM}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_rm_result_lift"
@@ -257,7 +259,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_lift_2rm"
-                        android:text="@{String.valueOf(viewModel.lift2RM)}"
+                        android:text="@{viewModel.lift2RM}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_rm_result_lift"
@@ -300,7 +302,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_lift_4rm"
-                        android:text="@{String.valueOf(viewModel.lift4RM)}"
+                        android:text="@{viewModel.lift4RM}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_rm_result_lift"
@@ -343,7 +345,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_lift_6rm"
-                        android:text="@{String.valueOf(viewModel.lift6RM)}"
+                        android:text="@{viewModel.lift6RM}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_rm_result_lift"
@@ -386,7 +388,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_lift_8rm"
-                        android:text="@{String.valueOf(viewModel.lift8RM)}"
+                        android:text="@{viewModel.lift8RM}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_rm_result_lift"
@@ -429,7 +431,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_lift_10rm"
-                        android:text="@{String.valueOf(viewModel.lift10RM)}"
+                        android:text="@{viewModel.lift10RM}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_rm_result_lift"
@@ -472,7 +474,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_lift_12rm"
-                        android:text="@{String.valueOf(viewModel.lift12RM)}"
+                        android:text="@{viewModel.lift12RM}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_rm_result_lift"
@@ -516,7 +518,7 @@
                         android:layout_marginBottom="8dp"/>
                 <TextView
                         android:id="@+id/text_lift_20rm"
-                        android:text="@{String.valueOf(viewModel.lift20RM)}"
+                        android:text="@{viewModel.lift20RM}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_rm_result_lift"

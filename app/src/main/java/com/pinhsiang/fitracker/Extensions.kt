@@ -53,6 +53,10 @@ fun Int.secondsIntToTime() : String {
     return String.format("%02d:%02d", this / 60, this % 60)
 }
 
+fun Float.digits(digits: Int) :String {
+    return String.format("%.${digits}f", this)
+}
+
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
