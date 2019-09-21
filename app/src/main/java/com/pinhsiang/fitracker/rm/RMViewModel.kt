@@ -65,8 +65,8 @@ class RMViewModel(val app: Application) : AndroidViewModel(app) {
         if (checkInputLiftFormat() && checkInputRepeatsFormat()) {
             if (inputRepeats.value!!.toInt() in 1..36) {
                 calculateDone.value = true
-                _lift1RMValue.value = inputLift.value?.toFloat()?.times((36 / (37 - inputRepeats.value!!.toInt())).toFloat())
-                _lift1RM.value = _lift1RMValue.value.toString().format("%.02f")
+                _lift1RMValue.value = inputLift.value?.toFloat()?.times((36f / (37 - inputRepeats.value!!.toInt()).toFloat()))
+                _lift1RM.value = _lift1RMValue.value!!.digits(2)
                 _lift2RM.value = (_lift1RMValue.value!! * 0.97f).digits(2)
                 _lift4RM.value = (_lift1RMValue.value!! * 0.92f).digits(2)
                 _lift6RM.value = (_lift1RMValue.value!! * 0.86f).digits(2)
