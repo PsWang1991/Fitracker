@@ -26,8 +26,6 @@ class RMViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     private val _lift1RMValue = MutableLiveData<Float>()
-    val lift1RMValue: LiveData<Float>
-        get() = _lift1RMValue
 
     private val _lift1RM = MutableLiveData<String>()
     val lift1RM: LiveData<String>
@@ -84,14 +82,12 @@ class RMViewModel(val app: Application) : AndroidViewModel(app) {
         }
         Log.i(TAG, "inputLift = ${inputLift.value}")
         Log.i(TAG, "inputRepeats = ${inputRepeats.value}")
-        val liftOK = checkInputLiftFormat()
-        val repeatsOK = checkInputRepeatsFormat()
-        Log.i(TAG, "liftOK = $liftOK")
-        Log.i(TAG, "repeatsOK = $repeatsOK")
+        Log.i(TAG, "liftOK = ${checkInputLiftFormat()}")
+        Log.i(TAG, "repeatsOK = ${checkInputRepeatsFormat()}")
     }
 
     private fun checkInputLiftFormat(): Boolean {
-        val recordedValueFormat = "[0-9]{0,3}([.][0-9]{1,2})?".toRegex()
+        val recordedValueFormat = "[0-9]{1,3}([.][0-9]{1,2})?".toRegex()
         return recordedValueFormat.matches(inputLift.value.toString())
     }
 

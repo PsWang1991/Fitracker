@@ -46,15 +46,9 @@ class LoginActivity : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        binding.signInButton.setOnClickListener {
+        binding.layoutBtnLogin.setOnClickListener {
             signIn()
         }
-
-        binding.btnToMain.setOnClickListener {
-            toMainActivity()
-        }
-
-
     }
 
     private fun signIn() {

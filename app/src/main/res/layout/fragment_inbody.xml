@@ -256,7 +256,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
                 android:id="@+id/no_data_inbody"
-                android:text="@string/no_data"
+                android:text="@string/no_data_inbody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"

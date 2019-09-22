@@ -39,8 +39,6 @@ class RMFragment : Fragment() {
         val application = requireNotNull(activity).application
         viewModelFactory = RMViewModelFactory(application)
         binding.viewModel = viewModel
-        binding.intConverter = Int2StringConverter
-        binding.floatConverter = Float2StringConverter
 
         return binding.root
     }

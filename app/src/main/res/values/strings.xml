@@ -34,19 +34,25 @@
 
     <!--Current fragment type-->
     <string name="workout">workout</string>
+    <string name="workout_title">Workout</string>
     <string name="workout_motion">motion</string>
     <string name="motion_title">Select Motion</string>
     <string name="workout_record">workout record</string>
     <string name="workout_record_title">Record Workout</string>
     <string name="workout_analysis">workout analysis</string>
+    <string name="workout_analysis_title">Workout Analysis</string>
     <string name="nutrition">nutrition</string>
+    <string name="nutrition_title">Nutrition</string>
     <string name="nutrition_record">nutrition record</string>
     <string name="nutrition_record_title">You Are What You Eat</string>
     <string name="nutrition_analysis">nutrition analysis</string>
+    <string name="nutrition_analysis_title">Nutrition Analysis</string>
     <string name="inbody">inbody</string>
+    <string name="inbody_title">In-body</string>
     <string name="inbody_record">inbody record</string>
     <string name="inbody_record_title">Record In-body</string>
     <string name="inbody_analysis">inbody analysis</string>
+    <string name="inbody_analysis_title">In-body Analysis</string>
     <string name="timer">timer</string>
     <string name="timer_title">Interval Timer</string>
     <string name="tdee">tdee</string>
@@ -61,6 +67,7 @@
     <string name="weight_kg">Weight [Kg]</string>
     <string name="repeats">Repeats</string>
     <string name="set">Set</string>
+    <string name="no_data_workout">No workout data this day!!</string>
 
     <!--All record fragment-->
     <string name="add">Add</string>
@@ -81,11 +88,14 @@
     <string name="carbohydrate_g">Carbohydrate [g]</string>
     <string name="fat_g">Fat [g]</string>
     <string name="save">Save</string>
+    <string name="no_data_nutrition">No nutrition data this day!!</string>
+
+    <!--IN-body fragment-->
     <string name="body_weight">Body Weight</string>
     <string name="skeletal_muscle">Skeletal Muscle</string>
     <string name="body_fat">Body Fat</string>
     <string name="percentage">%</string>
-    <string name="no_data">No data this day!!</string>
+    <string name="no_data_inbody">No in-body data this day!!</string>
     <string name="body_weight_kg">Body Weight [Kg]</string>
     <string name="skeletal_muscle_percentage">Skeletal Muscle [%]</string>
     <string name="body_fat_percentage">Body Fat [%]</string>
@@ -137,7 +147,7 @@
     <string name="skeletal_muscle_inbody">Skeletal Muscle</string>
     <string name="body_fat_inbody">Body Fat</string>
 
-    <!--TImer-->
+    <!--Timer-->
     <string name="minutes">Minutes</string>
     <string name="seconds">Seconds</string>
     <string name="rest">Rest</string>
@@ -145,6 +155,8 @@
     <string name="colon">:</string>
     <string name="revise">Revise</string>
     <string name="stop">Stop</string>
+
+    <!--Repetition maximum-->
     <string name="lift_kg">Lift [Kg]</string>
     <string name="calculate">Calculate</string>
     <string name="percentage_1rm">% of 1 RM</string>
@@ -168,9 +180,36 @@
     <string name="hint">Hint</string>
     <string name="hint_rm">
         Lift should be less than 1000 and accurate to the 2nd digital after the decimal point.
-        \nRepeats is a positive integer which is less than 37.
+        \n\nRepeats is a positive integer which is less than 37.
         \n\nThe calculation may not always produce accurate results, it should be regarded as starting point of workouts.
+        \n\nThis result is based on Brzycki formula.
     </string>
 
+    <!--Total Daily Energy Expenditure-->
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="age">Age</string>
+    <string name="height_cm">Height [cm]</string>
+    <string name="tdee_cal">TDEE [cal.]</string>
+    <string name="activity_level">Activity Level</string>
+    <string name="bmr">Basal Metabolic Rate</string>
+    <string name="sedentary">Sedentary</string>
+    <string name="light_exercise">Light Exercise</string>
+    <string name="moderate_exercise">Moderate Exercise</string>
+    <string name="heavy_exercise">Heavy Exercise</string>
+    <string name="athlete">Athlete</string>
+    <string name="format_tdee">%,d</string>
+    <string name="hint_tdee">
+        Sedentary : little to no exercise
+        \nLight Exercise : 1-2 days per week
+        \nModerate Exercise : 3-5 days per week
+        \nHeavy Exercise : 6-7 days per week
+        \nAthlete : 2+ times per day
+        \n\nThis result is based on Mifflin-St Jeor formula.
+    </string>
+
+    <!--Sign In-->
+    <string name="signin">Sign In</string>
 
 </resources>
