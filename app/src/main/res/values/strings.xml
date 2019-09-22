@@ -165,7 +165,12 @@
     <string name="repetition_12rm">12</string>
     <string name="percent_50">50%</string>
     <string name="repetition_20rm">20</string>
-
+    <string name="hint">Hint</string>
+    <string name="hint_rm">
+        Lift should be less than 1000 and accurate to the 2nd digital after the decimal point.
+        \nRepeats is a positive integer which is less than 37.
+        \n\nThe calculation may not always produce accurate results, it should be regarded as starting point of workouts.
+    </string>
 
 
 </resources>
