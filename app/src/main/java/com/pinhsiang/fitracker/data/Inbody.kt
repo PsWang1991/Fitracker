@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class Inbody (
     @get:Exclude var id: String = "",
     val time: Long = System.currentTimeMillis(),
-    val bodyWeight: Float = 0.0F,       // Unit : Kg
-    val bodyFat: Float = 0.0F,          // Unit : %
-    val skeletalMuscle: Float = 0.0F    // Unit : %
+    val bodyWeight: Float = 0f,       // Unit : Kg
+    val bodyFat: Float = 0f,          // Unit : %
+    val skeletalMuscle: Float = 0f    // Unit : %
 ) : Parcelable

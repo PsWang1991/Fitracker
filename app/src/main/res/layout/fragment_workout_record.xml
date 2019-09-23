@@ -19,17 +19,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintGuide_percent="0.5"/>
-        <TextView
-                android:id="@+id/text_date"
-                android:text="@{viewModel.selectedDate}"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_date_nutrition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="16dp"
-                tools:text="2019-09-08"
-                android:textSize="18sp"
-                android:textColor="@color/colorText" android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp">
+            <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="0dp"
+                    app:srcCompat="@drawable/ic_calendar_64dp"
+                    android:id="@+id/image_date_workout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/text_date_workout"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_date_workout"
+                    app:layout_constraintEnd_toStartOf="@+id/text_date_workout"
+                    android:layout_marginEnd="8dp" app:layout_constraintDimensionRatio="h,1:1"/>
+            <TextView
+                    android:id="@+id/text_date_workout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="2019-09-04"
+                    android:textColor="@color/colorText" android:textSize="18sp"
+                    android:text="@{viewModel.selectedDate}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
                 android:id="@+id/text_motion"
                 android:text="@{viewModel.selectedWorkout.motion}"
@@ -42,6 +62,18 @@
                 tools:text="@string/bench_press"
                 android:textSize="18sp"
                 android:textColor="@color/colorText"/>
+        <ImageView
+                android:id="@+id/img_save_workout"
+                android:layout_width="16dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_save_64dp"
+                android:backgroundTint="@color/colorItem"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_upload_data"
+                app:layout_constraintTop_toTopOf="@+id/btn_upload_data"
+                app:layout_constraintEnd_toStartOf="@+id/btn_upload_data"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintDimensionRatio="w,1:1"
+                android:onClick="@{() -> viewModel.addDataToFirebase()}"/>
         <TextView
                 android:id="@+id/btn_upload_data"
                 android:text="@string/save"
@@ -236,6 +268,18 @@
                     android:onClick="@{() -> viewModel.repeatsMinus1()}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+                android:id="@+id/header_workout_record_set"
+                android:text="@string/number_of_set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorText"
+                android:textSize="18sp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="@+id/layout_header_workout_record_weight"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_header_workout_record_weight"
+                app:layout_constraintStart_toStartOf="parent"
+        />
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_header_workout_record_weight"
                 android:layout_width="wrap_content"
@@ -320,7 +364,9 @@
                 tools:listitem="@layout/item_workout_record_sets"
                 tools:itemCount="5"
                 app:workoutSets="@{viewModel.setList}"
-        />
+        >
+        </androidx.recyclerview.widget.RecyclerView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

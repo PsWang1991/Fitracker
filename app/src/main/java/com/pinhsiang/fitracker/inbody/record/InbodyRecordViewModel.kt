@@ -65,24 +65,39 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Applica
 
     fun saveData() {
         if (checkBodyWeightFormat() && checkBodyFatFormat() && checkSkeletalMuscleFormat()) {
-            _validBodyWeight.value = true
-            _validBodyFat.value = true
-            _validSkeletalMuscle.value = true
-            inbodyToUpload = Inbody(
-                time = selectedInbody.time,
-                bodyWeight = bodyWeightRecord.value?.toFloat()!!,
-                bodyFat = bodyFatRecord.value?.toFloat()!!,
-                skeletalMuscle = skeletalMuscleRecord.value?.toFloat()!!
-            )
-            db.collection("user").document(USER_DOC_NAME)
-                .collection("in-body").add(inbodyToUpload)
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents.", exception)
+            if (bodyWeightRecord.value?.toFloat() == 0f || bodyFatRecord.value?.toFloat() == 0f || skeletalMuscleRecord.value?.toFloat() == 0f) {
+                when {
+                    bodyWeightRecord.value?.toFloat() == 0f -> _validBodyWeight.value = false
+                    else -> _validBodyWeight.value = true
                 }
-                .addOnCompleteListener {
-                    Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                when {
+                    bodyFatRecord.value?.toFloat() == 0f -> _validBodyFat.value = false
+                    else -> _validBodyFat.value = true
                 }
-//            Log.i(TAG, "inbodyToUpload = $inbodyToUpload")
+                when {
+                    skeletalMuscleRecord.value?.toFloat() == 0f -> _validSkeletalMuscle.value = false
+                    else -> _validSkeletalMuscle.value = true
+                }
+                Toast.makeText(app, "Input values could not be zero.", Toast.LENGTH_SHORT).show()
+            } else {
+                _validBodyWeight.value = true
+                _validBodyFat.value = true
+                _validSkeletalMuscle.value = true
+                inbodyToUpload = Inbody(
+                    time = selectedInbody.time,
+                    bodyWeight = bodyWeightRecord.value?.toFloat()!!,
+                    bodyFat = bodyFatRecord.value?.toFloat()!!,
+                    skeletalMuscle = skeletalMuscleRecord.value?.toFloat()!!
+                )
+                db.collection("user").document(USER_DOC_NAME)
+                    .collection("in-body").add(inbodyToUpload)
+                    .addOnFailureListener { exception ->
+                        Log.w(TAG, "Error getting documents.", exception)
+                    }
+                    .addOnCompleteListener {
+                        Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                    }
+            }
         } else {
             when {
                 !checkBodyWeightFormat() -> _validBodyWeight.value = false

@@ -18,12 +18,14 @@
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
                 android:textColor="@color/colorText" android:textSize="18sp"/>
         <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner_exercise" app:layout_constraintStart_toEndOf="@+id/title_exercise"
                 android:layout_marginStart="16dp"
                 app:layout_constraintTop_toTopOf="@+id/title_exercise"
-                app:layout_constraintBottom_toBottomOf="@+id/title_exercise"/>
+                app:layout_constraintBottom_toBottomOf="@+id/title_exercise" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                android:textAlignment="viewStart"/>
         <TextView
                 android:text="@string/graph"
                 android:layout_width="wrap_content"
@@ -34,12 +36,14 @@
                 android:textColor="@color/colorText" android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@+id/title_exercise"/>
         <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinner_graph" app:layout_constraintStart_toEndOf="@+id/title_graph"
                 android:layout_marginStart="16dp"
                 app:layout_constraintTop_toTopOf="@+id/title_graph"
-                app:layout_constraintBottom_toBottomOf="@+id/title_graph"/>
+                app:layout_constraintBottom_toBottomOf="@+id/title_graph" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                android:textAlignment="viewStart"/>
 
         <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart_workout"
@@ -50,7 +54,7 @@
                 android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"/>
         <TextView
                 android:text="@string/period_1m"
-                android:layout_width="72dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/period_1m_workout"
                 android:textColor="@color/colorBackground"
@@ -64,10 +68,10 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/title_graph"
                 android:onClick="@{() -> viewModel.selectPeriod1M()}"
-        />
+                android:layout_marginEnd="4dp"/>
         <TextView
                 android:text="@string/period_3m"
-                android:layout_width="73dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/period_3m_workout"
                 android:textColor="@color/colorText" android:textSize="18sp"
@@ -76,10 +80,11 @@
                 app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/period_6m_workout"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_workout"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_workout"
-                android:onClick="@{() -> viewModel.selectPeriod3M()}"/>
+                android:onClick="@{() -> viewModel.selectPeriod3M()}" android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
         <TextView
                 android:text="@string/period_6m"
-                android:layout_width="72dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/period_6m_workout"
                 android:textColor="@color/colorText" android:textSize="18sp"
@@ -88,10 +93,11 @@
                 app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/period_1y_workout"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_workout"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_workout"
-                android:onClick="@{() -> viewModel.selectPeriod6M()}"/>
+                android:onClick="@{() -> viewModel.selectPeriod6M()}" android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
         <TextView
                 android:text="@string/period_1y"
-                android:layout_width="73dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/period_1y_workout"
                 android:textColor="@color/colorText" android:textSize="18sp"
@@ -101,10 +107,11 @@
                 app:layout_constraintEnd_toStartOf="@+id/period_all_workout"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_workout"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_workout"
-                android:onClick="@{() -> viewModel.selectPeriod1Y()}"/>
+                android:onClick="@{() -> viewModel.selectPeriod1Y()}" android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
         <TextView
                 android:text="@string/all"
-                android:layout_width="73dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/period_all_workout"
                 android:textColor="@color/colorText" android:textSize="18sp"
@@ -114,6 +121,6 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_workout"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_workout"
-                android:onClick="@{() -> viewModel.selectPeriodAll()}"/>
+                android:onClick="@{() -> viewModel.selectPeriodAll()}" android:layout_marginStart="4dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

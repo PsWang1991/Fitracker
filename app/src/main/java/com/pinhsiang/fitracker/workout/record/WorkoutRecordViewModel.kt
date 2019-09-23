@@ -51,10 +51,14 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
     }
 
     fun addData() {
+        if (weightRecord.value!! == 0 || repeatsRecord.value!! == 0) {
+            Toast.makeText(app, "Weight and repeats could not be zero.", Toast.LENGTH_SHORT).show()
+        } else {
+            setListTemp.add(Sets(weightRecord.value!!, repeatsRecord.value!!))
+            _setList.value = setListTemp
+        }
         Log.i(TAG, "weightRecord = ${weightRecord.value}")
         Log.i(TAG, "repeatsRecord = ${repeatsRecord.value}")
-        setListTemp.add(Sets(weightRecord.value!!, repeatsRecord.value!!))
-        _setList.value = setListTemp
 //        Log.i(TAG, "${setList.value}")
     }
 
