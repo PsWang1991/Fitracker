@@ -15,18 +15,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="64dp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_btn_login"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/btn_text_border" android:layout_marginBottom="32dp">
+                android:background="@drawable/btn_text_border" android:layout_marginBottom="64dp">
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/btn_login_inner"
                     android:layout_width="wrap_content"
@@ -35,8 +33,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:layout_marginEnd="16dp" android:layout_marginStart="16dp">
                 <ImageView
                         android:id="@+id/image_login"
                         android:layout_width="20dp"

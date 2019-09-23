@@ -7,9 +7,9 @@
     <application
             android:name=".FitrackerApplication"
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher_heart"
+            android:icon="@mipmap/ic_launcher_heart_notext"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_heart_round"
+            android:roundIcon="@mipmap/ic_launcher_heart_notext_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 

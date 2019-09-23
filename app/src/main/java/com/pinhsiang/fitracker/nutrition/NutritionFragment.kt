@@ -152,8 +152,8 @@ class NutritionFragment : Fragment() {
                         }
                     }
                 } else {
-                    textView.makeInVisible()
-                    dotView.makeInVisible()
+                    textView.setTextColorRes(R.color.colorItem)
+                    dotView.isVisible = viewModel.hasNutritionData(day.date)
 //                    textView.background = null
                 }
             }

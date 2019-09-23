@@ -160,7 +160,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:workout="@{viewModel.workoutList}"
-                app:layout_constraintTop_toBottomOf="@+id/customCalendar">
+                app:layout_constraintTop_toBottomOf="@+id/customCalendar"
+                tools:listitem="@layout/item_workout"
+                tools:itemCount="4">
         </androidx.recyclerview.widget.RecyclerView>
 
         <TextView

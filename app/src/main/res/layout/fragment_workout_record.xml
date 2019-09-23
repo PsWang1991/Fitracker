@@ -14,7 +14,7 @@
             android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline_vertical"
+                android:id="@+id/guideline_vertical_workout_record"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,8 +61,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textSize="18sp"
                 android:textColor="@color/colorBackground"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/layout_body_fat"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/layout_workout_record_repeats"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:paddingTop="8dp"
@@ -78,12 +78,12 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 android:textSize="18sp" android:textColor="@color/colorBackground"
-                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/layout_body_fat"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/layout_workout_record_repeats"
                 android:layout_marginStart="16dp" android:layout_marginEnd="8dp" android:text="@string/revise"
                 android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
                 android:background="@drawable/btn_text_border_inverse"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintEnd_toStartOf="@+id/guideline_vertical" android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_workout_record" android:visibility="visible"
                 android:onClick="@{() -> viewModel.updateSelectedData()}"/>
         <TextView
                 android:id="@+id/btn_delete_data"
@@ -93,13 +93,15 @@
                 android:text="@string/delete"
                 android:paddingTop="8dp" android:paddingBottom="8dp" android:textAlignment="center"
                 android:background="@drawable/btn_text_border_inverse"
-                android:layout_marginStart="8dp" app:layout_constraintStart_toStartOf="@+id/guideline_vertical"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="@+id/guideline_vertical_workout_record"
                 android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btn_revise_data"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_revise_data" android:visibility="visible"
                 android:onClick="@{() -> viewModel.deleteSelectedData()}"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_protein"
+                android:id="@+id/layout_workout_record_weight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/text_motion"
@@ -107,32 +109,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp" android:background="@drawable/view_item_background">
+                android:layout_marginTop="8dp" android:background="@drawable/view_item_background">
 
             <TextView
+                    android:id="@+id/title_workout_record_weight"
                     android:text="@string/weight_kg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/title_body_weight"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorText"
                     android:textSize="18sp"
                     android:drawableLeft="@drawable/ic_weight_plates_24dp"
                     android:drawablePadding="8dp"/>
             <EditText
-                    android:id="@+id/text_body_weight"
-                    android:layout_width="90dp"
+                    android:id="@+id/text_workout_record_weight"
+                    android:layout_width="150dp"
                     android:layout_height="36dp"
-                    app:layout_constraintStart_toStartOf="@+id/title_body_weight"
-                    app:layout_constraintEnd_toEndOf="@+id/title_body_weight"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/title_body_weight"
+                    app:layout_constraintStart_toStartOf="@+id/title_workout_record_weight"
+                    app:layout_constraintEnd_toEndOf="@+id/title_workout_record_weight"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/title_workout_record_weight"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     tools:text="20"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:inputType="number"
                     android:text="@={converter.intToString(viewModel.weightRecord)}"
                     android:textColor="@color/colorText" android:background="@drawable/bg_edit_text_1"/>
@@ -140,90 +142,180 @@
                     android:layout_width="36dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_weight_plus"
-                    app:layout_constraintTop_toTopOf="@+id/text_body_weight"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_body_weight"
-                    app:layout_constraintStart_toEndOf="@+id/text_body_weight" android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="@+id/text_workout_record_weight"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_workout_record_weight"
+                    app:layout_constraintStart_toEndOf="@+id/text_workout_record_weight"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintDimensionRatio="1:1"
                     android:onClick="@{() -> viewModel.weightPlus5()}"/>
             <ImageView
                     android:layout_width="36dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_weight_minus"
-                    app:layout_constraintTop_toTopOf="@+id/text_body_weight"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_body_weight"
+                    app:layout_constraintTop_toTopOf="@+id/text_workout_record_weight"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_workout_record_weight"
                     app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintEnd_toStartOf="@+id/text_body_weight" android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/text_workout_record_weight" android:layout_marginEnd="16dp"
                     android:onClick="@{() -> viewModel.weightMinus5()}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_body_fat"
+                android:id="@+id/layout_workout_record_repeats"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/layout_protein"
+                app:layout_constraintTop_toBottomOf="@+id/layout_workout_record_weight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp" android:background="@drawable/view_item_background">
+                android:layout_marginTop="8dp" android:background="@drawable/view_item_background">
 
-            <TextView
-                    android:text="@string/repeats"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_title_workout_record_repeats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/title_carbohydrate"
-                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" android:textColor="@color/colorText"
-                    android:textSize="18sp"
-                    android:drawableLeft="@drawable/ic_repeats_24dp"
-                    android:drawablePadding="8dp"
-            />
+                    app:layout_constraintEnd_toEndOf="parent">
+                <ImageView
+                        android:id="@+id/img_workout_record_repeats"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toTopOf="@+id/title_workout_record_repeats"
+                        app:layout_constraintBottom_toBottomOf="@+id/title_workout_record_repeats"
+                        app:layout_constraintEnd_toStartOf="@+id/title_workout_record_repeats"
+                        android:layout_marginEnd="8dp"
+                        app:layout_constraintDimensionRatio="1:1"
+                        android:background="@drawable/ic_repeats_2"
+                        android:backgroundTint="@color/colorText"
+                />
+                <TextView
+                        android:id="@+id/title_workout_record_repeats"
+                        android:text="@string/repeats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textColor="@color/colorText"
+                        android:textSize="18sp"
+                />
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <EditText
-                    android:layout_width="90dp"
-                    android:layout_height="36dp" android:id="@+id/text_carbohydrate"
-                    app:layout_constraintStart_toStartOf="@+id/title_carbohydrate"
-                    app:layout_constraintEnd_toEndOf="@+id/title_carbohydrate" android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/title_carbohydrate" android:textAlignment="center"
+                    android:id="@+id/text_workout_record_repeats"
+                    android:layout_width="150dp"
+                    android:layout_height="36dp"
+                    app:layout_constraintStart_toStartOf="@+id/layout_title_workout_record_repeats"
+                    app:layout_constraintEnd_toEndOf="@+id/layout_title_workout_record_repeats"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_title_workout_record_repeats"
+                    android:textAlignment="center"
                     android:textSize="18sp" tools:text="12" app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="16dp" android:inputType="number"
+                    android:layout_marginBottom="8dp" android:inputType="number"
                     android:text="@={converter.intToString(viewModel.repeatsRecord)}"
                     android:textColor="@color/colorText" android:background="@drawable/bg_edit_text_1"/>
             <ImageView
                     android:layout_width="36dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_plus_color_text"
                     android:id="@+id/btn_repeats_plus"
-                    app:layout_constraintTop_toTopOf="@+id/text_carbohydrate"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_carbohydrate"
-                    app:layout_constraintStart_toEndOf="@+id/text_carbohydrate" android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="@+id/text_workout_record_repeats"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_workout_record_repeats"
+                    app:layout_constraintStart_toEndOf="@+id/text_workout_record_repeats"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintDimensionRatio="1:1"
                     android:onClick="@{() -> viewModel.repeatsPlus1()}"/>
             <ImageView
                     android:layout_width="36dp"
                     android:layout_height="0dp" app:srcCompat="@drawable/ic_minus_color_text"
                     android:id="@+id/btn_repeats_minus"
-                    app:layout_constraintTop_toTopOf="@+id/text_carbohydrate"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_carbohydrate"
+                    app:layout_constraintTop_toTopOf="@+id/text_workout_record_repeats"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_workout_record_repeats"
                     app:layout_constraintDimensionRatio="1:1" app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintEnd_toStartOf="@+id/text_carbohydrate" android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/text_workout_record_repeats"
+                    android:layout_marginEnd="16dp"
                     android:onClick="@{() -> viewModel.repeatsMinus1()}"/>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_header_workout_record_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/btn_add_data"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@id/guideline_vertical_workout_record"
+                app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_workout_record">
+
+            <ImageView
+                    android:id="@+id/img_header_workout_record_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="@+id/header_workout_record_weight"
+                    app:layout_constraintBottom_toBottomOf="@+id/header_workout_record_weight"
+                    app:layout_constraintEnd_toStartOf="@+id/header_workout_record_weight"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    android:background="@drawable/ic_weight_plates_36dp"
+                    android:backgroundTint="@color/colorText"
+            />
+            <TextView
+                    android:id="@+id/header_workout_record_weight"
+                    android:text="@string/weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_header_workout_record_repeats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/layout_header_workout_record_weight"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_header_workout_record_weight"
+                app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                    android:id="@+id/img_header_workout_record_repeats"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="@+id/header_workout_record_repeats"
+                    app:layout_constraintBottom_toBottomOf="@+id/header_workout_record_repeats"
+                    app:layout_constraintEnd_toStartOf="@+id/header_workout_record_repeats"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintDimensionRatio="1:1"
+                    android:background="@drawable/ic_repeats_2"
+                    android:backgroundTint="@color/colorText"
+            />
+            <TextView
+                    android:id="@+id/header_workout_record_repeats"
+                    android:text="@string/repeats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="16dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ImageView
                 android:layout_width="0dp"
                 android:layout_height="2dp" app:srcCompat="@color/colorItem"
-                android:id="@+id/sep_line_workout_record" android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_data" app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/sep_line_workout_record"
+                app:layout_constraintTop_toBottomOf="@+id/layout_header_workout_record_weight"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp"/>
+                android:layout_marginEnd="16dp" android:layout_marginTop="8dp"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_sets"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintTop_toBottomOf="@+id/sep_line_workout_record"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_workout_record_sets"
                 tools:itemCount="5"

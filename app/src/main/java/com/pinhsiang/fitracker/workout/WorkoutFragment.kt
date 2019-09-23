@@ -91,8 +91,8 @@ class WorkoutFragment : Fragment() {
 
         val currentMonth = YearMonth.now()
         customCalendar.setup(
-            currentMonth.minusMonths(10),
-            currentMonth.plusMonths(10),
+            currentMonth.minusMonths(36),
+            currentMonth,
             daysOfWeek.first()
         )
         customCalendar.scrollToMonth(currentMonth)
@@ -118,6 +118,8 @@ class WorkoutFragment : Fragment() {
 //                        Log.i(TAG, "Today = ${timestampToday.timestampToString()}")
 //                        Log.i(TAG, "System.currentTime = ${System.currentTimeMillis()}")
 //                        Log.i(TAG, "System.currentTime = ${System.currentTimeMillis().timestampToString()}")
+                    } else {
+
                     }
                 }
             }
@@ -151,8 +153,8 @@ class WorkoutFragment : Fragment() {
                         }
                     }
                 } else {
-                    textView.makeInVisible()
-                    dotView.makeInVisible()
+                    textView.setTextColorRes(R.color.colorItem)
+                    dotView.isVisible = viewModel.hasWorkoutData(day.date)
 //                    textView.background = null
                 }
             }

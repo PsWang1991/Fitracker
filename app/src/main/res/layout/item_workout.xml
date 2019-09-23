@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     tools:text="@string/bench_press"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"
                     android:textSize="18sp" android:textColor="@color/colorText" android:textStyle="bold"/>
@@ -48,7 +48,7 @@
                     tools:listitem="@layout/item_workout_sets"
                     tools:itemCount="6"
                     app:workoutSets="@{workout.sets}"
-                    android:paddingBottom="12dp" android:paddingTop="4dp"/>
+                    android:paddingBottom="8dp" android:paddingTop="8dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

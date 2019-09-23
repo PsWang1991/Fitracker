@@ -63,7 +63,7 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
             it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
         }
 //        Log.i(TAG, "allWorkoutData = $allWorkoutData")
-//        Log.i(TAG, "workoutList = ${_workoutList.value}")
+        Log.i(TAG, "workoutList = ${_workoutList.value}")
     }
 
     fun hasWorkoutData(date: LocalDate): Boolean {

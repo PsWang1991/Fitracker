@@ -165,8 +165,8 @@ class InbodyFragment : Fragment() {
                         }
                     }
                 } else {
-                    textView.makeInVisible()
-                    dotView.makeInVisible()
+                    textView.setTextColorRes(R.color.colorItem)
+                    dotView.isVisible = viewModel.hasInbodyData(day.date)
 //                    textView.background = null
                 }
             }
