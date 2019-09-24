@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
                 android:id="@+id/nav_timer"
-                android:icon="@drawable/ic_menu_camera"
+                android:icon="@drawable/ic_timer_64dp"
                 android:title="@string/menu_timer"/>
         <item
                 android:id="@+id/nav_tdee"
-                android:icon="@drawable/ic_menu_gallery"
+                android:icon="@drawable/ic_tdee_64dp"
                 android:title="@string/menu_tdee"/>
         <item
                 android:id="@+id/nav_1rm"
-                android:icon="@drawable/ic_menu_slideshow"
+                android:icon="@drawable/ic_rm_64dp"
                 android:title="@string/menu_1rm"/>
         <item
                 android:id="@+id/nav_recommended"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/ic_video_64dp"
                 android:title="@string/menu_recommend"/>
         <item
                 android:id="@+id/nav_log_out"

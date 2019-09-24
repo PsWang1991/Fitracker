@@ -100,10 +100,9 @@
                 app:menu="@menu/activity_main_drawer"
                 tools:visibility="visible"
                 app:itemTextColor="@color/colorText"
-                android:background="@color/colorBackground"/>
+                android:background="@color/colorBackground"
+                app:itemIconTint="@color/colorText"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
-
-        <!--android:background="@{viewModel.currentFragmentType == CurrentFragmentType.WORKOUT || viewModel.currentFragmentType == CurrentFragmentType.NUTRITION || viewModel.currentFragmentType == CurrentFragmentType.INBODY ? @drawable/ic_show_chart_black_24dp : @drawable/ic_record_black_24dp}"/>-->
 
