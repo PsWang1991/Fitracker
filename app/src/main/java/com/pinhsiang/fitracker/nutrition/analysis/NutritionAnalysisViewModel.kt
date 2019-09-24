@@ -11,9 +11,9 @@ import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.timestampToDate
+import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
 
-const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 const val MILLISECOND_PER_DAY = 86400000L
 const val DAYS_PER_1M = 32L
 const val DAYS_PER_3M = 93L
@@ -53,8 +53,8 @@ class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun downloadNutritionData() {
-        db.collection("user").document(USER_DOC_NAME)
-            .collection("nutrition").orderBy("time")
+        db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
+            .collection(getString(R.string.nutrition_collection_path)).orderBy("time")
             .get()
             .addOnSuccessListener { result ->
                 Log.i(TAG, "****** From Firebase ********")

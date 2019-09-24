@@ -6,15 +6,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Workout
+import com.pinhsiang.fitracker.user.UserManager
+import com.pinhsiang.fitracker.util.Util.getString
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 
-const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 const val MILLISECOND_PER_DAY = 86400000L
-const val MILLISECOND_PER_WEEK = MILLISECOND_PER_DAY * 7
-const val MILLISECOND_PER_MONTH = MILLISECOND_PER_DAY * 30
 const val ZERO_HOUR = "00:00:00"
 
 class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
@@ -47,6 +47,7 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         downloadWorkoutData()
+        Log.i(TAG, "UserManager.userDocId = ${UserManager.userDocId}")
     }
 
     fun addNewData() {
@@ -78,8 +79,8 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun downloadWorkoutData() {
-        db.collection("user").document(USER_DOC_NAME)
-            .collection("workout")
+        db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
+            .collection(getString(R.string.workout_collection_path))
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {

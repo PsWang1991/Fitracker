@@ -7,10 +7,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Inbody
 import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
+import com.pinhsiang.fitracker.user.UserManager
+import com.pinhsiang.fitracker.util.Util.getString
 
 const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 
@@ -89,8 +92,8 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Applica
                     bodyFat = bodyFatRecord.value?.toFloat()!!,
                     skeletalMuscle = skeletalMuscleRecord.value?.toFloat()!!
                 )
-                db.collection("user").document(USER_DOC_NAME)
-                    .collection("in-body").add(inbodyToUpload)
+                db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
+                    .collection(getString(R.string.inbody_collection_path)).add(inbodyToUpload)
                     .addOnFailureListener { exception ->
                         Log.w(TAG, "Error getting documents.", exception)
                     }

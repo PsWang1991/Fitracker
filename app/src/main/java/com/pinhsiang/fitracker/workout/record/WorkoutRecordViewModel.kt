@@ -7,11 +7,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
+import com.pinhsiang.fitracker.user.UserManager
+import com.pinhsiang.fitracker.util.Util.getString
 
 const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 
@@ -126,8 +129,8 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
                 sets = setListTemp
             )
 
-            db.collection("user").document(USER_DOC_NAME)
-                .collection("workout").add(workoutToAdded)
+            db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
+                .collection(getString(R.string.workout_collection_path)).add(workoutToAdded)
                 .addOnFailureListener { exception ->
                     Log.w(TAG, "Error getting documents.", exception)
                 }
