@@ -120,6 +120,13 @@ class TimerFragment : Fragment() {
             }
         })
 
+        viewModel.addToTimerPatternList.observe(this, Observer {
+            if (it) {
+                binding.rvTimerPattern.scrollToPosition(viewModel.endOfTimerPattern())
+                viewModel.setAddToTimerPatternListFalse()
+            }
+        })
+
         return binding.root
     }
 

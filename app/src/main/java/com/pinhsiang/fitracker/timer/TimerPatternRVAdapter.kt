@@ -76,8 +76,13 @@ class TimerPatternRVAdapter(val viewModel: TimerViewModel) :
             holder.binding.textPatternRepeats.setTextColor(getColor(R.color.colorText))
         }
         holder.itemView.setOnClickListener {
-            selectedPosition = position
-            viewModel.reviseModeOn(position)
+            if (selectedPosition != position) {
+                selectedPosition = position
+                viewModel.reviseModeOn(position)
+            } else {
+                viewModel.reviseModeOff()
+                selectedPosition = -1
+            }
             notifyDataSetChanged()
         }
         holder.bind(item)

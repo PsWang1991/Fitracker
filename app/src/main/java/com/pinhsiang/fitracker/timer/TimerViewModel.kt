@@ -23,6 +23,10 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
     val timerPatternList: LiveData<List<TimerPattern>>
         get() = _timerPatternList
 
+    private val _addToTimerPatternList = MutableLiveData<Boolean>()
+    val addToTimerPatternList: LiveData<Boolean>
+        get() = _addToTimerPatternList
+
     val reviseMode = MutableLiveData<Boolean>().apply {
         value = false
     }
@@ -165,6 +169,7 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
                 )
             )
             _timerPatternList.value = timerPatternListTemp
+            _addToTimerPatternList.value = true
         } else {
             Toast.makeText(
                 FitrackerApplication.appContext,
@@ -175,10 +180,17 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
 //        Log.i(TAG, "${setList.value}")
     }
 
+    fun setAddToTimerPatternListFalse() {
+        _addToTimerPatternList.value = false
+    }
+
+    fun endOfTimerPattern(): Int {
+        return timerPatternListTemp.size - 1
+    }
+
     fun deleteSelectedPattern() {
         if (selectedPatternIndex in 0 until timerPatternListTemp.size) {
             timerPatternListTemp.removeAt(selectedPatternIndex)
-            selectedPatternIndex = -1
             _timerPatternList.value = timerPatternListTemp
             reviseModeOff()
         }
@@ -194,7 +206,6 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
                     restTime = restTime.value!!,
                     repeat = patternRepeats.value!!
                 )
-            selectedPatternIndex = -1
             _timerPatternList.value = timerPatternListTemp
             reviseModeOff()
         }
@@ -205,7 +216,8 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
         reviseMode.value = true
     }
 
-    private fun reviseModeOff() {
+    fun reviseModeOff() {
+        selectedPatternIndex = -1
         reviseMode.value = false
     }
 

@@ -64,6 +64,13 @@ class WorkoutRecordFragment : Fragment() {
             }
         })
 
+        viewModel.addToSetList.observe(this, Observer {
+            if (it) {
+                binding.rvSets.scrollToPosition(viewModel.endOfSetList())
+                viewModel.setAddToSetListFalse()
+            }
+        })
+
         return binding.root
     }
 

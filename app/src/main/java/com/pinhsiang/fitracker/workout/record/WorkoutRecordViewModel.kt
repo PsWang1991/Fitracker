@@ -16,8 +16,6 @@ import com.pinhsiang.fitracker.timestampToString
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
 
-const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
-
 class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application) : AndroidViewModel(app) {
 
     private val db = FirebaseFirestore.getInstance()
@@ -30,6 +28,10 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
     private val _setList = MutableLiveData<List<Sets>>()
     val setList: LiveData<List<Sets>>
         get() = _setList
+
+    private val _addToSetList = MutableLiveData<Boolean>()
+    val addToSetList: LiveData<Boolean>
+        get() = _addToSetList
 
     val weightRecord = MutableLiveData<Int>().apply {
         value = 0
@@ -59,10 +61,19 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
         } else {
             setListTemp.add(Sets(weightRecord.value!!, repeatsRecord.value!!))
             _setList.value = setListTemp
+            _addToSetList.value = true
         }
         Log.i(TAG, "weightRecord = ${weightRecord.value}")
         Log.i(TAG, "repeatsRecord = ${repeatsRecord.value}")
 //        Log.i(TAG, "${setList.value}")
+    }
+
+    fun setAddToSetListFalse() {
+        _addToSetList.value = false
+    }
+
+    fun endOfSetList(): Int {
+        return setListTemp.size - 1
     }
 
     fun weightPlus5() {
@@ -98,14 +109,14 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
         reviseMode.value = true
     }
 
-    private fun reviseModeOff() {
+    fun reviseModeOff() {
+        revisedDataIndex = -1
         reviseMode.value = false
     }
 
     fun deleteSelectedData() {
         if (revisedDataIndex in 0 until setListTemp.size) {
             setListTemp.removeAt(revisedDataIndex)
-            revisedDataIndex = -1
             _setList.value = setListTemp
             reviseModeOff()
         }
@@ -114,7 +125,6 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
     fun updateSelectedData() {
         if (revisedDataIndex in 0 until setListTemp.size) {
             setListTemp[revisedDataIndex] = Sets(liftWeight = weightRecord.value!!, repeats = repeatsRecord.value!!)
-            revisedDataIndex = -1
             _setList.value = setListTemp
             reviseModeOff()
         }

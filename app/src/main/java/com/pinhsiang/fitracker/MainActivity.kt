@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -229,11 +230,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 else -> viewModel.currentFragmentType.value
             }
             when (navController.currentDestination?.id) {
-                R.id.timerFragment -> toggle.isDrawerIndicatorEnabled = false
-                R.id.recommendedFragment -> toggle.isDrawerIndicatorEnabled = false
-                R.id.RMFragment -> toggle.isDrawerIndicatorEnabled = false
-                R.id.TDEEFragment -> toggle.isDrawerIndicatorEnabled = false
-                else -> toggle.isDrawerIndicatorEnabled = true
+                R.id.timerFragment -> {
+                    toggle.isDrawerIndicatorEnabled = false
+                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                }
+                R.id.recommendedFragment -> {
+                    toggle.isDrawerIndicatorEnabled = false
+                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                }
+                R.id.RMFragment -> {
+                    toggle.isDrawerIndicatorEnabled = false
+                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                }
+                R.id.TDEEFragment -> {
+                    toggle.isDrawerIndicatorEnabled = false
+                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                }
+                else -> {
+                    toggle.isDrawerIndicatorEnabled = true
+//                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_GRAVITY
+                }
             }
         }
     }

@@ -83,9 +83,13 @@ class RecordSetRVAdapter(val viewModel: WorkoutRecordViewModel) :
             holder.binding.unitRep.setTextColor(getColor(R.color.colorText))
         }
         holder.itemView.setOnClickListener {
-            //            Log.i(TAG, "position = $position")
-            selectedPosition = position
-            viewModel.reviseModeOn(position)
+            if (selectedPosition != position) {
+                selectedPosition = position
+                viewModel.reviseModeOn(position)
+            } else {
+                viewModel.reviseModeOff()
+                selectedPosition = -1
+            }
             notifyDataSetChanged()
         }
         holder.bind(item)
