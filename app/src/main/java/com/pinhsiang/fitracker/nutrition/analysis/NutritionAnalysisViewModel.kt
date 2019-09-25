@@ -78,19 +78,21 @@ class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
     // We show nutrition data by date, but by meal.
     // Notice : raw data should be sorted by time.
     private fun rawToDailyTotal() {
-        var currentDate = rawNutritionData[0].time.timestampToDate()
-        dailyTotalNutritionData.add(rawNutritionData[0])
-        rawNutritionData.removeAt(0)
-        while (rawNutritionData.isNotEmpty()) {
-            if (rawNutritionData[0].time.timestampToDate() == currentDate) {
-                dailyTotalNutritionData.last().protein += rawNutritionData[0].protein
-                dailyTotalNutritionData.last().carbohydrate += rawNutritionData[0].carbohydrate
-                dailyTotalNutritionData.last().fat += rawNutritionData[0].fat
-                rawNutritionData.removeAt(0)
-            } else {
-                currentDate = rawNutritionData[0].time.timestampToDate()
-                dailyTotalNutritionData.add(rawNutritionData[0])
-                rawNutritionData.removeAt(0)
+        if (rawNutritionData.isNotEmpty()) {
+            var currentDate = rawNutritionData[0].time.timestampToDate()
+            dailyTotalNutritionData.add(rawNutritionData[0])
+            rawNutritionData.removeAt(0)
+            while (rawNutritionData.isNotEmpty()) {
+                if (rawNutritionData[0].time.timestampToDate() == currentDate) {
+                    dailyTotalNutritionData.last().protein += rawNutritionData[0].protein
+                    dailyTotalNutritionData.last().carbohydrate += rawNutritionData[0].carbohydrate
+                    dailyTotalNutritionData.last().fat += rawNutritionData[0].fat
+                    rawNutritionData.removeAt(0)
+                } else {
+                    currentDate = rawNutritionData[0].time.timestampToDate()
+                    dailyTotalNutritionData.add(rawNutritionData[0])
+                    rawNutritionData.removeAt(0)
+                }
             }
         }
     }

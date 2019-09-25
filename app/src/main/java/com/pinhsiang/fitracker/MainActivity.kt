@@ -3,6 +3,7 @@ package com.pinhsiang.fitracker
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -69,10 +70,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // Set toolbar.
-        val toolbar: Toolbar = binding.toolbar
-        setSupportActionBar(toolbar)
-
         // Set onclick listener of record/analysis icon on toolbar.
         binding.recordOrAnalysis.setOnClickListener {
             val navControllerBottom = findNavController(R.id.main_page_fragment)
@@ -104,6 +101,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
         }
+
+        // On tool fragments, hide drawer icon, the only way to exit tool fragments is clicking back key or up key.
+        binding.btnBackToOverview.setOnClickListener {
+            onBackPressed()
+        }
+
+        // Setup toolbar, to show custom toolbar title, hides the native title on toolbar.
+        val toolbar: Toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // Set drawer
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -145,7 +152,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    // For drawer.
+    // Drawer navigation
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val navControllerDrawer = findNavController(R.id.main_page_fragment)
         when (item.itemId) {
@@ -183,72 +190,69 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
      * Also change the background of record/analysis icon on toolbar.
      */
     private fun setupNavController() {
+        var toolbarTitle = binding.titleToolbar
+        var toolbarTitleTools = binding.titleToolbarTools
         findNavController(R.id.main_page_fragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
             viewModel.currentFragmentType.value = when (navController.currentDestination?.id) {
                 R.id.workoutFragment -> CurrentFragmentType.WORKOUT.apply {
-                    supportActionBar?.title = getString(R.string.workout_title)
+                    toolbarTitle.text = getString(R.string.workout_title)
                 }
                 R.id.motionFragment -> CurrentFragmentType.WORKOUT_MOTION.apply {
-                    supportActionBar?.title = getString(R.string.motion_title)
+                    toolbarTitle.text = getString(R.string.motion_title)
                 }
                 R.id.workoutRecordFragment -> CurrentFragmentType.WORKOUT_RECORD.apply {
-                    supportActionBar?.title = getString(R.string.workout_record_title)
+                    toolbarTitle.text = getString(R.string.workout_record_title)
                 }
                 R.id.workoutAnalysisFragment -> CurrentFragmentType.WORKOUT_ANALYSIS.apply {
-                    supportActionBar?.title = getString(R.string.workout_analysis_title)
+                    toolbarTitle.text = getString(R.string.workout_analysis_title)
                 }
                 R.id.nutritionFragment -> CurrentFragmentType.NUTRITION.apply {
-                    supportActionBar?.title = getString(R.string.nutrition_title)
+                    toolbarTitle.text = getString(R.string.nutrition_title)
                 }
                 R.id.nutritionRecordFragment -> CurrentFragmentType.NUTRITION_RECORD.apply {
-                    supportActionBar?.title = getString(R.string.nutrition_record_title)
+                    toolbarTitle.text = getString(R.string.nutrition_record_title)
                 }
                 R.id.nutritionAnalysisFragment -> CurrentFragmentType.NUTRITION_ANALYSIS.apply {
-                    supportActionBar?.title = getString(R.string.nutrition_analysis_title)
+                    toolbarTitle.text = getString(R.string.nutrition_analysis_title)
                 }
                 R.id.inbodyFragment -> CurrentFragmentType.INBODY.apply {
-                    supportActionBar?.title = getString(R.string.inbody_title)
+                    toolbarTitle.text = getString(R.string.inbody_title)
                 }
                 R.id.inbodyRecordFragment -> CurrentFragmentType.INBODY_RECORD.apply {
-                    supportActionBar?.title = getString(R.string.inbody_record_title)
+                    toolbarTitle.text = getString(R.string.inbody_record_title)
                 }
                 R.id.inbodyAnalysisFragment -> CurrentFragmentType.INBODY_ANALYSIS.apply {
-                    supportActionBar?.title = getString(R.string.inbody_analysis_title)
+                    toolbarTitle.text = getString(R.string.inbody_analysis_title)
                 }
                 R.id.timerFragment -> CurrentFragmentType.TIMER.apply {
-                    supportActionBar?.title = getString(R.string.timer_title)
+                    toolbarTitleTools.text = getString(R.string.timer_title)
                 }
                 R.id.recommendedFragment -> CurrentFragmentType.RECOMMENDED.apply {
-                    supportActionBar?.title = getString(R.string.recommended_title)
+                    toolbarTitleTools.text = getString(R.string.recommended_title)
                 }
                 R.id.RMFragment -> CurrentFragmentType.ONE_RM.apply {
-                    supportActionBar?.title = getString(R.string.one_rm_title)
+                    toolbarTitleTools.text = getString(R.string.one_rm_title)
                 }
                 R.id.TDEEFragment -> CurrentFragmentType.TDEE.apply {
-                    supportActionBar?.title = getString(R.string.total_daily_energy_extracted)
+                    toolbarTitleTools.text = getString(R.string.tdee_title)
                 }
                 else -> viewModel.currentFragmentType.value
             }
             when (navController.currentDestination?.id) {
                 R.id.timerFragment -> {
                     toggle.isDrawerIndicatorEnabled = false
-                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
                 }
                 R.id.recommendedFragment -> {
                     toggle.isDrawerIndicatorEnabled = false
-                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
                 }
                 R.id.RMFragment -> {
                     toggle.isDrawerIndicatorEnabled = false
-                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
                 }
                 R.id.TDEEFragment -> {
                     toggle.isDrawerIndicatorEnabled = false
-                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
                 }
                 else -> {
                     toggle.isDrawerIndicatorEnabled = true
-//                    binding.toolbar.textAlignment = View.TEXT_ALIGNMENT_GRAVITY
                 }
             }
         }

@@ -56,6 +56,7 @@
     <string name="timer">timer</string>
     <string name="timer_title">Interval Timer</string>
     <string name="tdee">tdee</string>
+    <string name="tdee_title">Total Daily Energy Expenditure</string>
     <string name="one_rm">one rm</string>
     <string name="one_rm_title">Repetition Maximum</string>
     <string name="recommended">recommended</string>
@@ -138,7 +139,7 @@
         <item>@string/carbohydrate</item>
         <item>@string/fat</item>
     </string-array>
-    <string name="total_daily_energy_extracted">Total Daily Energy Extracted</string>
+    <string name="total_daily_energy_extracted">Daily Energy Extracted</string>
 
     <!--In-body analysis fragment-->
     <string name="filter">Filter</string>
