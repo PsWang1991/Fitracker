@@ -20,7 +20,6 @@
                 app:layout_constraintEnd_toEndOf="parent" android:id="@+id/rv_youtube"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:youtubeList="@{viewModel.youtubeVideoList}"
-                android:paddingTop="8dp" android:paddingBottom="8dp"
                 tools:listitem="@layout/item_youtube_list"
                 tools:itemCount="4"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

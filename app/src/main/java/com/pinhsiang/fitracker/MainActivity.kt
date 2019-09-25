@@ -2,17 +2,16 @@ package com.pinhsiang.fitracker
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.TextAppearanceSpan
 import android.util.Log
-import android.view.Gravity
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
-import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -34,6 +33,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     lateinit var binding: ActivityMainBinding
     lateinit var toggle: ActionBarDrawerToggle
+    lateinit var toolbar: Toolbar
 
     /**
      * Lazily initialize our [MainViewModel].
@@ -108,19 +108,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         // Setup toolbar, to show custom toolbar title, hides the native title on toolbar.
-        val toolbar: Toolbar = binding.toolbar
+        toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        // Set drawer
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
-        toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        navView.setNavigationItemSelectedListener(this)
+        setupDrawer()
 
         // Set bottom navigation view
         binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -133,6 +125,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
 
         setupNavController()
+
+    }
+
+    // Color and size of title on navigation view can not be set on activity_main.xml, thus set it on MainActivity.
+    private fun setupDrawer() {
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
+        toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+
+        val tools = navView.menu.findItem(R.id.tools)
+        val spannableString = SpannableString(tools.title)
+        spannableString.setSpan(TextAppearanceSpan(this, R.style.NavViewTitle), 0, spannableString.length, 0)
+        tools.title = spannableString
+
     }
 
     override fun onBackPressed() {

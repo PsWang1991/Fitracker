@@ -37,27 +37,34 @@
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="16dp"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="@color/colorText"
                         android:textAlignment="center" android:textStyle="bold"/>
                 <RadioGroup
+                        android:id="@+id/radio_group_gender"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/radio_group_gender"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal" app:layout_constraintStart_toEndOf="@+id/title_tdee_gender"
                         android:layout_marginStart="8dp"
                         app:layout_constraintTop_toTopOf="@+id/title_tdee_gender"
                         app:layout_constraintBottom_toBottomOf="@+id/title_tdee_gender">
                     <RadioButton
+                            android:id="@+id/radio_male"
                             android:text="@string/male"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/radio_male" android:layout_weight="1"
-                            android:textSize="20sp" android:textColor="@color/colorText"/>
+                            android:layout_height="wrap_content" android:layout_weight="1"
+                            android:textSize="18sp" android:textColor="@color/colorText"
+                            android:buttonTint="@color/colorText"
+                    />
                     <RadioButton
+                            android:id="@+id/radio_female"
                             android:text="@string/female"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/radio_female"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="20sp" android:textColor="@color/colorText"/>
+                            android:textSize="18sp" android:textColor="@color/colorText"
+                            android:buttonTint="@color/colorText"
+                    />
                 </RadioGroup>
 
                 <TextView
@@ -68,7 +75,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/title_tdee_gender" android:layout_marginTop="8dp"
                         app:layout_constraintStart_toStartOf="@id/title_tdee_gender"
                         android:textColor="@color/colorText"
-                        android:textSize="20sp" android:textStyle="bold"/>
+                        android:textSize="18sp" android:textStyle="bold"/>
                 <EditText
                         android:id="@+id/text_tdee_age"
                         android:layout_width="wrap_content"
@@ -97,7 +104,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/title_tdee_age" android:layout_marginTop="8dp"
                         app:layout_constraintStart_toStartOf="@id/title_tdee_gender"
                         android:textColor="@color/colorText"
-                        android:textSize="20sp" android:textStyle="bold"/>
+                        android:textSize="18sp" android:textStyle="bold"/>
                 <EditText
                         android:id="@+id/text_tdee_weight"
                         android:layout_width="wrap_content"
@@ -126,7 +133,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/title_tdee_weight" android:layout_marginTop="8dp"
                         app:layout_constraintStart_toStartOf="@id/title_tdee_gender"
                         android:textColor="@color/colorText"
-                        android:textSize="20sp" app:layout_constraintBottom_toBottomOf="parent"
+                        android:textSize="18sp" app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_marginBottom="8dp" android:textStyle="bold"/>
                 <EditText
                         android:id="@+id/text_tdee_height"
@@ -188,7 +195,7 @@
                             android:id="@+id/btn_calculate_tdee"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="@color/colorBackground"
                             android:text="@string/calculate"
                             app:layout_constraintBottom_toBottomOf="parent"

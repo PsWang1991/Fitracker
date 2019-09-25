@@ -41,11 +41,12 @@
                         android:text="@string/lift_kg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
                         app:layout_constraintEnd_toStartOf="@id/guideline_vertical_rm_parameter"
                         android:layout_marginEnd="4dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_rm_lift"
                         android:textColor="@color/colorText"
-                        android:textSize="24sp" android:textStyle="bold"/>
+                        android:textSize="18sp"
+                        android:textStyle="bold" app:layout_constraintTop_toTopOf="@+id/text_rm_lift"/>
                 <EditText
                         android:id="@+id/text_rm_lift"
                         android:layout_width="wrap_content"
@@ -54,28 +55,28 @@
                         android:maxWidth="120dp"
                         app:layout_constraintStart_toEndOf="@id/guideline_vertical_rm_parameter"
                         android:layout_marginStart="4dp"
-                        app:layout_constraintTop_toTopOf="@+id/title_rm_lift"
-                        app:layout_constraintBottom_toBottomOf="@+id/title_rm_lift"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:textAlignment="center"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         tools:text="999.99"
                         android:inputType="numberDecimal"
                         android:ellipsize="middle" android:breakStrategy="simple"
                         android:singleLine="true" android:background="@drawable/bg_edit_text_1"
                         android:text="@={viewModel.inputLift}"
-                        android:textColor="@color/colorText" android:paddingStart="8dp" android:paddingEnd="8dp"/>
+                        android:textColor="@color/colorText" android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:layout_marginTop="16dp"/>
 
                 <TextView
                         android:id="@+id/title_rm_repeats"
                         android:text="@string/repeats"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@+id/title_rm_lift" android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toStartOf="@id/guideline_vertical_rm_parameter"
                         android:layout_marginEnd="4dp"
-                        app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_rm_repeats"
                         android:textColor="@color/colorText"
-                        android:textSize="24sp" android:textStyle="bold"/>
+                        android:textSize="18sp" android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="@+id/text_rm_repeats"/>
                 <EditText
                         android:id="@+id/text_rm_repeats"
                         android:layout_width="wrap_content"
@@ -84,16 +85,16 @@
                         android:maxWidth="120dp"
                         app:layout_constraintStart_toEndOf="@id/guideline_vertical_rm_parameter"
                         android:layout_marginStart="4dp"
-                        app:layout_constraintTop_toTopOf="@+id/title_rm_repeats"
-                        app:layout_constraintBottom_toBottomOf="@+id/title_rm_repeats"
                         android:textAlignment="center"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         tools:text="15"
                         android:inputType="number"
                         android:ellipsize="middle" android:breakStrategy="simple"
                         android:singleLine="true" android:background="@drawable/bg_edit_text_1"
                         android:text="@={viewModel.inputRepeats}"
-                        android:textColor="@color/colorText" android:paddingStart="8dp" android:paddingEnd="8dp"/>
+                        android:textColor="@color/colorText" android:paddingStart="8dp" android:paddingEnd="8dp"
+                        android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/text_rm_lift"
+                        app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="16dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,7 +136,7 @@
                             android:id="@+id/btn_calculate_rm"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
+                            android:textSize="18sp"
                             android:textColor="@color/colorBackground"
                             android:text="@string/calculate"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -144,7 +145,7 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:textAlignment="center"
-                            android:textStyle="bold"/>
+                    />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

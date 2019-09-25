@@ -75,7 +75,8 @@
                             android:layout_marginBottom="0dp"
                             android:layout_marginEnd="16dp"
                             android:layout_gravity="right|center_vertical"
-                            android:background="@{(viewModel.currentFragmentType == CurrentFragmentType.WORKOUT ||viewModel.currentFragmentType == CurrentFragmentType.NUTRITION || viewModel.currentFragmentType == CurrentFragmentType.INBODY) ? @drawable/ic_line_chart_64dp : @drawable/ic_record_64dp}"
+                            android:backgroundTint="@color/colorBackground"
+                            android:background="@{(viewModel.currentFragmentType == CurrentFragmentType.WORKOUT ||viewModel.currentFragmentType == CurrentFragmentType.NUTRITION || viewModel.currentFragmentType == CurrentFragmentType.INBODY) ? @drawable/ic_line_chart_64dp : @drawable/ic_calendar_64dp}"
                             android:visibility="@{(viewModel.currentFragmentType == CurrentFragmentType.WORKOUT ||viewModel.currentFragmentType == CurrentFragmentType.NUTRITION || viewModel.currentFragmentType == CurrentFragmentType.INBODY || viewModel.currentFragmentType == CurrentFragmentType.WORKOUT_ANALYSIS || viewModel.currentFragmentType == CurrentFragmentType.NUTRITION_ANALYSIS || viewModel.currentFragmentType == CurrentFragmentType.INBODY_ANALYSIS) ? View.VISIBLE : View.GONE}"
                     />
                 </androidx.appcompat.widget.Toolbar>
@@ -131,7 +132,9 @@
                 tools:visibility="visible"
                 app:itemTextColor="@color/colorText"
                 android:background="@color/colorBackground"
-                app:itemIconTint="@color/colorText"/>
+                app:itemIconTint="@color/colorText"
+                android:textSize="18sp"
+        />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
 
