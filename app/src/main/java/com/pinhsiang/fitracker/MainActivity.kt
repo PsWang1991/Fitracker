@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.TextAppearanceSpan
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
@@ -12,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -21,6 +23,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pinhsiang.fitracker.databinding.ActivityMainBinding
+import com.pinhsiang.fitracker.databinding.NavHeaderMainBinding
 import com.pinhsiang.fitracker.inbody.InbodyFragmentDirections
 import com.pinhsiang.fitracker.nutrition.NutritionFragmentDirections
 import com.pinhsiang.fitracker.user.UserManager
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var binding: ActivityMainBinding
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var toolbar: Toolbar
+    lateinit var navHeaderBinding: NavHeaderMainBinding
 
     /**
      * Lazily initialize our [MainViewModel].
@@ -61,6 +65,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         false
     }
+
+    // Get the height of status bar from system to set top padding of nav_header.
+    private val statusBarHeight: Int
+        get() {
+            val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+            return when {
+                resourceId > 0 -> resources.getDimensionPixelSize(resourceId)
+                else -> 0
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,6 +126,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        navHeaderBinding = NavHeaderMainBinding.inflate(LayoutInflater.from(this), binding.navView, false)
+        navHeaderBinding.viewModel = viewModel
+        navHeaderBinding.lifecycleOwner = this
+
         setupDrawer()
 
         // Set bottom navigation view
@@ -126,12 +144,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setupNavController()
 
+//        UserManager.userName.observe(this, Observer {
+//            it?.let {
+//                viewModel.setUserName(it)
+//                Log.i(TAG, "(MainActivity) UserManager.userName = ${UserManager.userName.value}")
+//            }
+//        })
+
     }
 
     // Color and size of title on navigation view can not be set on activity_main.xml, thus set it on MainActivity.
     private fun setupDrawer() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+        navView.addHeaderView(navHeaderBinding.root)
         toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -144,6 +170,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         spannableString.setSpan(TextAppearanceSpan(this, R.style.NavViewTitle), 0, spannableString.length, 0)
         tools.title = spannableString
 
+        navView.getHeaderView(0).setPadding(0, statusBarHeight, 0, 0)
     }
 
     override fun onBackPressed() {
@@ -183,6 +210,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val auth = FirebaseAuth.getInstance()
                 UserManager.userUid = ""
                 UserManager.userDocId = ""
+                UserManager.userName = ""
+                UserManager.userEmail = ""
+                UserManager.userAvatarUrl = ""
                 Log.i(TAG, "current user = ${auth.currentUser}")
                 auth.signOut()
                 Log.i(TAG, "current user = ${auth.currentUser}")

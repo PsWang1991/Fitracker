@@ -27,13 +27,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     tools:text="@string/total"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="16dp"
-                    android:textSize="18sp" android:textColor="@color/colorText" android:textStyle="bold"
-                    android:layout_marginEnd="16dp" app:layout_constraintEnd_toStartOf="@+id/energy_total"
-                    android:singleLine="true"/>
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/energy_total" android:layout_marginEnd="16dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorText"
+                    android:textStyle="bold"
+                    android:singleLine="true"
+            />
             <TextView
                     android:id="@+id/energy_total"
                     android:text='@{String.valueOf(nutrition.carbohydrate * 4 + nutrition.protein * 4 + nutrition.fat * 9)}'

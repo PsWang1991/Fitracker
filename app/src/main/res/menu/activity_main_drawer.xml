@@ -22,13 +22,16 @@
                         android:id="@+id/nav_recommended"
                         android:icon="@drawable/ic_video_64dp"
                         android:title="@string/menu_recommend"/>
+            </group>
+        </menu>
+    </item>
+
+
                 <item
                         android:id="@+id/nav_log_out"
                         android:icon="@drawable/ic_exit_black"
                         android:title="@string/log_out"/>
-            </group>
-        </menu>
-    </item>
+
 
 
 </menu>

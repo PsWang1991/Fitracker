@@ -1,7 +1,11 @@
 package com.pinhsiang.fitracker
 
+import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.pinhsiang.fitracker.data.*
 import com.pinhsiang.fitracker.nutrition.NutritionRVAdapter
 import com.pinhsiang.fitracker.recommended.YoutubeRecyclerAdapter
@@ -53,4 +57,20 @@ fun bindRecyclerViewWithTimerPattern(recyclerView: RecyclerView, data: List<Time
 fun bindRecyclerViewWithYoutubeVideo(recyclerView: RecyclerView, data: List<YoutubeVideo>?) {
     val adapter = recyclerView.adapter as YoutubeRecyclerAdapter
     adapter.submitList(data)
+}
+
+// Converting imgUrl to a URI with the https scheme and transfer to circular image.
+@BindingAdapter("circularAvatar")
+fun bindCircularAvatar(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        val imgUri = it.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView.context)
+            .load(imgUri)
+            .apply(
+                RequestOptions
+                    .circleCropTransform()
+                    .placeholder(R.drawable.smile_128dp_1)
+            )
+            .into(imgView)
+    }
 }

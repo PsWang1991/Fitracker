@@ -20,7 +20,7 @@
 
     <style name="NavViewTitle">
         <item name="android:textColor">@color/colorText</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

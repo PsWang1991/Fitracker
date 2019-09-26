@@ -74,11 +74,16 @@ class LoginActivity : AppCompatActivity() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
-            firebaseAuthWithGoogle(account!!)
             // Signed in successfully, show authenticated UI.
             Log.i(TAG, "account id = ${account?.id}")
             Log.i(TAG, "account id token = ${account?.idToken}")
             Log.i(TAG, "account display name = ${account?.displayName}")
+            UserManager.userName = account?.displayName!!
+            Log.i(TAG, "save userName")
+            UserManager.userEmail = account?.email
+            Log.i(TAG, "photoUrl = ${account?.photoUrl.toString()}")
+            UserManager.userAvatarUrl = account?.photoUrl.toString()
+            firebaseAuthWithGoogle(account!!)
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
