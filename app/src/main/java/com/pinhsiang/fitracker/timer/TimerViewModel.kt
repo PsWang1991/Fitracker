@@ -101,6 +101,8 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
                     if (timeRest > 0) {
                         intervalTimerStatus.postValue(getString(R.string.rest))
                         intervalTimerTime.postValue(timeRest.secondsIntToTime())
+
+                        // Alarms user that the next interval is coming.
                         when (timeRest) {
                             in 2..3 -> clockSound.start()
                             1 -> dingSound.start()
@@ -184,7 +186,7 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
         _addToTimerPatternList.value = false
     }
 
-    fun endOfTimerPattern(): Int {
+    fun endOfTimerPatternList(): Int {
         return timerPatternListTemp.size - 1
     }
 
@@ -314,7 +316,6 @@ class TimerViewModel(val app: Application) : AndroidViewModel(app) {
         }
 //        Log.i(TAG, "patternRepeats = ${patternRepeats.value}")
     }
-    // Plus and minus button
 
 
     // Keeps values of minutes and seconds in legal range.

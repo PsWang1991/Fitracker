@@ -178,7 +178,7 @@
                 <ImageView
                         android:layout_width="16dp"
                         android:layout_height="0dp" app:srcCompat="@drawable/ic_save_64dp"
-                        android:id="@+id/image_stop_timer"
+                        android:id="@+id/image_save_data_inbody"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/btn_save_data_inbody"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_save_data_inbody"

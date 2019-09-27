@@ -612,7 +612,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="@{viewModel.timerStart == true ? View.VISIBLE : View.INVISIBLE}"
-                tools:visibility="invisible">
+                tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_timer_start"

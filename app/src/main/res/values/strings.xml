@@ -74,6 +74,8 @@
     <!--Workout record fragment-->
     <string name="number_of_set"># of set</string>
     <string name="weight">Weight</string>
+    <string name="rest_timer">Rest Timer</string>
+    <string name="stop_rest_timer_to_upload">Stop rest timer to upload workout data.</string>
 
     <!--All record fragment-->
     <string name="add">Add</string>
@@ -217,6 +219,7 @@
 
     <!--Sign In-->
     <string name="signin">Sign In</string>
+    <string name="reset">Reset</string>
 
 
 </resources>

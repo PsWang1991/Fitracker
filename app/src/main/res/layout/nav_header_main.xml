@@ -21,10 +21,11 @@
                 android:id="@+id/user_avatar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                tools:background="@drawable/ic_avatar_128dp_1"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
                 app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
                 android:onClick="@{() -> viewModel.loglog()}"
-                app:circularAvatar="@{viewModel.userAvatarUrl}"
+
         />
 
         <TextView
@@ -63,3 +64,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+

@@ -10,6 +10,7 @@ import com.pinhsiang.fitracker.data.*
 import com.pinhsiang.fitracker.nutrition.NutritionRVAdapter
 import com.pinhsiang.fitracker.recommended.YoutubeRecyclerAdapter
 import com.pinhsiang.fitracker.timer.TimerPatternRVAdapter
+import com.pinhsiang.fitracker.util.Util.getDrawable
 import com.pinhsiang.fitracker.workout.WorkoutRVAdapter
 import com.pinhsiang.fitracker.workout.WorkoutSetsRVAdapter
 import com.pinhsiang.fitracker.workout.motion.MotionRVAdapter
@@ -69,7 +70,7 @@ fun bindCircularAvatar(imgView: ImageView, imgUrl: String?) {
             .apply(
                 RequestOptions
                     .circleCropTransform()
-                    .placeholder(R.drawable.smile_128dp_1)
+                    .placeholder(R.drawable.ic_avatar_128dp_1)
             )
             .into(imgView)
     }

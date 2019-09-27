@@ -1,7 +1,6 @@
 package com.pinhsiang.fitracker.timer
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.pinhsiang.fitracker.Int2StringConverter
 import com.pinhsiang.fitracker.MainActivity
 import com.pinhsiang.fitracker.databinding.FragmentTimerBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 const val TAG = "Fitracker"
 
@@ -122,7 +120,7 @@ class TimerFragment : Fragment() {
 
         viewModel.addToTimerPatternList.observe(this, Observer {
             if (it) {
-                binding.rvTimerPattern.scrollToPosition(viewModel.endOfTimerPattern())
+                binding.rvTimerPattern.scrollToPosition(viewModel.endOfTimerPatternList())
                 viewModel.setAddToTimerPatternListFalse()
             }
         })

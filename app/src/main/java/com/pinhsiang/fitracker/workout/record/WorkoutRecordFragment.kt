@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pinhsiang.fitracker.Int2StringConverter
+import com.pinhsiang.fitracker.MainActivity
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutRecordBinding
 import com.pinhsiang.fitracker.makeInVisible
 import com.pinhsiang.fitracker.makeVisible
@@ -71,6 +73,13 @@ class WorkoutRecordFragment : Fragment() {
             }
         })
 
+        viewModel.restTimerStart.observe(this, Observer {
+            when (it) {
+                true -> (activity as MainActivity).window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                false -> (activity as MainActivity).window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        })
+
         return binding.root
     }
 
@@ -84,5 +93,12 @@ class WorkoutRecordFragment : Fragment() {
         binding.btnAddData.makeVisible()
         binding.btnDeleteData.makeInVisible()
         binding.btnReviseData.makeInVisible()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (viewModel.restTimerStart.value == true) {
+            viewModel.restTimer.cancel()
+        }
     }
 }

@@ -7,14 +7,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Sets
 import com.pinhsiang.fitracker.data.Workout
-import com.pinhsiang.fitracker.timestampToDate
-import com.pinhsiang.fitracker.timestampToString
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
+import java.util.*
 
 class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application) : AndroidViewModel(app) {
 
@@ -131,25 +129,76 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
     }
 
     fun addDataToFirebase() {
-        if (setListTemp.isNotEmpty()) {
-            var workoutToAdded = Workout(
-                time = selectedWorkout.time,
-                motion = selectedWorkout.motion,
-                maxWeight = setListTemp.maxBy { it.liftWeight }!!.liftWeight,
-                sets = setListTemp
-            )
-
-            db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-                .collection(getString(R.string.workout_collection_path)).add(workoutToAdded)
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents.", exception)
-                }
-                .addOnCompleteListener {
-                    Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
-                }
-
+        if (restTimerStart.value == true) {
+            Toast.makeText(
+                FitrackerApplication.appContext,
+                getString(R.string.stop_rest_timer_to_upload),
+                Toast.LENGTH_SHORT
+            ).show()
         } else {
-            Toast.makeText(app, "Set data is empty.", Toast.LENGTH_SHORT).show()
+            if (setListTemp.isNotEmpty()) {
+                var workoutToAdded = Workout(
+                    time = selectedWorkout.time,
+                    motion = selectedWorkout.motion,
+                    maxWeight = setListTemp.maxBy { it.liftWeight }!!.liftWeight,
+                    sets = setListTemp
+                )
+
+                db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
+                    .collection(getString(R.string.workout_collection_path)).add(workoutToAdded)
+                    .addOnFailureListener { exception ->
+                        Log.w(TAG, "Error getting documents.", exception)
+                    }
+                    .addOnCompleteListener {
+                        Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                    }
+
+            } else {
+                Toast.makeText(app, "Set data is empty.", Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    private val _restTimerStart = MutableLiveData<Boolean>().apply {
+        value = false
+    }
+    val restTimerStart: LiveData<Boolean>
+        get() = _restTimerStart
+
+    val restTimerTime = MutableLiveData<String>().apply {
+        value = "00:00"
+    }
+
+    lateinit var restTimer: Timer
+
+    inner class RestTimerTask() : TimerTask() {
+        var currentTime = 0
+
+        override fun run() {
+            restTimerTime.postValue(currentTime.secondsIntToTime())
+            currentTime += 1
+        }
+    }
+
+    fun startRestTimer() {
+        _restTimerStart.value = true
+        val restTimerTask = RestTimerTask()
+        restTimer = object : Timer() {}
+        restTimer.schedule(restTimerTask, 0, 1000)
+        Log.i(TAG, "restTimerStart = ${restTimerStart.value}")
+    }
+
+    fun closeRestTimer() {
+        restTimer.cancel()
+        _restTimerStart.value = false
+        Log.i(TAG, "restTimerStart = ${restTimerStart.value}")
+    }
+
+    fun resetRestTimer() {
+        restTimer.cancel()
+        val restTimerTask = RestTimerTask()
+        restTimer = object : Timer() {}
+        restTimer.schedule(restTimerTask, 0, 1000)
+        Log.i(TAG, "Reset rest timer.")
     }
 }
