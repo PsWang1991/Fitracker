@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.R
@@ -41,6 +42,14 @@ class NutritionRecordViewModel(private val selectedNutrition: Nutrition, val app
         value = selectedNutrition.fat
     }
 
+    private val _dataUploading = MutableLiveData<Boolean>()
+    val dataUploading: LiveData<Boolean>
+        get() = _dataUploading
+
+    private val _uploadDataDone = MutableLiveData<Boolean>()
+    val uploadDataDone: LiveData<Boolean>
+        get() = _uploadDataDone
+
     init {
         Log.i(TAG, "**********   NutritionRecordViewModel   *********")
         Log.i(TAG, "Selected Nutrition = $selectedNutrition")
@@ -62,18 +71,28 @@ class NutritionRecordViewModel(private val selectedNutrition: Nutrition, val app
                 fat = fatRecord.value!!
             )
             Log.i(TAG, "nutritionToUpload = $nutritionToUpload")
+
+            _dataUploading.value = true
             db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
                 .collection(getString(R.string.nutrition_collection_path)).add(nutritionToUpload)
                 .addOnFailureListener { exception ->
+                    _dataUploading.value = false
+                    Toast.makeText(app, "Uploading failed.", Toast.LENGTH_SHORT).show()
                     Log.w(TAG, "Error getting documents.", exception)
                 }
                 .addOnCompleteListener {
+                    _dataUploading.value = false
+                    _uploadDataDone.value = true
                     Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
                 }
 
         } else {
             Toast.makeText(app, "Title can not be blank.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun uploadCompletely() {
+        _uploadDataDone.value = false
     }
 
     fun proteinPlus1() {

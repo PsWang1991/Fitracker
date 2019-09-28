@@ -100,7 +100,7 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Applica
                     bodyFat = bodyFatRecord.value?.toFloat()!!,
                     skeletalMuscle = skeletalMuscleRecord.value?.toFloat()!!
                 )
-                
+
                 _dataUploading.value = true
                 db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
                     .collection(getString(R.string.inbody_collection_path)).add(inbodyToUpload)
