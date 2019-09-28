@@ -220,7 +220,10 @@
     <!--Sign In-->
     <string name="signin">Sign In</string>
     <string name="reset">Reset</string>
-    <string name="uploading">Uploading...</string>
+
+    <!--Progress-->
+    <string name="uploading">Saving...</string>
+    <string name="data_has_been_saved">Complete</string>
 
 
 </resources>

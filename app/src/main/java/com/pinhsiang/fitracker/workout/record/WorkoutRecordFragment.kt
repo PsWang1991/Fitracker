@@ -10,12 +10,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.pinhsiang.fitracker.Int2StringConverter
-import com.pinhsiang.fitracker.MainActivity
+import androidx.navigation.fragment.findNavController
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutRecordBinding
-import com.pinhsiang.fitracker.makeInVisible
-import com.pinhsiang.fitracker.makeVisible
 import com.pinhsiang.fitracker.progress.DataUploadingFragment
+import com.pinhsiang.fitracker.progress.UploadCompletelyFragment
 
 class WorkoutRecordFragment : Fragment() {
 
@@ -30,6 +29,7 @@ class WorkoutRecordFragment : Fragment() {
     }
 
     private lateinit var dataUploadingFragment: DialogFragment
+    private lateinit var uploadCompletelyFragment: DialogFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -99,11 +99,27 @@ class WorkoutRecordFragment : Fragment() {
             }
         })
 
+        uploadCompletelyFragment = UploadCompletelyFragment()
+        viewModel.uploadDataDone.observe(this, Observer {
+            it?.let {
+                if (it) {
+                    uploadCompletelyFragment.show(requireFragmentManager(), "upload_completely_fragment")
+                    this.findNavController().navigate(NavGraphDirections.actionGlobalWorkoutFragment())
+                    Handler().postDelayed(this::dismissUploadCompletelyFragment, 2000)
+                    viewModel.uploadCompletely()
+                }
+            }
+        })
+
         return binding.root
     }
 
     private fun dismissDataUploadingFragment() {
         dataUploadingFragment.dismiss()
+    }
+
+    private fun dismissUploadCompletelyFragment() {
+        uploadCompletelyFragment.dismiss()
     }
 
     private fun revisableOn() {

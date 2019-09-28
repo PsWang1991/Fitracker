@@ -480,15 +480,5 @@
             />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_data_uploading_workout_record"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorInvisible"
-                android:onClick="@{() -> viewModel.doNothing()}"
-                android:visibility="@{viewModel.dataUploading == true ? View.VISIBLE : View.INVISIBLE}">
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

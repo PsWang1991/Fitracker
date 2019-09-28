@@ -157,10 +157,12 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
                     .collection(getString(R.string.workout_collection_path)).add(workoutToAdded)
                     .addOnFailureListener { exception ->
                         _dataUploading.value = false
+                        Toast.makeText(app, "Uploading failed.", Toast.LENGTH_SHORT).show()
                         Log.w(TAG, "Error getting documents.", exception)
                     }
                     .addOnCompleteListener {
                         _dataUploading.value = false
+                        _uploadDataDone.value = true
                         Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
                     }
 
@@ -168,6 +170,10 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
                 Toast.makeText(app, "Set data is empty.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun uploadCompletely() {
+        _uploadDataDone.value = false
     }
 
     private val _restTimerStart = MutableLiveData<Boolean>().apply {
@@ -212,6 +218,4 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
         restTimer.schedule(restTimerTask, 0, 1000)
         Log.i(TAG, "Reset rest timer.")
     }
-
-    fun doNothing() {}
 }
