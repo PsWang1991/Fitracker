@@ -45,6 +45,14 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
 
     private var revisedDataIndex: Int = -1
 
+    private val _dataUploading = MutableLiveData<Boolean>()
+    val dataUploading: LiveData<Boolean>
+        get() = _dataUploading
+
+    private val _uploadDataDone = MutableLiveData<Boolean>()
+    val uploadDataDone: LiveData<Boolean>
+        get() = _uploadDataDone
+
     init {
         Log.i(TAG, "**********   WorkoutRecordViewModel   *********")
         Log.i(TAG, "selectedWorkout = $selectedWorkout")
@@ -144,12 +152,15 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
                     sets = setListTemp
                 )
 
+                _dataUploading.value = true
                 db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
                     .collection(getString(R.string.workout_collection_path)).add(workoutToAdded)
                     .addOnFailureListener { exception ->
+                        _dataUploading.value = false
                         Log.w(TAG, "Error getting documents.", exception)
                     }
                     .addOnCompleteListener {
+                        _dataUploading.value = false
                         Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
                     }
 
@@ -201,4 +212,6 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
         restTimer.schedule(restTimerTask, 0, 1000)
         Log.i(TAG, "Reset rest timer.")
     }
+
+    fun doNothing() {}
 }

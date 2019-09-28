@@ -395,14 +395,16 @@
                     android:layout_marginBottom="0dp"
                     android:layout_marginTop="0dp">
                 <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="0dp" app:srcCompat="@drawable/ic_save_64dp"
                         android:id="@+id/image_save_data_workout"
+                        android:layout_width="16dp"
+                        android:layout_height="0dp"
+                        app:srcCompat="@drawable/ic_save_64dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/btn_save_data_workout"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_save_data_workout"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_save_data_workout"
-                        android:layout_marginEnd="8dp" app:layout_constraintDimensionRatio="h,1:1"/>
+                        app:layout_constraintEnd_toStartOf="@+id/btn_save_data_workout" android:layout_marginEnd="8dp"
+                        app:layout_constraintDimensionRatio="h,1:1"
+                />
 
                 <TextView
                         android:text="@string/save"
@@ -478,6 +480,15 @@
             />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_data_uploading_workout_record"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorInvisible"
+                android:onClick="@{() -> viewModel.doNothing()}"
+                android:visibility="@{viewModel.dataUploading == true ? View.VISIBLE : View.INVISIBLE}">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

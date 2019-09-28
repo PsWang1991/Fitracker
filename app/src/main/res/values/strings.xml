@@ -220,6 +220,7 @@
     <!--Sign In-->
     <string name="signin">Sign In</string>
     <string name="reset">Reset</string>
+    <string name="uploading">Uploading...</string>
 
 
 </resources>

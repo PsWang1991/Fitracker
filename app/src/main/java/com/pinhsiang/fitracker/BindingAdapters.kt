@@ -70,7 +70,8 @@ fun bindCircularAvatar(imgView: ImageView, imgUrl: String?) {
             .apply(
                 RequestOptions
                     .circleCropTransform()
-                    .placeholder(R.drawable.ic_avatar_128dp_1)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_avatar_36dp_3)
             )
             .into(imgView)
     }

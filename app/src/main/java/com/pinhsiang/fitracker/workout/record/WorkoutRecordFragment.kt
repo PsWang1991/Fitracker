@@ -1,10 +1,12 @@
 package com.pinhsiang.fitracker.workout.record
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +15,7 @@ import com.pinhsiang.fitracker.MainActivity
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutRecordBinding
 import com.pinhsiang.fitracker.makeInVisible
 import com.pinhsiang.fitracker.makeVisible
+import com.pinhsiang.fitracker.progress.DataUploadingFragment
 
 class WorkoutRecordFragment : Fragment() {
 
@@ -25,6 +28,8 @@ class WorkoutRecordFragment : Fragment() {
     private val viewModel: WorkoutRecordViewModel by lazy {
         ViewModelProviders.of(this, viewModelFactory).get(WorkoutRecordViewModel::class.java)
     }
+
+    private lateinit var dataUploadingFragment: DialogFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -80,7 +85,25 @@ class WorkoutRecordFragment : Fragment() {
             }
         })
 
+        dataUploadingFragment = DataUploadingFragment()
+        viewModel.dataUploading.observe(this, Observer {
+            it?.let {
+                when(it) {
+                    true -> {
+                        dataUploadingFragment.show(requireFragmentManager(), "data_uploading_fragment")
+                    }
+                    false -> {
+                        Handler().post(this::dismissDataUploadingFragment)
+                    }
+                }
+            }
+        })
+
         return binding.root
+    }
+
+    private fun dismissDataUploadingFragment() {
+        dataUploadingFragment.dismiss()
     }
 
     private fun revisableOn() {

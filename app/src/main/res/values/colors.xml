@@ -17,13 +17,18 @@
     <color name="colorBackground">#D4EBEC</color>
     <color name="colorItem">#72C6C7</color>
     <color name="colorBackground_opacity54">#8AD4EBEC</color>
+    <color name="colorLayoutBackground">#FFFFFF</color>
 </resources>
 
 
 <!--V1-->
+<!--<color name="colorPrimary">#005EA7</color>-->
+<!--<color name="colorPrimaryDark">#005EA7</color>-->
+<!--<color name="colorAccent">#72C6C7</color>-->
 <!--<color name="colorText">#005EA7</color>-->
 <!--<color name="colorBackground">#D4EBEC</color>-->
 <!--<color name="colorItem">#72C6C7</color>-->
+<!--<color name="colorBackground_opacity54">#8AD4EBEC</color>-->
 
 <!--V2-->
 <!--<color name="colorText">#008554</color>-->

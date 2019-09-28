@@ -58,9 +58,11 @@
                 android:layout_marginEnd="16dp" app:layout_constraintEnd_toStartOf="@+id/text_rep"
                 app:layout_constraintTop_toTopOf="@+id/text_body_weight" app:layout_constraintDimensionRatio="1:1"/>
         <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp" app:srcCompat="@drawable/ic_weight_plate"
                 android:id="@+id/image_weight_plate_workout_sets"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/ic_weight_plates_64dp"
+                android:backgroundTint="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="@+id/text_body_weight"
                 app:layout_constraintTop_toTopOf="@+id/text_body_weight" app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
