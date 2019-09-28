@@ -51,6 +51,14 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Applica
     val validSkeletalMuscle: LiveData<Boolean>
         get() = _validSkeletalMuscle
 
+    private val _dataUploading = MutableLiveData<Boolean>()
+    val dataUploading: LiveData<Boolean>
+        get() = _dataUploading
+
+    private val _uploadDataDone = MutableLiveData<Boolean>()
+    val uploadDataDone: LiveData<Boolean>
+        get() = _uploadDataDone
+
     init {
         Log.i(TAG, "**********   InbodyRecordViewModel   *********")
         Log.i(TAG, "Selected Inbody = $selectedInbody")
@@ -92,12 +100,18 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Applica
                     bodyFat = bodyFatRecord.value?.toFloat()!!,
                     skeletalMuscle = skeletalMuscleRecord.value?.toFloat()!!
                 )
+                
+                _dataUploading.value = true
                 db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
                     .collection(getString(R.string.inbody_collection_path)).add(inbodyToUpload)
                     .addOnFailureListener { exception ->
+                        _dataUploading.value = false
+                        Toast.makeText(app, "Uploading failed.", Toast.LENGTH_SHORT).show()
                         Log.w(TAG, "Error getting documents.", exception)
                     }
                     .addOnCompleteListener {
+                        _dataUploading.value = false
+                        _uploadDataDone.value = true
                         Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
                     }
             }
@@ -118,6 +132,10 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Applica
 //            Log.i(TAG, "_validBodyFat = ${_validBodyFat.value}")
 //            Log.i(TAG, "_validSkeletalMuscle = ${_validSkeletalMuscle.value}")
         }
+    }
+
+    fun uploadCompletely() {
+        _uploadDataDone.value = false
     }
 
     private fun checkBodyWeightFormat(): Boolean {

@@ -21,7 +21,7 @@ class WorkoutRecordFragment : Fragment() {
     private lateinit var binding: FragmentWorkoutRecordBinding
 
     /**
-     * Lazily initialize our [MotionViewModel].
+     * Lazily initialize our [WorkoutRecordViewModel].
      */
     private lateinit var viewModelFactory: WorkoutRecordViewModelFactory
     private val viewModel: WorkoutRecordViewModel by lazy {

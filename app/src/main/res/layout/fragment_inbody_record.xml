@@ -60,7 +60,7 @@
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/colorText"
+                    android:textColor="@{viewModel.validBodyWeight == true ? @color/colorText : @color/colorRed}"
                     android:textSize="18sp"/>
             <EditText
                     android:id="@+id/text_body_weight"
@@ -77,7 +77,7 @@
                     android:layout_marginBottom="8dp"
                     android:inputType="numberDecimal"
                     android:text="@={viewModel.bodyWeightRecord}"
-                    android:textColor="@color/colorText"
+                    android:textColor="@{viewModel.validBodyWeight == true ? @color/colorText : @color/colorRed}"
                     android:background="@drawable/bg_edit_text_1"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,7 +101,7 @@
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/colorText"
+                    android:textColor="@{viewModel.validBodyFat == true ? @color/colorText : @color/colorRed}"
                     android:textSize="18sp"/>
             <EditText
                     android:layout_width="90dp"
@@ -112,7 +112,8 @@
                     android:textSize="18sp" tools:text="11.9" app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="8dp" android:inputType="numberDecimal"
                     android:text="@={viewModel.bodyFatRecord}"
-                    android:textColor="@color/colorText" android:background="@drawable/bg_edit_text_1"/>
+                    android:textColor="@{viewModel.validBodyFat == true ? @color/colorText : @color/colorRed}"
+                    android:background="@drawable/bg_edit_text_1"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,7 +136,7 @@
                     app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/colorText"
+                    android:textColor="@{viewModel.validSkeletalMuscle == true ? @color/colorText : @color/colorRed}"
                     android:textSize="18sp"/>
             <EditText
                     android:layout_width="90dp"
@@ -146,7 +147,7 @@
                     android:textSize="18sp" tools:text="32.8" app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="8dp" android:inputType="numberDecimal"
                     android:text="@={viewModel.skeletalMuscleRecord}"
-                    android:textColor="@color/colorText"
+                    android:textColor="@{viewModel.validSkeletalMuscle == true ? @color/colorText : @color/colorRed}"
                     android:background="@drawable/bg_edit_text_1"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
