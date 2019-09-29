@@ -12,7 +12,7 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" android:background="@color/colorWhite">
 
         <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_vertical_workout_record"
@@ -301,7 +301,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/header_workout_record_weight"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintDimensionRatio="1:1"
-                    android:background="@drawable/ic_weight_plates_36dp"
+                    android:background="@drawable/ic_weight_plates_64dp"
                     android:backgroundTint="@color/colorText"
             />
             <TextView
@@ -349,9 +349,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
+                android:id="@+id/sep_line_workout_record"
                 android:layout_width="0dp"
                 android:layout_height="2dp" app:srcCompat="@color/colorItem"
-                android:id="@+id/sep_line_workout_record"
                 app:layout_constraintTop_toBottomOf="@+id/layout_header_workout_record_weight"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
@@ -429,7 +429,8 @@
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
                 android:background="@drawable/view_item_background"
-                android:visibility="@{viewModel.restTimerStart == true ? View.VISIBLE : View.INVISIBLE}">
+                android:visibility="@{viewModel.restTimerStart == true ? View.VISIBLE : View.INVISIBLE}"
+                tools:visibility="invisible">
 
             <TextView
                     android:id="@+id/title_rest_timer"

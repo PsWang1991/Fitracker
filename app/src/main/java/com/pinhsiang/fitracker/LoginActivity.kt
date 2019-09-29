@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.crashlytics.android.Crashlytics
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.pinhsiang.fitracker.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -33,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
+        binding.lifecycleOwner = this
 
         supportActionBar?.hide()
 

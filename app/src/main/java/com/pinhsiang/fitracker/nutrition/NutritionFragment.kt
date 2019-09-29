@@ -92,8 +92,8 @@ class NutritionFragment : Fragment() {
 
         val currentMonth = YearMonth.now()
         customCalendar.setup(
-            currentMonth.minusMonths(10),
-            currentMonth.plusMonths(10),
+            currentMonth.minusMonths(36),
+            currentMonth,
             daysOfWeek.first()
         )
         customCalendar.scrollToMonth(currentMonth)

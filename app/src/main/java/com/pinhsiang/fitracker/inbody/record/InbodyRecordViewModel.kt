@@ -14,6 +14,7 @@ import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.timestampToString
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
+import kotlin.random.Random
 
 const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 

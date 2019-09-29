@@ -9,6 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Inbody
+import com.pinhsiang.fitracker.digits
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util
 import com.pinhsiang.fitracker.util.Util.getString
@@ -63,9 +64,9 @@ class InbodyViewModel(app: Application) : AndroidViewModel(app) {
             val lastInbodyData = allInbodyData.filter {
                 it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
             }.maxBy { it.time }!!
-            displayBodyFat.value = lastInbodyData.bodyFat.toString()
-            displayBodyWeight.value = lastInbodyData.bodyWeight.toString()
-            displaySkeletalMuscle.value = lastInbodyData.skeletalMuscle.toString()
+            displayBodyFat.value = lastInbodyData.bodyFat.digits(2)
+            displayBodyWeight.value = lastInbodyData.bodyWeight.digits(2)
+            displaySkeletalMuscle.value = lastInbodyData.skeletalMuscle.digits(2)
             Log.i(TAG, "lastInbodyData = $lastInbodyData")
         } else {
             displayBodyFat.value = null
@@ -74,8 +75,6 @@ class InbodyViewModel(app: Application) : AndroidViewModel(app) {
             Log.i(TAG, "No In-body Data!!!")
         }
         Log.i(TAG, "allInbodyData = $allInbodyData")
-
-
     }
 
     fun hasInbodyData(date: LocalDate): Boolean {

@@ -209,11 +209,11 @@
     <string name="athlete">Athlete</string>
     <string name="format_tdee">%,d</string>
     <string name="hint_tdee">
-        Sedentary : little to no exercise
-        \nLight Exercise : 1-2 days per week
-        \nModerate Exercise : 3-5 days per week
-        \nHeavy Exercise : 6-7 days per week
-        \nAthlete : 2+ times per day
+        Sedentary: little to no exercise
+        \nLight Exercise: 1-2 days per week
+        \nModerate Exercise: 3-5 days per week
+        \nHeavy Exercise: 6-7 days per week
+        \nAthlete: 2+ times per day
         \n\nThis result is based on Mifflin-St Jeor formula.
     </string>
 
@@ -224,6 +224,8 @@
     <!--Progress-->
     <string name="uploading">Saving...</string>
     <string name="data_has_been_saved">Complete</string>
+    <string name="connecting">Connecting...</string>
+    <string name="welcome">Welcome</string>
 
 
 </resources>

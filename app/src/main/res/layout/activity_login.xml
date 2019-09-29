@@ -10,12 +10,11 @@
 
         <ImageView
                 android:id="@+id/image_logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/logo_heart"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp" app:srcCompat="@drawable/logo_heart_600dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="64dp"/>
+                app:layout_constraintDimensionRatio="1:1" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="32dp"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_btn_login"

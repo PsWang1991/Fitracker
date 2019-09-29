@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-    >
+            android:background="@color/colorWhite">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_timer_setup"
@@ -351,7 +351,7 @@
                     android:layout_marginEnd="16dp"
                     android:visibility="@{viewModel.reviseMode == true? View.INVISIBLE : View.VISIBLE}"
                     android:onClick="@{() -> viewModel.addTimerPattern()}"
-                    tools:visibility="visible">
+                    tools:visibility="invisible">
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btn_add_time_pattern_inner"
                         android:layout_width="wrap_content"
@@ -403,7 +403,7 @@
                     android:layout_marginBottom="4dp"
                     android:visibility="@{viewModel.reviseMode == true? View.VISIBLE : View.INVISIBLE}"
                     android:onClick="@{() -> viewModel.reviseSelectedPattern()}"
-                    tools:visibility="invisible">
+                    tools:visibility="visible">
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btn_revise_time_pattern_inner"
                         android:layout_width="wrap_content"
@@ -449,7 +449,7 @@
                     android:layout_marginTop="4dp"
                     android:visibility="@{viewModel.reviseMode == true? View.VISIBLE : View.INVISIBLE}"
                     android:onClick="@{() -> viewModel.deleteSelectedPattern()}"
-                    tools:visibility="invisible">
+                    tools:visibility="visible">
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/btn_delete_time_pattern_inner"
                         android:layout_width="wrap_content"
@@ -612,7 +612,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="@{viewModel.timerStart == true ? View.VISIBLE : View.INVISIBLE}"
-                tools:visibility="visible">
+                tools:visibility="invisible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_timer_start"

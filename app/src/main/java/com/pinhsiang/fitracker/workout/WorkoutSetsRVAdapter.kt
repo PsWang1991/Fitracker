@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.pinhsiang.fitracker.data.Sets
-import com.pinhsiang.fitracker.databinding.ItemWorkoutSetsBinding
+import com.pinhsiang.fitracker.databinding.ItemWorkoutRecordSetsBinding
 
 class WorkoutSetsRVAdapter : ListAdapter<Sets, WorkoutSetsRVAdapter.SetsViewHolder>(DiffCallback) {
 
-    class SetsViewHolder(var binding: ItemWorkoutSetsBinding) : RecyclerView.ViewHolder(binding.root) {
+    class SetsViewHolder(var binding: ItemWorkoutRecordSetsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(sets: Sets) {
             binding.set = sets
             // This is important, because it forces the data binding to execute immediately,
@@ -38,7 +38,7 @@ class WorkoutSetsRVAdapter : ListAdapter<Sets, WorkoutSetsRVAdapter.SetsViewHold
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetsViewHolder {
         return SetsViewHolder(
-            ItemWorkoutSetsBinding
+            ItemWorkoutRecordSetsBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
@@ -48,6 +48,7 @@ class WorkoutSetsRVAdapter : ListAdapter<Sets, WorkoutSetsRVAdapter.SetsViewHold
      */
     override fun onBindViewHolder(holder: SetsViewHolder, position: Int) {
         val item = getItem(position)
+        holder.binding.numSet.text = (position + 1).toString()
         holder.bind(item)
     }
 }
