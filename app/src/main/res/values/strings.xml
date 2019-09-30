@@ -9,7 +9,7 @@
     <string name="bench_press">Bench Press</string>
     <string name="deadlift">Deadlift</string>
     <string name="squat">Squat</string>
-    <string name="kg">Kg</string>
+    <string name="kg">kg</string>
     <string name="rep">rep.</string>
     <string name="fitracker">Fitracker</string>
 
@@ -104,7 +104,7 @@
     <string name="body_fat">Body Fat</string>
     <string name="percentage">%</string>
     <string name="no_data_inbody">No In-body Data</string>
-    <string name="body_weight_kg">Body Weight [Kg]</string>
+    <string name="body_weight_kg">Body Weight [kg]</string>
     <string name="skeletal_muscle_percentage">Skeletal Muscle [%]</string>
     <string name="body_fat_percentage">Body Fat [%]</string>
 
@@ -165,7 +165,7 @@
     <string name="stop">Stop</string>
 
     <!--Repetition maximum-->
-    <string name="lift_kg">Lift [Kg]</string>
+    <string name="lift_kg">Lift [kg]</string>
     <string name="calculate">Calculate</string>
     <string name="percentage_1rm">% of 1 RM</string>
     <string name="repetitions">Repetitions</string>
@@ -226,6 +226,8 @@
     <string name="data_has_been_saved">Complete</string>
     <string name="connecting">Connecting...</string>
     <string name="welcome">Welcome</string>
+    <string name="height">Height</string>
+    <string name="cm">cm</string>
 
 
 </resources>
