@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.github.mikephil.charting.data.Entry
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.*
-import com.pinhsiang.fitracker.data.Inbody
+import com.pinhsiang.fitracker.data.InBody
 import com.pinhsiang.fitracker.ext.timestampToDate
 import com.pinhsiang.fitracker.user.UserManager
 
@@ -29,7 +29,7 @@ class InBodyAnalysisViewModel : ViewModel() {
     val periodFilter: LiveData<Long>
         get() = _periodFilter
 
-    private val allInBodyData = mutableListOf<Inbody>()
+    private val allInBodyData = mutableListOf<InBody>()
 
     var valuesToBePlotted = mutableListOf<Entry>()
 
@@ -50,8 +50,8 @@ class InBodyAnalysisViewModel : ViewModel() {
             .collection(IN_BODY).get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val inbody = document.toObject(Inbody::class.java)
-                    allInBodyData.add(inbody)
+                    val inBody = document.toObject(InBody::class.java)
+                    allInBodyData.add(inBody)
                 }
             }
             .addOnFailureListener { exception ->

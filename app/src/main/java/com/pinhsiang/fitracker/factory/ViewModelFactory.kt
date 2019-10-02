@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.pinhsiang.fitracker.LoginViewModel
 import com.pinhsiang.fitracker.MainViewModel
-import com.pinhsiang.fitracker.inbody.InbodyViewModel
+import com.pinhsiang.fitracker.inbody.InBodyViewModel
 import com.pinhsiang.fitracker.inbody.analysis.InBodyAnalysisViewModel
 import com.pinhsiang.fitracker.nutrition.NutritionViewModel
 import com.pinhsiang.fitracker.nutrition.analysis.NutritionAnalysisViewModel
@@ -32,8 +32,8 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
                 isAssignableFrom(WorkoutAnalysisViewModel::class.java) ->
                     WorkoutAnalysisViewModel()
 
-                isAssignableFrom(InbodyViewModel::class.java) ->
-                    InbodyViewModel()
+                isAssignableFrom(InBodyViewModel::class.java) ->
+                    InBodyViewModel()
 
                 isAssignableFrom(InBodyAnalysisViewModel::class.java) ->
                     InBodyAnalysisViewModel()

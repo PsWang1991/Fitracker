@@ -9,24 +9,22 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.pinhsiang.fitracker.NavGraphDirections
 import com.pinhsiang.fitracker.databinding.FragmentInbodyRecordBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
-import com.pinhsiang.fitracker.factory.InbodyRecordViewModelFactory
 import com.pinhsiang.fitracker.progress.DataUploadingFragment
 import com.pinhsiang.fitracker.progress.UploadCompletelyFragment
 
-class InbodyRecordFragment : Fragment() {
+class InBodyRecordFragment : Fragment() {
 
     private lateinit var binding: FragmentInbodyRecordBinding
 
     /**
-     * Lazily initialize [InbodyRecordViewModel].
+     * Lazily initialize [InBodyRecordViewModel].
      */
-    private val viewModel by viewModels<InbodyRecordViewModel> {
-        getVmFactory(InbodyRecordFragmentArgs.fromBundle(arguments!!).inbody)
+    private val viewModel by viewModels<InBodyRecordViewModel> {
+        getVmFactory(InBodyRecordFragmentArgs.fromBundle(arguments!!).inBody)
     }
 
     private lateinit var dataUploadingFragment: DialogFragment

@@ -5,7 +5,7 @@ import com.google.firebase.firestore.Exclude
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Inbody (
+data class InBody (
     @get:Exclude var id: String = "",
     val time: Long = System.currentTimeMillis(),
     val bodyWeight: Float = 0f,       // Unit : Kg

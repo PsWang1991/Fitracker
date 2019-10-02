@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.pinhsiang.fitracker.databinding.ActivityMainBinding
 import com.pinhsiang.fitracker.databinding.NavHeaderMainBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
-import com.pinhsiang.fitracker.inbody.InbodyFragmentDirections
+import com.pinhsiang.fitracker.inbody.InBodyFragmentDirections
 import com.pinhsiang.fitracker.nutrition.NutritionFragmentDirections
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.CurrentFragmentType
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     )
                 CurrentFragmentType.INBODY ->
                     navControllerBottom.navigate(
-                        InbodyFragmentDirections.ActionInbodyFragmentToInbodyAnalysisFragment()
+                        InBodyFragmentDirections.ActionInbodyFragmentToInbodyAnalysisFragment()
                     )
                 CurrentFragmentType.INBODY_ANALYSIS ->
                     navControllerBottom.navigate(

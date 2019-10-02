@@ -9,7 +9,7 @@ import com.pinhsiang.fitracker.IN_BODY
 import com.pinhsiang.fitracker.MILLISECOND_PER_DAY
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.USER
-import com.pinhsiang.fitracker.data.Inbody
+import com.pinhsiang.fitracker.data.InBody
 import com.pinhsiang.fitracker.ext.digits
 import com.pinhsiang.fitracker.user.UserManager
 import org.threeten.bp.LocalDate
@@ -17,11 +17,11 @@ import java.sql.Timestamp
 
 const val ZERO_HOUR = "00:00:00"
 
-class InbodyViewModel : ViewModel() {
+class InBodyViewModel : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
 
-    private val allInbodyData = mutableListOf<Inbody>()
+    private val allInBodyData = mutableListOf<InBody>()
     val displayBodyWeight = MutableLiveData<String>()
     val displayBodyFat = MutableLiveData<String>()
     val displaySkeletalMuscle = MutableLiveData<String>()
@@ -56,28 +56,28 @@ class InbodyViewModel : ViewModel() {
     }
 
     // This function get the last data on selected date.
-    fun getInbodyDataByDate(date: LocalDate) {
-        if (hasInbodyData(date)) {
+    fun getInBodyDataByDate(date: LocalDate) {
+        if (hasInBodyData(date)) {
             val dateToStartTimestamp = Timestamp.valueOf("$date $ZERO_HOUR").time
-            val lastInbodyData = allInbodyData.filter {
+            val lastInBodyData = allInBodyData.filter {
                 it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
             }.maxBy { it.time }!!
-            displayBodyFat.value = lastInbodyData.bodyFat.digits(2)
-            displayBodyWeight.value = lastInbodyData.bodyWeight.digits(2)
-            displaySkeletalMuscle.value = lastInbodyData.skeletalMuscle.digits(2)
-            Log.i(TAG, "lastInbodyData = $lastInbodyData")
+            displayBodyFat.value = lastInBodyData.bodyFat.digits(2)
+            displayBodyWeight.value = lastInBodyData.bodyWeight.digits(2)
+            displaySkeletalMuscle.value = lastInBodyData.skeletalMuscle.digits(2)
+            Log.i(TAG, "lastInBodyData = $lastInBodyData")
         } else {
             displayBodyFat.value = null
             displayBodyWeight.value = null
             displaySkeletalMuscle.value = null
-            Log.i(TAG, "No In-body Data!!!")
+            Log.i(TAG, "No In-Body Data!!!")
         }
-        Log.i(TAG, "allInbodyData = $allInbodyData")
+        Log.i(TAG, "allInBodyData = $allInBodyData")
     }
 
-    fun hasInbodyData(date: LocalDate): Boolean {
+    fun hasInBodyData(date: LocalDate): Boolean {
         val dateToStartTimestamp = Timestamp.valueOf("$date $ZERO_HOUR").time
-        return allInbodyData.filter {
+        return allInBodyData.filter {
             it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
         }.isNotEmpty()
     }
@@ -88,16 +88,16 @@ class InbodyViewModel : ViewModel() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    val workout = document.toObject(Inbody::class.java)
+                    val workout = document.toObject(InBody::class.java)
                     workout.id = document.id
-                    allInbodyData.add(workout)
+                    allInBodyData.add(workout)
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }.addOnCompleteListener {
-                Log.i(TAG, "allInbodyData = $allInbodyData")
-                getInbodyDataByDate(LocalDate.now())
+                Log.i(TAG, "allInBodyData = $allInBodyData")
+                getInBodyDataByDate(LocalDate.now())
                 downloadComplete.value = true
             }
     }

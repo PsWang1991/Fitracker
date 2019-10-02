@@ -25,7 +25,7 @@ import com.pinhsiang.fitracker.util.Util
 const val CHART_AXIS_TEXT_SIZE = 14f
 const val CHART_X_AXIS_LABEL_ROTATION = 45f
 
-class InbodyAnalysisFragment : Fragment() {
+class InBodyAnalysisFragment : Fragment() {
 
     private lateinit var binding: FragmentInbodyAnalysisBinding
     private lateinit var chart: LineChart

@@ -10,14 +10,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.data.Inbody
+import com.pinhsiang.fitracker.data.InBody
 import com.pinhsiang.fitracker.databinding.FragmentInbodyBinding
 import com.pinhsiang.fitracker.ext.daysOfWeekFromLocale
 import com.pinhsiang.fitracker.ext.getVmFactory
@@ -30,14 +29,14 @@ import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 import java.sql.Timestamp
 
-class InbodyFragment : Fragment() {
+class InBodyFragment : Fragment() {
 
     private lateinit var binding: FragmentInbodyBinding
 
     /**
-     * Lazily initialize [InbodyViewModel].
+     * Lazily initialize [InBodyViewModel].
      */
-    private val viewModel by viewModels<InbodyViewModel> {getVmFactory()}
+    private val viewModel by viewModels<InBodyViewModel> {getVmFactory()}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -47,7 +46,7 @@ class InbodyFragment : Fragment() {
         // Bind ViewModel, life cycle owner and calendarStatus(Check if calendar is expending or not).
         binding.let {
             it.viewModel = viewModel
-            it.lifecycleOwner = this@InbodyFragment
+            it.lifecycleOwner = this@InBodyFragment
         }
 
         viewModel.navigationToRecord.observe(this, Observer {
@@ -55,11 +54,11 @@ class InbodyFragment : Fragment() {
                 val dataDate =
                     if (viewModel.selectedDate == null) viewModel.today else viewModel.selectedDate
                 val dataTime = Timestamp.valueOf("$dataDate $ZERO_HOUR").time
-                val inbody = Inbody(
+                val inBody = InBody(
                     time = dataTime
                 )
                 this.findNavController()
-                    .navigate(InbodyFragmentDirections.actionInbodyFragmentToInbodyRecordFragment(inbody))
+                    .navigate(InBodyFragmentDirections.actionInbodyFragmentToInbodyRecordFragment(inBody))
                 viewModel.addNewDataDone()
             }
         })
@@ -118,7 +117,7 @@ class InbodyFragment : Fragment() {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
-                        viewModel.getInbodyDataByDate(day.date)
+                        viewModel.getInBodyDataByDate(day.date)
 //                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
 //                        val timestampToday = Timestamp.valueOf(LocalDate.now().toString() + " 00:00:00").time
 //                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "day.date = ${day.date}")
@@ -147,7 +146,7 @@ class InbodyFragment : Fragment() {
                         viewModel.today -> {
                             textView.setTextColorRes(R.color.colorText)
                             textView.setBackgroundResource(R.drawable.calendar_today_bg)
-                            dotView.isVisible = viewModel.hasInbodyData(day.date)
+                            dotView.isVisible = viewModel.hasInBodyData(day.date)
                         }
                         viewModel.selectedDate -> {
                             textView.setTextColorRes(R.color.colorText)
@@ -157,12 +156,12 @@ class InbodyFragment : Fragment() {
                         else -> {
                             textView.setTextColorRes(R.color.colorText)
                             textView.background = null
-                            dotView.isVisible = viewModel.hasInbodyData(day.date)
+                            dotView.isVisible = viewModel.hasInBodyData(day.date)
                         }
                     }
                 } else {
                     textView.setTextColorRes(R.color.colorItem)
-                    dotView.isVisible = viewModel.hasInbodyData(day.date)
+                    dotView.isVisible = viewModel.hasInBodyData(day.date)
 //                    textView.background = null
                 }
             }

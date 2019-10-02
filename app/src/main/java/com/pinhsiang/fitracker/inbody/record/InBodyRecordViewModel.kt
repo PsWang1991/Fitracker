@@ -10,29 +10,29 @@ import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.IN_BODY
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.USER
-import com.pinhsiang.fitracker.data.Inbody
+import com.pinhsiang.fitracker.data.InBody
 import com.pinhsiang.fitracker.ext.timestampToDate
 import com.pinhsiang.fitracker.ext.timestampToString
 import com.pinhsiang.fitracker.user.UserManager
 
-class InbodyRecordViewModel(private val selectedInbody: Inbody) : ViewModel() {
+class InBodyRecordViewModel(private val selectedInBody: InBody) : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
 
-    val selectedDate = selectedInbody.time.timestampToDate()
+    val selectedDate = selectedInBody.time.timestampToDate()
 
-    private var inbodyToUpload = selectedInbody
+    private var inbodyToUpload = selectedInBody
 
     val bodyWeightRecord = MutableLiveData<String>().apply {
-        value = selectedInbody.bodyWeight.toString()
+        value = selectedInBody.bodyWeight.toString()
     }
 
     val bodyFatRecord = MutableLiveData<String>().apply {
-        value = selectedInbody.bodyFat.toString()
+        value = selectedInBody.bodyFat.toString()
     }
 
     val skeletalMuscleRecord = MutableLiveData<String>().apply {
-        value = selectedInbody.skeletalMuscle.toString()
+        value = selectedInBody.skeletalMuscle.toString()
     }
 
     // Check that is all format of recorded numbers are correct.
@@ -57,11 +57,11 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody) : ViewModel() {
         get() = _uploadDataDone
 
     init {
-        Log.i(TAG, "**********   InbodyRecordViewModel   *********")
-        Log.i(TAG, "Selected Inbody = $selectedInbody")
-        Log.i(TAG, "Skeletal Muscle = ${selectedInbody.skeletalMuscle}%")
-        Log.i(TAG, "Date = ${selectedInbody.time.timestampToString()}")
-        Log.i(TAG, "**********   InbodyRecordViewModel   *********")
+        Log.i(TAG, "**********   InBodyRecordViewModel   *********")
+        Log.i(TAG, "Selected InBody = $selectedInBody")
+        Log.i(TAG, "Skeletal Muscle = ${selectedInBody.skeletalMuscle}%")
+        Log.i(TAG, "Date = ${selectedInBody.time.timestampToString()}")
+        Log.i(TAG, "**********   InBodyRecordViewModel   *********")
         initRecordedValueValid()
     }
 
@@ -91,8 +91,8 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody) : ViewModel() {
                 _validBodyWeight.value = true
                 _validBodyFat.value = true
                 _validSkeletalMuscle.value = true
-                inbodyToUpload = Inbody(
-                    time = selectedInbody.time,
+                inbodyToUpload = InBody(
+                    time = selectedInBody.time,
                     bodyWeight = bodyWeightRecord.value?.toFloat()!!,
                     bodyFat = bodyFatRecord.value?.toFloat()!!,
                     skeletalMuscle = skeletalMuscleRecord.value?.toFloat()!!
