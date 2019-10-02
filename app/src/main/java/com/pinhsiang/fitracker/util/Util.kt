@@ -2,7 +2,6 @@ package com.pinhsiang.fitracker.util
 
 import android.graphics.drawable.Drawable
 import com.pinhsiang.fitracker.FitrackerApplication
-import com.pinhsiang.fitracker.R
 
 object Util {
 

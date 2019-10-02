@@ -181,6 +181,4 @@ class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
     fun plotDataDone() {
         _plotDataReady.value = false
     }
-
 }
-

@@ -1,7 +1,6 @@
 package com.pinhsiang.fitracker.inbody
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,11 @@ import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.data.Inbody
 import com.pinhsiang.fitracker.databinding.FragmentInbodyBinding
+import com.pinhsiang.fitracker.daysOfWeekFromLocale
+import com.pinhsiang.fitracker.makeInVisible
 import com.pinhsiang.fitracker.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
 import kotlinx.android.synthetic.main.fragment_inbody.*

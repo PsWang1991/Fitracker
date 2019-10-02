@@ -134,7 +134,7 @@ class InbodyAnalysisFragment : Fragment() {
     private fun setupLineChart() {
         chart = binding.chartInbody
         with(chart) {
-            setBackgroundColor(com.pinhsiang.fitracker.util.Util.getColor(com.pinhsiang.fitracker.R.color.colorWhite))
+            setBackgroundColor(Util.getColor(R.color.colorWhite))
 
             // Disable description text
             description.isEnabled = false
