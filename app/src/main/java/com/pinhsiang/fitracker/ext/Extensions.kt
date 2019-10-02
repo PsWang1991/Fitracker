@@ -21,10 +21,6 @@ fun View.makeInVisible() {
     visibility = View.INVISIBLE
 }
 
-fun View.makeGone() {
-    visibility = View.GONE
-}
-
 fun daysOfWeekFromLocale(): Array<DayOfWeek> {
     val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
     var daysOfWeek = DayOfWeek.values()
@@ -51,11 +47,11 @@ fun Long.timestampToDate(): String {
     ).toString()
 }
 
-fun Int.secondsIntToTime() : String {
+fun Int.secondsIntToTime(): String {
     return String.format("%02d:%02d", this / 60, this % 60)
 }
 
-fun Float.digits(digits: Int) :String {
+fun Float.digits(digits: Int): String {
     return String.format("%.${digits}f", this)
 }
 

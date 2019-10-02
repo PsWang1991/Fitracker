@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pinhsiang.fitracker.MILLISECOND_PER_DAY
 import com.pinhsiang.fitracker.NUTRITION
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.USER
@@ -13,7 +14,6 @@ import com.pinhsiang.fitracker.user.UserManager
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 
-const val MILLISECOND_PER_DAY = 86400000L
 const val ZERO_HOUR = "00:00:00"
 
 class NutritionViewModel: ViewModel() {

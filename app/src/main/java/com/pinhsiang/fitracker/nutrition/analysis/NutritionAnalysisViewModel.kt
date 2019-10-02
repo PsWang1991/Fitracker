@@ -6,20 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.mikephil.charting.data.Entry
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.NUTRITION
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
-import com.pinhsiang.fitracker.USER
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.ext.timestampToDate
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
-
-const val MILLISECOND_PER_DAY = 86400000L
-const val DAYS_PER_1M = 32L
-const val DAYS_PER_3M = 93L
-const val DAYS_PER_6M = 186L
-const val DAYS_PER_1Y = 366L
 
 class NutritionAnalysisViewModel : ViewModel() {
 

@@ -1,7 +1,6 @@
 package com.pinhsiang.fitracker.inbody.analysis
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -19,9 +17,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.pinhsiang.fitracker.FitrackerApplication
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentInbodyAnalysisBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.util.Util
@@ -37,9 +33,9 @@ class InbodyAnalysisFragment : Fragment() {
     private lateinit var yAxis: YAxis
 
     /**
-     * Lazily initialize our [InbodyAnalysisViewModel].
+     * Lazily initialize our [InBodyAnalysisViewModel].
      */
-    private val viewModel by viewModels<InbodyAnalysisViewModel> {getVmFactory()}
+    private val viewModel by viewModels<InBodyAnalysisViewModel> {getVmFactory()}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -53,35 +49,35 @@ class InbodyAnalysisFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Setup spinner
-        val inbodyFilterList = ArrayAdapter.createFromResource(
+        val inBodyFilterList = ArrayAdapter.createFromResource(
             FitrackerApplication.appContext,
             R.array.filter_inbody,
             R.layout.spinner_item
         )
-        binding.spinnerFilterInbody.adapter = inbodyFilterList
+        binding.spinnerFilterInbody.adapter = inBodyFilterList
         binding.spinnerFilterInbody.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                viewModel.setInbodyFilter(getString(R.string.body_weight_inbody))
+                viewModel.setInBodyFilter(FILTER_BODY_WEIGHT)
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        viewModel.setInbodyFilter(getString(R.string.body_weight_inbody))
+                        viewModel.setInBodyFilter(FILTER_BODY_WEIGHT)
                     }
                     1 -> {
-                        viewModel.setInbodyFilter(getString(R.string.skeletal_muscle_inbody))
+                        viewModel.setInBodyFilter(FILTER_SKELETAL_MUSCLE)
                     }
                     2 -> {
-                        viewModel.setInbodyFilter(getString(R.string.body_fat_inbody))
+                        viewModel.setInBodyFilter(FILTER_BODY_FAT)
                     }
                 }
             }
         }
 
-        viewModel.plotDataReady.observe(this, Observer {
+        viewModel.isDataReadyForPlotting.observe(this, Observer {
             if (it) {
-                setDataToChart(viewModel.xAxisDateToPlot, viewModel.valuesToPLot)
+                setDataToChart(viewModel.xAxisDateToBePlotted, viewModel.valuesToBePlotted)
                 chart.invalidate()
                 viewModel.plotDataDone()
             }
@@ -91,34 +87,29 @@ class InbodyAnalysisFragment : Fragment() {
             it?.let {
                 when (it) {
                     DAYS_PER_3M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
+                        setAllPeriodFilterUnselected()
                         binding.period3mInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period3mInbody.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        binding.period3mInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     DAYS_PER_6M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
+                        setAllPeriodFilterUnselected()
                         binding.period6mInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period6mInbody.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        binding.period6mInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     DAYS_PER_1Y * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
+                        setAllPeriodFilterUnselected()
                         binding.period1yInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period1yInbody.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        binding.period1yInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     viewModel.currentTime -> {
-                        setAllPeriodFilterNormal()
+                        setAllPeriodFilterUnselected()
                         binding.periodAllInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.periodAllInbody.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        binding.periodAllInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                     else -> {
-                        setAllPeriodFilterNormal()
+                        setAllPeriodFilterUnselected()
                         binding.period1mInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period1mInbody.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        binding.period1mInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
                     }
                 }
             }
@@ -138,15 +129,16 @@ class InbodyAnalysisFragment : Fragment() {
 
             // Disable touch gestures.
             setTouchEnabled(false)
-//            setOnChartValueSelectedListener(this)
             setDrawGridBackground(false)
 
             // Enable scaling and dragging.
             isDragEnabled = true
             setScaleEnabled(true)
 
-            // Force pinch zoom along both axis.
-            setPinchZoom(true)
+            setDrawBorders(false)
+
+            // Disable dual y-axis.
+            axisRight.isEnabled = false
         }
     }
 
@@ -155,14 +147,13 @@ class InbodyAnalysisFragment : Fragment() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
 
         // vertical grid lines
-        xAxis.enableGridDashedLine(10f, 10f, 0f)
+        xAxis.setDrawAxisLine(false)
+        xAxis.setDrawGridLines(false)
     }
 
     private fun setupYAxis() {
         yAxis = chart.axisLeft
-
-        // Disable dual axis (only use LEFT axis).
-        chart.axisRight.isEnabled = false
+        yAxis.gridLineWidth = 2f
     }
 
     private fun setDataToChart(xAxisDate: List<String>, values: List<Entry>) {
@@ -170,41 +161,26 @@ class InbodyAnalysisFragment : Fragment() {
         val formatter = IndexAxisValueFormatter(xAxisDate)
         xAxis.valueFormatter = formatter
 
-        var set1: LineDataSet
-
-
-        Log.i(TAG, "chart.data = ${chart.data}")
-        if (chart.data != null) {
-            Log.i(TAG, "chart.data.dataSetCount = ${chart.data.dataSetCount}")
-        }
+        var lineDataSet: LineDataSet
 
         if (chart.data != null && chart.data.dataSetCount > 0) {
-            set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-            set1.values = values
-
-            Log.i(TAG, "chart.values (chart data != null, count > 1) = ${set1.values}")
-
-            set1.notifyDataSetChanged()
+            lineDataSet = chart.data.getDataSetByIndex(0) as LineDataSet
+            lineDataSet.values = values
+            lineDataSet.notifyDataSetChanged()
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
         } else {
 
-            set1 = LineDataSet(values, "DataSet 1")
+            lineDataSet = LineDataSet(values, "DataSet 1")
 
-            Log.i(TAG, "chart.values (in else) = ${set1.values}")
-
-            with(set1) {
+            with(lineDataSet) {
                 setDrawIcons(false)
-                enableDashedLine(10f, 5f, 0f)
                 color = getColor(R.color.colorBlack)
                 lineWidth = 4f
                 disableDashedLine()
-//            circleRadius = 0f
-//            setCircleColor(getColor(R.color.colorInvisible))
                 setDrawCircles(false)
                 setDrawCircleHole(false)
                 valueTextSize = 0f
-                enableDashedHighlightLine(10f, 5f, 0f)
                 setDrawFilled(false)
             }
 
@@ -212,11 +188,11 @@ class InbodyAnalysisFragment : Fragment() {
             xAxis.labelRotationAngle = CHART_X_AXIS_LABEL_ROTATION
             yAxis.textSize = CHART_AXIS_TEXT_SIZE
 
-            chart.data = LineData(listOf<ILineDataSet>(set1))
+            chart.data = LineData(listOf<ILineDataSet>(lineDataSet))
         }
     }
 
-    private fun setAllPeriodFilterNormal() {
+    private fun setAllPeriodFilterUnselected() {
         binding.period1mInbody.setTextColor(Util.getColor(R.color.colorText))
         binding.period1mInbody.background = Util.getDrawable(R.drawable.btn_text_border)
         binding.period3mInbody.setTextColor(Util.getColor(R.color.colorText))

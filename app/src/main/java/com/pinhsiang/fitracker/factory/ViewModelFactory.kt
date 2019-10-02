@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.pinhsiang.fitracker.LoginViewModel
 import com.pinhsiang.fitracker.MainViewModel
 import com.pinhsiang.fitracker.inbody.InbodyViewModel
-import com.pinhsiang.fitracker.inbody.analysis.InbodyAnalysisViewModel
+import com.pinhsiang.fitracker.inbody.analysis.InBodyAnalysisViewModel
 import com.pinhsiang.fitracker.nutrition.NutritionViewModel
-import com.pinhsiang.fitracker.nutrition.analysis.NutritionAnalysisFragment
+import com.pinhsiang.fitracker.nutrition.analysis.NutritionAnalysisViewModel
 import com.pinhsiang.fitracker.recommended.RecommendedViewModel
 import com.pinhsiang.fitracker.rm.RMViewModel
 import com.pinhsiang.fitracker.tdee.TDEEViewModel
@@ -35,14 +35,14 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
                 isAssignableFrom(InbodyViewModel::class.java) ->
                     InbodyViewModel()
 
-                isAssignableFrom(InbodyAnalysisViewModel::class.java) ->
-                    InbodyAnalysisViewModel()
+                isAssignableFrom(InBodyAnalysisViewModel::class.java) ->
+                    InBodyAnalysisViewModel()
 
                 isAssignableFrom(NutritionViewModel::class.java) ->
                     NutritionViewModel()
 
-                isAssignableFrom(NutritionAnalysisFragment::class.java) ->
-                    NutritionAnalysisFragment()
+                isAssignableFrom(NutritionAnalysisViewModel::class.java) ->
+                    NutritionAnalysisViewModel()
 
                 isAssignableFrom(RecommendedViewModel::class.java) ->
                     RecommendedViewModel()

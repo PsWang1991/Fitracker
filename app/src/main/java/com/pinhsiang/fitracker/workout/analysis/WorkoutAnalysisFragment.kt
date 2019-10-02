@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -19,9 +18,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.pinhsiang.fitracker.FitrackerApplication
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutAnalysisBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.util.Util.getColor
@@ -29,7 +26,6 @@ import com.pinhsiang.fitracker.util.Util.getDrawable
 
 const val CHART_AXIS_TEXT_SIZE = 14f
 const val CHART_X_AXIS_LABEL_ROTATION = 45f
-
 
 class WorkoutAnalysisFragment : Fragment() {
 

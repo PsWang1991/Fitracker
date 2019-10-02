@@ -30,8 +30,6 @@ import org.threeten.bp.YearMonth
 import org.threeten.bp.format.DateTimeFormatter
 import java.sql.Timestamp
 
-const val MONTH_TITLE_FORMATTER = "MMMM"
-
 class InbodyFragment : Fragment() {
 
     private lateinit var binding: FragmentInbodyBinding
