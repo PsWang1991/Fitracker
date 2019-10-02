@@ -2,6 +2,8 @@ package com.pinhsiang.fitracker.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.pinhsiang.fitracker.LoginViewModel
+import com.pinhsiang.fitracker.MainViewModel
 import com.pinhsiang.fitracker.inbody.InbodyViewModel
 import com.pinhsiang.fitracker.inbody.analysis.InbodyAnalysisViewModel
 import com.pinhsiang.fitracker.nutrition.NutritionViewModel
@@ -18,6 +20,12 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
+                isAssignableFrom(MainViewModel::class.java) ->
+                    MainViewModel()
+
+                isAssignableFrom(LoginViewModel::class.java) ->
+                    LoginViewModel()
+
                 isAssignableFrom(WorkoutViewModel::class.java) ->
                     WorkoutViewModel()
 

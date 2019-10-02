@@ -7,16 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.pinhsiang.fitracker.Double2StringConverter
-import com.pinhsiang.fitracker.Float2StringConverter
 import com.pinhsiang.fitracker.NavGraphDirections
-import com.pinhsiang.fitracker.databinding.FragmentInbodyBinding
 import com.pinhsiang.fitracker.databinding.FragmentInbodyRecordBinding
-import com.pinhsiang.fitracker.databinding.FragmentNutritionBinding
-import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
+import com.pinhsiang.fitracker.ext.getVmFactory
+import com.pinhsiang.fitracker.factory.InbodyRecordViewModelFactory
 import com.pinhsiang.fitracker.progress.DataUploadingFragment
 import com.pinhsiang.fitracker.progress.UploadCompletelyFragment
 
@@ -27,9 +25,8 @@ class InbodyRecordFragment : Fragment() {
     /**
      * Lazily initialize [InbodyRecordViewModel].
      */
-    private lateinit var viewModelFactory: InbodyRecordViewModelFactory
-    private val viewModel: InbodyRecordViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(InbodyRecordViewModel::class.java)
+    private val viewModel by viewModels<InbodyRecordViewModel> {
+        getVmFactory(InbodyRecordFragmentArgs.fromBundle(arguments!!).inbody)
     }
 
     private lateinit var dataUploadingFragment: DialogFragment
@@ -39,10 +36,6 @@ class InbodyRecordFragment : Fragment() {
 
         binding = FragmentInbodyRecordBinding.inflate(inflater, container, false)
 
-        // Pass dataTime from workout fragment to detail fragment
-        val application = requireNotNull(activity).application
-        val inbody = InbodyRecordFragmentArgs.fromBundle(arguments!!).inbody
-        viewModelFactory = InbodyRecordViewModelFactory(inbody, application)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 

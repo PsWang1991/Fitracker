@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pinhsiang.fitracker.databinding.ActivityMainBinding
 import com.pinhsiang.fitracker.databinding.NavHeaderMainBinding
+import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.inbody.InbodyFragmentDirections
 import com.pinhsiang.fitracker.nutrition.NutritionFragmentDirections
 import com.pinhsiang.fitracker.user.UserManager
@@ -37,15 +39,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var binding: ActivityMainBinding
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var toolbar: Toolbar
-    lateinit var navHeaderBinding: NavHeaderMainBinding
+    private lateinit var navHeaderBinding: NavHeaderMainBinding
 
     /**
      * Lazily initialize our [MainViewModel].
      */
-    private lateinit var viewModelFactory: MainViewModelFactory
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-    }
+    private val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val navControllerBottom = findNavController(R.id.main_page_fragment)
@@ -80,7 +79,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        viewModelFactory = MainViewModelFactory()
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 

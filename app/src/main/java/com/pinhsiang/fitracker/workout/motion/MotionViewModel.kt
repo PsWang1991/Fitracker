@@ -1,14 +1,13 @@
 package com.pinhsiang.fitracker.workout.motion
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.data.Motion
 import com.pinhsiang.fitracker.util.Util.getDrawable
 import com.pinhsiang.fitracker.util.Util.getString
 
-class MotionViewModel(val dataTime: Long, app: Application) : AndroidViewModel(app) {
+class MotionViewModel(val dataTime: Long) : ViewModel() {
 
     // Internal and external motion list
     private val _motionList = mutableListOf<Motion>()

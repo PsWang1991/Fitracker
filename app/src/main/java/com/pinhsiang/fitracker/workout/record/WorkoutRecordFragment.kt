@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutRecordBinding
+import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.ext.makeInVisible
 import com.pinhsiang.fitracker.ext.makeVisible
+import com.pinhsiang.fitracker.factory.WorkoutRecordViewModelFactory
 import com.pinhsiang.fitracker.progress.DataUploadingFragment
 import com.pinhsiang.fitracker.progress.UploadCompletelyFragment
 
@@ -25,9 +28,8 @@ class WorkoutRecordFragment : Fragment() {
     /**
      * Lazily initialize our [WorkoutRecordViewModel].
      */
-    private lateinit var viewModelFactory: WorkoutRecordViewModelFactory
-    private val viewModel: WorkoutRecordViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(WorkoutRecordViewModel::class.java)
+    private val viewModel by viewModels<WorkoutRecordViewModel> {
+        getVmFactory(WorkoutRecordFragmentArgs.fromBundle(arguments!!).workout)
     }
 
     private lateinit var dataUploadingFragment: DialogFragment
@@ -37,10 +39,6 @@ class WorkoutRecordFragment : Fragment() {
 
         binding = FragmentWorkoutRecordBinding.inflate(inflater, container, false)
 
-        // Pass dataTime from workout fragment to detail fragment
-        val application = requireNotNull(activity).application
-        val workout = WorkoutRecordFragmentArgs.fromBundle(arguments!!).workout
-        viewModelFactory = WorkoutRecordViewModelFactory(workout, application)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.converter = Int2StringConverter

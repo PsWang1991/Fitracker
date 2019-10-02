@@ -1,22 +1,21 @@
 package com.pinhsiang.fitracker.nutrition.record
 
-import android.app.Application
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.FitrackerApplication
+import com.pinhsiang.fitracker.NUTRITION
+import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.USER
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.ext.timestampToDate
 import com.pinhsiang.fitracker.ext.timestampToString
 import com.pinhsiang.fitracker.user.UserManager
 
-const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
-
-
-class NutritionRecordViewModel(private val selectedNutrition: Nutrition, val app: Application) : AndroidViewModel(app) {
+class NutritionRecordViewModel(private val selectedNutrition: Nutrition) : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
 

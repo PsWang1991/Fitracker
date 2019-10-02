@@ -1,11 +1,10 @@
 package com.pinhsiang.fitracker.workout.record
 
-import android.app.Application
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Sets
@@ -17,7 +16,7 @@ import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
 import java.util.*
 
-class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : AndroidViewModel(app) {
+class WorkoutRecordViewModel(val selectedWorkout: Workout) : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
 

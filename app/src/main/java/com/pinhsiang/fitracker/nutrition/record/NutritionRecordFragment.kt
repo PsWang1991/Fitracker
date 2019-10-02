@@ -5,18 +5,17 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.view.marginTop
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.pinhsiang.fitracker.Int2StringConverter
 import com.pinhsiang.fitracker.NavGraphDirections
-import com.pinhsiang.fitracker.databinding.FragmentNutritionBinding
 import com.pinhsiang.fitracker.databinding.FragmentNutritionRecordBinding
-import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
+import com.pinhsiang.fitracker.ext.getVmFactory
+import com.pinhsiang.fitracker.factory.NutritionRecordViewModelFactory
 import com.pinhsiang.fitracker.progress.DataUploadingFragment
 import com.pinhsiang.fitracker.progress.UploadCompletelyFragment
 
@@ -27,9 +26,8 @@ class NutritionRecordFragment : Fragment() {
     /**
      * Lazily initialize [NutritionRecordViewModel].
      */
-    private lateinit var viewModelFactory: NutritionRecordViewModelFactory
-    private val viewModel: NutritionRecordViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(NutritionRecordViewModel::class.java)
+    private val viewModel by viewModels<NutritionRecordViewModel> {
+        getVmFactory(NutritionRecordFragmentArgs.fromBundle(arguments!!).nutrition)
     }
 
     private lateinit var dataUploadingFragment: DialogFragment
@@ -39,10 +37,6 @@ class NutritionRecordFragment : Fragment() {
 
         binding = FragmentNutritionRecordBinding.inflate(inflater, container, false)
 
-        // Pass dataTime from workout fragment to detail fragment
-        val application = requireNotNull(activity).application
-        val nutrition = NutritionRecordFragmentArgs.fromBundle(arguments!!).nutrition
-        viewModelFactory = NutritionRecordViewModelFactory(nutrition, application)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.converter = Int2StringConverter
@@ -67,7 +61,7 @@ class NutritionRecordFragment : Fragment() {
         dataUploadingFragment = DataUploadingFragment()
         viewModel.dataUploading.observe(this, Observer {
             it?.let {
-                when(it) {
+                when (it) {
                     true -> {
                         dataUploadingFragment.show(requireFragmentManager(), "data_uploading_fragment")
                     }

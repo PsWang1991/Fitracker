@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.data.User
+import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.user.UserManager
 
 const val RC_SIGN_IN = 1
@@ -28,11 +30,17 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
+    /**
+     * Lazily initialize our [LoginViewModel].
+     */
+    private val viewModel by viewModels<LoginViewModel> { getVmFactory() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
         supportActionBar?.hide()
 
