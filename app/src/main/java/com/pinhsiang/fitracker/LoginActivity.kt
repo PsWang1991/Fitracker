@@ -114,7 +114,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkUserDocumentId() {
-        db.collection(getString(R.string.user_collection_path)).whereEqualTo("uid", UserManager.userUid)
+        db.collection(USER).whereEqualTo(UID, UserManager.userUid)
             .get()
             .addOnCompleteListener {
                 Log.i(TAG, "******** checkUserDocumentId ***********")
@@ -149,7 +149,7 @@ class LoginActivity : AppCompatActivity() {
             name = GoogleSignIn.getLastSignedInAccount(this)?.displayName!!,
             uid = UserManager.userUid!!
         )
-        db.collection(getString(R.string.user_collection_path)).add(user)
+        db.collection(USER).add(user)
             .addOnCompleteListener {
                 Log.i(TAG, "Create new account successfully.")
                 getNewAccountDocId()
@@ -167,7 +167,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getNewAccountDocId() {
-        db.collection(getString(R.string.user_collection_path)).whereEqualTo("uid", UserManager.userUid)
+        db.collection(USER).whereEqualTo(UID, UserManager.userUid)
             .get()
             .addOnCompleteListener {
                 Log.i(TAG, "******** getNewAccountDocId ***********")

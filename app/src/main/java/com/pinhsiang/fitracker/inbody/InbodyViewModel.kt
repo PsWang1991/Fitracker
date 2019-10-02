@@ -6,10 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Inbody
-import com.pinhsiang.fitracker.digits
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util
 import com.pinhsiang.fitracker.util.Util.getString
@@ -85,8 +83,8 @@ class InbodyViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun downloadWorkoutData() {
-        db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-            .collection(getString(R.string.inbody_collection_path))
+        db.collection(USER).document(UserManager.userDocId!!)
+            .collection(IN_BODY)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {

@@ -153,8 +153,8 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : A
                 )
 
                 _dataUploading.value = true
-                db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-                    .collection(getString(R.string.workout_collection_path)).add(workoutToAdded)
+                db.collection(USER).document(UserManager.userDocId!!)
+                    .collection(WORKOUT).add(workoutToAdded)
                     .addOnFailureListener { exception ->
                         _dataUploading.value = false
                         Toast.makeText(FitrackerApplication.appContext, "Uploading failed.", Toast.LENGTH_SHORT).show()

@@ -23,11 +23,6 @@
     <string name="all_date_format">yyyy-MM-dd, HH:mm:ss</string>
     <string name="short_date_format">yyyy-MM-dd</string>
 
-    <string name="user_collection_path">user</string>
-    <string name="workout_collection_path">workout</string>
-    <string name="nutrition_collection_path">nutrition</string>
-    <string name="inbody_collection_path">in-body</string>
-
     <!--Bottom nav view-->
     <string name="title_workout">Workout</string>
     <string name="title_nutrition">Nutrition</string>

@@ -1,8 +1,6 @@
 package com.pinhsiang.fitracker.user
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.pinhsiang.fitracker.FitrackerApplication
 
 object UserManager {
@@ -53,24 +51,6 @@ object UserManager {
                 Context.MODE_PRIVATE
             )?.edit()?.putString(userNameKey, inputString)?.apply()
         }
-
-//    private val _userName = MutableLiveData<String>().apply {
-//        value = "Loading Name..."
-//    }
-//    val userName: LiveData<String>
-//        get() = _userName
-//
-//    fun setName(name: String?) {
-//        if (name == null) {
-//            _userName.value= "Loading Name..."
-//        } else {
-//            _userName.value = name
-//        }
-//    }
-//
-//    fun clearName() {
-//        _userName.value = "Loading Name..."
-//    }
 
     var userEmail: String? = ""
         get() = FitrackerApplication.appContext?.getSharedPreferences(

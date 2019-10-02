@@ -100,8 +100,8 @@ class InbodyRecordViewModel(private val selectedInbody: Inbody, val app: Applica
                 )
 
                 _dataUploading.value = true
-                db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-                    .collection(getString(R.string.inbody_collection_path)).add(inbodyToUpload)
+                db.collection(USER).document(UserManager.userDocId!!)
+                    .collection(IN_BODY).add(inbodyToUpload)
                     .addOnFailureListener { exception ->
                         _dataUploading.value = false
                         Toast.makeText(FitrackerApplication.appContext, "Uploading failed.", Toast.LENGTH_SHORT).show()

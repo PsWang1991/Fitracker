@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.USER
+import com.pinhsiang.fitracker.WORKOUT
 import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
@@ -79,8 +81,8 @@ class WorkoutViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun downloadWorkoutData() {
-        db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-            .collection(getString(R.string.workout_collection_path))
+        db.collection(USER).document(UserManager.userDocId!!)
+            .collection(WORKOUT)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {

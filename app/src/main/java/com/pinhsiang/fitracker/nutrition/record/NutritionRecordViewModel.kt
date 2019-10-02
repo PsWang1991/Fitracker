@@ -70,8 +70,8 @@ class NutritionRecordViewModel(private val selectedNutrition: Nutrition, val app
             Log.i(TAG, "nutritionToUpload = $nutritionToUpload")
 
             _dataUploading.value = true
-            db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-                .collection(getString(R.string.nutrition_collection_path)).add(nutritionToUpload)
+            db.collection(USER).document(UserManager.userDocId!!)
+                .collection(NUTRITION).add(nutritionToUpload)
                 .addOnFailureListener { exception ->
                     _dataUploading.value = false
                     Toast.makeText(FitrackerApplication.appContext, "Uploading failed.", Toast.LENGTH_SHORT).show()

@@ -7,10 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.github.mikephil.charting.data.Entry
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Nutrition
-import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
 
@@ -53,8 +51,8 @@ class NutritionAnalysisViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun downloadNutritionData() {
-        db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-            .collection(getString(R.string.nutrition_collection_path)).orderBy("time")
+        db.collection(USER).document(UserManager.userDocId!!)
+            .collection(NUTRITION).orderBy("time")
             .get()
             .addOnSuccessListener { result ->
                 Log.i(TAG, "****** From Firebase ********")

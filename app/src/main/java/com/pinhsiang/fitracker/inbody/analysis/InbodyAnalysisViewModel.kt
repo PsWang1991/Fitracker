@@ -7,10 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.github.mikephil.charting.data.Entry
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Inbody
-import com.pinhsiang.fitracker.timestampToDate
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
 
@@ -51,8 +49,8 @@ class InbodyAnalysisViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun downloadInbodyData() {
-        db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-            .collection(getString(R.string.inbody_collection_path))
+        db.collection(USER).document(UserManager.userDocId!!)
+            .collection(IN_BODY)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
