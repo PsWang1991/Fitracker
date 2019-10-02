@@ -1,12 +1,11 @@
 package com.pinhsiang.fitracker.timer
 
-import android.app.Application
 import android.media.MediaPlayer
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
@@ -15,7 +14,7 @@ import com.pinhsiang.fitracker.secondsIntToTime
 import com.pinhsiang.fitracker.util.Util.getString
 import java.util.*
 
-class TimerViewModel(val app: Application) : AndroidViewModel(app) {
+class TimerViewModel : ViewModel() {
 
     private val timerPatternListTemp = mutableListOf<TimerPattern>()
 

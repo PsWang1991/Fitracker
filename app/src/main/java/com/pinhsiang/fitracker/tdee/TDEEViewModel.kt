@@ -1,11 +1,10 @@
 package com.pinhsiang.fitracker.tdee
 
-import android.app.Application
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
@@ -19,7 +18,7 @@ const val COEFFICIENT_AGE = 4.92f
 const val COEFFICIENT_WEIGHT = 9.99f
 const val COEFFICIENT_HEIGHT = 6.25f
 
-class TDEEViewModel(val app: Application) : AndroidViewModel(app) {
+class TDEEViewModel : ViewModel() {
 
     val calculateDone = MutableLiveData<Boolean>().apply {
         value = false

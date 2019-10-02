@@ -18,7 +18,7 @@ import java.sql.Timestamp
 const val MILLISECOND_PER_DAY = 86400000L
 const val ZERO_HOUR = "00:00:00"
 
-class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
+class NutritionViewModel(app: Application) : AndroidViewModel(app) {
 
     private val db = FirebaseFirestore.getInstance()
 

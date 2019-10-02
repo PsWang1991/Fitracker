@@ -36,8 +36,7 @@ class RMFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Bind ViewModel
-        val application = requireNotNull(activity).application
-        viewModelFactory = RMViewModelFactory(application)
+        viewModelFactory = RMViewModelFactory()
         binding.viewModel = viewModel
 
         return binding.root

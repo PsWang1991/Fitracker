@@ -14,7 +14,7 @@ import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
 import java.util.*
 
-class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application) : AndroidViewModel(app) {
+class WorkoutRecordViewModel(val selectedWorkout: Workout, app: Application) : AndroidViewModel(app) {
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -63,7 +63,7 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
 
     fun addData() {
         if (weightRecord.value!! == 0 || repeatsRecord.value!! == 0) {
-            Toast.makeText(app, "Weight and repeats could not be zero.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(FitrackerApplication.appContext, "Weight and repeats could not be zero.", Toast.LENGTH_SHORT).show()
         } else {
             setListTemp.add(Sets(weightRecord.value!!, repeatsRecord.value!!))
             _setList.value = setListTemp
@@ -157,17 +157,17 @@ class WorkoutRecordViewModel(val selectedWorkout: Workout, val app: Application)
                     .collection(getString(R.string.workout_collection_path)).add(workoutToAdded)
                     .addOnFailureListener { exception ->
                         _dataUploading.value = false
-                        Toast.makeText(app, "Uploading failed.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(FitrackerApplication.appContext, "Uploading failed.", Toast.LENGTH_SHORT).show()
                         Log.w(TAG, "Error getting documents.", exception)
                     }
                     .addOnCompleteListener {
                         _dataUploading.value = false
                         _uploadDataDone.value = true
-                        Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(FitrackerApplication.appContext, "Data saving completed.", Toast.LENGTH_SHORT).show()
                     }
 
             } else {
-                Toast.makeText(app, "Set data is empty.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(FitrackerApplication.appContext, "Set data is empty.", Toast.LENGTH_SHORT).show()
             }
         }
     }

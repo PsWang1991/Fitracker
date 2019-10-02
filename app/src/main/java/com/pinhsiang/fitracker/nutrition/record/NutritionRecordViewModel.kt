@@ -7,11 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Nutrition
-import com.pinhsiang.fitracker.timestampToDate
-import com.pinhsiang.fitracker.timestampToString
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
 
@@ -77,17 +74,17 @@ class NutritionRecordViewModel(private val selectedNutrition: Nutrition, val app
                 .collection(getString(R.string.nutrition_collection_path)).add(nutritionToUpload)
                 .addOnFailureListener { exception ->
                     _dataUploading.value = false
-                    Toast.makeText(app, "Uploading failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(FitrackerApplication.appContext, "Uploading failed.", Toast.LENGTH_SHORT).show()
                     Log.w(TAG, "Error getting documents.", exception)
                 }
                 .addOnCompleteListener {
                     _dataUploading.value = false
                     _uploadDataDone.value = true
-                    Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(FitrackerApplication.appContext, "Data saving completed.", Toast.LENGTH_SHORT).show()
                 }
 
         } else {
-            Toast.makeText(app, "Title can not be blank.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(FitrackerApplication.appContext, "Title can not be blank.", Toast.LENGTH_SHORT).show()
         }
     }
 

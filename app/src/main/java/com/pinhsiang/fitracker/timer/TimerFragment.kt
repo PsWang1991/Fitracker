@@ -33,8 +33,7 @@ class TimerFragment : Fragment() {
         binding.converter = Int2StringConverter
 
         // Bind ViewModel
-        val application = requireNotNull(activity).application
-        viewModelFactory = TimerViewModelFactory(application)
+        viewModelFactory = TimerViewModelFactory()
         binding.viewModel = viewModel
 
         binding.rvTimerPattern.adapter = TimerPatternRVAdapter(viewModel)

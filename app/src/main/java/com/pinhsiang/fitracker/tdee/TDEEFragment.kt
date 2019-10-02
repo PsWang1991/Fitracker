@@ -38,8 +38,7 @@ class TDEEFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Bind ViewModel
-        val application = requireNotNull(activity).application
-        viewModelFactory = TDEEViewModelFactory(application)
+        viewModelFactory = TDEEViewModelFactory()
         binding.viewModel = viewModel
 
         binding.radioGroupGender.setOnCheckedChangeListener {

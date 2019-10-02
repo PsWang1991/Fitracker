@@ -1,17 +1,16 @@
 package com.pinhsiang.fitracker.rm
 
-import android.app.Application
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.digits
 
 
-class RMViewModel(val app: Application) : AndroidViewModel(app) {
+class RMViewModel : ViewModel() {
 
     val calculateDone = MutableLiveData<Boolean>().apply {
         value = false
