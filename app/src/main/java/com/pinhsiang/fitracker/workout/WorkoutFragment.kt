@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
 import com.pinhsiang.fitracker.ext.daysOfWeekFromLocale
+import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.ext.makeInVisible
 import com.pinhsiang.fitracker.ext.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
@@ -37,10 +39,7 @@ class WorkoutFragment : Fragment() {
     /**
      * Lazily initialize [WorkoutViewModel].
      */
-    private lateinit var viewModelFactory: WorkoutViewModelFactory
-    private val viewModel: WorkoutViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(WorkoutViewModel::class.java)
-    }
+    private val viewModel by viewModels<WorkoutViewModel> {getVmFactory()}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -48,8 +47,6 @@ class WorkoutFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Bind ViewModel
-        val application = requireNotNull(activity).application
-        viewModelFactory = WorkoutViewModelFactory(application)
         binding.viewModel = viewModel
 
         // Set workout RecyclerView

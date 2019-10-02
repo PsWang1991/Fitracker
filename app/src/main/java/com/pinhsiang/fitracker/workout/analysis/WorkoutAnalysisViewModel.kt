@@ -1,13 +1,15 @@
 package com.pinhsiang.fitracker.workout.analysis
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.github.mikephil.charting.data.Entry
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.USER
+import com.pinhsiang.fitracker.WORKOUT
 import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.ext.timestampToDate
 import com.pinhsiang.fitracker.user.UserManager
@@ -19,7 +21,7 @@ const val DAYS_PER_3M = 93L
 const val DAYS_PER_6M = 186L
 const val DAYS_PER_1Y = 366L
 
-class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
+class WorkoutAnalysisViewModel : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -113,7 +115,7 @@ class WorkoutAnalysisViewModel(app: Application) : AndroidViewModel(app) {
                 filteredData.forEachIndexed { index, workout ->
                     var repeats = 0
                     if (workout.sets != null && workout.sets.isNotEmpty()) {
-                        for (set in workout.sets!!) {
+                        for (set in workout.sets) {
                             repeats += set.repeats
                         }
                     }

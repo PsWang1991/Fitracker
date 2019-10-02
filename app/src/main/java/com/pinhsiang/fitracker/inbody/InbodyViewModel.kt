@@ -1,12 +1,13 @@
 package com.pinhsiang.fitracker.inbody
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.IN_BODY
+import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.USER
 import com.pinhsiang.fitracker.data.Inbody
 import com.pinhsiang.fitracker.ext.digits
 import com.pinhsiang.fitracker.user.UserManager
@@ -16,7 +17,7 @@ import java.sql.Timestamp
 const val MILLISECOND_PER_DAY = 86400000L
 const val ZERO_HOUR = "00:00:00"
 
-class InbodyViewModel(app: Application) : AndroidViewModel(app) {
+class InbodyViewModel : ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
 

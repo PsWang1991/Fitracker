@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.data.Inbody
 import com.pinhsiang.fitracker.databinding.FragmentInbodyBinding
 import com.pinhsiang.fitracker.ext.daysOfWeekFromLocale
+import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.ext.makeInVisible
 import com.pinhsiang.fitracker.ext.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
@@ -37,10 +39,7 @@ class InbodyFragment : Fragment() {
     /**
      * Lazily initialize [InbodyViewModel].
      */
-    private lateinit var viewModelFactory: InbodyViewModelFactory
-    private val viewModel: InbodyViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(InbodyViewModel::class.java)
-    }
+    private val viewModel by viewModels<InbodyViewModel> {getVmFactory()}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -48,8 +47,6 @@ class InbodyFragment : Fragment() {
 
 
         // Bind ViewModel, life cycle owner and calendarStatus(Check if calendar is expending or not).
-        val application = requireNotNull(activity).application
-        viewModelFactory = InbodyViewModelFactory(application)
         binding.let {
             it.viewModel = viewModel
             it.lifecycleOwner = this@InbodyFragment

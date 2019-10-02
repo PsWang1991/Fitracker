@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.charts.LineChart
@@ -22,6 +23,7 @@ import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.databinding.FragmentNutritionAnalysisBinding
+import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.util.Util
 
 const val CHART_AXIS_TEXT_SIZE = 14f
@@ -37,10 +39,7 @@ class NutritionAnalysisFragment : Fragment() {
     /**
      * Lazily initialize our [NutritionAnalysisViewModel].
      */
-    private lateinit var viewModelFactory: NutritionAnalysisViewModelFactory
-    private val viewModel: NutritionAnalysisViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(NutritionAnalysisViewModel::class.java)
-    }
+    private val viewModel by viewModels<NutritionAnalysisViewModel> {getVmFactory()}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -51,8 +50,6 @@ class NutritionAnalysisFragment : Fragment() {
         setupYAxis()
 
         // Pass dataTime from workout fragment to detail fragment
-        val application = requireNotNull(activity).application
-        viewModelFactory = NutritionAnalysisViewModelFactory(application)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
