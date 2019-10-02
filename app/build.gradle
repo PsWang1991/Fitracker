@@ -19,6 +19,13 @@ android {
         // but continue the build even when errors are found:
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
     defaultConfig {

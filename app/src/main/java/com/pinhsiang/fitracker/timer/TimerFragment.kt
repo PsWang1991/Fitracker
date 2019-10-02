@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pinhsiang.fitracker.Int2StringConverter
 import com.pinhsiang.fitracker.MainActivity
 import com.pinhsiang.fitracker.databinding.FragmentTimerBinding
+import com.pinhsiang.fitracker.ext.getVmFactory
 
 const val TAG = "Fitracker"
 
@@ -21,10 +23,7 @@ class TimerFragment : Fragment() {
     /**
      * Lazily initialize [TimerViewModel].
      */
-    private lateinit var viewModelFactory: TimerViewModelFactory
-    private val viewModel: TimerViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(TimerViewModel::class.java)
-    }
+    private val viewModel by viewModels<TimerViewModel> {getVmFactory()}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -33,7 +32,6 @@ class TimerFragment : Fragment() {
         binding.converter = Int2StringConverter
 
         // Bind ViewModel
-        viewModelFactory = TimerViewModelFactory()
         binding.viewModel = viewModel
 
         binding.rvTimerPattern.adapter = TimerPatternRVAdapter(viewModel)

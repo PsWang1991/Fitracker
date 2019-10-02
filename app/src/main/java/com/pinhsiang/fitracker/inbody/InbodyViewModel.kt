@@ -8,9 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Inbody
+import com.pinhsiang.fitracker.ext.digits
 import com.pinhsiang.fitracker.user.UserManager
-import com.pinhsiang.fitracker.util.Util
-import com.pinhsiang.fitracker.util.Util.getString
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 

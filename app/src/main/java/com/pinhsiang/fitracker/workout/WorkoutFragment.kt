@@ -18,6 +18,9 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
+import com.pinhsiang.fitracker.ext.daysOfWeekFromLocale
+import com.pinhsiang.fitracker.ext.makeInVisible
+import com.pinhsiang.fitracker.ext.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
 import kotlinx.android.synthetic.main.fragment_workout.*
 import org.threeten.bp.LocalDate

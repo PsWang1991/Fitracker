@@ -9,6 +9,7 @@ import com.github.mikephil.charting.data.Entry
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Workout
+import com.pinhsiang.fitracker.ext.timestampToDate
 import com.pinhsiang.fitracker.user.UserManager
 import com.pinhsiang.fitracker.util.Util.getString
 

@@ -10,7 +10,7 @@ import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.TimerPattern
-import com.pinhsiang.fitracker.secondsIntToTime
+import com.pinhsiang.fitracker.ext.secondsIntToTime
 import com.pinhsiang.fitracker.util.Util.getString
 import java.util.*
 

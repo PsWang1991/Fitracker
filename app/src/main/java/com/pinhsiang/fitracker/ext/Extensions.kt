@@ -1,4 +1,4 @@
-package com.pinhsiang.fitracker
+package com.pinhsiang.fitracker.ext
 
 import android.content.Context
 import android.text.format.DateFormat
@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import com.pinhsiang.fitracker.FitrackerApplication
+import com.pinhsiang.fitracker.R
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.temporal.WeekFields
 import java.util.*

@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutRecordBinding
+import com.pinhsiang.fitracker.ext.makeInVisible
+import com.pinhsiang.fitracker.ext.makeVisible
 import com.pinhsiang.fitracker.progress.DataUploadingFragment
 import com.pinhsiang.fitracker.progress.UploadCompletelyFragment
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pinhsiang.fitracker.Int2StringConverter
@@ -15,6 +16,7 @@ import com.pinhsiang.fitracker.MainActivity
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.databinding.FragmentTdeeBinding
 import com.pinhsiang.fitracker.databinding.FragmentTimerBinding
+import com.pinhsiang.fitracker.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_tdee.view.*
 
@@ -27,10 +29,7 @@ class TDEEFragment : Fragment() {
     /**
      * Lazily initialize [TDEEViewModel].
      */
-    private lateinit var viewModelFactory: TDEEViewModelFactory
-    private val viewModel: TDEEViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(TDEEViewModel::class.java)
-    }
+    private val viewModel by viewModels<TDEEViewModel> {getVmFactory()}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -38,7 +37,6 @@ class TDEEFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Bind ViewModel
-        viewModelFactory = TDEEViewModelFactory()
         binding.viewModel = viewModel
 
         binding.radioGroupGender.setOnCheckedChangeListener {

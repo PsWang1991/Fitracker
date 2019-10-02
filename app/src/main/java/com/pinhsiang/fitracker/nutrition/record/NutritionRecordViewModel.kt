@@ -9,8 +9,9 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Nutrition
+import com.pinhsiang.fitracker.ext.timestampToDate
+import com.pinhsiang.fitracker.ext.timestampToString
 import com.pinhsiang.fitracker.user.UserManager
-import com.pinhsiang.fitracker.util.Util.getString
 
 const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
 

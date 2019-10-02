@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pinhsiang.fitracker.FitrackerApplication
 import com.pinhsiang.fitracker.TAG
-import com.pinhsiang.fitracker.digits
+import com.pinhsiang.fitracker.ext.digits
 
 
 class RMViewModel : ViewModel() {

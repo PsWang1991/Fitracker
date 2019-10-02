@@ -18,7 +18,9 @@ import com.kizitonwose.calendarview.ui.ViewContainer
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.databinding.FragmentNutritionBinding
-import com.pinhsiang.fitracker.setTextColorRes
+import com.pinhsiang.fitracker.ext.daysOfWeekFromLocale
+import com.pinhsiang.fitracker.ext.makeInVisible
+import com.pinhsiang.fitracker.ext.setTextColorRes
 import kotlinx.android.synthetic.main.calendar_day_layout.view.*
 import kotlinx.android.synthetic.main.fragment_nutrition.*
 import org.threeten.bp.LocalDate

@@ -1,6 +1,6 @@
 package com.pinhsiang.fitracker.data
 
-import com.pinhsiang.fitracker.secondsIntToTime
+import com.pinhsiang.fitracker.ext.secondsIntToTime
 
 data class TimerPattern (
     val exerciseTime: Int,
