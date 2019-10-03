@@ -1,6 +1,7 @@
 package com.pinhsiang.fitracker.inbody.analysis
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -99,32 +100,14 @@ class InBodyAnalysisViewModel : ViewModel() {
         _isDataReadyForPlotting.value = true
     }
 
-    fun selectPeriod1M() {
-        _periodFilter.value = DAYS_PER_1M * MILLISECOND_PER_DAY
-        refreshPlottedData()
-        _isDataReadyForPlotting.value = true
-    }
-
-    fun selectPeriod3M() {
-        _periodFilter.value = DAYS_PER_3M * MILLISECOND_PER_DAY
-        refreshPlottedData()
-        _isDataReadyForPlotting.value = true
-    }
-
-    fun selectPeriod6M() {
-        _periodFilter.value = DAYS_PER_6M * MILLISECOND_PER_DAY
-        refreshPlottedData()
-        _isDataReadyForPlotting.value = true
-    }
-
-    fun selectPeriod1Y() {
-        _periodFilter.value = DAYS_PER_1Y * MILLISECOND_PER_DAY
-        refreshPlottedData()
-        _isDataReadyForPlotting.value = true
-    }
-
-    fun selectPeriodAll() {
-        _periodFilter.value = currentTime
+    fun selectPeriod(periodFilterBtn: View) {
+        _periodFilter.value = when (periodFilterBtn.tag) {
+            TAG_1M -> PERIOD_1M
+            TAG_3M -> PERIOD_3M
+            TAG_6M -> PERIOD_6M
+            TAG_1Y -> PERIOD_1Y
+            else -> currentTime
+        }
         refreshPlottedData()
         _isDataReadyForPlotting.value = true
     }
@@ -133,4 +116,3 @@ class InBodyAnalysisViewModel : ViewModel() {
         _isDataReadyForPlotting.value = false
     }
 }
-

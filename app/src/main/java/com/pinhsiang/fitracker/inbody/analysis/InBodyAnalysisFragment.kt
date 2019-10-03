@@ -85,57 +85,12 @@ class InBodyAnalysisFragment : Fragment() {
 
         viewModel.periodFilter.observe(this, Observer { periodFilter ->
             periodFilter?.let {
-                when (it) {
-                    DAYS_PER_3M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriod3M()
-                    }
-                    DAYS_PER_6M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriod6M()
-                    }
-                    DAYS_PER_1Y * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriod1Y()
-                    }
-                    viewModel.currentTime -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriodAll()
-                    }
-                    else -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriod1M()
-                    }
-                }
+                setAllPeriodBtnOff()
+                setPeriodBtnOn(it)
             }
         })
 
         return binding.root
-    }
-
-    private fun selectPeriod1M() {
-        binding.period1mInbody.setTextColor(getColor(R.color.colorBackground))
-        binding.period1mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
-    }
-
-    private fun selectPeriod3M() {
-        binding.period3mInbody.setTextColor(getColor(R.color.colorBackground))
-        binding.period3mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
-    }
-
-    private fun selectPeriod6M() {
-        binding.period6mInbody.setTextColor(getColor(R.color.colorBackground))
-        binding.period6mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
-    }
-
-    private fun selectPeriod1Y() {
-        binding.period1yInbody.setTextColor(getColor(R.color.colorBackground))
-        binding.period1yInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
-    }
-
-    private fun selectPeriodAll() {
-        binding.periodAllInbody.setTextColor(getColor(R.color.colorBackground))
-        binding.periodAllInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
     }
 
     private fun setupLineChart() {
@@ -212,7 +167,7 @@ class InBodyAnalysisFragment : Fragment() {
         }
     }
 
-    private fun setAllPeriodFilterUnselected() {
+    private fun setAllPeriodBtnOff() {
         binding.period1mInbody.setTextColor(getColor(R.color.colorText))
         binding.period1mInbody.background = getDrawable(R.drawable.btn_text_border)
         binding.period3mInbody.setTextColor(getColor(R.color.colorText))
@@ -223,5 +178,30 @@ class InBodyAnalysisFragment : Fragment() {
         binding.period1yInbody.background = getDrawable(R.drawable.btn_text_border)
         binding.periodAllInbody.setTextColor(getColor(R.color.colorText))
         binding.periodAllInbody.background = getDrawable(R.drawable.btn_text_border)
+    }
+
+    private fun setPeriodBtnOn(period: Long) {
+        when (period) {
+            PERIOD_3M -> {
+                binding.period3mInbody.setTextColor(getColor(R.color.colorBackground))
+                binding.period3mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            PERIOD_6M -> {
+                binding.period6mInbody.setTextColor(getColor(R.color.colorBackground))
+                binding.period6mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            PERIOD_1Y -> {
+                binding.period1yInbody.setTextColor(getColor(R.color.colorBackground))
+                binding.period1yInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            viewModel.currentTime -> {
+                binding.periodAllInbody.setTextColor(getColor(R.color.colorBackground))
+                binding.periodAllInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            else -> {
+                binding.period1mInbody.setTextColor(getColor(R.color.colorBackground))
+                binding.period1mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+        }
     }
 }

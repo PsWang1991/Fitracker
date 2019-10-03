@@ -1,6 +1,7 @@
 package com.pinhsiang.fitracker.nutrition.analysis
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -64,14 +65,14 @@ class NutritionAnalysisViewModel : ViewModel() {
             }
             .addOnCompleteListener {
                 rawDataToDailyData()
-                setDataToPlot()
+                refreshPlottedData()
                 _isDataReadyForPlotting.value = true
             }
     }
 
     /**
      * We show nutrition data by date, but by each meal.
-     * Notice : raw data should be sorted by time before plot it.
+     * Notice : raw data should be sorted by time before transforms it to daily data.
      **/
     private fun rawDataToDailyData() {
         if (rawNutritionData.isNotEmpty()) {
@@ -98,7 +99,7 @@ class NutritionAnalysisViewModel : ViewModel() {
         }
     }
 
-    private fun setDataToPlot() {
+    private fun refreshPlottedData() {
         xAxisDateToPlot.clear()
         valuesToPLot.clear()
         val filteredData = dailyTotalNutritionData.filter {
@@ -140,37 +141,19 @@ class NutritionAnalysisViewModel : ViewModel() {
 
     fun setNutrient(nutrient: Int) {
         selectedNutrient = nutrient
-        setDataToPlot()
+        refreshPlottedData()
         _isDataReadyForPlotting.value = true
     }
 
-    fun selectPeriod1M() {
-        _periodFilter.value = DAYS_PER_1M * MILLISECOND_PER_DAY
-        setDataToPlot()
-        _isDataReadyForPlotting.value = true
-    }
-
-    fun selectPeriod3M() {
-        _periodFilter.value = DAYS_PER_3M * MILLISECOND_PER_DAY
-        setDataToPlot()
-        _isDataReadyForPlotting.value = true
-    }
-
-    fun selectPeriod6M() {
-        _periodFilter.value = DAYS_PER_6M * MILLISECOND_PER_DAY
-        setDataToPlot()
-        _isDataReadyForPlotting.value = true
-    }
-
-    fun selectPeriod1Y() {
-        _periodFilter.value = DAYS_PER_1Y * MILLISECOND_PER_DAY
-        setDataToPlot()
-        _isDataReadyForPlotting.value = true
-    }
-
-    fun selectPeriodAll() {
-        _periodFilter.value = currentTime
-        setDataToPlot()
+    fun selectPeriod(periodFilterBtn: View) {
+        _periodFilter.value = when (periodFilterBtn.tag) {
+            TAG_1M -> PERIOD_1M
+            TAG_3M -> PERIOD_3M
+            TAG_6M -> PERIOD_6M
+            TAG_1Y -> PERIOD_1Y
+            else -> currentTime
+        }
+        refreshPlottedData()
         _isDataReadyForPlotting.value = true
     }
 

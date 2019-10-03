@@ -87,57 +87,12 @@ class NutritionAnalysisFragment : Fragment() {
 
         viewModel.periodFilter.observe(this, Observer { periodFilter ->
             periodFilter?.let {
-                when (it) {
-                    DAYS_PER_3M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriod3M()
-                    }
-                    DAYS_PER_6M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriod6M()
-                    }
-                    DAYS_PER_1Y * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriod1Y()
-                    }
-                    viewModel.currentTime -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriodAll()
-                    }
-                    else -> {
-                        setAllPeriodFilterUnselected()
-                        selectPeriod1M()
-                    }
-                }
+                setAllPeriodBtnOff()
+                setPeriodBtnOn(it)
             }
         })
 
         return binding.root
-    }
-
-    private fun selectPeriod1M() {
-        binding.period1mNutrition.setTextColor(getColor(R.color.colorBackground))
-        binding.period1mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
-    }
-
-    private fun selectPeriod3M() {
-        binding.period3mNutrition.setTextColor(getColor(R.color.colorBackground))
-        binding.period3mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
-    }
-
-    private fun selectPeriod6M() {
-        binding.period6mNutrition.setTextColor(getColor(R.color.colorBackground))
-        binding.period6mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
-    }
-
-    private fun selectPeriod1Y() {
-        binding.period1yNutrition.setTextColor(getColor(R.color.colorBackground))
-        binding.period1yNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
-    }
-
-    private fun selectPeriodAll() {
-        binding.periodAllNutrition.setTextColor(getColor(R.color.colorBackground))
-        binding.periodAllNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
     }
 
     private fun setupLineChart() {
@@ -214,7 +169,7 @@ class NutritionAnalysisFragment : Fragment() {
         }
     }
 
-    private fun setAllPeriodFilterUnselected() {
+    private fun setAllPeriodBtnOff() {
         binding.period1mNutrition.setTextColor(getColor(R.color.colorText))
         binding.period1mNutrition.background = getDrawable(R.drawable.btn_text_border)
         binding.period3mNutrition.setTextColor(getColor(R.color.colorText))
@@ -225,5 +180,30 @@ class NutritionAnalysisFragment : Fragment() {
         binding.period1yNutrition.background = getDrawable(R.drawable.btn_text_border)
         binding.periodAllNutrition.setTextColor(getColor(R.color.colorText))
         binding.periodAllNutrition.background = getDrawable(R.drawable.btn_text_border)
+    }
+
+    private fun setPeriodBtnOn(period: Long) {
+        when (period) {
+            PERIOD_3M -> {
+                binding.period3mNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.period3mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            PERIOD_6M -> {
+                binding.period6mNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.period6mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            PERIOD_1Y -> {
+                binding.period1yNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.period1yNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            viewModel.currentTime -> {
+                binding.periodAllNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.periodAllNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            else -> {
+                binding.period1mNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.period1mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+        }
     }
 }

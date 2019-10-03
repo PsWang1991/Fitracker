@@ -57,12 +57,12 @@ class WorkoutAnalysisViewModel : ViewModel() {
                 Log.w(TAG, "Error getting documents.", exception)
             }
             .addOnCompleteListener {
-                setDataToPlot()
+                refreshPlottedData()
                 _isDataReadyForPlotting.value = true
             }
     }
 
-    private fun setDataToPlot() {
+    private fun refreshPlottedData() {
         xAxisDateToPlot.clear()
         valuesToPLot.clear()
         val filteredData =
@@ -118,13 +118,13 @@ class WorkoutAnalysisViewModel : ViewModel() {
 
     fun setExerciseFilter(motion: String) {
         selectedExercise = motion
-        setDataToPlot()
+        refreshPlottedData()
         _isDataReadyForPlotting.value = true
     }
 
     fun setGraphFilter(graphType: Int) {
         selectedGraph = graphType
-        setDataToPlot()
+        refreshPlottedData()
         _isDataReadyForPlotting.value = true
     }
 
@@ -136,7 +136,7 @@ class WorkoutAnalysisViewModel : ViewModel() {
             TAG_1Y -> PERIOD_1Y
             else -> currentTime
         }
-        setDataToPlot()
+        refreshPlottedData()
         _isDataReadyForPlotting.value = true
     }
 
@@ -152,4 +152,3 @@ class WorkoutAnalysisViewModel : ViewModel() {
     }
 
 }
-
