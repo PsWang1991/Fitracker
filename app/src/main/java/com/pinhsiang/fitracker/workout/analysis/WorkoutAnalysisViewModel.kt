@@ -22,16 +22,16 @@ class WorkoutAnalysisViewModel : ViewModel() {
     private var selectedGraph = GRAPH_MAX_WEIGHT_PER_WORKOUT
 
     private val _periodFilter = MutableLiveData<Long>().apply {
-        value = DAYS_PER_1M * MILLISECOND_PER_DAY
+        value = PERIOD_1M
     }
     val periodFilter: LiveData<Long>
         get() = _periodFilter
 
     private val allWorkoutData = mutableListOf<Workout>()
 
-    var valuesToPLot = mutableListOf<Entry>()
+    var plottedValues = mutableListOf<Entry>()
 
-    var xAxisDateToPlot = mutableListOf<String>()
+    var plottedDate = mutableListOf<String>()
 
     private val _isDataReadyForPlotting = MutableLiveData<Boolean>().apply {
         value = false
@@ -44,7 +44,9 @@ class WorkoutAnalysisViewModel : ViewModel() {
     }
 
     private fun downloadWorkoutData() {
-        FirebaseFirestore.getInstance().collection(USER).document(UserManager.userDocId!!)
+        FirebaseFirestore.getInstance()
+            .collection(USER)
+            .document(UserManager.userDocId!!)
             .collection(WORKOUT)
             .get()
             .addOnSuccessListener { result ->
@@ -63,8 +65,8 @@ class WorkoutAnalysisViewModel : ViewModel() {
     }
 
     private fun refreshPlottedData() {
-        xAxisDateToPlot.clear()
-        valuesToPLot.clear()
+        plottedDate.clear()
+        plottedValues.clear()
         val filteredData =
             allWorkoutData.filter {
                 it.motion == selectedExercise &&
@@ -75,8 +77,8 @@ class WorkoutAnalysisViewModel : ViewModel() {
         when (selectedGraph) {
             GRAPH_MAX_WEIGHT_PER_WORKOUT -> {
                 filteredData.forEachIndexed { index, workout ->
-                    valuesToPLot.add(Entry(index.toFloat(), workout.maxWeight.toFloat()))
-                    xAxisDateToPlot.add(workout.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), workout.maxWeight.toFloat()))
+                    plottedDate.add(workout.time.timestampToDate())
                 }
             }
             GRAPH_VOLUME_PER_WORKOUT -> {
@@ -87,18 +89,18 @@ class WorkoutAnalysisViewModel : ViewModel() {
                             volume += set.repeats * set.liftWeight
                         }
                     }
-                    valuesToPLot.add(Entry(index.toFloat(), volume.toFloat()))
-                    xAxisDateToPlot.add(workout.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), volume.toFloat()))
+                    plottedDate.add(workout.time.timestampToDate())
                 }
             }
             GRAPH_SETS_PER_WORKOUT -> {
                 filteredData.forEachIndexed { index, workout ->
                     if (workout.sets != null && workout.sets.isNotEmpty()) {
-                        valuesToPLot.add(Entry(index.toFloat(), workout.sets.size.toFloat()))
+                        plottedValues.add(Entry(index.toFloat(), workout.sets.size.toFloat()))
                     } else {
-                        valuesToPLot.add(Entry(index.toFloat(), 0f))
+                        plottedValues.add(Entry(index.toFloat(), 0f))
                     }
-                    xAxisDateToPlot.add(workout.time.timestampToDate())
+                    plottedDate.add(workout.time.timestampToDate())
                 }
             }
             GRAPH_REPEATS_PER_WORKOUT -> {
@@ -109,8 +111,8 @@ class WorkoutAnalysisViewModel : ViewModel() {
                             repeats += set.repeats
                         }
                     }
-                    valuesToPLot.add(Entry(index.toFloat(), repeats.toFloat()))
-                    xAxisDateToPlot.add(workout.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), repeats.toFloat()))
+                    plottedDate.add(workout.time.timestampToDate())
                 }
             }
         }

@@ -44,11 +44,33 @@ class InBodyAnalysisFragment : Fragment() {
         setupLineChart()
         setupXAxis()
         setupYAxis()
+        setupInBodySpinner()
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // Setup spinner
+        viewModel.isDataReadyForPlotting.observe(this, Observer {
+            if (it) {
+                plotData(
+                    x = viewModel.plottedDate,
+                    y = viewModel.plottedValues
+                )
+                chart.invalidate()
+                viewModel.plotDataDone()
+            }
+        })
+
+        viewModel.periodFilter.observe(this, Observer { periodFilter ->
+            periodFilter?.let {
+                setAllPeriodBtnOff()
+                setPeriodBtnOn(it)
+            }
+        })
+
+        return binding.root
+    }
+
+    private fun setupInBodySpinner() {
         val inBodyFilterList = ArrayAdapter.createFromResource(
             FitrackerApplication.appContext,
             R.array.filter_inbody,
@@ -56,6 +78,7 @@ class InBodyAnalysisFragment : Fragment() {
         )
         binding.spinnerFilterInbody.adapter = inBodyFilterList
         binding.spinnerFilterInbody.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
             override fun onNothingSelected(adapterView: AdapterView<*>?) {
                 viewModel.setInBodyFilter(FILTER_BODY_WEIGHT)
             }
@@ -74,23 +97,6 @@ class InBodyAnalysisFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.isDataReadyForPlotting.observe(this, Observer {
-            if (it) {
-                plotData(viewModel.xAxisDateToBePlotted, viewModel.valuesToBePlotted)
-                chart.invalidate()
-                viewModel.plotDataDone()
-            }
-        })
-
-        viewModel.periodFilter.observe(this, Observer { periodFilter ->
-            periodFilter?.let {
-                setAllPeriodBtnOff()
-                setPeriodBtnOn(it)
-            }
-        })
-
-        return binding.root
     }
 
     private fun setupLineChart() {
@@ -131,22 +137,22 @@ class InBodyAnalysisFragment : Fragment() {
         yAxis.gridLineWidth = Y_AXIS_GRID_LINE_WIDTH
     }
 
-    private fun plotData(xAxisDate: List<String>, values: List<Entry>) {
+    private fun plotData(x: List<String>, y: List<Entry>) {
 
-        val formatter = IndexAxisValueFormatter(xAxisDate)
+        val formatter = IndexAxisValueFormatter(x)
         xAxis.valueFormatter = formatter
 
         var lineDataSet: LineDataSet
 
         if (chart.data != null && chart.data.dataSetCount > 0) {
             lineDataSet = chart.data.getDataSetByIndex(0) as LineDataSet
-            lineDataSet.values = values
+            lineDataSet.values = y
             lineDataSet.notifyDataSetChanged()
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
         } else {
 
-            lineDataSet = LineDataSet(values, "DataSet 1")
+            lineDataSet = LineDataSet(y, "DataSet 1")
 
             with(lineDataSet) {
                 setDrawIcons(false)

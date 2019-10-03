@@ -24,7 +24,7 @@ class NutritionAnalysisViewModel : ViewModel() {
     private var selectedNutrient = TOTAL_DAILY_ENERGY_EXTRACTED
 
     private val _periodFilter = MutableLiveData<Long>().apply {
-        value = DAYS_PER_1M * MILLISECOND_PER_DAY
+        value = PERIOD_1M
     }
     val periodFilter: LiveData<Long>
         get() = _periodFilter
@@ -32,9 +32,9 @@ class NutritionAnalysisViewModel : ViewModel() {
     private val rawNutritionData = mutableListOf<Nutrition>()
     private val dailyTotalNutritionData = mutableListOf<Nutrition>()
 
-    var valuesToPLot = mutableListOf<Entry>()
+    var plottedValues = mutableListOf<Entry>()
 
-    var xAxisDateToPlot = mutableListOf<String>()
+    var plottedDate = mutableListOf<String>()
 
     private val _isDataReadyForPlotting = MutableLiveData<Boolean>().apply {
         value = false
@@ -100,8 +100,8 @@ class NutritionAnalysisViewModel : ViewModel() {
     }
 
     private fun refreshPlottedData() {
-        xAxisDateToPlot.clear()
-        valuesToPLot.clear()
+        plottedDate.clear()
+        plottedValues.clear()
         val filteredData = dailyTotalNutritionData.filter {
             it.time <= currentTime &&
                     it.time >= currentTime - _periodFilter.value!!
@@ -109,31 +109,31 @@ class NutritionAnalysisViewModel : ViewModel() {
         when (selectedNutrient) {
             TOTAL_DAILY_ENERGY_EXTRACTED -> {
                 filteredData.forEachIndexed { index, nutrition ->
-                    valuesToPLot.add(
+                    plottedValues.add(
                         Entry(
                             index.toFloat(),
                             (nutrition.carbohydrate * 4 + nutrition.protein * 4 + nutrition.fat * 9).toFloat()
                         )
                     )
-                    xAxisDateToPlot.add(nutrition.time.timestampToDate())
+                    plottedDate.add(nutrition.time.timestampToDate())
                 }
             }
             PROTEIN -> {
                 filteredData.forEachIndexed { index, nutrition ->
-                    valuesToPLot.add(Entry(index.toFloat(), nutrition.protein.toFloat()))
-                    xAxisDateToPlot.add(nutrition.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), nutrition.protein.toFloat()))
+                    plottedDate.add(nutrition.time.timestampToDate())
                 }
             }
             CARBOHYDRATE -> {
                 filteredData.forEachIndexed { index, nutrition ->
-                    valuesToPLot.add(Entry(index.toFloat(), nutrition.carbohydrate.toFloat()))
-                    xAxisDateToPlot.add(nutrition.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), nutrition.carbohydrate.toFloat()))
+                    plottedDate.add(nutrition.time.timestampToDate())
                 }
             }
             FAT -> {
                 filteredData.forEachIndexed { index, nutrition ->
-                    valuesToPLot.add(Entry(index.toFloat(), nutrition.fat.toFloat()))
-                    xAxisDateToPlot.add(nutrition.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), nutrition.fat.toFloat()))
+                    plottedDate.add(nutrition.time.timestampToDate())
                 }
             }
         }

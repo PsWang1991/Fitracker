@@ -23,16 +23,16 @@ class InBodyAnalysisViewModel : ViewModel() {
     private var selectedInBodyFilter = FILTER_BODY_WEIGHT
 
     private val _periodFilter = MutableLiveData<Long>().apply {
-        value = DAYS_PER_1M * MILLISECOND_PER_DAY
+        value = PERIOD_1M
     }
     val periodFilter: LiveData<Long>
         get() = _periodFilter
 
     private val allInBodyData = mutableListOf<InBody>()
 
-    var valuesToBePlotted = mutableListOf<Entry>()
+    var plottedValues = mutableListOf<Entry>()
 
-    var xAxisDateToBePlotted = mutableListOf<String>()
+    var plottedDate = mutableListOf<String>()
 
     private val _isDataReadyForPlotting = MutableLiveData<Boolean>().apply {
         value = false
@@ -66,8 +66,9 @@ class InBodyAnalysisViewModel : ViewModel() {
     }
 
     private fun refreshPlottedData() {
-        xAxisDateToBePlotted.clear()
-        valuesToBePlotted.clear()
+        plottedDate.clear()
+        plottedValues.clear()
+
         val filteredInBodyData = allInBodyData.filter {
             it.time <= currentTime && it.time >= currentTime - _periodFilter.value!!
         }.sortedBy { it.time }
@@ -75,20 +76,20 @@ class InBodyAnalysisViewModel : ViewModel() {
         when (selectedInBodyFilter) {
             FILTER_BODY_WEIGHT -> {
                 filteredInBodyData.forEachIndexed { index, inBody ->
-                    valuesToBePlotted.add(Entry(index.toFloat(), inBody.bodyWeight))
-                    xAxisDateToBePlotted.add(inBody.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), inBody.bodyWeight))
+                    plottedDate.add(inBody.time.timestampToDate())
                 }
             }
             FILTER_SKELETAL_MUSCLE -> {
                 filteredInBodyData.forEachIndexed { index, inBody ->
-                    valuesToBePlotted.add(Entry(index.toFloat(), inBody.skeletalMuscle))
-                    xAxisDateToBePlotted.add(inBody.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), inBody.skeletalMuscle))
+                    plottedDate.add(inBody.time.timestampToDate())
                 }
             }
             FILTER_BODY_FAT -> {
                 filteredInBodyData.forEachIndexed { index, inBody ->
-                    valuesToBePlotted.add(Entry(index.toFloat(), inBody.bodyFat))
-                    xAxisDateToBePlotted.add(inBody.time.timestampToDate())
+                    plottedValues.add(Entry(index.toFloat(), inBody.bodyFat))
+                    plottedDate.add(inBody.time.timestampToDate())
                 }
             }
         }
@@ -101,13 +102,15 @@ class InBodyAnalysisViewModel : ViewModel() {
     }
 
     fun selectPeriod(periodFilterBtn: View) {
-        _periodFilter.value = when (periodFilterBtn.tag) {
-            TAG_1M -> PERIOD_1M
-            TAG_3M -> PERIOD_3M
-            TAG_6M -> PERIOD_6M
-            TAG_1Y -> PERIOD_1Y
-            else -> currentTime
-        }
+        _periodFilter.value =
+            when (periodFilterBtn.tag) {
+                TAG_1M -> PERIOD_1M
+                TAG_3M -> PERIOD_3M
+                TAG_6M -> PERIOD_6M
+                TAG_1Y -> PERIOD_1Y
+                else -> currentTime
+            }
+
         refreshPlottedData()
         _isDataReadyForPlotting.value = true
     }
