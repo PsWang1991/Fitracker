@@ -1,6 +1,7 @@
 package com.pinhsiang.fitracker.workout.analysis
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,13 +15,11 @@ import com.pinhsiang.fitracker.util.Util.getString
 
 class WorkoutAnalysisViewModel : ViewModel() {
 
-    private val db = FirebaseFirestore.getInstance()
-
     val currentTime = System.currentTimeMillis()
 
     private var selectedExercise = getString(R.string.bench_press)
 
-    private var selectedGraph = getString(R.string.max_weight_workout)
+    private var selectedGraph = GRAPH_MAX_WEIGHT_PER_WORKOUT
 
     private val _periodFilter = MutableLiveData<Long>().apply {
         value = DAYS_PER_1M * MILLISECOND_PER_DAY
@@ -34,53 +33,53 @@ class WorkoutAnalysisViewModel : ViewModel() {
 
     var xAxisDateToPlot = mutableListOf<String>()
 
-    private val _plotDataReady = MutableLiveData<Boolean>().apply {
+    private val _isDataReadyForPlotting = MutableLiveData<Boolean>().apply {
         value = false
     }
-    val plotDataReady: LiveData<Boolean>
-        get() = _plotDataReady
+    val isDataReadyForPlotting: LiveData<Boolean>
+        get() = _isDataReadyForPlotting
 
     init {
         downloadWorkoutData()
     }
 
     private fun downloadWorkoutData() {
-        db.collection(USER).document(UserManager.userDocId!!)
+        FirebaseFirestore.getInstance().collection(USER).document(UserManager.userDocId!!)
             .collection(WORKOUT)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val workout = document.toObject(Workout::class.java)
                     allWorkoutData.add(workout)
-//                    Log.i(TAG, "workout = $workout")
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
-            }.addOnCompleteListener {
-//                Log.w(TAG, "allWorkoutData = $allWorkoutData")
-//                Log.w(TAG, "allWorkoutData size = ${allWorkoutData.size}")
+            }
+            .addOnCompleteListener {
                 setDataToPlot()
-                _plotDataReady.value = true
+                _isDataReadyForPlotting.value = true
             }
     }
 
     private fun setDataToPlot() {
         xAxisDateToPlot.clear()
         valuesToPLot.clear()
-        val filteredData = allWorkoutData.filter {
-            it.motion == selectedExercise &&
-                    it.time <= currentTime &&
-                    it.time >= currentTime - _periodFilter.value!!
-        }.sortedBy { it.time }
-        when(selectedGraph) {
-            getString(R.string.max_weight_workout) -> {
+        val filteredData =
+            allWorkoutData.filter {
+                it.motion == selectedExercise &&
+                        it.time <= currentTime &&
+                        it.time >= currentTime - _periodFilter.value!!
+            }.sortedBy { it.time }
+
+        when (selectedGraph) {
+            GRAPH_MAX_WEIGHT_PER_WORKOUT -> {
                 filteredData.forEachIndexed { index, workout ->
                     valuesToPLot.add(Entry(index.toFloat(), workout.maxWeight.toFloat()))
                     xAxisDateToPlot.add(workout.time.timestampToDate())
                 }
             }
-            getString(R.string.volume_workout) -> {
+            GRAPH_VOLUME_PER_WORKOUT -> {
                 filteredData.forEachIndexed { index, workout ->
                     var volume = 0
                     if (workout.sets != null && workout.sets.isNotEmpty()) {
@@ -92,7 +91,7 @@ class WorkoutAnalysisViewModel : ViewModel() {
                     xAxisDateToPlot.add(workout.time.timestampToDate())
                 }
             }
-            getString(R.string.sets_workout) -> {
+            GRAPH_SETS_PER_WORKOUT -> {
                 filteredData.forEachIndexed { index, workout ->
                     if (workout.sets != null && workout.sets.isNotEmpty()) {
                         valuesToPLot.add(Entry(index.toFloat(), workout.sets.size.toFloat()))
@@ -102,7 +101,7 @@ class WorkoutAnalysisViewModel : ViewModel() {
                     xAxisDateToPlot.add(workout.time.timestampToDate())
                 }
             }
-            getString(R.string.repeats_workout) -> {
+            GRAPH_REPEATS_PER_WORKOUT -> {
                 filteredData.forEachIndexed { index, workout ->
                     var repeats = 0
                     if (workout.sets != null && workout.sets.isNotEmpty()) {
@@ -120,52 +119,37 @@ class WorkoutAnalysisViewModel : ViewModel() {
     fun setExerciseFilter(motion: String) {
         selectedExercise = motion
         setDataToPlot()
-        _plotDataReady.value = true
+        _isDataReadyForPlotting.value = true
     }
 
-    fun setGraphFilter(graph: String) {
-        selectedGraph = graph
+    fun setGraphFilter(graphType: Int) {
+        selectedGraph = graphType
         setDataToPlot()
-        _plotDataReady.value = true
+        _isDataReadyForPlotting.value = true
     }
 
-    fun selectPeriod1M() {
-        _periodFilter.value = DAYS_PER_1M * MILLISECOND_PER_DAY
+    fun selectPeriod(periodFilterBtn: View) {
+        _periodFilter.value = when (periodFilterBtn.tag) {
+            TAG_1M -> PERIOD_1M
+            TAG_3M -> PERIOD_3M
+            TAG_6M -> PERIOD_6M
+            TAG_1Y -> PERIOD_1Y
+            else -> currentTime
+        }
         setDataToPlot()
-        _plotDataReady.value = true
-//        Log.i(TAG, "_periodFilter = $_periodFilter")
-    }
-
-    fun selectPeriod3M() {
-        _periodFilter.value = DAYS_PER_3M * MILLISECOND_PER_DAY
-        setDataToPlot()
-        _plotDataReady.value = true
-//        Log.i(TAG, "_periodFilter = $_periodFilter")
-    }
-
-    fun selectPeriod6M() {
-        _periodFilter.value = DAYS_PER_6M * MILLISECOND_PER_DAY
-        setDataToPlot()
-        _plotDataReady.value = true
-//        Log.i(TAG, "_periodFilter = $_periodFilter")
-    }
-
-    fun selectPeriod1Y() {
-        _periodFilter.value = DAYS_PER_1Y * MILLISECOND_PER_DAY
-        setDataToPlot()
-        _plotDataReady.value = true
-//        Log.i(TAG, "_periodFilter = $_periodFilter")
-    }
-
-    fun selectPeriodAll() {
-        _periodFilter.value = currentTime
-        setDataToPlot()
-        _plotDataReady.value = true
-//        Log.i(TAG, "_periodFilter = $_periodFilter")
+        _isDataReadyForPlotting.value = true
     }
 
     fun plotDataDone() {
-        _plotDataReady.value = false
+        _isDataReadyForPlotting.value = false
     }
+
+    companion object {
+        const val GRAPH_MAX_WEIGHT_PER_WORKOUT = 0
+        const val GRAPH_VOLUME_PER_WORKOUT = 1
+        const val GRAPH_SETS_PER_WORKOUT = 2
+        const val GRAPH_REPEATS_PER_WORKOUT = 3
+    }
+
 }
 

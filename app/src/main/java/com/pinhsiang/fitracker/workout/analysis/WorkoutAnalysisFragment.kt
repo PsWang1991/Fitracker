@@ -1,7 +1,6 @@
 package com.pinhsiang.fitracker.workout.analysis
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +20,13 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutAnalysisBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
+import com.pinhsiang.fitracker.util.Util
 import com.pinhsiang.fitracker.util.Util.getColor
 import com.pinhsiang.fitracker.util.Util.getDrawable
-
-const val CHART_AXIS_TEXT_SIZE = 14f
-const val CHART_X_AXIS_LABEL_ROTATION = 45f
+import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel.Companion.GRAPH_MAX_WEIGHT_PER_WORKOUT
+import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel.Companion.GRAPH_REPEATS_PER_WORKOUT
+import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel.Companion.GRAPH_SETS_PER_WORKOUT
+import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel.Companion.GRAPH_VOLUME_PER_WORKOUT
 
 class WorkoutAnalysisFragment : Fragment() {
 
@@ -37,7 +38,7 @@ class WorkoutAnalysisFragment : Fragment() {
     /**
      * Lazily initialize our [WorkoutAnalysisViewModel].
      */
-    private val viewModel by viewModels<WorkoutAnalysisViewModel> {getVmFactory()}
+    private val viewModel by viewModels<WorkoutAnalysisViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -58,7 +59,7 @@ class WorkoutAnalysisFragment : Fragment() {
         )
         binding.spinnerExercise.adapter = exerciseList
         binding.spinnerExercise.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
                 viewModel.setExerciseFilter(getString(R.string.bench_press))
             }
 
@@ -84,65 +85,40 @@ class WorkoutAnalysisFragment : Fragment() {
         )
         binding.spinnerGraph.adapter = graphList
         binding.spinnerGraph.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                viewModel.setGraphFilter(getString(R.string.max_weight_workout))
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                viewModel.setGraphFilter(GRAPH_MAX_WEIGHT_PER_WORKOUT)
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        viewModel.setGraphFilter(getString(R.string.max_weight_workout))
+                        viewModel.setGraphFilter(GRAPH_MAX_WEIGHT_PER_WORKOUT)
                     }
                     1 -> {
-                        viewModel.setGraphFilter(getString(R.string.volume_workout))
+                        viewModel.setGraphFilter(GRAPH_VOLUME_PER_WORKOUT)
                     }
                     2 -> {
-                        viewModel.setGraphFilter(getString(R.string.sets_workout))
+                        viewModel.setGraphFilter(GRAPH_SETS_PER_WORKOUT)
                     }
                     3 -> {
-                        viewModel.setGraphFilter(getString(R.string.repeats_workout))
+                        viewModel.setGraphFilter(GRAPH_REPEATS_PER_WORKOUT)
                     }
                 }
             }
         }
 
-        viewModel.plotDataReady.observe(this, Observer {
+        viewModel.isDataReadyForPlotting.observe(this, Observer {
             if (it) {
-                setDataToChart(viewModel.xAxisDateToPlot, viewModel.valuesToPLot)
+                plotData(viewModel.xAxisDateToPlot, viewModel.valuesToPLot)
                 chart.invalidate()
                 viewModel.plotDataDone()
             }
         })
 
-        viewModel.periodFilter.observe(this, Observer {
-            it?.let {
-                when (it) {
-                    DAYS_PER_3M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
-                        binding.period3mWorkout.setTextColor(getColor(R.color.colorBackground))
-                        binding.period3mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                    DAYS_PER_6M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
-                        binding.period6mWorkout.setTextColor(getColor(R.color.colorBackground))
-                        binding.period6mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                    DAYS_PER_1Y * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
-                        binding.period1yWorkout.setTextColor(getColor(R.color.colorBackground))
-                        binding.period1yWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                    viewModel.currentTime -> {
-                        setAllPeriodFilterNormal()
-                        binding.periodAllWorkout.setTextColor(getColor(R.color.colorBackground))
-                        binding.periodAllWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                    else -> {
-                        setAllPeriodFilterNormal()
-                        binding.period1mWorkout.setTextColor(getColor(R.color.colorBackground))
-                        binding.period1mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                }
+        viewModel.periodFilter.observe(this, Observer { periodFilter ->
+            periodFilter?.let {
+                setAllPeriodBtnOff()
+                setPeriodBtnOn(it)
             }
         })
 
@@ -152,7 +128,7 @@ class WorkoutAnalysisFragment : Fragment() {
     private fun setupLineChart() {
         chart = binding.chartWorkout
         with(chart) {
-            setBackgroundColor(getColor(R.color.colorWhite))
+            setBackgroundColor(Util.getColor(R.color.colorWhite))
 
             // Disable description text
             description.isEnabled = false
@@ -160,15 +136,16 @@ class WorkoutAnalysisFragment : Fragment() {
 
             // Disable touch gestures.
             setTouchEnabled(false)
-//            setOnChartValueSelectedListener(this)
             setDrawGridBackground(false)
 
             // Enable scaling and dragging.
             isDragEnabled = true
             setScaleEnabled(true)
 
-            // Force pinch zoom along both axis.
-            setPinchZoom(true)
+            setDrawBorders(false)
+
+            // Disable dual y-axis.
+            axisRight.isEnabled = false
         }
     }
 
@@ -177,56 +154,40 @@ class WorkoutAnalysisFragment : Fragment() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
 
         // vertical grid lines
-        xAxis.enableGridDashedLine(10f, 10f, 0f)
+        xAxis.setDrawAxisLine(false)
+        xAxis.setDrawGridLines(false)
     }
 
     private fun setupYAxis() {
         yAxis = chart.axisLeft
-
-        // Disable dual axis (only use LEFT axis).
-        chart.axisRight.isEnabled = false
+        yAxis.gridLineWidth = Y_AXIS_GRID_LINE_WIDTH
     }
 
-    private fun setDataToChart(xAxisDate: List<String>, values: List<Entry>) {
+    private fun plotData(xAxisDate: List<String>, values: List<Entry>) {
 
         val formatter = IndexAxisValueFormatter(xAxisDate)
         xAxis.valueFormatter = formatter
 
-        var set1: LineDataSet
-
-
-        Log.i(TAG, "chart.data = ${chart.data}")
-        if (chart.data != null) {
-            Log.i(TAG, "chart.data.dataSetCount = ${chart.data.dataSetCount}")
-        }
+        var lineDataSet: LineDataSet
 
         if (chart.data != null && chart.data.dataSetCount > 0) {
-            set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-            set1.values = values
-
-            Log.i(TAG, "chart.values (chart data != null, count > 1) = ${set1.values}")
-
-            set1.notifyDataSetChanged()
+            lineDataSet = chart.data.getDataSetByIndex(0) as LineDataSet
+            lineDataSet.values = values
+            lineDataSet.notifyDataSetChanged()
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
         } else {
 
-            set1 = LineDataSet(values, "DataSet 1")
+            lineDataSet = LineDataSet(values, "DataSet 1")
 
-            Log.i(TAG, "chart.values (in else) = ${set1.values}")
-
-            with(set1) {
+            with(lineDataSet) {
                 setDrawIcons(false)
-                enableDashedLine(10f, 5f, 0f)
                 color = getColor(R.color.colorBlack)
                 lineWidth = 4f
                 disableDashedLine()
-//            circleRadius = 0f
-//            setCircleColor(getColor(R.color.colorInvisible))
                 setDrawCircles(false)
                 setDrawCircleHole(false)
                 valueTextSize = 0f
-                enableDashedHighlightLine(10f, 5f, 0f)
                 setDrawFilled(false)
             }
 
@@ -234,11 +195,11 @@ class WorkoutAnalysisFragment : Fragment() {
             xAxis.labelRotationAngle = CHART_X_AXIS_LABEL_ROTATION
             yAxis.textSize = CHART_AXIS_TEXT_SIZE
 
-            chart.data = LineData(listOf<ILineDataSet>(set1))
+            chart.data = LineData(listOf<ILineDataSet>(lineDataSet))
         }
     }
 
-    private fun setAllPeriodFilterNormal() {
+    private fun setAllPeriodBtnOff() {
         binding.period1mWorkout.setTextColor(getColor(R.color.colorText))
         binding.period1mWorkout.background = getDrawable(R.drawable.btn_text_border)
         binding.period3mWorkout.setTextColor(getColor(R.color.colorText))
@@ -249,5 +210,30 @@ class WorkoutAnalysisFragment : Fragment() {
         binding.period1yWorkout.background = getDrawable(R.drawable.btn_text_border)
         binding.periodAllWorkout.setTextColor(getColor(R.color.colorText))
         binding.periodAllWorkout.background = getDrawable(R.drawable.btn_text_border)
+    }
+
+    private fun setPeriodBtnOn(period: Long) {
+        when (period) {
+            PERIOD_3M -> {
+                binding.period3mWorkout.setTextColor(getColor(R.color.colorBackground))
+                binding.period3mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            PERIOD_6M -> {
+                binding.period6mWorkout.setTextColor(getColor(R.color.colorBackground))
+                binding.period6mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            PERIOD_1Y -> {
+                binding.period1yWorkout.setTextColor(getColor(R.color.colorBackground))
+                binding.period1yWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            viewModel.currentTime -> {
+                binding.periodAllWorkout.setTextColor(getColor(R.color.colorBackground))
+                binding.periodAllWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            else -> {
+                binding.period1mWorkout.setTextColor(getColor(R.color.colorBackground))
+                binding.period1mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+        }
     }
 }

@@ -21,9 +21,9 @@ import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentInbodyAnalysisBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.util.Util
+import com.pinhsiang.fitracker.util.Util.getColor
+import com.pinhsiang.fitracker.util.Util.getDrawable
 
-const val CHART_AXIS_TEXT_SIZE = 14f
-const val CHART_X_AXIS_LABEL_ROTATION = 45f
 
 class InBodyAnalysisFragment : Fragment() {
 
@@ -35,7 +35,7 @@ class InBodyAnalysisFragment : Fragment() {
     /**
      * Lazily initialize our [InBodyAnalysisViewModel].
      */
-    private val viewModel by viewModels<InBodyAnalysisViewModel> {getVmFactory()}
+    private val viewModel by viewModels<InBodyAnalysisViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -56,7 +56,7 @@ class InBodyAnalysisFragment : Fragment() {
         )
         binding.spinnerFilterInbody.adapter = inBodyFilterList
         binding.spinnerFilterInbody.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
                 viewModel.setInBodyFilter(FILTER_BODY_WEIGHT)
             }
 
@@ -77,45 +77,65 @@ class InBodyAnalysisFragment : Fragment() {
 
         viewModel.isDataReadyForPlotting.observe(this, Observer {
             if (it) {
-                setDataToChart(viewModel.xAxisDateToBePlotted, viewModel.valuesToBePlotted)
+                plotData(viewModel.xAxisDateToBePlotted, viewModel.valuesToBePlotted)
                 chart.invalidate()
                 viewModel.plotDataDone()
             }
         })
 
-        viewModel.periodFilter.observe(this, Observer {
-            it?.let {
+        viewModel.periodFilter.observe(this, Observer { periodFilter ->
+            periodFilter?.let {
                 when (it) {
                     DAYS_PER_3M * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterUnselected()
-                        binding.period3mInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period3mInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        selectPeriod3M()
                     }
                     DAYS_PER_6M * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterUnselected()
-                        binding.period6mInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period6mInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        selectPeriod6M()
                     }
                     DAYS_PER_1Y * MILLISECOND_PER_DAY -> {
                         setAllPeriodFilterUnselected()
-                        binding.period1yInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period1yInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        selectPeriod1Y()
                     }
                     viewModel.currentTime -> {
                         setAllPeriodFilterUnselected()
-                        binding.periodAllInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.periodAllInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        selectPeriodAll()
                     }
                     else -> {
                         setAllPeriodFilterUnselected()
-                        binding.period1mInbody.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period1mInbody.background = Util.getDrawable(R.drawable.btn_text_border_inverse)
+                        selectPeriod1M()
                     }
                 }
             }
         })
 
         return binding.root
+    }
+
+    private fun selectPeriod1M() {
+        binding.period1mInbody.setTextColor(getColor(R.color.colorBackground))
+        binding.period1mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+    }
+
+    private fun selectPeriod3M() {
+        binding.period3mInbody.setTextColor(getColor(R.color.colorBackground))
+        binding.period3mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+    }
+
+    private fun selectPeriod6M() {
+        binding.period6mInbody.setTextColor(getColor(R.color.colorBackground))
+        binding.period6mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+    }
+
+    private fun selectPeriod1Y() {
+        binding.period1yInbody.setTextColor(getColor(R.color.colorBackground))
+        binding.period1yInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
+    }
+
+    private fun selectPeriodAll() {
+        binding.periodAllInbody.setTextColor(getColor(R.color.colorBackground))
+        binding.periodAllInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
     }
 
     private fun setupLineChart() {
@@ -153,10 +173,10 @@ class InBodyAnalysisFragment : Fragment() {
 
     private fun setupYAxis() {
         yAxis = chart.axisLeft
-        yAxis.gridLineWidth = 2f
+        yAxis.gridLineWidth = Y_AXIS_GRID_LINE_WIDTH
     }
 
-    private fun setDataToChart(xAxisDate: List<String>, values: List<Entry>) {
+    private fun plotData(xAxisDate: List<String>, values: List<Entry>) {
 
         val formatter = IndexAxisValueFormatter(xAxisDate)
         xAxis.valueFormatter = formatter
@@ -193,15 +213,15 @@ class InBodyAnalysisFragment : Fragment() {
     }
 
     private fun setAllPeriodFilterUnselected() {
-        binding.period1mInbody.setTextColor(Util.getColor(R.color.colorText))
-        binding.period1mInbody.background = Util.getDrawable(R.drawable.btn_text_border)
-        binding.period3mInbody.setTextColor(Util.getColor(R.color.colorText))
-        binding.period3mInbody.background = Util.getDrawable(R.drawable.btn_text_border)
-        binding.period6mInbody.setTextColor(Util.getColor(R.color.colorText))
-        binding.period6mInbody.background = Util.getDrawable(R.drawable.btn_text_border)
-        binding.period1yInbody.setTextColor(Util.getColor(R.color.colorText))
-        binding.period1yInbody.background = Util.getDrawable(R.drawable.btn_text_border)
-        binding.periodAllInbody.setTextColor(Util.getColor(R.color.colorText))
-        binding.periodAllInbody.background = Util.getDrawable(R.drawable.btn_text_border)
+        binding.period1mInbody.setTextColor(getColor(R.color.colorText))
+        binding.period1mInbody.background = getDrawable(R.drawable.btn_text_border)
+        binding.period3mInbody.setTextColor(getColor(R.color.colorText))
+        binding.period3mInbody.background = getDrawable(R.drawable.btn_text_border)
+        binding.period6mInbody.setTextColor(getColor(R.color.colorText))
+        binding.period6mInbody.background = getDrawable(R.drawable.btn_text_border)
+        binding.period1yInbody.setTextColor(getColor(R.color.colorText))
+        binding.period1yInbody.background = getDrawable(R.drawable.btn_text_border)
+        binding.periodAllInbody.setTextColor(getColor(R.color.colorText))
+        binding.periodAllInbody.background = getDrawable(R.drawable.btn_text_border)
     }
 }

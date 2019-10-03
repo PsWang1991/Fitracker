@@ -12,7 +12,6 @@
     <string name="kg">kg</string>
     <string name="rep">rep.</string>
     <string name="fitracker">Fitracker</string>
-
     <string name="tools">Tools</string>
     <string name="menu_timer">Timer</string>
     <string name="menu_tdee">TDEE Calculator</string>
@@ -22,6 +21,13 @@
 
     <string name="all_date_format">yyyy-MM-dd, HH:mm:ss</string>
     <string name="short_date_format">yyyy-MM-dd</string>
+
+    <!--Period filter tag-->
+    <string name="tag_period_filter_1m">1M</string>
+    <string name="tag_period_filter_3m">3M</string>
+    <string name="tag_period_filter_6m">6M</string>
+    <string name="tag_period_filter_1y">1Y</string>
+    <string name="tag_period_filter_all">ALL</string>
 
     <!--Bottom nav view-->
     <string name="title_workout">Workout</string>

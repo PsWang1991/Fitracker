@@ -17,8 +17,6 @@ const val FILTER_BODY_FAT = 2
 
 class InBodyAnalysisViewModel : ViewModel() {
 
-    val db = FirebaseFirestore.getInstance()
-
     val currentTime = System.currentTimeMillis()
 
     private var selectedInBodyFilter = FILTER_BODY_WEIGHT
@@ -46,8 +44,11 @@ class InBodyAnalysisViewModel : ViewModel() {
     }
 
     private fun downloadInBodyData() {
-        db.collection(USER).document(UserManager.userDocId!!)
-            .collection(IN_BODY).get()
+        FirebaseFirestore.getInstance()
+            .collection(USER)
+            .document(UserManager.userDocId!!)
+            .collection(IN_BODY)
+            .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val inBody = document.toObject(InBody::class.java)
@@ -56,7 +57,8 @@ class InBodyAnalysisViewModel : ViewModel() {
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
-            }.addOnCompleteListener {
+            }
+            .addOnCompleteListener {
                 refreshPlottedData()
                 _isDataReadyForPlotting.value = true
             }

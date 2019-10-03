@@ -53,22 +53,21 @@
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"/>
         <TextView
+                android:id="@+id/period_1m_workout"
                 android:text="@string/period_1m"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/period_1m_workout"
                 android:textColor="@color/colorBackground"
                 android:textSize="18sp"
                 android:background="@drawable/btn_text_border_inverse"
                 android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/period_3m_workout"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/title_graph"
-                android:onClick="@{() -> viewModel.selectPeriod1M()}"
-                android:layout_marginEnd="4dp"/>
+                app:layout_constraintEnd_toStartOf="@+id/period_3m_workout" android:layout_marginEnd="4dp"
+                app:layout_constraintTop_toBottomOf="@+id/title_graph" android:layout_marginTop="16dp"
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_1m"
+        />
         <TextView
                 android:text="@string/period_3m"
                 android:layout_width="0dp"
@@ -76,12 +75,14 @@
                 android:id="@+id/period_3m_workout"
                 android:textColor="@color/colorText" android:textSize="18sp"
                 android:background="@drawable/btn_text_border" android:textAlignment="center"
-                app:layout_constraintStart_toEndOf="@+id/period_1m_workout"
-                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/period_6m_workout"
+                app:layout_constraintStart_toEndOf="@+id/period_1m_workout" android:layout_marginStart="4dp"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/period_6m_workout" android:layout_marginEnd="4dp"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_workout"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_workout"
-                android:onClick="@{() -> viewModel.selectPeriod3M()}" android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"/>
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_3m"
+        />
         <TextView
                 android:text="@string/period_6m"
                 android:layout_width="0dp"
@@ -89,12 +90,14 @@
                 android:id="@+id/period_6m_workout"
                 android:textColor="@color/colorText" android:textSize="18sp"
                 android:background="@drawable/btn_text_border" android:textAlignment="center"
-                app:layout_constraintStart_toEndOf="@+id/period_3m_workout"
-                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/period_1y_workout"
+                app:layout_constraintStart_toEndOf="@+id/period_3m_workout" android:layout_marginStart="4dp"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/period_1y_workout" android:layout_marginEnd="4dp"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_workout"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_workout"
-                android:onClick="@{() -> viewModel.selectPeriod6M()}" android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"/>
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_6m"
+        />
         <TextView
                 android:text="@string/period_1y"
                 android:layout_width="0dp"
@@ -102,13 +105,14 @@
                 android:id="@+id/period_1y_workout"
                 android:textColor="@color/colorText" android:textSize="18sp"
                 android:background="@drawable/btn_text_border" android:textAlignment="center"
-                app:layout_constraintStart_toEndOf="@+id/period_6m_workout"
+                app:layout_constraintStart_toEndOf="@+id/period_6m_workout" android:layout_marginStart="4dp"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/period_all_workout"
+                app:layout_constraintEnd_toStartOf="@+id/period_all_workout" android:layout_marginEnd="4dp"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_workout"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_workout"
-                android:onClick="@{() -> viewModel.selectPeriod1Y()}" android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"/>
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_1y"
+        />
         <TextView
                 android:text="@string/all"
                 android:layout_width="0dp"
@@ -117,10 +121,13 @@
                 android:textColor="@color/colorText" android:textSize="18sp"
                 android:background="@drawable/btn_text_border" android:textAlignment="center"
                 app:layout_constraintStart_toEndOf="@+id/period_1y_workout"
-                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="4dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_workout"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_workout"
-                android:onClick="@{() -> viewModel.selectPeriodAll()}" android:layout_marginStart="4dp"/>
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_all"
+        />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
