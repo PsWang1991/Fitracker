@@ -5,20 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.MILLISECOND_PER_DAY
-import com.pinhsiang.fitracker.TAG
-import com.pinhsiang.fitracker.USER
-import com.pinhsiang.fitracker.WORKOUT
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.user.UserManager
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 
-const val ZERO_HOUR = "00:00:00"
-
 class WorkoutViewModel : ViewModel() {
-
-    private val db = FirebaseFirestore.getInstance()
 
     private val allWorkoutData = mutableListOf<Workout>()
 
@@ -26,9 +19,11 @@ class WorkoutViewModel : ViewModel() {
     val workoutList: LiveData<List<Workout>>
         get() = _workoutList
 
-    val dataStatus = MutableLiveData<Boolean>().apply {
+    private val _hasData = MutableLiveData<Boolean>().apply {
         value = false
     }
+    val hasData: LiveData<Boolean>
+        get() = _hasData
 
     var selectedDate: LocalDate? = null
     val today = LocalDate.now()
@@ -53,17 +48,18 @@ class WorkoutViewModel : ViewModel() {
         _navigationToMotion.value = true
     }
 
-    fun addNewDataDone() {
+    fun navigateToMotionDone() {
         _navigationToMotion.value = false
     }
 
-    fun getWorkoutDataByDate(date: LocalDate) {
+    fun refreshWorkoutListByDate(date: LocalDate) {
+
         val dateToStartTimestamp = Timestamp.valueOf("$date $ZERO_HOUR").time
         _workoutList.value = allWorkoutData.filter {
             it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
         }
-//        Log.i(TAG, "allWorkoutData = $allWorkoutData")
-        Log.i(TAG, "workoutList = ${_workoutList.value}")
+
+        _hasData.value = _workoutList.value!!.isNotEmpty()
     }
 
     fun hasWorkoutData(date: LocalDate): Boolean {
@@ -73,15 +69,15 @@ class WorkoutViewModel : ViewModel() {
         }.isNotEmpty()
     }
 
-    fun setDataStatusByDate(date: LocalDate) {
-        dataStatus.value = hasWorkoutData(date)
-    }
-
     private fun downloadWorkoutData() {
-        db.collection(USER).document(UserManager.userDocId!!)
+
+        FirebaseFirestore.getInstance()
+            .collection(USER)
+            .document(UserManager.userDocId!!)
             .collection(WORKOUT)
             .get()
             .addOnSuccessListener { result ->
+
                 for (document in result) {
                     val workout = document.toObject(Workout::class.java)
                     workout.id = document.id
@@ -89,12 +85,14 @@ class WorkoutViewModel : ViewModel() {
                 }
             }
             .addOnFailureListener { exception ->
+
                 Log.w(TAG, "Error getting documents.", exception)
-            }.addOnCompleteListener {
+            }
+            .addOnCompleteListener {
+
                 Log.i(TAG, "allWorkoutData = $allWorkoutData")
-                getWorkoutDataByDate(LocalDate.now())
+                refreshWorkoutListByDate(LocalDate.now())
                 downloadComplete.value = true
-                setDataStatusByDate(LocalDate.now())
             }
     }
 

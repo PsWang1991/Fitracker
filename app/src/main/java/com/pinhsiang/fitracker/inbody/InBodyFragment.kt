@@ -15,7 +15,9 @@ import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import com.pinhsiang.fitracker.MONTH_TITLE_FORMATTER
 import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.ZERO_HOUR
 import com.pinhsiang.fitracker.data.InBody
 import com.pinhsiang.fitracker.databinding.FragmentInbodyBinding
 import com.pinhsiang.fitracker.ext.daysOfWeekFromLocale
@@ -36,18 +38,13 @@ class InBodyFragment : Fragment() {
     /**
      * Lazily initialize [InBodyViewModel].
      */
-    private val viewModel by viewModels<InBodyViewModel> {getVmFactory()}
+    private val viewModel by viewModels<InBodyViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentInbodyBinding.inflate(inflater, container, false)
-
-
-        // Bind ViewModel, life cycle owner and calendarStatus(Check if calendar is expending or not).
-        binding.let {
-            it.viewModel = viewModel
-            it.lifecycleOwner = this@InBodyFragment
-        }
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
         viewModel.navigationToRecord.observe(this, Observer {
             if (it) {
@@ -65,19 +62,23 @@ class InBodyFragment : Fragment() {
 
         // Expand or compress the calendar when click the title of calendar
         binding.titleCalendar.setOnClickListener {
+
             if (viewModel.calendarExpanding.value!!) {
+
                 binding.customCalendar.visibility = View.GONE
                 binding.legendLayout.visibility = View.GONE
                 viewModel.setCalendarExpandingFalse()
+
             } else {
+
                 binding.customCalendar.visibility = View.VISIBLE
                 binding.legendLayout.visibility = View.VISIBLE
                 viewModel.setCalendarExpandingTrue()
             }
         }
 
-        viewModel.downloadComplete.observe(this, Observer {
-            if (it) {
+        viewModel.downloadComplete.observe(this, Observer { downloadComplete ->
+            if (downloadComplete) {
                 binding.customCalendar.notifyCalendarChanged()
                 viewModel.refreshDataDone()
             }
@@ -89,6 +90,7 @@ class InBodyFragment : Fragment() {
     }
 
     private fun setCustomCalendar() {
+
         val customCalendar = binding.customCalendar
 
         // Show all days of week, the 1st day of week is sunday.
@@ -108,6 +110,7 @@ class InBodyFragment : Fragment() {
         customCalendar.scrollToMonth(currentMonth)
 
         class DayViewContainer(view: View) : ViewContainer(view) {
+
             // Will be set when this container is bound. See the dayBinder.
             lateinit var day: CalendarDay
             val textView = view.calendarDayText
@@ -115,26 +118,21 @@ class InBodyFragment : Fragment() {
 
             init {
                 view.setOnClickListener {
+
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
-                        viewModel.getInBodyDataByDate(day.date)
-//                        val selectDateToTimestamp = Timestamp.valueOf(day.date.toString() + " 00:00:00").time
-//                        val timestampToday = Timestamp.valueOf(LocalDate.now().toString() + " 00:00:00").time
-//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "day.date = ${day.date}")
-//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "selectDateToTimestamp = $selectDateToTimestamp")
-//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "selectDate = ${selectDateToTimestamp.timestampToString()}")
-//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "timestampToday = $timestampToday")
-//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "Today = ${timestampToday.timestampToString()}")
-//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "System.currentTime = ${System.currentTimeMillis()}")
-//                        Log.i(com.pinhsiang.fitracker.nutrition.TAG, "System.currentTime = ${System.currentTimeMillis().timestampToString()}")
+                        viewModel.refreshInBodyDataByDate(day.date)
                     }
                 }
             }
         }
 
         customCalendar.dayBinder = object : DayBinder<DayViewContainer> {
+
             override fun create(view: View) = DayViewContainer(view)
+
             override fun bind(container: DayViewContainer, day: CalendarDay) {
+
                 container.day = day
                 val textView = container.textView
                 val dotView = container.dotView
@@ -143,16 +141,19 @@ class InBodyFragment : Fragment() {
 
                 if (day.owner == DayOwner.THIS_MONTH) {
                     when (day.date) {
+
                         viewModel.today -> {
                             textView.setTextColorRes(R.color.colorText)
                             textView.setBackgroundResource(R.drawable.calendar_today_bg)
                             dotView.isVisible = viewModel.hasInBodyData(day.date)
                         }
+
                         viewModel.selectedDate -> {
                             textView.setTextColorRes(R.color.colorText)
                             textView.setBackgroundResource(R.drawable.calendar_selected_bg)
                             dotView.makeInVisible()
                         }
+
                         else -> {
                             textView.setTextColorRes(R.color.colorText)
                             textView.background = null
@@ -160,9 +161,9 @@ class InBodyFragment : Fragment() {
                         }
                     }
                 } else {
+
                     textView.setTextColorRes(R.color.colorItem)
                     dotView.isVisible = viewModel.hasInBodyData(day.date)
-//                    textView.background = null
                 }
             }
         }
@@ -170,7 +171,7 @@ class InBodyFragment : Fragment() {
         // Change title when scroll calendar
         customCalendar.monthScrollListener = {
             text_year.text = it.yearMonth.year.toString()
-            text_month.text = DateTimeFormatter.ofPattern(com.pinhsiang.fitracker.workout.MONTH_TITLE_FORMATTER).format(it.yearMonth)
+            text_month.text = DateTimeFormatter.ofPattern(MONTH_TITLE_FORMATTER).format(it.yearMonth)
         }
     }
 

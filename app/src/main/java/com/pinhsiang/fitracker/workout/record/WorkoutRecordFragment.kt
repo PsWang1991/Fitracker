@@ -44,11 +44,11 @@ class WorkoutRecordFragment : Fragment() {
         binding.converter = Int2StringConverter
 
         // Setup sets RecyclerView adapter
-        binding.rvSets.adapter = RecordSetRVAdapter(viewModel)
+        binding.rvSets.adapter = RecordSetRvAdapter(viewModel)
 
         // If set list change, notify RecyclerView to refresh.
         viewModel.setList.observe(this, Observer {
-            (binding.rvSets.adapter as RecordSetRVAdapter).notifyDataSetChanged()
+            (binding.rvSets.adapter as RecordSetRvAdapter).notifyDataSetChanged()
         })
 
         /**

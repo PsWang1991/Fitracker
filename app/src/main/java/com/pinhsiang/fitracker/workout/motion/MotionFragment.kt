@@ -8,14 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.data.Workout
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutMotionBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.ext.timestampToDate
-import com.pinhsiang.fitracker.factory.MotionViewModelFactory
 
 class MotionFragment : Fragment() {
 
@@ -36,7 +34,7 @@ class MotionFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Setup motion RecyclerView adapter
-        binding.rvMotion.adapter = MotionRVAdapter(viewModel)
+        binding.rvMotion.adapter = MotionRvAdapter(viewModel)
 
         viewModel.selectedMotion.observe(this, Observer {
             it?.let { motion ->

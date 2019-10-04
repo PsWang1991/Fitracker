@@ -8,6 +8,8 @@ const val NUTRITION = "nutrition"
 const val UID = "uid"
 
 // Overview and Analysis
+const val MONTH_TITLE_FORMATTER = "MMMM"
+const val ZERO_HOUR = "00:00:00"
 const val MILLISECOND_PER_DAY = 86400000L
 const val DAYS_PER_1M = 32L
 const val DAYS_PER_3M = 93L

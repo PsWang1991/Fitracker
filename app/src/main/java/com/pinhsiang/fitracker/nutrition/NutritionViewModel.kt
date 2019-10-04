@@ -5,33 +5,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.MILLISECOND_PER_DAY
-import com.pinhsiang.fitracker.NUTRITION
-import com.pinhsiang.fitracker.TAG
-import com.pinhsiang.fitracker.USER
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.user.UserManager
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 
-const val ZERO_HOUR = "00:00:00"
-
-class NutritionViewModel: ViewModel() {
-
-    private val db = FirebaseFirestore.getInstance()
+class NutritionViewModel : ViewModel() {
 
     private val allNutritionData = mutableListOf<Nutrition>()
 
     private val _nutritionList = MutableLiveData<List<Nutrition>>()
     val nutritionList: LiveData<List<Nutrition>>
-    get() = _nutritionList
+        get() = _nutritionList
 
-    val dataStatus = MutableLiveData<Boolean>().apply {
+    private val _hasData = MutableLiveData<Boolean>().apply {
         value = false
     }
+    val hasData: LiveData<Boolean>
+        get() = _hasData
 
     var selectedDate: LocalDate? = null
-    val today = LocalDate.now()
+    val today: LocalDate = LocalDate.now()
 
     var calendarExpanding = true
 
@@ -56,31 +51,30 @@ class NutritionViewModel: ViewModel() {
         _navigationToRecord.value = false
     }
 
-    fun getNutritionDataByDate(date: LocalDate) {
+    fun refreshNutritionListByDate(date: LocalDate) {
         val dateToStartTimestamp = Timestamp.valueOf("$date $ZERO_HOUR").time
         _nutritionList.value = allNutritionData.filter {
             it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
         }
-//        Log.i(TAG, "allNutritionData = $allNutritionData")
-//        Log.i(TAG, "nutritionList = ${nutritionList.value}")
+        _hasData.value = _nutritionList.value!!.isNotEmpty()
     }
 
     fun hasNutritionData(date: LocalDate): Boolean {
         val dateToStartTimestamp = Timestamp.valueOf("$date $ZERO_HOUR").time
-        return allNutritionData.filter {
+        return allNutritionData.any {
             it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
-        }.isNotEmpty()
-    }
-
-    fun setDataStatusByDate(date: LocalDate) {
-        dataStatus.value = hasNutritionData(date)
+        }
     }
 
     private fun downloadWorkoutData() {
-        db.collection(USER).document(UserManager.userDocId!!)
+
+        FirebaseFirestore.getInstance()
+            .collection(USER)
+            .document(UserManager.userDocId!!)
             .collection(NUTRITION)
             .get()
             .addOnSuccessListener { result ->
+
                 for (document in result) {
                     val nutrition = document.toObject(Nutrition::class.java)
                     nutrition.id = document.id
@@ -88,11 +82,13 @@ class NutritionViewModel: ViewModel() {
                 }
             }
             .addOnFailureListener { exception ->
+
                 Log.w(TAG, "Error getting documents.", exception)
-            }.addOnCompleteListener {
+            }
+            .addOnCompleteListener {
+
                 Log.i(TAG, "allNutritionData = $allNutritionData")
-                getNutritionDataByDate(LocalDate.now())
-                setDataStatusByDate(LocalDate.now())
+                refreshNutritionListByDate(LocalDate.now())
                 downloadComplete.value = true
             }
     }

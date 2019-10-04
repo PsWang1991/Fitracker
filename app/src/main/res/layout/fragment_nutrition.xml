@@ -178,7 +178,7 @@
                 android:textSize="18sp"
                 android:textColor="@color/colorText"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:visibility="@{viewModel.dataStatus == false ? View.VISIBLE : View.GONE}"/>
+                android:visibility="@{viewModel.hasData == false ? View.VISIBLE : View.GONE}"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_add_data"

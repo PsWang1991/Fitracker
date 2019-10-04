@@ -7,19 +7,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.pinhsiang.fitracker.data.*
-import com.pinhsiang.fitracker.nutrition.NutritionRVAdapter
-import com.pinhsiang.fitracker.recommended.YoutubeRecyclerAdapter
-import com.pinhsiang.fitracker.timer.TimerPatternRVAdapter
-import com.pinhsiang.fitracker.util.Util.getDrawable
-import com.pinhsiang.fitracker.workout.WorkoutRVAdapter
-import com.pinhsiang.fitracker.workout.WorkoutSetsRVAdapter
-import com.pinhsiang.fitracker.workout.motion.MotionRVAdapter
-import com.pinhsiang.fitracker.workout.record.RecordSetRVAdapter
+import com.pinhsiang.fitracker.nutrition.NutritionRvAdapter
+import com.pinhsiang.fitracker.recommended.YoutubeRvAdapter
+import com.pinhsiang.fitracker.timer.TimerPatternRvAdapter
+import com.pinhsiang.fitracker.workout.WorkoutRvAdapter
+import com.pinhsiang.fitracker.workout.WorkoutSetsRvAdapter
+import com.pinhsiang.fitracker.workout.motion.MotionRvAdapter
+import com.pinhsiang.fitracker.workout.record.RecordSetRvAdapter
 
 // Adapter for workout fragment's workout RecyclerView
 @BindingAdapter("workout")
 fun bindRecyclerViewWithWorkout(recyclerView: RecyclerView, data: List<Workout>?) {
-    val adapter = recyclerView.adapter as WorkoutRVAdapter
+    val adapter = recyclerView.adapter as WorkoutRvAdapter
     adapter.submitList(data)
 }
 
@@ -27,36 +26,36 @@ fun bindRecyclerViewWithWorkout(recyclerView: RecyclerView, data: List<Workout>?
 @BindingAdapter("workoutSets")
 fun bindRecyclerViewWithWorkoutSets(recyclerView: RecyclerView, data: List<Sets>?) {
     when (val adapter = recyclerView.adapter) {
-        is WorkoutSetsRVAdapter -> adapter.submitList(data)
-        is RecordSetRVAdapter -> adapter.submitList(data)
+        is WorkoutSetsRvAdapter -> adapter.submitList(data)
+        is RecordSetRvAdapter -> adapter.submitList(data)
     }
 }
 
 // Adapter for item_workout's sets RecyclerView
 @BindingAdapter("motionList")
 fun bindRecyclerViewWithMotion(recyclerView: RecyclerView, data: List<Motion>?) {
-    val adapter = recyclerView.adapter as MotionRVAdapter
+    val adapter = recyclerView.adapter as MotionRvAdapter
     adapter.submitList(data)
 }
 
 // Adapter for nutrition fragment's nutrition RecyclerView
 @BindingAdapter("nutritionList")
 fun bindRecyclerViewWithNutrition(recyclerView: RecyclerView, data: List<Nutrition>?) {
-    val adapter = recyclerView.adapter as NutritionRVAdapter
+    val adapter = recyclerView.adapter as NutritionRvAdapter
     adapter.submitNutritionList(data)
 }
 
 // Adapter for timer fragment's timer pattern RecyclerView
 @BindingAdapter("patternList")
 fun bindRecyclerViewWithTimerPattern(recyclerView: RecyclerView, data: List<TimerPattern>?) {
-    val adapter = recyclerView.adapter as TimerPatternRVAdapter
+    val adapter = recyclerView.adapter as TimerPatternRvAdapter
     adapter.submitList(data)
 }
 
 // Adapter for recommended activity's  RecyclerView
 @BindingAdapter("youtubeList")
 fun bindRecyclerViewWithYoutubeVideo(recyclerView: RecyclerView, data: List<YoutubeVideo>?) {
-    val adapter = recyclerView.adapter as YoutubeRecyclerAdapter
+    val adapter = recyclerView.adapter as YoutubeRvAdapter
     adapter.submitList(data)
 }
 
