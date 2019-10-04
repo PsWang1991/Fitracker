@@ -20,13 +20,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutAnalysisBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
-import com.pinhsiang.fitracker.util.Util
 import com.pinhsiang.fitracker.util.Util.getColor
 import com.pinhsiang.fitracker.util.Util.getDrawable
-import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel.Companion.GRAPH_MAX_WEIGHT_PER_WORKOUT
-import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel.Companion.GRAPH_REPEATS_PER_WORKOUT
-import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel.Companion.GRAPH_SETS_PER_WORKOUT
-import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel.Companion.GRAPH_VOLUME_PER_WORKOUT
 
 class WorkoutAnalysisFragment : Fragment() {
 
@@ -113,22 +108,22 @@ class WorkoutAnalysisFragment : Fragment() {
         binding.spinnerGraph.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {
-                viewModel.setGraphFilter(GRAPH_MAX_WEIGHT_PER_WORKOUT)
+                viewModel.setGraphFilter(WorkoutAnalysisViewModel.GRAPH_MAX_WEIGHT_PER_WORKOUT)
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        viewModel.setGraphFilter(GRAPH_MAX_WEIGHT_PER_WORKOUT)
+                        viewModel.setGraphFilter(WorkoutAnalysisViewModel.GRAPH_MAX_WEIGHT_PER_WORKOUT)
                     }
                     1 -> {
-                        viewModel.setGraphFilter(GRAPH_VOLUME_PER_WORKOUT)
+                        viewModel.setGraphFilter(WorkoutAnalysisViewModel.GRAPH_VOLUME_PER_WORKOUT)
                     }
                     2 -> {
-                        viewModel.setGraphFilter(GRAPH_SETS_PER_WORKOUT)
+                        viewModel.setGraphFilter(WorkoutAnalysisViewModel.GRAPH_SETS_PER_WORKOUT)
                     }
                     3 -> {
-                        viewModel.setGraphFilter(GRAPH_REPEATS_PER_WORKOUT)
+                        viewModel.setGraphFilter(WorkoutAnalysisViewModel.GRAPH_REPEATS_PER_WORKOUT)
                     }
                 }
             }
@@ -138,7 +133,7 @@ class WorkoutAnalysisFragment : Fragment() {
     private fun setupLineChart() {
         chart = binding.chartWorkout
         with(chart) {
-            setBackgroundColor(Util.getColor(R.color.colorWhite))
+            setBackgroundColor(getColor(R.color.colorWhite))
 
             // Disable description text
             description.isEnabled = false
@@ -178,7 +173,7 @@ class WorkoutAnalysisFragment : Fragment() {
         val formatter = IndexAxisValueFormatter(x)
         xAxis.valueFormatter = formatter
 
-        var lineDataSet: LineDataSet
+        val lineDataSet: LineDataSet
 
         if (chart.data != null && chart.data.dataSetCount > 0) {
 

@@ -17,11 +17,7 @@ import com.pinhsiang.fitracker.user.UserManager
 
 class InBodyRecordViewModel(private val selectedInBody: InBody) : ViewModel() {
 
-    private val db = FirebaseFirestore.getInstance()
-
     val selectedDate = selectedInBody.time.timestampToDate()
-
-    private var inbodyToUpload = selectedInBody
 
     val bodyWeightRecord = MutableLiveData<String>().apply {
         value = selectedInBody.bodyWeight.toString()
@@ -36,15 +32,21 @@ class InBodyRecordViewModel(private val selectedInBody: InBody) : ViewModel() {
     }
 
     // Check that is all format of recorded numbers are correct.
-    private val _validBodyWeight = MutableLiveData<Boolean>()
+    private val _validBodyWeight = MutableLiveData<Boolean>().apply {
+        value = true
+    }
     val validBodyWeight: LiveData<Boolean>
         get() = _validBodyWeight
 
-    private val _validBodyFat = MutableLiveData<Boolean>()
+    private val _validBodyFat = MutableLiveData<Boolean>().apply {
+        value = true
+    }
     val validBodyFat: LiveData<Boolean>
         get() = _validBodyFat
 
-    private val _validSkeletalMuscle = MutableLiveData<Boolean>()
+    private val _validSkeletalMuscle = MutableLiveData<Boolean>().apply {
+        value = true
+    }
     val validSkeletalMuscle: LiveData<Boolean>
         get() = _validSkeletalMuscle
 
@@ -62,36 +64,40 @@ class InBodyRecordViewModel(private val selectedInBody: InBody) : ViewModel() {
         Log.i(TAG, "Skeletal Muscle = ${selectedInBody.skeletalMuscle}%")
         Log.i(TAG, "Date = ${selectedInBody.time.timestampToString()}")
         Log.i(TAG, "**********   InBodyRecordViewModel   *********")
-        initRecordedValueValid()
     }
 
-    private fun initRecordedValueValid() {
-        _validBodyWeight.value = true
-        _validBodyFat.value = true
-        _validSkeletalMuscle.value = true
-    }
+    fun uploadData() {
+        if (validBodyWeightFormat() && validBodyFatFormat() && validSkeletalMuscleFormat()) {
 
-    fun saveData() {
-        if (checkBodyWeightFormat() && checkBodyFatFormat() && checkSkeletalMuscleFormat()) {
             if (bodyWeightRecord.value?.toFloat() == 0f || bodyFatRecord.value?.toFloat() == 0f || skeletalMuscleRecord.value?.toFloat() == 0f) {
                 when {
                     bodyWeightRecord.value?.toFloat() == 0f -> _validBodyWeight.value = false
                     else -> _validBodyWeight.value = true
                 }
+
                 when {
                     bodyFatRecord.value?.toFloat() == 0f -> _validBodyFat.value = false
                     else -> _validBodyFat.value = true
                 }
+
                 when {
                     skeletalMuscleRecord.value?.toFloat() == 0f -> _validSkeletalMuscle.value = false
                     else -> _validSkeletalMuscle.value = true
                 }
-                Toast.makeText(FitrackerApplication.appContext, "Input values could not be zero.", Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(
+                    FitrackerApplication.appContext,
+                    "Input values could not be zero.",
+                    Toast.LENGTH_SHORT
+                ).show()
+
             } else {
+
                 _validBodyWeight.value = true
                 _validBodyFat.value = true
                 _validSkeletalMuscle.value = true
-                inbodyToUpload = InBody(
+
+                val inBodyToUpload = InBody(
                     time = selectedInBody.time,
                     bodyWeight = bodyWeightRecord.value?.toFloat()!!,
                     bodyFat = bodyFatRecord.value?.toFloat()!!,
@@ -99,35 +105,53 @@ class InBodyRecordViewModel(private val selectedInBody: InBody) : ViewModel() {
                 )
 
                 _dataUploading.value = true
-                db.collection(USER).document(UserManager.userDocId!!)
-                    .collection(IN_BODY).add(inbodyToUpload)
+
+                FirebaseFirestore.getInstance()
+                    .collection(USER)
+                    .document(UserManager.userDocId!!)
+                    .collection(IN_BODY)
+                    .add(inBodyToUpload)
                     .addOnFailureListener { exception ->
+
                         _dataUploading.value = false
-                        Toast.makeText(FitrackerApplication.appContext, "Uploading failed.", Toast.LENGTH_SHORT).show()
+
+                        Toast.makeText(
+                            FitrackerApplication.appContext,
+                            "Uploading failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                         Log.w(TAG, "Error getting documents.", exception)
+
                     }
                     .addOnCompleteListener {
+
                         _dataUploading.value = false
                         _uploadDataDone.value = true
-                        Toast.makeText(FitrackerApplication.appContext, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            FitrackerApplication.appContext,
+                            "Data saving completed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
             }
+
         } else {
+
             when {
-                !checkBodyWeightFormat() -> _validBodyWeight.value = false
+                !validBodyWeightFormat() -> _validBodyWeight.value = false
                 else -> _validBodyWeight.value = true
             }
+
             when {
-                !checkBodyFatFormat() -> _validBodyFat.value = false
+                !validBodyFatFormat() -> _validBodyFat.value = false
                 else -> _validBodyFat.value = true
             }
+
             when {
-                !checkSkeletalMuscleFormat() -> _validSkeletalMuscle.value = false
+                !validSkeletalMuscleFormat() -> _validSkeletalMuscle.value = false
                 else -> _validSkeletalMuscle.value = true
             }
-//            Log.i(TAG, "_validBodyWeight = ${_validBodyWeight.value}")
-//            Log.i(TAG, "_validBodyFat = ${_validBodyFat.value}")
-//            Log.i(TAG, "_validSkeletalMuscle = ${_validSkeletalMuscle.value}")
         }
     }
 
@@ -135,17 +159,17 @@ class InBodyRecordViewModel(private val selectedInBody: InBody) : ViewModel() {
         _uploadDataDone.value = false
     }
 
-    private fun checkBodyWeightFormat(): Boolean {
+    private fun validBodyWeightFormat(): Boolean {
         val recordedValueFormat = "[0-9]{1,3}([.][0-9]{0,2})?".toRegex()
         return recordedValueFormat.matches(bodyWeightRecord.value.toString())
     }
 
-    private fun checkBodyFatFormat(): Boolean {
+    private fun validBodyFatFormat(): Boolean {
         val recordedValueFormat = "[0-9]{1,2}([.][0-9]{0,2})?".toRegex()
         return recordedValueFormat.matches(bodyFatRecord.value.toString())
     }
 
-    private fun checkSkeletalMuscleFormat(): Boolean {
+    private fun validSkeletalMuscleFormat(): Boolean {
         val recordedValueFormat = "[0-9]{1,2}([.][0-9]{0,2})?".toRegex()
         return recordedValueFormat.matches(skeletalMuscleRecord.value.toString())
     }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.pinhsiang.fitracker.data.InBody
 import com.pinhsiang.fitracker.inbody.record.InBodyRecordViewModel
 
+@Suppress("UNCHECKED_CAST")
 class InBodyRecordViewModelFactory(
     private val selectedInBody: InBody
 

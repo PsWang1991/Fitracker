@@ -17,11 +17,7 @@ import com.pinhsiang.fitracker.user.UserManager
 
 class NutritionRecordViewModel(private val selectedNutrition: Nutrition) : ViewModel() {
 
-    private val db = FirebaseFirestore.getInstance()
-
     val selectedDate = selectedNutrition.time.timestampToDate()
-
-    private var nutritionToUpload = selectedNutrition
 
     val titleRecord = MutableLiveData<String>().apply {
         value = selectedNutrition.title
@@ -55,36 +51,62 @@ class NutritionRecordViewModel(private val selectedNutrition: Nutrition) : ViewM
         Log.i(TAG, "**********   NutritionRecordViewModel   *********")
     }
 
-    fun saveData() {
-        Log.i(TAG, "titleRecord = ${titleRecord.value}")
-        Log.i(TAG, "proteinRecord = ${proteinRecord.value}")
-        Log.i(TAG, "carbohydrateRecord = ${carbohydrateRecord.value}")
-        if (titleRecord.value != "") {
-            nutritionToUpload = Nutrition(
+    fun uploadData() {
+
+        if (titleRecord.value == "") {
+
+            Toast.makeText(
+                FitrackerApplication.appContext,
+                "Title can not be blank.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        } else if (proteinRecord.value == 0 && carbohydrateRecord.value == 0 && fatRecord.value == 0) {
+
+            Toast.makeText(
+                FitrackerApplication.appContext,
+                "Nutrients are all zero",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        } else {
+
+            val nutritionToUpload = Nutrition(
                 time = selectedNutrition.time,
                 title = titleRecord.value!!,
                 protein = proteinRecord.value!!,
                 carbohydrate = carbohydrateRecord.value!!,
                 fat = fatRecord.value!!
             )
-            Log.i(TAG, "nutritionToUpload = $nutritionToUpload")
 
             _dataUploading.value = true
-            db.collection(USER).document(UserManager.userDocId!!)
-                .collection(NUTRITION).add(nutritionToUpload)
+
+            FirebaseFirestore.getInstance()
+                .collection(USER)
+                .document(UserManager.userDocId!!)
+                .collection(NUTRITION)
+                .add(nutritionToUpload)
                 .addOnFailureListener { exception ->
+
                     _dataUploading.value = false
-                    Toast.makeText(FitrackerApplication.appContext, "Uploading failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        FitrackerApplication.appContext,
+                        "Uploading failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     Log.w(TAG, "Error getting documents.", exception)
                 }
                 .addOnCompleteListener {
+
                     _dataUploading.value = false
                     _uploadDataDone.value = true
-                    Toast.makeText(FitrackerApplication.appContext, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        FitrackerApplication.appContext,
+                        "Data saving completed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
-        } else {
-            Toast.makeText(FitrackerApplication.appContext, "Title can not be blank.", Toast.LENGTH_SHORT).show()
         }
     }
 

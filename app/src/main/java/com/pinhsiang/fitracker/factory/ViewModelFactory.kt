@@ -17,6 +17,7 @@ import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
+
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {

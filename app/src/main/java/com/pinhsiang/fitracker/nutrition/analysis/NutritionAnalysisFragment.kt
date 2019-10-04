@@ -20,7 +20,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentNutritionAnalysisBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
-import com.pinhsiang.fitracker.util.Util
 import com.pinhsiang.fitracker.util.Util.getColor
 import com.pinhsiang.fitracker.util.Util.getDrawable
 
@@ -34,7 +33,7 @@ class NutritionAnalysisFragment : Fragment() {
     /**
      * Lazily initialize our [NutritionAnalysisViewModel].
      */
-    private val viewModel by viewModels<NutritionAnalysisViewModel> {getVmFactory()}
+    private val viewModel by viewModels<NutritionAnalysisViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -78,22 +77,22 @@ class NutritionAnalysisFragment : Fragment() {
         binding.spinnerNutrients.adapter = nutrientFilterList
         binding.spinnerNutrients.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(adapterView: AdapterView<*>?) {
-                viewModel.setNutrient(TOTAL_DAILY_ENERGY_EXTRACTED)
+                viewModel.setNutrient(NutritionAnalysisViewModel.TOTAL_DAILY_ENERGY_EXTRACTED)
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        viewModel.setNutrient(TOTAL_DAILY_ENERGY_EXTRACTED)
+                        viewModel.setNutrient(NutritionAnalysisViewModel.TOTAL_DAILY_ENERGY_EXTRACTED)
                     }
                     1 -> {
-                        viewModel.setNutrient(PROTEIN)
+                        viewModel.setNutrient(NutritionAnalysisViewModel.PROTEIN)
                     }
                     2 -> {
-                        viewModel.setNutrient(CARBOHYDRATE)
+                        viewModel.setNutrient(NutritionAnalysisViewModel.CARBOHYDRATE)
                     }
                     3 -> {
-                        viewModel.setNutrient(FAT)
+                        viewModel.setNutrient(NutritionAnalysisViewModel.FAT)
                     }
                 }
             }
@@ -103,7 +102,7 @@ class NutritionAnalysisFragment : Fragment() {
     private fun setupLineChart() {
         chart = binding.chartNutrition
         with(chart) {
-            setBackgroundColor(Util.getColor(R.color.colorWhite))
+            setBackgroundColor(getColor(R.color.colorWhite))
 
             // Disable description text
             description.isEnabled = false
@@ -143,7 +142,7 @@ class NutritionAnalysisFragment : Fragment() {
         val formatter = IndexAxisValueFormatter(x)
         xAxis.valueFormatter = formatter
 
-        var lineDataSet: LineDataSet
+        val lineDataSet: LineDataSet
 
         if (chart.data != null && chart.data.dataSetCount > 0) {
             lineDataSet = chart.data.getDataSetByIndex(0) as LineDataSet

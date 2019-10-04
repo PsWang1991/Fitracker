@@ -20,7 +20,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentInbodyAnalysisBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
-import com.pinhsiang.fitracker.util.Util
 import com.pinhsiang.fitracker.util.Util.getColor
 import com.pinhsiang.fitracker.util.Util.getDrawable
 
@@ -80,19 +79,19 @@ class InBodyAnalysisFragment : Fragment() {
         binding.spinnerFilterInbody.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {
-                viewModel.setInBodyFilter(FILTER_BODY_WEIGHT)
+                viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_WEIGHT)
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
                     0 -> {
-                        viewModel.setInBodyFilter(FILTER_BODY_WEIGHT)
+                        viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_WEIGHT)
                     }
                     1 -> {
-                        viewModel.setInBodyFilter(FILTER_SKELETAL_MUSCLE)
+                        viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_SKELETAL_MUSCLE)
                     }
                     2 -> {
-                        viewModel.setInBodyFilter(FILTER_BODY_FAT)
+                        viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_FAT)
                     }
                 }
             }
@@ -102,7 +101,7 @@ class InBodyAnalysisFragment : Fragment() {
     private fun setupLineChart() {
         chart = binding.chartInbody
         with(chart) {
-            setBackgroundColor(Util.getColor(R.color.colorWhite))
+            setBackgroundColor(getColor(R.color.colorWhite))
 
             // Disable description text
             description.isEnabled = false
@@ -142,7 +141,7 @@ class InBodyAnalysisFragment : Fragment() {
         val formatter = IndexAxisValueFormatter(x)
         xAxis.valueFormatter = formatter
 
-        var lineDataSet: LineDataSet
+        val lineDataSet: LineDataSet
 
         if (chart.data != null && chart.data.dataSetCount > 0) {
             lineDataSet = chart.data.getDataSetByIndex(0) as LineDataSet

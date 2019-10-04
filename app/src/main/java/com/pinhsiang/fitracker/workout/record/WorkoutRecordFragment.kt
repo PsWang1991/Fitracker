@@ -10,14 +10,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.Int2StringConverter
+import com.pinhsiang.fitracker.MainActivity
+import com.pinhsiang.fitracker.NavGraphDirections
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutRecordBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.ext.makeInVisible
 import com.pinhsiang.fitracker.ext.makeVisible
-import com.pinhsiang.fitracker.factory.WorkoutRecordViewModelFactory
 import com.pinhsiang.fitracker.progress.DataUploadingFragment
 import com.pinhsiang.fitracker.progress.UploadCompletelyFragment
 
@@ -51,12 +51,15 @@ class WorkoutRecordFragment : Fragment() {
             (binding.rvSets.adapter as RecordSetRVAdapter).notifyDataSetChanged()
         })
 
-        // value of repeats and weight can not be less than 0.
+        /**
+         *  Values can not be less than 0.
+         */
         viewModel.repeatsRecord.observe(this, Observer {
             if (it < 0) {
                 viewModel.setRepeatsRecordTo0()
             }
         })
+
         viewModel.weightRecord.observe(this, Observer {
             if (it < 0) {
                 viewModel.setWeightRecordTo0()
@@ -64,17 +67,16 @@ class WorkoutRecordFragment : Fragment() {
         })
 
         viewModel.reviseMode.observe(this, Observer {
-            if (it) {
-                revisableOn()
-            } else {
-                revisableOff()
+            when (it) {
+                true -> reviseModeOn()
+                false -> reviseModeOff()
             }
         })
 
-        viewModel.addToSetList.observe(this, Observer {
+        viewModel.addNewItem.observe(this, Observer {
             if (it) {
                 binding.rvSets.scrollToPosition(viewModel.endOfSetList())
-                viewModel.setAddToSetListFalse()
+                viewModel.addNewItemDone()
             }
         })
 
@@ -86,9 +88,10 @@ class WorkoutRecordFragment : Fragment() {
         })
 
         dataUploadingFragment = DataUploadingFragment()
-        viewModel.dataUploading.observe(this, Observer {
-            it?.let {
-                when(it) {
+
+        viewModel.dataUploading.observe(this, Observer { dataUploading ->
+            dataUploading?.let {
+                when (it) {
                     true -> {
                         dataUploadingFragment.show(requireFragmentManager(), "data_uploading_fragment")
                     }
@@ -100,8 +103,9 @@ class WorkoutRecordFragment : Fragment() {
         })
 
         uploadCompletelyFragment = UploadCompletelyFragment()
-        viewModel.uploadDataDone.observe(this, Observer {
-            it?.let {
+
+        viewModel.uploadDataDone.observe(this, Observer { uploadDataDone ->
+            uploadDataDone?.let {
                 if (it) {
                     uploadCompletelyFragment.show(requireFragmentManager(), "upload_completely_fragment")
                     this.findNavController().navigate(NavGraphDirections.actionGlobalWorkoutFragment())
@@ -122,13 +126,13 @@ class WorkoutRecordFragment : Fragment() {
         uploadCompletelyFragment.dismiss()
     }
 
-    private fun revisableOn() {
+    private fun reviseModeOn() {
         binding.btnAddData.makeInVisible()
         binding.btnDeleteData.makeVisible()
         binding.btnReviseData.makeVisible()
     }
 
-    private fun revisableOff() {
+    private fun reviseModeOff() {
         binding.btnAddData.makeVisible()
         binding.btnDeleteData.makeInVisible()
         binding.btnReviseData.makeInVisible()

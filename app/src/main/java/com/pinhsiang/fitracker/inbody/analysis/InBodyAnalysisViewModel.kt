@@ -12,10 +12,6 @@ import com.pinhsiang.fitracker.data.InBody
 import com.pinhsiang.fitracker.ext.timestampToDate
 import com.pinhsiang.fitracker.user.UserManager
 
-const val FILTER_BODY_WEIGHT = 0
-const val FILTER_SKELETAL_MUSCLE = 1
-const val FILTER_BODY_FAT = 2
-
 class InBodyAnalysisViewModel : ViewModel() {
 
     val currentTime = System.currentTimeMillis()
@@ -117,5 +113,11 @@ class InBodyAnalysisViewModel : ViewModel() {
 
     fun plotDataDone() {
         _isDataReadyForPlotting.value = false
+    }
+
+    companion object {
+        const val FILTER_BODY_WEIGHT = 0
+        const val FILTER_SKELETAL_MUSCLE = 1
+        const val FILTER_BODY_FAT = 2
     }
 }

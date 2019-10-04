@@ -12,11 +12,6 @@ import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.ext.timestampToDate
 import com.pinhsiang.fitracker.user.UserManager
 
-const val TOTAL_DAILY_ENERGY_EXTRACTED = 0
-const val PROTEIN = 1
-const val CARBOHYDRATE = 2
-const val FAT = 3
-
 class NutritionAnalysisViewModel : ViewModel() {
 
     val currentTime = System.currentTimeMillis()
@@ -160,4 +155,12 @@ class NutritionAnalysisViewModel : ViewModel() {
     fun plotDataDone() {
         _isDataReadyForPlotting.value = false
     }
+
+    companion object {
+        const val TOTAL_DAILY_ENERGY_EXTRACTED = 0
+        const val PROTEIN = 1
+        const val CARBOHYDRATE = 2
+        const val FAT = 3
+    }
+
 }

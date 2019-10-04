@@ -9,13 +9,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.pinhsiang.fitracker.Int2StringConverter
 import com.pinhsiang.fitracker.NavGraphDirections
 import com.pinhsiang.fitracker.databinding.FragmentNutritionRecordBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
-import com.pinhsiang.fitracker.factory.NutritionRecordViewModelFactory
 import com.pinhsiang.fitracker.progress.DataUploadingFragment
 import com.pinhsiang.fitracker.progress.UploadCompletelyFragment
 
@@ -41,7 +39,9 @@ class NutritionRecordFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.converter = Int2StringConverter
 
-        // Values to be recorded can not be less than 0.
+        /**
+         *  Values of nutrient can not be less than 0.
+         */
         viewModel.proteinRecord.observe(this, Observer {
             if (it < 0) {
                 viewModel.setProteinRecordTo0()
@@ -59,8 +59,9 @@ class NutritionRecordFragment : Fragment() {
         })
 
         dataUploadingFragment = DataUploadingFragment()
-        viewModel.dataUploading.observe(this, Observer {
-            it?.let {
+
+        viewModel.dataUploading.observe(this, Observer { dataUploading ->
+            dataUploading?.let {
                 when (it) {
                     true -> {
                         dataUploadingFragment.show(requireFragmentManager(), "data_uploading_fragment")
@@ -73,8 +74,9 @@ class NutritionRecordFragment : Fragment() {
         })
 
         uploadCompletelyFragment = UploadCompletelyFragment()
-        viewModel.uploadDataDone.observe(this, Observer {
-            it?.let {
+
+        viewModel.uploadDataDone.observe(this, Observer { uploadDataDone ->
+            uploadDataDone?.let {
                 if (it) {
                     uploadCompletelyFragment.show(requireFragmentManager(), "upload_completely_fragment")
                     this.findNavController().navigate(NavGraphDirections.actionGlobalNutritionFragment())

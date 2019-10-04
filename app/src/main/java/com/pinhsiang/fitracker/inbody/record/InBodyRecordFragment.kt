@@ -38,9 +38,9 @@ class InBodyRecordFragment : Fragment() {
         binding.lifecycleOwner = this
 
         dataUploadingFragment = DataUploadingFragment()
-        viewModel.dataUploading.observe(this, Observer {
-            it?.let {
-                when(it) {
+        viewModel.dataUploading.observe(this, Observer { dataUploading ->
+            dataUploading?.let {
+                when (it) {
                     true -> {
                         dataUploadingFragment.show(requireFragmentManager(), "data_uploading_fragment")
                     }
@@ -52,8 +52,8 @@ class InBodyRecordFragment : Fragment() {
         })
 
         uploadCompletelyFragment = UploadCompletelyFragment()
-        viewModel.uploadDataDone.observe(this, Observer {
-            it?.let {
+        viewModel.uploadDataDone.observe(this, Observer { uploadDataDone ->
+            uploadDataDone?.let {
                 if (it) {
                     uploadCompletelyFragment.show(requireFragmentManager(), "upload_completely_fragment")
                     this.findNavController().navigate(NavGraphDirections.actionGlobalInbodyFragment())

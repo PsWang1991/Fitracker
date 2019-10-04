@@ -1,11 +1,11 @@
 package com.pinhsiang.fitracker.factory
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.nutrition.record.NutritionRecordViewModel
 
+@Suppress("UNCHECKED_CAST")
 class NutritionRecordViewModelFactory(
     private val selectedNutrition: Nutrition
 
