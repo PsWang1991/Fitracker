@@ -5,9 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pinhsiang.fitracker.data.YoutubeVideo
 
-const val TEN_MINUTES_CHEST = "rxEMKXW2Wqs"
-const val SIX_MINUTES_TRICEPS = "P01H0XpNpk0"
-
 class RecommendedViewModel : ViewModel() {
 
     private val _youtubeVideoList = MutableLiveData<List<YoutubeVideo>>()

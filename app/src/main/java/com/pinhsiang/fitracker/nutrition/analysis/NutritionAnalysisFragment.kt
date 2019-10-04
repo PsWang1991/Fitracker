@@ -1,15 +1,14 @@
 package com.pinhsiang.fitracker.nutrition.analysis
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -18,14 +17,11 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.pinhsiang.fitracker.FitrackerApplication
-import com.pinhsiang.fitracker.R
-import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.*
 import com.pinhsiang.fitracker.databinding.FragmentNutritionAnalysisBinding
-import com.pinhsiang.fitracker.util.Util
-
-const val CHART_AXIS_TEXT_SIZE = 14f
-const val CHART_X_AXIS_LABEL_ROTATION = 45f
+import com.pinhsiang.fitracker.ext.getVmFactory
+import com.pinhsiang.fitracker.util.Util.getColor
+import com.pinhsiang.fitracker.util.Util.getDrawable
 
 class NutritionAnalysisFragment : Fragment() {
 
@@ -37,10 +33,7 @@ class NutritionAnalysisFragment : Fragment() {
     /**
      * Lazily initialize our [NutritionAnalysisViewModel].
      */
-    private lateinit var viewModelFactory: NutritionAnalysisViewModelFactory
-    private val viewModel: NutritionAnalysisViewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(NutritionAnalysisViewModel::class.java)
-    }
+    private val viewModel by viewModels<NutritionAnalysisViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -49,95 +42,67 @@ class NutritionAnalysisFragment : Fragment() {
         setupLineChart()
         setupXAxis()
         setupYAxis()
+        setupNutrientSpinner()
 
-        // Pass dataTime from workout fragment to detail fragment
-        val application = requireNotNull(activity).application
-        viewModelFactory = NutritionAnalysisViewModelFactory(application)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        // Setup spinner
-        val inbodyFilterList = ArrayAdapter.createFromResource(
-            FitrackerApplication.appContext,
-            R.array.nutrients,
-            R.layout.spinner_item
-        )
-        binding.spinnerNutrients.adapter = inbodyFilterList
-        binding.spinnerNutrients.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                viewModel.setNutrient(getString(R.string.total_daily_energy_extracted))
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                when (position) {
-                    0 -> {
-                        viewModel.setNutrient(getString(R.string.total_daily_energy_extracted))
-                    }
-                    1 -> {
-                        viewModel.setNutrient(getString(R.string.protein))
-                    }
-                    2 -> {
-                        viewModel.setNutrient(getString(R.string.carbohydrate))
-                    }
-                    3 -> {
-                        viewModel.setNutrient(getString(R.string.fat))
-                    }
-                }
-            }
-        }
-
-        viewModel.plotDataReady.observe(this, Observer {
+        viewModel.isDataReadyForPlotting.observe(this, Observer {
             if (it) {
-                setDataToChart(viewModel.xAxisDateToPlot, viewModel.valuesToPLot)
+                plotData(
+                    x = viewModel.plottedDate,
+                    y = viewModel.plottedValues
+                )
                 chart.invalidate()
                 viewModel.plotDataDone()
             }
         })
 
-        viewModel.periodFilter.observe(this, Observer {
-            it?.let {
-                when (it) {
-                    DAYS_PER_3M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
-                        binding.period3mNutrition.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period3mNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                    DAYS_PER_6M * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
-                        binding.period6mNutrition.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period6mNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                    DAYS_PER_1Y * MILLISECOND_PER_DAY -> {
-                        setAllPeriodFilterNormal()
-                        binding.period1yNutrition.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period1yNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                    viewModel.currentTime -> {
-                        setAllPeriodFilterNormal()
-                        binding.periodAllNutrition.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.periodAllNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                    else -> {
-                        setAllPeriodFilterNormal()
-                        binding.period1mNutrition.setTextColor(Util.getColor(R.color.colorBackground))
-                        binding.period1mNutrition.background =
-                            Util.getDrawable(R.drawable.btn_text_border_inverse)
-                    }
-                }
+        viewModel.periodFilter.observe(this, Observer { periodFilter ->
+            periodFilter?.let {
+                setAllPeriodBtnOff()
+                setPeriodBtnOn(it)
             }
         })
 
         return binding.root
     }
 
+    private fun setupNutrientSpinner() {
+        val nutrientFilterList = ArrayAdapter.createFromResource(
+            FitrackerApplication.appContext,
+            R.array.nutrients,
+            R.layout.spinner_item
+        )
+        binding.spinnerNutrients.adapter = nutrientFilterList
+        binding.spinnerNutrients.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                viewModel.setNutrient(NutritionAnalysisViewModel.TOTAL_DAILY_ENERGY_EXTRACTED)
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when (position) {
+                    0 -> {
+                        viewModel.setNutrient(NutritionAnalysisViewModel.TOTAL_DAILY_ENERGY_EXTRACTED)
+                    }
+                    1 -> {
+                        viewModel.setNutrient(NutritionAnalysisViewModel.PROTEIN)
+                    }
+                    2 -> {
+                        viewModel.setNutrient(NutritionAnalysisViewModel.CARBOHYDRATE)
+                    }
+                    3 -> {
+                        viewModel.setNutrient(NutritionAnalysisViewModel.FAT)
+                    }
+                }
+            }
+        }
+    }
+
     private fun setupLineChart() {
         chart = binding.chartNutrition
         with(chart) {
-            setBackgroundColor(com.pinhsiang.fitracker.util.Util.getColor(com.pinhsiang.fitracker.R.color.colorWhite))
+            setBackgroundColor(getColor(R.color.colorWhite))
 
             // Disable description text
             description.isEnabled = false
@@ -145,15 +110,16 @@ class NutritionAnalysisFragment : Fragment() {
 
             // Disable touch gestures.
             setTouchEnabled(false)
-//            setOnChartValueSelectedListener(this)
             setDrawGridBackground(false)
 
             // Enable scaling and dragging.
             isDragEnabled = true
             setScaleEnabled(true)
 
-            // Force pinch zoom along both axis.
-            setPinchZoom(true)
+            setDrawBorders(false)
+
+            // Disable dual y-axis.
+            axisRight.isEnabled = false
         }
     }
 
@@ -162,56 +128,40 @@ class NutritionAnalysisFragment : Fragment() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
 
         // vertical grid lines
-        xAxis.enableGridDashedLine(10f, 10f, 0f)
+        xAxis.setDrawAxisLine(false)
+        xAxis.setDrawGridLines(false)
     }
 
     private fun setupYAxis() {
         yAxis = chart.axisLeft
-
-        // Disable dual axis (only use LEFT axis).
-        chart.axisRight.isEnabled = false
+        yAxis.gridLineWidth = Y_AXIS_GRID_LINE_WIDTH
     }
 
-    private fun setDataToChart(xAxisDate: List<String>, values: List<Entry>) {
+    private fun plotData(x: List<String>, y: List<Entry>) {
 
-        val formatter = IndexAxisValueFormatter(xAxisDate)
+        val formatter = IndexAxisValueFormatter(x)
         xAxis.valueFormatter = formatter
 
-        var set1: LineDataSet
-
-
-        Log.i(TAG, "chart.data = ${chart.data}")
-        if (chart.data != null) {
-            Log.i(TAG, "chart.data.dataSetCount = ${chart.data.dataSetCount}")
-        }
+        val lineDataSet: LineDataSet
 
         if (chart.data != null && chart.data.dataSetCount > 0) {
-            set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-            set1.values = values
-
-            Log.i(TAG, "chart.values (chart data != null, count > 1) = ${set1.values}")
-
-            set1.notifyDataSetChanged()
+            lineDataSet = chart.data.getDataSetByIndex(0) as LineDataSet
+            lineDataSet.values = y
+            lineDataSet.notifyDataSetChanged()
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
         } else {
 
-            set1 = LineDataSet(values, "DataSet 1")
+            lineDataSet = LineDataSet(y, "DataSet 1")
 
-            Log.i(TAG, "chart.values (in else) = ${set1.values}")
-
-            with(set1) {
+            with(lineDataSet) {
                 setDrawIcons(false)
-                enableDashedLine(10f, 5f, 0f)
                 color = getColor(R.color.colorBlack)
                 lineWidth = 4f
                 disableDashedLine()
-//            circleRadius = 0f
-//            setCircleColor(getColor(R.color.colorInvisible))
                 setDrawCircles(false)
                 setDrawCircleHole(false)
                 valueTextSize = 0f
-                enableDashedHighlightLine(10f, 5f, 0f)
                 setDrawFilled(false)
             }
 
@@ -219,20 +169,45 @@ class NutritionAnalysisFragment : Fragment() {
             xAxis.labelRotationAngle = CHART_X_AXIS_LABEL_ROTATION
             yAxis.textSize = CHART_AXIS_TEXT_SIZE
 
-            chart.data = LineData(listOf<ILineDataSet>(set1))
+            chart.data = LineData(listOf<ILineDataSet>(lineDataSet))
         }
     }
 
-    private fun setAllPeriodFilterNormal() {
-        binding.period1mNutrition.setTextColor(Util.getColor(R.color.colorText))
-        binding.period1mNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
-        binding.period3mNutrition.setTextColor(Util.getColor(R.color.colorText))
-        binding.period3mNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
-        binding.period6mNutrition.setTextColor(Util.getColor(R.color.colorText))
-        binding.period6mNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
-        binding.period1yNutrition.setTextColor(Util.getColor(R.color.colorText))
-        binding.period1yNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
-        binding.periodAllNutrition.setTextColor(Util.getColor(R.color.colorText))
-        binding.periodAllNutrition.background = Util.getDrawable(R.drawable.btn_text_border)
+    private fun setAllPeriodBtnOff() {
+        binding.period1mNutrition.setTextColor(getColor(R.color.colorText))
+        binding.period1mNutrition.background = getDrawable(R.drawable.btn_text_border)
+        binding.period3mNutrition.setTextColor(getColor(R.color.colorText))
+        binding.period3mNutrition.background = getDrawable(R.drawable.btn_text_border)
+        binding.period6mNutrition.setTextColor(getColor(R.color.colorText))
+        binding.period6mNutrition.background = getDrawable(R.drawable.btn_text_border)
+        binding.period1yNutrition.setTextColor(getColor(R.color.colorText))
+        binding.period1yNutrition.background = getDrawable(R.drawable.btn_text_border)
+        binding.periodAllNutrition.setTextColor(getColor(R.color.colorText))
+        binding.periodAllNutrition.background = getDrawable(R.drawable.btn_text_border)
+    }
+
+    private fun setPeriodBtnOn(period: Long) {
+        when (period) {
+            PERIOD_3M -> {
+                binding.period3mNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.period3mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            PERIOD_6M -> {
+                binding.period6mNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.period6mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            PERIOD_1Y -> {
+                binding.period1yNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.period1yNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            viewModel.currentTime -> {
+                binding.periodAllNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.periodAllNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+            else -> {
+                binding.period1mNutrition.setTextColor(getColor(R.color.colorBackground))
+                binding.period1mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
+            }
+        }
     }
 }

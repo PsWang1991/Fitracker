@@ -15,7 +15,7 @@
     <action android:id="@+id/action_global_workoutFragment" app:destination="@id/workoutFragment"
             app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
 
-    <fragment android:id="@+id/inbodyFragment" android:name="com.pinhsiang.fitracker.inbody.InbodyFragment"
+    <fragment android:id="@+id/inbodyFragment" android:name="com.pinhsiang.fitracker.inbody.InBodyFragment"
               android:label="InbodyFragment"
               tools:layout="@layout/fragment_inbody">
         <action android:id="@+id/action_inbodyFragment_to_inbodyAnalysisFragment"
@@ -44,7 +44,7 @@
               android:label="WorkoutAnalysisFragment"
               tools:layout="@layout/fragment_workout_analysis"/>
     <fragment android:id="@+id/inbodyAnalysisFragment"
-              android:name="com.pinhsiang.fitracker.inbody.analysis.InbodyAnalysisFragment"
+              android:name="com.pinhsiang.fitracker.inbody.analysis.InBodyAnalysisFragment"
               android:label="InbodyAnalysisFragment"
               tools:layout="@layout/fragment_inbody_analysis"/>
     <fragment android:id="@+id/nutritionAnalysisFragment"
@@ -72,10 +72,10 @@
         <argument android:name="nutrition" app:argType="com.pinhsiang.fitracker.data.Nutrition"/>
     </fragment>
     <fragment android:id="@+id/inbodyRecordFragment"
-              android:name="com.pinhsiang.fitracker.inbody.record.InbodyRecordFragment"
+              android:name="com.pinhsiang.fitracker.inbody.record.InBodyRecordFragment"
               android:label="InbodyRecordFragment"
               tools:layout="@layout/fragment_inbody_record">
-        <argument android:name="inbody" app:argType="com.pinhsiang.fitracker.data.Inbody"/>
+        <argument android:name="inBody" app:argType="com.pinhsiang.fitracker.data.InBody"/>
     </fragment>
     <fragment android:id="@+id/timerFragment" android:name="com.pinhsiang.fitracker.timer.TimerFragment"
               android:label="TimerFragment"

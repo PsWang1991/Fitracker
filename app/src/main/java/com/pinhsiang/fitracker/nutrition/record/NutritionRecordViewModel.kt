@@ -1,30 +1,23 @@
 package com.pinhsiang.fitracker.nutrition.record
 
-import android.app.Application
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.FitrackerApplication
+import com.pinhsiang.fitracker.NUTRITION
 import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.USER
 import com.pinhsiang.fitracker.data.Nutrition
-import com.pinhsiang.fitracker.timestampToDate
-import com.pinhsiang.fitracker.timestampToString
+import com.pinhsiang.fitracker.ext.timestampToDate
+import com.pinhsiang.fitracker.ext.timestampToString
 import com.pinhsiang.fitracker.user.UserManager
-import com.pinhsiang.fitracker.util.Util.getString
 
-const val USER_DOC_NAME = "U30OVkHZSDrYllYzjNlT"
-
-
-class NutritionRecordViewModel(private val selectedNutrition: Nutrition, val app: Application) : AndroidViewModel(app) {
-
-    private val db = FirebaseFirestore.getInstance()
+class NutritionRecordViewModel(private val selectedNutrition: Nutrition) : ViewModel() {
 
     val selectedDate = selectedNutrition.time.timestampToDate()
-
-    private var nutritionToUpload = selectedNutrition
 
     val titleRecord = MutableLiveData<String>().apply {
         value = selectedNutrition.title
@@ -58,36 +51,62 @@ class NutritionRecordViewModel(private val selectedNutrition: Nutrition, val app
         Log.i(TAG, "**********   NutritionRecordViewModel   *********")
     }
 
-    fun saveData() {
-        Log.i(TAG, "titleRecord = ${titleRecord.value}")
-        Log.i(TAG, "proteinRecord = ${proteinRecord.value}")
-        Log.i(TAG, "carbohydrateRecord = ${carbohydrateRecord.value}")
-        if (titleRecord.value != "") {
-            nutritionToUpload = Nutrition(
+    fun uploadData() {
+
+        if (titleRecord.value == "") {
+
+            Toast.makeText(
+                FitrackerApplication.appContext,
+                "Title can not be blank.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        } else if (proteinRecord.value == 0 && carbohydrateRecord.value == 0 && fatRecord.value == 0) {
+
+            Toast.makeText(
+                FitrackerApplication.appContext,
+                "Nutrients are all zero",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        } else {
+
+            val nutritionToUpload = Nutrition(
                 time = selectedNutrition.time,
                 title = titleRecord.value!!,
                 protein = proteinRecord.value!!,
                 carbohydrate = carbohydrateRecord.value!!,
                 fat = fatRecord.value!!
             )
-            Log.i(TAG, "nutritionToUpload = $nutritionToUpload")
 
             _dataUploading.value = true
-            db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-                .collection(getString(R.string.nutrition_collection_path)).add(nutritionToUpload)
+
+            FirebaseFirestore.getInstance()
+                .collection(USER)
+                .document(UserManager.userDocId!!)
+                .collection(NUTRITION)
+                .add(nutritionToUpload)
                 .addOnFailureListener { exception ->
+
                     _dataUploading.value = false
-                    Toast.makeText(app, "Uploading failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        FitrackerApplication.appContext,
+                        "Uploading failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     Log.w(TAG, "Error getting documents.", exception)
                 }
                 .addOnCompleteListener {
+
                     _dataUploading.value = false
                     _uploadDataDone.value = true
-                    Toast.makeText(app, "Data saving completed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        FitrackerApplication.appContext,
+                        "Data saving completed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
-        } else {
-            Toast.makeText(app, "Title can not be blank.", Toast.LENGTH_SHORT).show()
         }
     }
 

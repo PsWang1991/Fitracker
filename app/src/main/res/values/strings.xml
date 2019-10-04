@@ -9,10 +9,9 @@
     <string name="bench_press">Bench Press</string>
     <string name="deadlift">Deadlift</string>
     <string name="squat">Squat</string>
-    <string name="kg">Kg</string>
+    <string name="kg">kg</string>
     <string name="rep">rep.</string>
     <string name="fitracker">Fitracker</string>
-
     <string name="tools">Tools</string>
     <string name="menu_timer">Timer</string>
     <string name="menu_tdee">TDEE Calculator</string>
@@ -23,10 +22,12 @@
     <string name="all_date_format">yyyy-MM-dd, HH:mm:ss</string>
     <string name="short_date_format">yyyy-MM-dd</string>
 
-    <string name="user_collection_path">user</string>
-    <string name="workout_collection_path">workout</string>
-    <string name="nutrition_collection_path">nutrition</string>
-    <string name="inbody_collection_path">in-body</string>
+    <!--Period filter tag-->
+    <string name="tag_period_filter_1m">1M</string>
+    <string name="tag_period_filter_3m">3M</string>
+    <string name="tag_period_filter_6m">6M</string>
+    <string name="tag_period_filter_1y">1Y</string>
+    <string name="tag_period_filter_all">ALL</string>
 
     <!--Bottom nav view-->
     <string name="title_workout">Workout</string>
@@ -104,7 +105,7 @@
     <string name="body_fat">Body Fat</string>
     <string name="percentage">%</string>
     <string name="no_data_inbody">No In-body Data</string>
-    <string name="body_weight_kg">Body Weight [Kg]</string>
+    <string name="body_weight_kg">Body Weight [kg]</string>
     <string name="skeletal_muscle_percentage">Skeletal Muscle [%]</string>
     <string name="body_fat_percentage">Body Fat [%]</string>
 
@@ -165,7 +166,7 @@
     <string name="stop">Stop</string>
 
     <!--Repetition maximum-->
-    <string name="lift_kg">Lift [Kg]</string>
+    <string name="lift_kg">Lift [kg]</string>
     <string name="calculate">Calculate</string>
     <string name="percentage_1rm">% of 1 RM</string>
     <string name="repetitions">Repetitions</string>
@@ -226,6 +227,8 @@
     <string name="data_has_been_saved">Complete</string>
     <string name="connecting">Connecting...</string>
     <string name="welcome">Welcome</string>
+    <string name="height">Height</string>
+    <string name="cm">cm</string>
 
 
 </resources>

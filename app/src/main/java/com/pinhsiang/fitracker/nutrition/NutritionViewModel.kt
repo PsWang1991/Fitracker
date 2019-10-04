@@ -1,24 +1,22 @@
 package com.pinhsiang.fitracker.nutrition
 
-import android.app.Application
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
-import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.MILLISECOND_PER_DAY
+import com.pinhsiang.fitracker.NUTRITION
 import com.pinhsiang.fitracker.TAG
+import com.pinhsiang.fitracker.USER
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.user.UserManager
-import com.pinhsiang.fitracker.util.Util.getString
 import org.threeten.bp.LocalDate
 import java.sql.Timestamp
 
-const val MILLISECOND_PER_DAY = 86400000L
 const val ZERO_HOUR = "00:00:00"
 
-class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
+class NutritionViewModel: ViewModel() {
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -79,8 +77,8 @@ class NutritionViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     private fun downloadWorkoutData() {
-        db.collection(getString(R.string.user_collection_path)).document(UserManager.userDocId!!)
-            .collection(getString(R.string.nutrition_collection_path))
+        db.collection(USER).document(UserManager.userDocId!!)
+            .collection(NUTRITION)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {

@@ -1,6 +1,5 @@
 package com.pinhsiang.fitracker.workout.record
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -85,9 +84,9 @@ class RecordSetRVAdapter(val viewModel: WorkoutRecordViewModel) :
         holder.itemView.setOnClickListener {
             if (selectedPosition != position) {
                 selectedPosition = position
-                viewModel.reviseModeOn(position)
+                viewModel.reviseItem(position)
             } else {
-                viewModel.reviseModeOff()
+                viewModel.reviseItemDone()
                 selectedPosition = -1
             }
             notifyDataSetChanged()

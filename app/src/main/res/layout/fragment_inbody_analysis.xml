@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.pinhsiang.fitracker.inbody.analysis.InbodyAnalysisViewModel"/>
+                type="com.pinhsiang.fitracker.inbody.analysis.InBodyAnalysisViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,7 +47,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/title_filter"
-                android:onClick="@{() -> viewModel.selectPeriod1M()}"
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_1m"
                 android:layout_marginEnd="4dp"/>
         <TextView
                 android:text="@string/period_3m"
@@ -60,7 +61,9 @@
                 app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/period_6m_inbody"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_inbody"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_inbody"
-                android:onClick="@{() -> viewModel.selectPeriod3M()}" android:layout_marginStart="4dp"
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_3m"
+                android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"/>
         <TextView
                 android:text="@string/period_6m"
@@ -73,7 +76,9 @@
                 app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/period_1y_inbody"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_inbody"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_inbody"
-                android:onClick="@{() -> viewModel.selectPeriod6M()}" android:layout_marginStart="4dp"
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_6m"
+                android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"/>
         <TextView
                 android:text="@string/period_1y"
@@ -87,7 +92,9 @@
                 app:layout_constraintEnd_toStartOf="@+id/period_all_inbody"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_inbody"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_inbody"
-                android:onClick="@{() -> viewModel.selectPeriod1Y()}" android:layout_marginStart="4dp"
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_1y"
+                android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"/>
         <TextView
                 android:id="@+id/period_all_inbody"
@@ -103,7 +110,9 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintTop_toTopOf="@+id/period_1m_inbody"
                 app:layout_constraintBottom_toBottomOf="@+id/period_1m_inbody"
-                android:onClick="@{() -> viewModel.selectPeriodAll()}" android:layout_marginStart="4dp"/>
+                android:onClick="@{(view) -> viewModel.selectPeriod(view)}"
+                android:tag="@string/tag_period_filter_all"
+                android:layout_marginStart="4dp"/>
         <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart_inbody"
                 android:layout_width="0dp"
