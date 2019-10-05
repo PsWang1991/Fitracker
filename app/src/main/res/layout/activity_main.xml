@@ -68,7 +68,7 @@
                     />
 
                     <ImageView
-                            android:id="@+id/record_or_analysis"
+                            android:id="@+id/overview_or_analysis"
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:layout_marginTop="0dp"
