@@ -15,7 +15,6 @@ class RecommendedViewModel : ViewModel() {
         createMockVideoList()
     }
 
-
     private fun createMockVideoList() {
 
         val video1 = YoutubeVideo(
