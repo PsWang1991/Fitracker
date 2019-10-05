@@ -77,4 +77,8 @@ object UserManager {
                 Context.MODE_PRIVATE
             )?.edit()?.putString(userAvatarUrlKey, inputString)?.apply()
         }
+
+    fun hasLoggedIn(): Boolean {
+        return (userUid != "" && userDocId != "")
+    }
 }

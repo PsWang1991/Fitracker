@@ -12,7 +12,8 @@ class DataUploadingFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding = FragmentUploadingBinding.inflate(inflater, container,false)
+        val binding = FragmentUploadingBinding.inflate(inflater, container, false)
+
         dialog?.window?.setBackgroundDrawableResource(R.drawable.btn_text_border)
 
         return binding.root

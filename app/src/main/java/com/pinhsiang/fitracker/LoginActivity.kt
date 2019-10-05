@@ -21,14 +21,13 @@ import com.pinhsiang.fitracker.data.User
 import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.user.UserManager
 
-const val RC_SIGN_IN = 1
 
 class LoginActivity : AppCompatActivity() {
 
-    private val db = FirebaseFirestore.getInstance()
+    private val userCollection = FirebaseFirestore.getInstance().collection(USER)
 
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private lateinit var auth: FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var firebaseAuth: FirebaseAuth
 
     /**
      * Lazily initialize our [LoginViewModel].
@@ -42,20 +41,29 @@ class LoginActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        /**
+         *  Hiding action bar makes login fragment beautiful.
+         */
         supportActionBar?.hide()
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
+        /**
+         *  Configure sign-in to request the user's ID, email address, and basic profile.
+         *  ID and basic profile are included in DEFAULT_SIGN_IN.
+         */
+        val signInOptions =
+            GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
 
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        /**
+         *  Build a GoogleSignInClient with the options specified by signInOptions.
+         */
+        googleSignInClient = GoogleSignIn.getClient(this, signInOptions)
 
         // Initialize Firebase Auth
-        auth = FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
 
         binding.layoutBtnLogin.setOnClickListener {
             signIn()
@@ -63,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signIn() {
-        val signInIntent = mGoogleSignInClient.signInIntent
+        val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
@@ -71,49 +79,50 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode === RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+        if (requestCode == RC_SIGN_IN) {
+
+            // The Task returned from this call is always completed, no need to attach a listener.
+            handleSignInResult(
+                GoogleSignIn.getSignedInAccountFromIntent(data)
+            )
         }
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+
         try {
+
             val account = completedTask.getResult(ApiException::class.java)
-            // Signed in successfully, show authenticated UI.
-            Log.i(TAG, "account id = ${account?.id}")
-            Log.i(TAG, "account id token = ${account?.idToken}")
-            Log.i(TAG, "account display name = ${account?.displayName}")
+
             UserManager.userName = account?.displayName!!
-            Log.i(TAG, "save userName")
-            UserManager.userEmail = account?.email
-            Log.i(TAG, "photoUrl = ${account?.photoUrl.toString()}")
-            UserManager.userAvatarUrl = account?.photoUrl.toString()
-            firebaseAuthWithGoogle(account!!)
+            UserManager.userEmail = account.email
+            UserManager.userAvatarUrl = account.photoUrl.toString()
+
+            firebaseAuthWithGoogle(account)
+
         } catch (e: ApiException) {
+
             // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.statusCode)
         }
 
     }
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + account.id!!)
 
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-        auth.signInWithCredential(credential)
+
+        firebaseAuth
+            .signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
+
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    Log.i(TAG, "account UID (firebaseAuthWithGoogle) = ${user?.uid}")
-                    UserManager.userUid = user?.uid
+
+                    UserManager.userUid = firebaseAuth.currentUser?.uid
                     checkUserDocumentId()
+
                 } else {
+
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(FitrackerApplication.appContext, "Login failed.", Toast.LENGTH_SHORT).show()
@@ -122,71 +131,78 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkUserDocumentId() {
-        db.collection(USER).whereEqualTo(UID, UserManager.userUid)
+
+        userCollection
+            .whereEqualTo(UID, UserManager.userUid)
             .get()
-            .addOnCompleteListener {
-                Log.i(TAG, "******** checkUserDocumentId ***********")
-                Log.i(TAG, "UserManager.userUid = ${UserManager.userUid}")
-                when {
-                    it.result?.documents?.size == 1 -> it.result?.documents?.forEach {
-                        UserManager.userDocId = it.id
-                        Log.i(TAG, "userDocId = ${it.id}")
+            .addOnCompleteListener { query ->
+
+                when (query.result?.documents?.size) {
+
+                    1 -> query.result?.documents?.forEach { userDocument ->
+                        UserManager.userDocId = userDocument.id
                         toMainActivity()
                     }
-                    it.result?.documents?.size!! > 1 -> Toast.makeText(
-                        FitrackerApplication.appContext,
-                        "Error : UID is not unique, contact developer, please.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    it.result?.documents?.size == 0 -> {
-                        Log.i(TAG, "This user is a new user.")
-                        createNewAccount()
+
+                    // Create an account for new user.
+                    0 -> createNewAccount()
+
+                    else -> {
+                        Toast.makeText(
+                            FitrackerApplication.appContext,
+                            "Error: UID is not unique, contact developer, please.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.e(TAG, "Error: UID is not unique.")
                     }
+
                 }
             }
             .addOnFailureListener { exception ->
-                Log.i(TAG, "******** checkUserDocumentId ***********")
+
                 Log.i(TAG, "Error getting documents.", exception)
-                Log.i(TAG, "******** checkUserDocumentId ***********")
             }
     }
 
     private fun createNewAccount() {
-        Log.i(TAG, "Creating new account starts.")
-        val user = User(
-            name = GoogleSignIn.getLastSignedInAccount(this)?.displayName!!,
+
+        val newUser = User(
+            name = UserManager.userName!!,
             uid = UserManager.userUid!!
         )
-        db.collection(USER).add(user)
+
+        userCollection.add(newUser)
             .addOnCompleteListener {
+
                 Log.i(TAG, "Create new account successfully.")
                 getNewAccountDocId()
             }
-            .addOnFailureListener {exception ->
+            .addOnFailureListener { exception ->
+
                 Toast.makeText(
                     FitrackerApplication.appContext,
                     "Fail to create new account.",
                     Toast.LENGTH_SHORT
                 ).show()
-                Log.i(TAG, "******** createNewAccount ***********")
-                Log.i(TAG, "Error : create new account, exception : $exception")
-                Log.i(TAG, "******** createNewAccount ***********")
+                Log.i(TAG, "Fail to create new account, exception : $exception")
             }
     }
 
     private fun getNewAccountDocId() {
-        db.collection(USER).whereEqualTo(UID, UserManager.userUid)
+
+        userCollection
+            .whereEqualTo(UID, UserManager.userUid)
             .get()
-            .addOnCompleteListener {
-                Log.i(TAG, "******** getNewAccountDocId ***********")
-                Log.i(TAG, "UserManager.userUid = ${UserManager.userUid}")
-                when {
-                    it.result?.documents?.size == 1 -> it.result?.documents?.forEach {
-                        UserManager.userDocId = it.id
-                        Log.i(TAG, "userDocId = ${it.id}")
+            .addOnCompleteListener { query ->
+
+                when (query.result?.documents?.size) {
+
+                    1 -> query.result?.documents?.forEach { userDocument ->
+                        UserManager.userDocId = userDocument.id
                         toMainActivity()
                     }
-                    it.result?.documents?.size!! > 1 -> Toast.makeText(
+
+                    else -> Toast.makeText(
                         FitrackerApplication.appContext,
                         "Error : UID is not unique, contact developer, please.",
                         Toast.LENGTH_SHORT
@@ -194,33 +210,24 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener { exception ->
-                Log.i(TAG, "******** checkUserDocumentId ***********")
-                Log.i(TAG, "Error getting documents.", exception)
-                Log.i(TAG, "******** checkUserDocumentId ***********")
+                Log.i(TAG, "Fail to get new user document.", exception)
             }
     }
 
     override fun onStart() {
         super.onStart()
 
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        Log.i(TAG, "account id = ${account?.id}")
-        Log.i(TAG, "account id token = ${account?.idToken}")
-        Log.i(TAG, "account display name = ${account?.displayName}")
-
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        Log.i(TAG, "account UID (onStart) = ${currentUser?.uid}")
-        if (currentUser != null && UserManager.userUid != "" && UserManager.userDocId != "") {
+        if (firebaseAuth.currentUser != null && UserManager.hasLoggedIn()) {
             toMainActivity()
         }
-
     }
 
     private fun toMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    companion object {
+        const val RC_SIGN_IN: Int = 1
     }
 }
