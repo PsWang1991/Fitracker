@@ -88,7 +88,7 @@
               tools:layout="@layout/fragment_recommended"/>
     <action android:id="@+id/action_global_recommendedFragment" app:destination="@id/recommendedFragment"
             app:popUpTo="@+id/nav_graph"/>
-    <fragment android:id="@+id/RMFragment" android:name="com.pinhsiang.fitracker.rm.RMFragment"
+    <fragment android:id="@+id/RMFragment" android:name="com.pinhsiang.fitracker.rm.RmFragment"
               android:label="RMFragment"
               tools:layout="@layout/fragment_rm"/>
     <action android:id="@+id/action_global_RMFragment" app:destination="@id/RMFragment" app:popUpTo="@+id/nav_graph"/>

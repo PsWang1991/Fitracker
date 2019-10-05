@@ -1,14 +1,11 @@
 package com.pinhsiang.fitracker.rm
 
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pinhsiang.fitracker.FitrackerApplication
-import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.ext.digits
-
 
 class RmViewModel : ViewModel() {
 
@@ -59,10 +56,14 @@ class RmViewModel : ViewModel() {
         get() = _lift20RM
 
     fun calculate() {
-        if (checkInputLiftFormat() && checkInputRepeatsFormat()) {
+
+        if (validInputLiftFormat() && validInputRepeatsFormat()) {
+
             if (inputRepeats.value!!.toInt() in 1..36) {
+
                 calculateDone.value = true
-                _lift1RMValue.value = inputLift.value?.toFloat()?.times((36f / (37 - inputRepeats.value!!.toInt()).toFloat()))
+                _lift1RMValue.value =
+                    inputLift.value?.toFloat()?.times((36f / (37 - inputRepeats.value!!.toInt()).toFloat()))
                 _lift1RM.value = _lift1RMValue.value!!.digits(2)
                 _lift2RM.value = (_lift1RMValue.value!! * 0.97f).digits(2)
                 _lift4RM.value = (_lift1RMValue.value!! * 0.92f).digits(2)
@@ -71,26 +72,30 @@ class RmViewModel : ViewModel() {
                 _lift10RM.value = (_lift1RMValue.value!! * 0.75f).digits(2)
                 _lift12RM.value = (_lift1RMValue.value!! * 0.70f).digits(2)
                 _lift20RM.value = (_lift1RMValue.value!! * 0.50f).digits(2)
+
             } else {
+
                 calculateDone.value = false
-                Toast.makeText(FitrackerApplication.appContext, "Repeats could not greater than 36.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    FitrackerApplication.appContext,
+                    "Repeats could not greater than 36.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+
         } else {
+
             calculateDone.value = false
             Toast.makeText(FitrackerApplication.appContext, "Wrong format of input!!!", Toast.LENGTH_SHORT).show()
         }
-        Log.i(TAG, "inputLift = ${inputLift.value}")
-        Log.i(TAG, "inputRepeats = ${inputRepeats.value}")
-        Log.i(TAG, "liftOK = ${checkInputLiftFormat()}")
-        Log.i(TAG, "repeatsOK = ${checkInputRepeatsFormat()}")
     }
 
-    private fun checkInputLiftFormat(): Boolean {
+    private fun validInputLiftFormat(): Boolean {
         val recordedValueFormat = "[0-9]{1,3}([.][0-9]{1,2})?".toRegex()
         return recordedValueFormat.matches(inputLift.value.toString())
     }
 
-    private fun checkInputRepeatsFormat(): Boolean {
+    private fun validInputRepeatsFormat(): Boolean {
         val recordedValueFormat = "[0-9]+".toRegex()
         return recordedValueFormat.matches(inputRepeats.value.toString())
     }

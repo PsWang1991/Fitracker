@@ -9,23 +9,19 @@ import androidx.fragment.app.viewModels
 import com.pinhsiang.fitracker.databinding.FragmentRmBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
 
-const val TAG = "Fitracker"
-
-class RMFragment : Fragment() {
+class RmFragment : Fragment() {
 
     private lateinit var binding: FragmentRmBinding
 
     /**
      * Lazily initialize [RmViewModel].
      */
-    private val viewModel by viewModels<RmViewModel> {getVmFactory()}
+    private val viewModel by viewModels<RmViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentRmBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-
-        // Bind ViewModel
         binding.viewModel = viewModel
 
         return binding.root

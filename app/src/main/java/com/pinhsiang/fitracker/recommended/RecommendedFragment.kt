@@ -10,18 +10,19 @@ import com.pinhsiang.fitracker.databinding.FragmentRecommendedBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
 
 class RecommendedFragment : Fragment() {
+
     lateinit var binding: FragmentRecommendedBinding
 
     /**
      * Lazily initialize our [RecommendedViewModel].
      */
-    private val viewModel by viewModels<RecommendedViewModel> {getVmFactory()}
+    private val viewModel by viewModels<RecommendedViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         binding = FragmentRecommendedBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-
         binding.rvYoutube.adapter = YoutubeRvAdapter()
 
         return binding.root
