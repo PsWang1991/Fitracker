@@ -10,21 +10,13 @@ import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.util.Util.getString
 
-const val MALE = true
-const val FEMALE = false
-const val MALE_BIAS = 5f
-const val FEMALE_BIAS = -161f
-const val COEFFICIENT_AGE = 4.92f
-const val COEFFICIENT_WEIGHT = 9.99f
-const val COEFFICIENT_HEIGHT = 6.25f
-
-class TDEEViewModel : ViewModel() {
+class TdeeViewModel : ViewModel() {
 
     val calculateDone = MutableLiveData<Boolean>().apply {
         value = false
     }
 
-    private var gender: Boolean? = null
+    private var gender: Int? = null
 
     val inputAge = MutableLiveData<String>().apply {
         value = ""
@@ -70,52 +62,71 @@ class TDEEViewModel : ViewModel() {
 
     fun setGenderMale() {
         gender = MALE
-        Log.i(TAG, "gender = $gender")
     }
 
     fun setGenderFemale() {
         gender = FEMALE
-        Log.i(TAG, "gender = $gender")
     }
 
     fun calculate() {
+
         if (gender != null) {
+
             if (checkInputAgeFormat() && checkInputWeightFormat() && checkInputHeightFormat()) {
-                val genderBias = if (gender == true) MALE_BIAS else FEMALE_BIAS
+
+                val genderBias = when (gender) {
+                    MALE -> BIAS_MALE
+                    else -> BIAS_FEMALE
+                }
+
+                // bmr = basal metabolic rate
                 val bmr =
                     inputHeight.value!!.toFloat().times(COEFFICIENT_HEIGHT) +
                             inputWeight.value!!.toFloat().times(COEFFICIENT_WEIGHT) -
                             inputAge.value!!.toFloat().times(COEFFICIENT_AGE) + genderBias
-                Log.i(TAG, "bmr = $bmr")
-                Log.i(TAG, "Result height = ${inputHeight.value!!.toFloat().times(COEFFICIENT_HEIGHT)}")
-                Log.i(TAG, "Result weight = ${inputWeight.value!!.toFloat().times(COEFFICIENT_WEIGHT)}")
-                Log.i(TAG, "Result age = ${inputAge.value!!.toFloat().times(COEFFICIENT_AGE)}")
-                Log.i(TAG, "genderBias = $genderBias")
 
                 _displayBMR.value = String.format(getString(R.string.format_tdee), bmr.toInt())
 
-                val tdeeSed = if (gender == true) 1.2f else 1.1f
+                val tdeeSed = when (gender) {
+                    MALE -> SEDENTARY_MALE
+                    else -> SEDENTARY_FEMALE
+                }
                 _displaySED.value = String.format(getString(R.string.format_tdee), (bmr.times(tdeeSed)).toInt())
 
-                val tdeeL = if (gender == true) 1.375f else 1.275f
+                val tdeeL = when (gender) {
+                    MALE -> LIGHT_EXERCISE_MALE
+                    else -> LIGHT_EXERCISE_FEMALE
+                }
                 _displayL.value = String.format(getString(R.string.format_tdee), (bmr.times(tdeeL)).toInt())
 
-                val tdeeM = if (gender == true) 1.55f else 1.35f
+                val tdeeM = when (gender) {
+                    MALE -> MODERATE_EXERCISE_MALE
+                    else -> MODERATE_EXERCISE_FEMALE
+                }
                 _displayM.value = String.format(getString(R.string.format_tdee), (bmr.times(tdeeM)).toInt())
 
-                val tdeeH = if (gender == true) 1.725f else 1.525f
+                val tdeeH = when (gender) {
+                    MALE -> HEAVY_EXERCISE_MALE
+                    else -> HEAVY_EXERCISE_FEMALE
+                }
                 _displayH.value = String.format(getString(R.string.format_tdee), (bmr.times(tdeeH)).toInt())
 
-                val tdeeAthlete = if (gender == true) 1.9f else 1.8f
+                val tdeeAthlete = when (gender) {
+                    MALE -> ATHLETE_MALE
+                    else -> ATHLETE_FEMALE
+                }
                 _displayAthlete.value = String.format(getString(R.string.format_tdee), (bmr.times(tdeeAthlete)).toInt())
 
                 calculateDone.value = true
+
             } else {
+
                 calculateDone.value = false
-                Log.i(TAG, "Something extraordinary.")
                 Toast.makeText(FitrackerApplication.appContext, "Something extraordinary.", Toast.LENGTH_SHORT).show()
             }
+
         } else {
+
             calculateDone.value = false
             Toast.makeText(FitrackerApplication.appContext, "Gender is unknown.", Toast.LENGTH_SHORT).show()
             Log.i(TAG, "Gender is unknown.")
@@ -135,5 +146,34 @@ class TDEEViewModel : ViewModel() {
     private fun checkInputHeightFormat(): Boolean {
         val recordedValueFormat = "[0-9]{1,4}([.][0-9]{1,2})?".toRegex()
         return recordedValueFormat.matches(inputHeight.value.toString())
+    }
+
+    companion object {
+
+        /**
+         *  Gender
+         */
+        const val MALE = 0
+        const val FEMALE = 1
+
+        /**
+         *  Coefficients
+         */
+        const val BIAS_MALE = 5f
+        const val BIAS_FEMALE = -161f
+        const val COEFFICIENT_AGE = 4.92f
+        const val COEFFICIENT_WEIGHT = 9.99f
+        const val COEFFICIENT_HEIGHT = 6.25f
+
+        const val SEDENTARY_MALE = 1.2f
+        const val SEDENTARY_FEMALE = 1.1f
+        const val LIGHT_EXERCISE_MALE = 1.375f
+        const val LIGHT_EXERCISE_FEMALE = 1.275f
+        const val MODERATE_EXERCISE_MALE = 1.55f
+        const val MODERATE_EXERCISE_FEMALE = 1.35f
+        const val HEAVY_EXERCISE_MALE = 1.725f
+        const val HEAVY_EXERCISE_FEMALE = 1.525f
+        const val ATHLETE_MALE = 1.9f
+        const val ATHLETE_FEMALE = 1.8f
     }
 }

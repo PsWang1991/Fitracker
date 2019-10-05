@@ -10,7 +10,7 @@ import com.pinhsiang.fitracker.nutrition.NutritionViewModel
 import com.pinhsiang.fitracker.nutrition.analysis.NutritionAnalysisViewModel
 import com.pinhsiang.fitracker.recommended.RecommendedViewModel
 import com.pinhsiang.fitracker.rm.RmViewModel
-import com.pinhsiang.fitracker.tdee.TDEEViewModel
+import com.pinhsiang.fitracker.tdee.TdeeViewModel
 import com.pinhsiang.fitracker.timer.TimerViewModel
 import com.pinhsiang.fitracker.workout.WorkoutViewModel
 import com.pinhsiang.fitracker.workout.analysis.WorkoutAnalysisViewModel
@@ -51,8 +51,8 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
                 isAssignableFrom(RmViewModel::class.java) ->
                     RmViewModel()
 
-                isAssignableFrom(TDEEViewModel::class.java) ->
-                    TDEEViewModel()
+                isAssignableFrom(TdeeViewModel::class.java) ->
+                    TdeeViewModel()
 
                 isAssignableFrom(TimerViewModel::class.java) ->
                     TimerViewModel()
