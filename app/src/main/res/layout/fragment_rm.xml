@@ -4,7 +4,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="com.pinhsiang.fitracker.rm.RMViewModel"/>
+                type="com.pinhsiang.fitracker.rm.RmViewModel"/>
         <import type="android.view.View"/>
     </data>
 

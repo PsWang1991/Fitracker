@@ -13,6 +13,7 @@ import com.pinhsiang.fitracker.databinding.ItemWorkoutBinding
 class WorkoutRvAdapter : ListAdapter<Workout, WorkoutRvAdapter.WorkoutViewHolder>(DiffCallback) {
 
     class WorkoutViewHolder(var binding: ItemWorkoutBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(workout: Workout) {
             binding.workout = workout
             // This is important, because it forces the data binding to execute immediately,
@@ -26,6 +27,7 @@ class WorkoutRvAdapter : ListAdapter<Workout, WorkoutRvAdapter.WorkoutViewHolder
      * has been updated.
      */
     companion object DiffCallback : DiffUtil.ItemCallback<Workout>() {
+
         override fun areItemsTheSame(oldItem: Workout, newItem: Workout): Boolean {
             return oldItem === newItem
         }
@@ -41,6 +43,7 @@ class WorkoutRvAdapter : ListAdapter<Workout, WorkoutRvAdapter.WorkoutViewHolder
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
+
         return WorkoutViewHolder(
             ItemWorkoutBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -51,6 +54,7 @@ class WorkoutRvAdapter : ListAdapter<Workout, WorkoutRvAdapter.WorkoutViewHolder
      * Replaces the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
+
         val item = getItem(position)
         val manager = LinearLayoutManager(FitrackerApplication.appContext)
         holder.binding.rvWorkoutSets.layoutManager = manager

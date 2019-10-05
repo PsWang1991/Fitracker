@@ -11,6 +11,7 @@ import com.pinhsiang.fitracker.databinding.ItemWorkoutRecordSetsBinding
 class WorkoutSetsRvAdapter : ListAdapter<Sets, WorkoutSetsRvAdapter.SetsViewHolder>(DiffCallback) {
 
     class SetsViewHolder(var binding: ItemWorkoutRecordSetsBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(sets: Sets) {
             binding.set = sets
             // This is important, because it forces the data binding to execute immediately,
@@ -24,6 +25,7 @@ class WorkoutSetsRvAdapter : ListAdapter<Sets, WorkoutSetsRvAdapter.SetsViewHold
      * has been updated.
      */
     companion object DiffCallback : DiffUtil.ItemCallback<Sets>() {
+
         override fun areItemsTheSame(oldItem: Sets, newItem: Sets): Boolean {
             return oldItem === newItem
         }
@@ -37,6 +39,7 @@ class WorkoutSetsRvAdapter : ListAdapter<Sets, WorkoutSetsRvAdapter.SetsViewHold
      * Create new [RecyclerView] item views (invoked by the layout manager)
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SetsViewHolder {
+
         return SetsViewHolder(
             ItemWorkoutRecordSetsBinding
                 .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -47,6 +50,7 @@ class WorkoutSetsRvAdapter : ListAdapter<Sets, WorkoutSetsRvAdapter.SetsViewHold
      * Replaces the contents of a view (invoked by the layout manager)
      */
     override fun onBindViewHolder(holder: SetsViewHolder, position: Int) {
+
         val item = getItem(position)
         holder.binding.numSet.text = (position + 1).toString()
         holder.bind(item)

@@ -10,7 +10,7 @@ import com.pinhsiang.fitracker.TAG
 import com.pinhsiang.fitracker.ext.digits
 
 
-class RMViewModel : ViewModel() {
+class RmViewModel : ViewModel() {
 
     val calculateDone = MutableLiveData<Boolean>().apply {
         value = false

@@ -16,9 +16,9 @@ class RMFragment : Fragment() {
     private lateinit var binding: FragmentRmBinding
 
     /**
-     * Lazily initialize [RMViewModel].
+     * Lazily initialize [RmViewModel].
      */
-    private val viewModel by viewModels<RMViewModel> {getVmFactory()}
+    private val viewModel by viewModels<RmViewModel> {getVmFactory()}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
