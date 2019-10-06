@@ -284,7 +284,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_result_bmr"
-                        android:text="@{viewModel.displayBMR}"
+                        android:text="@{viewModel.displayBmr}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_tdee_result_energy"
@@ -315,7 +315,7 @@
                         android:textColor="@color/colorText"/>
                 <TextView
                         android:id="@+id/text_result_sedentary"
-                        android:text="@{viewModel.displaySED}"
+                        android:text="@{viewModel.displaySed}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/title_tdee_result_energy"
