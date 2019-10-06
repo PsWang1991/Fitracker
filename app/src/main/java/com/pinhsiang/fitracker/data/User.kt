@@ -1,6 +1,7 @@
 package com.pinhsiang.fitracker.data
 
-data class User (
+data class User(
+
     val name: String,
     val uid: String
 )

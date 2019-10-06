@@ -13,9 +13,12 @@ class NutritionRecordViewModelFactory(
 
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
+
             when {
+
                 isAssignableFrom(NutritionRecordViewModel::class.java) ->
                     NutritionRecordViewModel(selectedNutrition)
+
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

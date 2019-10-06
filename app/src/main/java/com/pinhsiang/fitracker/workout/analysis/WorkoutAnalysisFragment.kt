@@ -1,5 +1,6 @@
 package com.pinhsiang.fitracker.workout.analysis
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -99,11 +100,13 @@ class WorkoutAnalysisFragment : Fragment() {
     }
 
     private fun setupGraphSpinner() {
+
         val graphList = ArrayAdapter.createFromResource(
             FitrackerApplication.appContext,
             R.array.graph_workout,
             R.layout.spinner_item
         )
+
         binding.spinnerGraph.adapter = graphList
         binding.spinnerGraph.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
@@ -131,6 +134,7 @@ class WorkoutAnalysisFragment : Fragment() {
     }
 
     private fun setupLineChart() {
+
         chart = binding.chartWorkout
         with(chart) {
             setBackgroundColor(getColor(R.color.colorWhite))
@@ -147,10 +151,14 @@ class WorkoutAnalysisFragment : Fragment() {
             isDragEnabled = true
             setScaleEnabled(true)
 
-            setDrawBorders(false)
+            setDrawBorders(true)
+            setBorderColor(getColor(R.color.colorText))
+            setBorderWidth(2f)
 
             // Disable dual y-axis.
             axisRight.isEnabled = false
+
+            setExtraOffsets(8f, 0f, 8f, 8f)
         }
     }
 
@@ -161,11 +169,22 @@ class WorkoutAnalysisFragment : Fragment() {
         // vertical grid lines
         xAxis.setDrawAxisLine(false)
         xAxis.setDrawGridLines(false)
+        xAxis.typeface = Typeface.DEFAULT_BOLD
+        xAxis.textSize = CHART_AXIS_TEXT_SIZE
+        xAxis.labelRotationAngle = CHART_X_AXIS_LABEL_ROTATION
+        xAxis.textColor = getColor(R.color.colorText)
     }
 
     private fun setupYAxis() {
         yAxis = chart.axisLeft
+        yAxis.setDrawGridLines(true)
         yAxis.gridLineWidth = Y_AXIS_GRID_LINE_WIDTH
+        yAxis.enableGridDashedLine(8f, 8f, 0f)
+        yAxis.gridColor = getColor(R.color.colorItem)
+        yAxis.typeface = Typeface.DEFAULT_BOLD
+        yAxis.axisLineColor = getColor(R.color.colorInvisible)
+        yAxis.textSize = CHART_AXIS_TEXT_SIZE
+        yAxis.textColor = getColor(R.color.colorText)
     }
 
     private fun plotData(x: List<String>, y: List<Entry>) {
@@ -189,7 +208,7 @@ class WorkoutAnalysisFragment : Fragment() {
 
             with(lineDataSet) {
                 setDrawIcons(false)
-                color = getColor(R.color.colorBlack)
+                color = getColor(R.color.colorText)
                 lineWidth = 4f
                 disableDashedLine()
                 setDrawCircles(false)
@@ -197,10 +216,6 @@ class WorkoutAnalysisFragment : Fragment() {
                 valueTextSize = 0f
                 setDrawFilled(false)
             }
-
-            xAxis.textSize = CHART_AXIS_TEXT_SIZE
-            xAxis.labelRotationAngle = CHART_X_AXIS_LABEL_ROTATION
-            yAxis.textSize = CHART_AXIS_TEXT_SIZE
 
             chart.data = LineData(listOf<ILineDataSet>(lineDataSet))
         }
@@ -220,23 +235,29 @@ class WorkoutAnalysisFragment : Fragment() {
     }
 
     private fun setPeriodBtnOn(period: Long) {
+
         when (period) {
+
             PERIOD_3M -> {
                 binding.period3mWorkout.setTextColor(getColor(R.color.colorBackground))
                 binding.period3mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             PERIOD_6M -> {
                 binding.period6mWorkout.setTextColor(getColor(R.color.colorBackground))
                 binding.period6mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             PERIOD_1Y -> {
                 binding.period1yWorkout.setTextColor(getColor(R.color.colorBackground))
                 binding.period1yWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             viewModel.currentTime -> {
                 binding.periodAllWorkout.setTextColor(getColor(R.color.colorBackground))
                 binding.periodAllWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             else -> {
                 binding.period1mWorkout.setTextColor(getColor(R.color.colorBackground))
                 binding.period1mWorkout.background = getDrawable(R.drawable.btn_text_border_inverse)

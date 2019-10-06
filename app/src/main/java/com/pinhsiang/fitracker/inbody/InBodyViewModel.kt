@@ -60,6 +60,7 @@ class InBodyViewModel : ViewModel() {
             displayBodyFat.value = lastInBodyData.bodyFat.digits(2)
             displayBodyWeight.value = lastInBodyData.bodyWeight.digits(2)
             displaySkeletalMuscle.value = lastInBodyData.skeletalMuscle.digits(2)
+
         } else {
 
             displayBodyFat.value = null

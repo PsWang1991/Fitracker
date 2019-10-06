@@ -187,23 +187,29 @@ class NutritionAnalysisFragment : Fragment() {
     }
 
     private fun setPeriodBtnOn(period: Long) {
+
         when (period) {
+
             PERIOD_3M -> {
                 binding.period3mNutrition.setTextColor(getColor(R.color.colorBackground))
                 binding.period3mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             PERIOD_6M -> {
                 binding.period6mNutrition.setTextColor(getColor(R.color.colorBackground))
                 binding.period6mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             PERIOD_1Y -> {
                 binding.period1yNutrition.setTextColor(getColor(R.color.colorBackground))
                 binding.period1yNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             viewModel.currentTime -> {
                 binding.periodAllNutrition.setTextColor(getColor(R.color.colorBackground))
                 binding.periodAllNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             else -> {
                 binding.period1mNutrition.setTextColor(getColor(R.color.colorBackground))
                 binding.period1mNutrition.background = getDrawable(R.drawable.btn_text_border_inverse)

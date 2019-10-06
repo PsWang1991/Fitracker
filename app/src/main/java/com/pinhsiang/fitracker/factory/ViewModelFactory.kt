@@ -21,6 +21,7 @@ class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
+
                 isAssignableFrom(MainViewModel::class.java) ->
                     MainViewModel()
 

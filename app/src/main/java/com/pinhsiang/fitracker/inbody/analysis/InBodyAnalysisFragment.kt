@@ -23,7 +23,6 @@ import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.util.Util.getColor
 import com.pinhsiang.fitracker.util.Util.getDrawable
 
-
 class InBodyAnalysisFragment : Fragment() {
 
     private lateinit var binding: FragmentInbodyAnalysisBinding
@@ -70,11 +69,14 @@ class InBodyAnalysisFragment : Fragment() {
     }
 
     private fun setupInBodySpinner() {
+
         val inBodyFilterList = ArrayAdapter.createFromResource(
+
             FitrackerApplication.appContext,
             R.array.filter_inbody,
             R.layout.spinner_item
         )
+
         binding.spinnerFilterInbody.adapter = inBodyFilterList
         binding.spinnerFilterInbody.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
@@ -84,12 +86,15 @@ class InBodyAnalysisFragment : Fragment() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
+
                     0 -> {
                         viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_WEIGHT)
                     }
+
                     1 -> {
                         viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_SKELETAL_MUSCLE)
                     }
+
                     2 -> {
                         viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_FAT)
                     }
@@ -99,6 +104,7 @@ class InBodyAnalysisFragment : Fragment() {
     }
 
     private fun setupLineChart() {
+
         chart = binding.chartInbody
         with(chart) {
             setBackgroundColor(getColor(R.color.colorWhite))
@@ -123,6 +129,7 @@ class InBodyAnalysisFragment : Fragment() {
     }
 
     private fun setupXAxis() {
+
         xAxis = chart.xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
 
@@ -132,6 +139,7 @@ class InBodyAnalysisFragment : Fragment() {
     }
 
     private fun setupYAxis() {
+
         yAxis = chart.axisLeft
         yAxis.gridLineWidth = Y_AXIS_GRID_LINE_WIDTH
     }
@@ -144,11 +152,13 @@ class InBodyAnalysisFragment : Fragment() {
         val lineDataSet: LineDataSet
 
         if (chart.data != null && chart.data.dataSetCount > 0) {
+
             lineDataSet = chart.data.getDataSetByIndex(0) as LineDataSet
             lineDataSet.values = y
             lineDataSet.notifyDataSetChanged()
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
+
         } else {
 
             lineDataSet = LineDataSet(y, "DataSet 1")
@@ -172,37 +182,49 @@ class InBodyAnalysisFragment : Fragment() {
         }
     }
 
+
     private fun setAllPeriodBtnOff() {
+
         binding.period1mInbody.setTextColor(getColor(R.color.colorText))
         binding.period1mInbody.background = getDrawable(R.drawable.btn_text_border)
+
         binding.period3mInbody.setTextColor(getColor(R.color.colorText))
         binding.period3mInbody.background = getDrawable(R.drawable.btn_text_border)
+
         binding.period6mInbody.setTextColor(getColor(R.color.colorText))
         binding.period6mInbody.background = getDrawable(R.drawable.btn_text_border)
+
         binding.period1yInbody.setTextColor(getColor(R.color.colorText))
         binding.period1yInbody.background = getDrawable(R.drawable.btn_text_border)
+
         binding.periodAllInbody.setTextColor(getColor(R.color.colorText))
         binding.periodAllInbody.background = getDrawable(R.drawable.btn_text_border)
     }
 
     private fun setPeriodBtnOn(period: Long) {
+
         when (period) {
+
             PERIOD_3M -> {
                 binding.period3mInbody.setTextColor(getColor(R.color.colorBackground))
                 binding.period3mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             PERIOD_6M -> {
                 binding.period6mInbody.setTextColor(getColor(R.color.colorBackground))
                 binding.period6mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             PERIOD_1Y -> {
                 binding.period1yInbody.setTextColor(getColor(R.color.colorBackground))
                 binding.period1yInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             viewModel.currentTime -> {
                 binding.periodAllInbody.setTextColor(getColor(R.color.colorBackground))
                 binding.periodAllInbody.background = getDrawable(R.drawable.btn_text_border_inverse)
             }
+
             else -> {
                 binding.period1mInbody.setTextColor(getColor(R.color.colorBackground))
                 binding.period1mInbody.background = getDrawable(R.drawable.btn_text_border_inverse)

@@ -12,9 +12,12 @@ class MotionViewModelFactory(
 
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
+
             when {
+
                 isAssignableFrom(MotionViewModel::class.java) ->
                     MotionViewModel(dataTime)
+
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

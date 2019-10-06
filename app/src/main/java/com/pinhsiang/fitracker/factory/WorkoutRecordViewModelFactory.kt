@@ -13,9 +13,12 @@ class WorkoutRecordViewModelFactory(
 
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
+
             when {
+
                 isAssignableFrom(WorkoutRecordViewModel::class.java) ->
                     WorkoutRecordViewModel(selectedWorkout)
+
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

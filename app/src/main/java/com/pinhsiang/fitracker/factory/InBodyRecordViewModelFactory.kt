@@ -13,9 +13,12 @@ class InBodyRecordViewModelFactory(
 
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
+
             when {
+
                 isAssignableFrom(InBodyRecordViewModel::class.java) ->
                     InBodyRecordViewModel(selectedInBody)
+
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

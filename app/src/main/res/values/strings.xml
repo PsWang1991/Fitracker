@@ -20,7 +20,7 @@
     <string name="log_out">Log Out</string>
 
     <string name="all_date_format">yyyy-MM-dd, HH:mm:ss</string>
-    <string name="short_date_format">yyyy-MM-dd</string>
+    <string name="short_date_format">MM-dd</string>
 
     <!--Period filter tag-->
     <string name="tag_period_filter_1m">1M</string>

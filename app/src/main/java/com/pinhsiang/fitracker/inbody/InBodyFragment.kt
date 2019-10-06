@@ -47,20 +47,27 @@ class InBodyFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.navigationToRecord.observe(this, Observer {
+
             if (it) {
+
                 val dataDate =
                     if (viewModel.selectedDate == null) viewModel.today else viewModel.selectedDate
+
                 val dataTime = Timestamp.valueOf("$dataDate $ZERO_HOUR").time
+
                 val inBody = InBody(
                     time = dataTime
                 )
+
                 this.findNavController()
                     .navigate(InBodyFragmentDirections.actionInbodyFragmentToInbodyRecordFragment(inBody))
                 viewModel.addNewDataDone()
             }
         })
 
-        // Expand or compress the calendar when click the title of calendar
+        /**
+         *  Expand or compress the calendar when click the title of calendar
+         */
         binding.titleCalendar.setOnClickListener {
 
             if (viewModel.calendarExpanding.value!!) {
@@ -78,6 +85,7 @@ class InBodyFragment : Fragment() {
         }
 
         viewModel.downloadComplete.observe(this, Observer { downloadComplete ->
+
             if (downloadComplete) {
                 binding.customCalendar.notifyCalendarChanged()
                 viewModel.refreshDataDone()
@@ -134,6 +142,7 @@ class InBodyFragment : Fragment() {
             override fun bind(container: DayViewContainer, day: CalendarDay) {
 
                 container.day = day
+
                 val textView = container.textView
                 val dotView = container.dotView
 
@@ -176,7 +185,9 @@ class InBodyFragment : Fragment() {
     }
 
     private fun selectDate(date: LocalDate) {
+
         if (viewModel.selectedDate != date) {
+
             val oldDate = viewModel.selectedDate
             viewModel.selectedDate = date
             oldDate?.let { binding.customCalendar.notifyDateChanged(it) }

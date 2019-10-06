@@ -41,12 +41,14 @@ class InBodyAnalysisViewModel : ViewModel() {
     }
 
     private fun downloadInBodyData() {
+
         FirebaseFirestore.getInstance()
             .collection(USER)
             .document(UserManager.userDocId!!)
             .collection(IN_BODY)
             .get()
             .addOnSuccessListener { result ->
+
                 for (document in result) {
                     val inBody = document.toObject(InBody::class.java)
                     allInBodyData.add(inBody)
@@ -70,18 +72,21 @@ class InBodyAnalysisViewModel : ViewModel() {
         }.sortedBy { it.time }
 
         when (selectedInBodyFilter) {
+
             FILTER_BODY_WEIGHT -> {
                 filteredInBodyData.forEachIndexed { index, inBody ->
                     plottedValues.add(Entry(index.toFloat(), inBody.bodyWeight))
                     plottedDate.add(inBody.time.timestampToDate())
                 }
             }
+
             FILTER_SKELETAL_MUSCLE -> {
                 filteredInBodyData.forEachIndexed { index, inBody ->
                     plottedValues.add(Entry(index.toFloat(), inBody.skeletalMuscle))
                     plottedDate.add(inBody.time.timestampToDate())
                 }
             }
+
             FILTER_BODY_FAT -> {
                 filteredInBodyData.forEachIndexed { index, inBody ->
                     plottedValues.add(Entry(index.toFloat(), inBody.bodyFat))
@@ -92,12 +97,14 @@ class InBodyAnalysisViewModel : ViewModel() {
     }
 
     fun setInBodyFilter(inBodyFilter: Int) {
+
         selectedInBodyFilter = inBodyFilter
         refreshPlottedData()
         _isDataReadyForPlotting.value = true
     }
 
     fun selectPeriod(periodFilterBtn: View) {
+
         _periodFilter.value =
             when (periodFilterBtn.tag) {
                 TAG_1M -> PERIOD_1M
@@ -116,6 +123,7 @@ class InBodyAnalysisViewModel : ViewModel() {
     }
 
     companion object {
+
         const val FILTER_BODY_WEIGHT = 0
         const val FILTER_SKELETAL_MUSCLE = 1
         const val FILTER_BODY_FAT = 2
