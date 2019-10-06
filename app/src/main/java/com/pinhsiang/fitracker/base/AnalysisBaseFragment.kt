@@ -14,66 +14,69 @@ import com.pinhsiang.fitracker.CHART_AXIS_TEXT_SIZE
 import com.pinhsiang.fitracker.CHART_X_AXIS_LABEL_ROTATION
 import com.pinhsiang.fitracker.R
 import com.pinhsiang.fitracker.Y_AXIS_GRID_LINE_WIDTH
-import com.pinhsiang.fitracker.util.Util
+import com.pinhsiang.fitracker.util.Util.getColor
 
 abstract class AnalysisBaseFragment : Fragment() {
 
-    abstract val chart: LineChart
-    abstract val xAxis: XAxis
-    abstract val yAxis: YAxis
+    protected abstract val chart: LineChart
+    protected abstract val xAxis: XAxis
+    protected abstract val yAxis: YAxis
 
     protected fun setupLineChart() {
 
         with(chart) {
-            setBackgroundColor(com.pinhsiang.fitracker.util.Util.getColor(com.pinhsiang.fitracker.R.color.colorWhite))
 
-            // Disable description text
+            setBackgroundColor(getColor(R.color.colorWhite))
+            setDrawGridBackground(false)
+
             description.isEnabled = false
             legend.isEnabled = false
 
-            // Disable touch gestures.
             setTouchEnabled(false)
-            setDrawGridBackground(false)
 
-            // Enable scaling and dragging.
             isDragEnabled = true
             setScaleEnabled(true)
 
             setDrawBorders(true)
-            setBorderColor(com.pinhsiang.fitracker.util.Util.getColor(com.pinhsiang.fitracker.R.color.colorText))
+            setBorderColor(getColor(R.color.colorText))
             setBorderWidth(2f)
 
-            // Disable dual y-axis.
+            // Only use single (left) y-axis.
             axisRight.isEnabled = false
 
+            // Avoid x-axis text being cut by edge of line chart.
             setExtraOffsets(8f, 0f, 8f, 8f)
         }
     }
 
-    private fun setupXAxis() {
+    protected fun setupXAxis() {
+
         xAxis.position = XAxis.XAxisPosition.BOTTOM
 
-        // vertical grid lines
         xAxis.setDrawAxisLine(false)
         xAxis.setDrawGridLines(false)
+
         xAxis.typeface = Typeface.DEFAULT_BOLD
         xAxis.textSize = CHART_AXIS_TEXT_SIZE
         xAxis.labelRotationAngle = CHART_X_AXIS_LABEL_ROTATION
-        xAxis.textColor = Util.getColor(R.color.colorText)
+        xAxis.textColor = getColor(R.color.colorText)
     }
 
-    private fun setupYAxis() {
+    protected fun setupYAxis() {
+
         yAxis.setDrawGridLines(true)
         yAxis.gridLineWidth = Y_AXIS_GRID_LINE_WIDTH
         yAxis.enableGridDashedLine(8f, 8f, 0f)
-        yAxis.gridColor = Util.getColor(R.color.colorItem)
+        yAxis.gridColor = getColor(R.color.colorItem)
+
         yAxis.typeface = Typeface.DEFAULT_BOLD
-        yAxis.axisLineColor = Util.getColor(R.color.colorInvisible)
         yAxis.textSize = CHART_AXIS_TEXT_SIZE
-        yAxis.textColor = Util.getColor(R.color.colorText)
+        yAxis.textColor = getColor(R.color.colorText)
+
+        yAxis.axisLineColor = getColor(R.color.colorInvisible)
     }
 
-    private fun plotData(x: List<String>, y: List<Entry>) {
+    protected fun plotData(x: List<String>, y: List<Entry>) {
 
         val formatter = IndexAxisValueFormatter(x)
         xAxis.valueFormatter = formatter

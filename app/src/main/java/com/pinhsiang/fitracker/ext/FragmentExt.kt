@@ -1,6 +1,7 @@
 package com.pinhsiang.fitracker.ext
 
 import androidx.fragment.app.Fragment
+import com.pinhsiang.fitracker.base.AnalysisBaseFragment
 import com.pinhsiang.fitracker.data.InBody
 import com.pinhsiang.fitracker.data.Nutrition
 import com.pinhsiang.fitracker.data.Workout

@@ -6,29 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.base.AnalysisBaseFragment
 import com.pinhsiang.fitracker.databinding.FragmentInbodyAnalysisBinding
 import com.pinhsiang.fitracker.ext.getVmFactory
 import com.pinhsiang.fitracker.util.Util.getColor
 import com.pinhsiang.fitracker.util.Util.getDrawable
 
-class InBodyAnalysisFragment : Fragment() {
+class InBodyAnalysisFragment : AnalysisBaseFragment() {
 
     private lateinit var binding: FragmentInbodyAnalysisBinding
-    private lateinit var chart: LineChart
-    private lateinit var xAxis: XAxis
-    private lateinit var yAxis: YAxis
+    override lateinit var chart: LineChart
+    override lateinit var xAxis: XAxis
+    override lateinit var yAxis: YAxis
 
     /**
      * Lazily initialize our [InBodyAnalysisViewModel].
@@ -38,6 +33,10 @@ class InBodyAnalysisFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentInbodyAnalysisBinding.inflate(inflater, container, false)
+
+        chart = binding.chartInbody
+        xAxis = chart.xAxis
+        yAxis = chart.axisLeft
 
         setupLineChart()
         setupXAxis()
@@ -87,101 +86,17 @@ class InBodyAnalysisFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (position) {
 
-                    0 -> {
-                        viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_WEIGHT)
-                    }
+                    0 -> viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_WEIGHT)
 
-                    1 -> {
-                        viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_SKELETAL_MUSCLE)
-                    }
 
-                    2 -> {
-                        viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_FAT)
-                    }
+                    1 -> viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_SKELETAL_MUSCLE)
+
+
+                    2 -> viewModel.setInBodyFilter(InBodyAnalysisViewModel.FILTER_BODY_FAT)
                 }
             }
         }
     }
-
-    private fun setupLineChart() {
-
-        chart = binding.chartInbody
-        with(chart) {
-            setBackgroundColor(getColor(R.color.colorWhite))
-
-            // Disable description text
-            description.isEnabled = false
-            legend.isEnabled = false
-
-            // Disable touch gestures.
-            setTouchEnabled(false)
-            setDrawGridBackground(false)
-
-            // Enable scaling and dragging.
-            isDragEnabled = true
-            setScaleEnabled(true)
-
-            setDrawBorders(false)
-
-            // Disable dual y-axis.
-            axisRight.isEnabled = false
-        }
-    }
-
-    private fun setupXAxis() {
-
-        xAxis = chart.xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM
-
-        // vertical grid lines
-        xAxis.setDrawAxisLine(false)
-        xAxis.setDrawGridLines(false)
-    }
-
-    private fun setupYAxis() {
-
-        yAxis = chart.axisLeft
-        yAxis.gridLineWidth = Y_AXIS_GRID_LINE_WIDTH
-    }
-
-    private fun plotData(x: List<String>, y: List<Entry>) {
-
-        val formatter = IndexAxisValueFormatter(x)
-        xAxis.valueFormatter = formatter
-
-        val lineDataSet: LineDataSet
-
-        if (chart.data != null && chart.data.dataSetCount > 0) {
-
-            lineDataSet = chart.data.getDataSetByIndex(0) as LineDataSet
-            lineDataSet.values = y
-            lineDataSet.notifyDataSetChanged()
-            chart.data.notifyDataChanged()
-            chart.notifyDataSetChanged()
-
-        } else {
-
-            lineDataSet = LineDataSet(y, "DataSet 1")
-
-            with(lineDataSet) {
-                setDrawIcons(false)
-                color = getColor(R.color.colorBlack)
-                lineWidth = 4f
-                disableDashedLine()
-                setDrawCircles(false)
-                setDrawCircleHole(false)
-                valueTextSize = 0f
-                setDrawFilled(false)
-            }
-
-            xAxis.textSize = CHART_AXIS_TEXT_SIZE
-            xAxis.labelRotationAngle = CHART_X_AXIS_LABEL_ROTATION
-            yAxis.textSize = CHART_AXIS_TEXT_SIZE
-
-            chart.data = LineData(listOf<ILineDataSet>(lineDataSet))
-        }
-    }
-
 
     private fun setAllPeriodBtnOff() {
 
