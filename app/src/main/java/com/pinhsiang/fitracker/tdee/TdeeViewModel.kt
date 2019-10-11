@@ -84,11 +84,11 @@ class TdeeViewModel : ViewModel() {
                 )
 
                 _displayBmr.value = String.format(getString(R.string.format_tdee), tdee.getBmr())
-                _displaySed.value = String.format(getString(R.string.format_tdee), tdee.getSed())
-                _displayL.value = String.format(getString(R.string.format_tdee), tdee.getL())
-                _displayM.value = String.format(getString(R.string.format_tdee), tdee.getM())
-                _displayH.value = String.format(getString(R.string.format_tdee), tdee.getH())
-                _displayAthlete.value = String.format(getString(R.string.format_tdee), tdee.getAthlete())
+                _displaySed.value = String.format(getString(R.string.format_tdee), tdee.sedentary())
+                _displayL.value = String.format(getString(R.string.format_tdee), tdee.lightExercise())
+                _displayM.value = String.format(getString(R.string.format_tdee), tdee.moderateExercise())
+                _displayH.value = String.format(getString(R.string.format_tdee), tdee.heavyExercise())
+                _displayAthlete.value = String.format(getString(R.string.format_tdee), tdee.athlete())
 
                 calculateDone.value = true
 

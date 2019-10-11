@@ -230,5 +230,7 @@
     <string name="height">Height</string>
     <string name="cm">cm</string>
 
+    <!--String for test-->
+    <string name="hello_word">Hello World</string>
 
 </resources>

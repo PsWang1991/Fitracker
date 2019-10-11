@@ -23,7 +23,7 @@ class Tdee(
     /**
      *  Sed = Sedentary
      */
-    fun getSed(): Int {
+    fun sedentary(): Int {
         val tdeeSed = when (gender) {
             MALE -> SEDENTARY_MALE
             else -> SEDENTARY_FEMALE
@@ -34,7 +34,7 @@ class Tdee(
     /**
      *  L = Light Exercise
      */
-    fun getL(): Int {
+    fun lightExercise(): Int {
         val tdeeL = when (gender) {
             MALE -> LIGHT_EXERCISE_MALE
             else -> LIGHT_EXERCISE_FEMALE
@@ -45,7 +45,7 @@ class Tdee(
     /**
      *  M = Moderate Exercise
      */
-    fun getM(): Int {
+    fun moderateExercise(): Int {
         val tdeeM = when (gender) {
             MALE -> MODERATE_EXERCISE_MALE
             else -> MODERATE_EXERCISE_FEMALE
@@ -56,7 +56,7 @@ class Tdee(
     /**
      *  H = Heavy Exercise
      */
-    fun getH(): Int {
+    fun heavyExercise(): Int {
         val tdeeH = when (gender) {
             MALE -> HEAVY_EXERCISE_MALE
             else -> HEAVY_EXERCISE_FEMALE
@@ -64,7 +64,7 @@ class Tdee(
         return bmr.times(tdeeH).toInt()
     }
 
-    fun getAthlete(): Int {
+    fun athlete(): Int {
         val tdeeAthlete = when (gender) {
             MALE -> ATHLETE_MALE
             else -> ATHLETE_FEMALE
