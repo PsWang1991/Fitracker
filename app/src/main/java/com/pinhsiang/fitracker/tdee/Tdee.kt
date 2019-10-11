@@ -16,7 +16,7 @@ class Tdee(
     private val bmr =
         height.times(COEFFICIENT_HEIGHT) + weight.times(COEFFICIENT_WEIGHT) - age.times(COEFFICIENT_AGE) + genderBias
 
-    fun getBmr(): Int {
+    fun bmr(): Int {
         return bmr.toInt()
     }
 

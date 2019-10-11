@@ -83,7 +83,7 @@ class TdeeViewModel : ViewModel() {
                     weight = inputWeight.value!!.toFloat()
                 )
 
-                _displayBmr.value = String.format(getString(R.string.format_tdee), tdee.getBmr())
+                _displayBmr.value = String.format(getString(R.string.format_tdee), tdee.bmr())
                 _displaySed.value = String.format(getString(R.string.format_tdee), tdee.sedentary())
                 _displayL.value = String.format(getString(R.string.format_tdee), tdee.lightExercise())
                 _displayM.value = String.format(getString(R.string.format_tdee), tdee.moderateExercise())

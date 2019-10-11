@@ -3,7 +3,7 @@ package com.pinhsiang.fitracker
 import android.content.Context
 import com.pinhsiang.fitracker.R
 
-class ClassUnderTest(val context: Context) {
+class ClassUnderTest(private val context: Context) {
 
     fun getHelloWorldString(): String {
         return context.getString(R.string.hello_word)
