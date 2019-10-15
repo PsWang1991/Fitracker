@@ -47,7 +47,9 @@ Records and analyses fitness, nutrition, and in-body data.
 * 3rd party plugins - [CalendarView](https://github.com/kizitonwose/CalendarView), [AndroidYouTubePlayer](https://github.com/PierfrancescoSoffritti/android-youtube-player) and [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 
 # Requirement
-
-# Version
+* Android Studio 3.0+
+* Android SDK 26+
+* Gradle 5.1.1+
 
 # Contact
+Pin Hsiang, Wang [fitracker27365@gmail.com](fitracker27365@gmail.com)
