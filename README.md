@@ -13,13 +13,13 @@ Records and analyses fitness, nutrition, and in-body data.
 <div align="left">
   <img width="180" height="320" src="screenshot/record_motion.png"/>
   <img width="180" height="320" src="screenshot/record_workout.png"/>
-</div>
+</div>  
 
 
 * On __Nutrition__, records protein, fat, and carbohydrate aborted on the meal.
  <div align="left">
    <img width="180" height="320" src="screenshot/record.png"/>
- </div>
+ </div>  
 
 
 * On __In-body__, records weight, body fat, and skeletal muscle.
