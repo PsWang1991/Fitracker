@@ -16,25 +16,33 @@ Records and analyses fitness, nutrition, and in-body data.
 </div>
 
 >>On __Nutrition__, records protein, fat, and carbohydrate aborted on the meal.
+<div align="left">
 >><img width="180" height="320" src="screenshot/record.png"/>
+  </div>
 
 >>On __In-body__, records weight, body fat, and skeletal muscle.
+<div align="left">
 >><img width="180" height="320" src="screenshot/record_inbody.png"/>
+  </div>
 
 3. Analysis: Shows workout, nutrition, or in-body data over the past 1 month, 3 monthes, 6 monthes, 1 year, or all the time by linechart.
 >><img width="180" height="320" src="screenshot/analysis.png"/>
 
 4. Tools
 >>* Interval Timer: This timer could sets various pattern to fit different interval training. A pattern contains exercise time, rest time, and repetition.
+
 >><img width="180" height="320" src="screenshot/timer.png"/>
 
 >>* Repetition Maximum (RM) Calculator
+
 >><img width="180" height="320" src="screenshot/rm.png"/>
 
 >>* Total Daily Energy Expenditure (TDEE) Calculator
+
 >><img width="180" height="320" src="screenshot/tdee.png"/>
 
 >>* Recommended Video
+
 >><img width="180" height="320" src="screenshot/recommended_video.png"/>
 
 # Implemented
