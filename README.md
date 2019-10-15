@@ -9,20 +9,20 @@ Records and analyses fitness, nutrition, and in-body data.
 
 2. Record: Clicks the '+' button on the bottom right corner of overview fragment to record daily workout, nutrient absortion, and in-body.
 
-2.1. On __Workout__, selects motion then records all stes of the workout. The timer icon on top right is a rest timer.
+* On __Workout__, selects motion then records all stes of the workout. The timer icon on top right is a rest timer.
 <div align="left">
-  >><img width="180" height="320" src="screenshot/record_motion.png"/>
-  >><img width="180" height="320" src="screenshot/record_workout.png"/>
+  <img width="180" height="320" src="screenshot/record_motion.png"/>
+  <img width="180" height="320" src="screenshot/record_workout.png"/>
 </div>
 
-2.2. On __Nutrition__, records protein, fat, and carbohydrate aborted on the meal.
-<div align="left">
->><img width="180" height="320" src="screenshot/record.png"/>
+* On __Nutrition__, records protein, fat, and carbohydrate aborted on the meal.
+  <div align="left">
+    <img width="180" height="320" src="screenshot/record.png"/>
   </div>
 
-2.3. On __In-body__, records weight, body fat, and skeletal muscle.
-<div align="left">
->><img width="180" height="320" src="screenshot/record_inbody.png"/>
+* On __In-body__, records weight, body fat, and skeletal muscle.
+  <div align="left">
+    <img width="180" height="320" src="screenshot/record_inbody.png"/>
   </div>
 
 3. Analysis: Shows workout, nutrition, or in-body data over the past 1 month, 3 monthes, 6 monthes, 1 year, or all the time by linechart.
