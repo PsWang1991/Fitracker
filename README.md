@@ -9,18 +9,18 @@ Records and analyses fitness, nutrition, and in-body data.
 
 2. Record: Clicks the '+' button on the bottom right corner of overview fragment to record daily workout, nutrient absortion, and in-body.
 
->>On __Workout__, selects motion then records all stes of the workout. The timer icon on top right is a rest timer.
+2.1. On __Workout__, selects motion then records all stes of the workout. The timer icon on top right is a rest timer.
 <div align="left">
   >><img width="180" height="320" src="screenshot/record_motion.png"/>
   >><img width="180" height="320" src="screenshot/record_workout.png"/>
 </div>
 
->>On __Nutrition__, records protein, fat, and carbohydrate aborted on the meal.
+2.2. On __Nutrition__, records protein, fat, and carbohydrate aborted on the meal.
 <div align="left">
 >><img width="180" height="320" src="screenshot/record.png"/>
   </div>
 
->>On __In-body__, records weight, body fat, and skeletal muscle.
+2.3. On __In-body__, records weight, body fat, and skeletal muscle.
 <div align="left">
 >><img width="180" height="320" src="screenshot/record_inbody.png"/>
   </div>
@@ -29,19 +29,19 @@ Records and analyses fitness, nutrition, and in-body data.
 >><img width="180" height="320" src="screenshot/analysis.png"/>
 
 4. Tools
->>* Interval Timer: This timer could sets various pattern to fit different interval training. A pattern contains exercise time, rest time, and repetition.
+* Interval Timer: This timer could sets various pattern to fit different interval training. A pattern contains exercise time, rest time, and repetition.
 
 >><img width="180" height="320" src="screenshot/timer.png"/>
 
->>* Repetition Maximum (RM) Calculator
+* Repetition Maximum (RM) Calculator
 
 >><img width="180" height="320" src="screenshot/rm.png"/>
 
->>* Total Daily Energy Expenditure (TDEE) Calculator
+* Total Daily Energy Expenditure (TDEE) Calculator
 
 >><img width="180" height="320" src="screenshot/tdee.png"/>
 
->>* Recommended Video
+* Recommended Video
 
 >><img width="180" height="320" src="screenshot/recommended_video.png"/>
 
