@@ -27,9 +27,7 @@ class TdeeCalculatorInstrumentedTest {
     @Test
     fun testTdee() {
 
-        onView(withId(R.id.drawer_layout))
-//            .check(matches(isClosed(Gravity.START))) // Left Drawer should be closed.
-            .perform(DrawerActions.open())
+        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
         Thread.sleep(SLEEP_TIME)
 
         onView(withId(R.id.nav_view)).perform(NavigationViewActions.navigateTo(R.id.nav_tdee))

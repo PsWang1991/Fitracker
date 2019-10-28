@@ -8,7 +8,8 @@
               android:label="WorkoutFragment"
               tools:layout="@layout/fragment_workout">
         <action android:id="@+id/action_workoutFragment_to_workoutAnalysisFragment"
-                app:destination="@id/workoutAnalysisFragment" app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"/>
+                app:destination="@id/workoutAnalysisFragment" app:popUpTo="@+id/nav_graph" app:popUpToInclusive="true"
+        />
         <action android:id="@+id/action_workoutFragment_to_motionFragment" app:destination="@id/motionFragment"
                 app:popUpTo="@+id/workoutFragment" app:popUpToInclusive="false"/>
     </fragment>

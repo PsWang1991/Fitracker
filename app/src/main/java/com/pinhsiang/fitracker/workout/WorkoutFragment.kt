@@ -16,7 +16,10 @@ import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import com.pinhsiang.fitracker.*
+import com.pinhsiang.fitracker.FitrackerApplication
+import com.pinhsiang.fitracker.MONTH_TITLE_FORMATTER
+import com.pinhsiang.fitracker.R
+import com.pinhsiang.fitracker.ZERO_HOUR
 import com.pinhsiang.fitracker.databinding.FragmentWorkoutBinding
 import com.pinhsiang.fitracker.ext.daysOfWeekFromLocale
 import com.pinhsiang.fitracker.ext.getVmFactory

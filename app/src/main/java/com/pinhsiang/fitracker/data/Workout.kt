@@ -8,9 +8,13 @@ import kotlinx.android.parcel.Parcelize
 data class Workout(
 
     @get:Exclude var id: String = "",
+
     val time: Long = System.currentTimeMillis(),
+
     val motion: String = "",
+
     val maxWeight: Int = 0,
+
     val sets: List<Sets>? = mutableListOf()
 
 ) : Parcelable
@@ -19,6 +23,7 @@ data class Workout(
 data class Sets(
 
     var liftWeight: Int = 0, // Unit : Kg
+
     var repeats: Int = 0
 
 ) : Parcelable

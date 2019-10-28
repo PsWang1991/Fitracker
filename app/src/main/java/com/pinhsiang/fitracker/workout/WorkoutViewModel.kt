@@ -26,7 +26,7 @@ class WorkoutViewModel : ViewModel() {
         get() = _hasData
 
     var selectedDate: LocalDate? = null
-    val today = LocalDate.now()
+    val today: LocalDate = LocalDate.now()
 
     var calendarExpanding = true
 
@@ -64,9 +64,9 @@ class WorkoutViewModel : ViewModel() {
 
     fun hasWorkoutData(date: LocalDate): Boolean {
         val dateToStartTimestamp = Timestamp.valueOf("$date $ZERO_HOUR").time
-        return allWorkoutData.filter {
+        return allWorkoutData.any {
             it.time in dateToStartTimestamp until dateToStartTimestamp + MILLISECOND_PER_DAY
-        }.isNotEmpty()
+        }
     }
 
     private fun downloadWorkoutData() {

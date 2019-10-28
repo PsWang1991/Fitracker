@@ -38,7 +38,6 @@ fun daysOfWeekFromLocale(): Array<DayOfWeek> {
 }
 
 fun Long.timestampToString(): String {
-
     return DateFormat.format(
         FitrackerApplication.appContext.getString(R.string.all_date_format),
         Calendar.getInstance().apply { timeInMillis = this@timestampToString }
@@ -46,7 +45,6 @@ fun Long.timestampToString(): String {
 }
 
 fun Long.timestampToDate(): String {
-
     return DateFormat.format(
         FitrackerApplication.appContext.getString(R.string.short_date_format),
         Calendar.getInstance().apply { timeInMillis = this@timestampToDate }

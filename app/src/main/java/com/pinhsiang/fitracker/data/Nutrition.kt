@@ -8,10 +8,15 @@ import kotlinx.android.parcel.Parcelize
 data class Nutrition(
 
     @get:Exclude var id: String = "",
+
     val time: Long = System.currentTimeMillis(),
+
     val title: String = "",
+
     var protein: Int = 0,       // Unit : g
+
     var carbohydrate: Int = 0,  // Unit : g
+
     var fat: Int = 0           // Unit : g
 
 ) : Parcelable
